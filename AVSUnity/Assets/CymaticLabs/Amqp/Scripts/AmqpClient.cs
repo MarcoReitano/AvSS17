@@ -12,6 +12,7 @@ namespace CymaticLabs.Unity3D.Amqp
     /// <summary>
     /// AMQP class used to manage message broker connections and events.
     /// </summary>
+    [ExecuteInEditMode]
     public class AmqpClient : MonoBehaviour
     {
         #region Inspector
@@ -1101,7 +1102,7 @@ namespace CymaticLabs.Unity3D.Amqp
         #endregion Event Handlers
 
         #region Subscriptions
-
+        
         /// <summary>
         /// Subscribes to a given exchange.
         /// </summary>
