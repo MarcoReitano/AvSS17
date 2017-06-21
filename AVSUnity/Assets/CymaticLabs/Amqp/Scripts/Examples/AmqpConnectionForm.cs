@@ -25,7 +25,12 @@ namespace CymaticLabs.Unity3D.Amqp.UI
         public InputField PublishMessage;
         public Button PublishButton;
 
+        public InputField DeclareQueueName;
         public Button DeclareQueueButton;
+
+        public InputField SendMessageQueueName;
+        public InputField SendMessageQueue;
+        public Button SendMessageToQueue;
 
         #endregion Inspector
 
@@ -59,7 +64,14 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             if (PublishRoutingKey == null) Debug.LogError("AmqpConnectionForm.PublishRoutingKey is not assigned");
             if (PublishMessage == null) Debug.LogError("AmqpConnectionForm.PublishMessage is not assigned");
             if (PublishButton == null) Debug.LogError("AmqpConnectionForm.PublishButton is not assigned");
-        }
+
+            if (DeclareQueueName == null) Debug.LogError("AmqpConnectionForm.DeclareQueueName is not assigned");
+            if (DeclareQueueButton == null) Debug.LogError("AmqpConnectionForm.DeclareQueueButton is not assigned");
+
+            if (SendMessageQueueName == null) Debug.LogError("AmqpConnectionForm.SendMessageQueueName is not assigned");
+            if (SendMessageQueue == null) Debug.LogError("AmqpConnectionForm.SendMessageQueue is not assigned");
+            if (SendMessageToQueue == null) Debug.LogError("AmqpConnectionForm.SendMessageToQueue is not assigned");
+    }
 
         private void Start()
         {
@@ -368,7 +380,12 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             PublishMessage.interactable = true;
             PublishRoutingKey.interactable = true;
 
+            DeclareQueueName.interactable = true;
             DeclareQueueButton.interactable = true;
+
+            SendMessageQueueName.interactable = true;
+            SendMessageQueue.interactable = true;
+            SendMessageToQueue.interactable = true;
         }
 
         // Handles a disconnection event
@@ -388,8 +405,13 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             PublishMessage.interactable = false;
             PublishRoutingKey.interactable = false;
 
+            DeclareQueueName.interactable = false;
             DeclareQueueButton.interactable = false;
-        }
+
+            SendMessageQueueName.interactable = false;
+            SendMessageQueue.interactable = false;
+            SendMessageToQueue.interactable = false;
+    }
 
         // Handles a reconnecting event
         void HandleReconnecting(AmqpClient client)
