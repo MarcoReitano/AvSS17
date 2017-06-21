@@ -12,7 +12,7 @@ namespace CymaticLabs.Unity3D.Amqp
     /// <summary>
     /// AMQP class used to manage message broker connections and events.
     /// </summary>
-    [ExecuteInEditMode]
+    //[ExecuteInEditMode]
     public class AmqpClient : MonoBehaviour
     {
         #region Inspector
@@ -1537,6 +1537,7 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <returns>An Exception if one occurred during the operation, otherwise NULL.</returns>
         public Exception DeclareQueueOnHost(string name, bool durable = true, bool autoDelete = false, bool exclusive = false, IDictionary<string, object> args = null)
         {
+            Debug.Log("IsConnected2: " + client.IsConnected);
             return client.DeclareQueue(name, durable, autoDelete, exclusive, args);
         }
 

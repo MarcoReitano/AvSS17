@@ -25,6 +25,8 @@ namespace CymaticLabs.Unity3D.Amqp.UI
         public InputField PublishMessage;
         public Button PublishButton;
 
+        public Button DeclareQueueButton;
+
         #endregion Inspector
 
         #region Fields
@@ -295,6 +297,33 @@ namespace CymaticLabs.Unity3D.Amqp.UI
 
         #endregion Publish
 
+        #region Queue
+        public void DeclareQueue()
+        {
+           Debug.Log("IsConnected: " +  AmqpClient.Instance.IsConnected);
+            //AmqpClient.DeclareQueue("Testname",true, true, true);
+
+            Debug.Log(AmqpClient.GetQueues().Length);
+            
+            //AmqpClient.DeclareExchange("testexchange", AmqpExchangeTypes.Direct);
+            Debug.Log("Exists: " + AmqpClient.Instance.QueueExistsOnHost("bla"));
+            try
+            {
+                AmqpClient.Instance.DeclareQueueOnHost("Test");
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log(e.Data.ToString());
+            }
+            AmqpClient.DeleteQueue("bla");
+            foreach (var queue in AmqpClient.GetQueues())
+            {
+                Debug.Log(queue.Name);
+            }
+            //Debug.Log("Declare Queue");
+        }
+        #endregion
+
         #region Event Handlers
 
         // Handles a connection event
@@ -338,6 +367,8 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             PublishExchange.interactable = true;
             PublishMessage.interactable = true;
             PublishRoutingKey.interactable = true;
+
+            DeclareQueueButton.interactable = true;
         }
 
         // Handles a disconnection event
@@ -356,6 +387,8 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             PublishExchange.interactable = false;
             PublishMessage.interactable = false;
             PublishRoutingKey.interactable = false;
+
+            DeclareQueueButton.interactable = false;
         }
 
         // Handles a reconnecting event
