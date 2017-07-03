@@ -92,6 +92,8 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             AmqpClient.Instance.OnBlocked.AddListener(HandleBlocked);
             AmqpClient.Instance.OnSubscribedToExchange.AddListener(HandleExchangeSubscribed);
             AmqpClient.Instance.OnUnsubscribedFromExchange.AddListener(HandleExchangeUnsubscribed);
+            AmqpClient.Instance.OnSubscribedToQueue.AddListener(HandleQueueSubscribed);
+            AmqpClient.Instance.OnUnsubscribedFromQueue.AddListener(HandleQueueUnsubscribed);
 
             // Populate the connections drop down
             foreach (var c in AmqpClient.GetConnections())
@@ -466,6 +468,17 @@ namespace CymaticLabs.Unity3D.Amqp.UI
         {
             // Add it to the local list
             exSubscriptions.Remove(subscription);
+        }
+
+        // Handles queue subscribes
+        void HandleQueueSubscribed(AmqpQueueSubscription subscription)
+        {
+            Debug.Log("HandleQueueSubscribed");
+        }
+
+        void HandleQueueUnsubscribed(AmqpQueueSubscription subscription)
+        {
+            Debug.Log("HandleQueueUnsubscribed");
         }
 
         #endregion Event Handlers
