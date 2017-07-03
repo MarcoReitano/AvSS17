@@ -1537,7 +1537,6 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <returns>An Exception if one occurred during the operation, otherwise NULL.</returns>
         public Exception DeclareQueueOnHost(string name, bool durable = true, bool autoDelete = false, bool exclusive = false, IDictionary<string, object> args = null)
         {
-            Debug.Log("IsConnected2: " + client.IsConnected);
             return client.DeclareQueue(name, durable, autoDelete, exclusive, args);
         }
 

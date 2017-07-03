@@ -27,10 +27,15 @@ namespace CymaticLabs.Unity3D.Amqp.UI
 
         public InputField DeclareQueueName;
         public Button DeclareQueueButton;
+        public Button DeleteQueueButton;
+
+        public InputField SubscribeQueueName;
+        public Button SubscribeQueueButton;
+        public Button UnsubscribeQueueButton;
 
         public InputField SendMessageQueueName;
-        public InputField SendMessageQueue;
-        public Button SendMessageToQueue;
+        public InputField SendMessageQueueMessage;
+        public Button SendMessageToQueueButton;
 
         #endregion Inspector
 
@@ -67,10 +72,16 @@ namespace CymaticLabs.Unity3D.Amqp.UI
 
             if (DeclareQueueName == null) Debug.LogError("AmqpConnectionForm.DeclareQueueName is not assigned");
             if (DeclareQueueButton == null) Debug.LogError("AmqpConnectionForm.DeclareQueueButton is not assigned");
+            if (DeleteQueueButton == null) Debug.LogError("AmqpConnectionForm.DeleteQueueButton is not assigned");
+            
 
+            if (SubscribeQueueName == null) Debug.LogError("AmqpConnectionForm.SubscribeQueueName is not assigned");
+            if (SubscribeQueueButton == null) Debug.LogError("AmqpConnectionForm.SubscribeQueueButton is not assigned");
+            if (UnsubscribeQueueButton == null) Debug.LogError("AmqpConnectionForm.UnsubscribeQueueButton is not assigned");
+            
             if (SendMessageQueueName == null) Debug.LogError("AmqpConnectionForm.SendMessageQueueName is not assigned");
-            if (SendMessageQueue == null) Debug.LogError("AmqpConnectionForm.SendMessageQueue is not assigned");
-            if (SendMessageToQueue == null) Debug.LogError("AmqpConnectionForm.SendMessageToQueue is not assigned");
+            if (SendMessageQueueMessage == null) Debug.LogError("AmqpConnectionForm.SendMessageQueue is not assigned");
+            if (SendMessageToQueueButton == null) Debug.LogError("AmqpConnectionForm.SendMessageToQueue is not assigned");
     }
 
         private void Start()
@@ -311,28 +322,34 @@ namespace CymaticLabs.Unity3D.Amqp.UI
 
         #region Queue
         public void DeclareQueue()
-        {
-           Debug.Log("IsConnected: " +  AmqpClient.Instance.IsConnected);
-            //AmqpClient.DeclareQueue("Testname",true, true, true);
+        {            
+            AmqpClient.DeclareQueue(DeclareQueueName.text);
 
-            Debug.Log(AmqpClient.GetQueues().Length);
-            
-            //AmqpClient.DeclareExchange("testexchange", AmqpExchangeTypes.Direct);
-            Debug.Log("Exists: " + AmqpClient.Instance.QueueExistsOnHost("bla"));
-            try
-            {
-                AmqpClient.Instance.DeclareQueueOnHost("Test");
-            }
-            catch (System.Exception e)
-            {
-                Debug.Log(e.Data.ToString());
-            }
-            AmqpClient.DeleteQueue("bla");
-            foreach (var queue in AmqpClient.GetQueues())
-            {
-                Debug.Log(queue.Name);
-            }
-            //Debug.Log("Declare Queue");
+            foreach (var q in AmqpClient.GetQueues())
+                Debug.Log(q.Name);
+        }
+
+        public void DeleteQueue()
+        {
+            AmqpClient.DeleteQueue(DeclareQueueName.text);
+
+            foreach (var q in AmqpClient.GetQueues())
+                Debug.Log(q.Name);
+        }
+
+        public void SubscribeQueue()
+        {
+            Debug.Log("SubscribeQueue");
+        }
+
+        public void UnsubscribeQueue()
+        {
+            Debug.Log("UnsubscribeQueue");
+        }
+
+        public void SendMessageToQueue()
+        {
+            Debug.Log("SendMessageToQueue");
         }
         #endregion
 
@@ -382,10 +399,15 @@ namespace CymaticLabs.Unity3D.Amqp.UI
 
             DeclareQueueName.interactable = true;
             DeclareQueueButton.interactable = true;
+            DeleteQueueButton.interactable = true;
+
+            SubscribeQueueName.interactable = true;
+            SubscribeQueueButton.interactable = true;
+            UnsubscribeQueueButton.interactable = true;
 
             SendMessageQueueName.interactable = true;
-            SendMessageQueue.interactable = true;
-            SendMessageToQueue.interactable = true;
+            SendMessageQueueMessage.interactable = true;
+            SendMessageToQueueButton.interactable = true;
         }
 
         // Handles a disconnection event
@@ -407,10 +429,15 @@ namespace CymaticLabs.Unity3D.Amqp.UI
 
             DeclareQueueName.interactable = false;
             DeclareQueueButton.interactable = false;
+            DeleteQueueButton.interactable = false;
+
+            SubscribeQueueName.interactable = false;
+            SubscribeQueueButton.interactable = false;
+            UnsubscribeQueueButton.interactable = false;
 
             SendMessageQueueName.interactable = false;
-            SendMessageQueue.interactable = false;
-            SendMessageToQueue.interactable = false;
+            SendMessageQueueMessage.interactable = false;
+            SendMessageToQueueButton.interactable = false;
     }
 
         // Handles a reconnecting event
