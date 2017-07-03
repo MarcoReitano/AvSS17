@@ -322,7 +322,8 @@ namespace CymaticLabs.Unity3D.Amqp.UI
 
         #region Queue
         public void DeclareQueue()
-        {            
+        {
+            Debug.Log("DeclareQueue");
             AmqpClient.DeclareQueue(DeclareQueueName.text);
 
             foreach (var q in AmqpClient.GetQueues())
@@ -331,6 +332,7 @@ namespace CymaticLabs.Unity3D.Amqp.UI
 
         public void DeleteQueue()
         {
+            Debug.Log("DeleteQueue");
             AmqpClient.DeleteQueue(DeclareQueueName.text);
 
             foreach (var q in AmqpClient.GetQueues())
