@@ -344,16 +344,23 @@ namespace CymaticLabs.Unity3D.Amqp.UI
         public void SubscribeQueue()
         {
             Debug.Log("SubscribeQueue");
+            var subscription = new UnityAmqpQueueSubscription(SubscribeQueueName.text, true, null, 
+                AmqpClient.Instance.UnityEventDebugQueueMessageHandler);
+            AmqpClient.Subscribe(subscription);
         }
 
         public void UnsubscribeQueue()
         {
             Debug.Log("UnsubscribeQueue");
+            var subscription = new AmqpQueueSubscription();
+            AmqpClient.Unsubscribe(subscription);
         }
 
         public void SendMessageToQueue()
         {
             Debug.Log("SendMessageToQueue");
+            //AmqpClient.Publish
+            AmqpClient.Publish(SendMessageQueueName.text, SendMessageQueueMessage.text);
         }
         #endregion
 
