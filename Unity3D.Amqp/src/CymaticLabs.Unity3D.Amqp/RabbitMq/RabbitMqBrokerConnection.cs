@@ -1258,6 +1258,11 @@ namespace CymaticLabs.Unity3D.Amqp.RabbitMq
             state.Callback(queues.ToArray());
         }
 
+        public void Ack(ulong deliveryTag)
+        {
+            Channel.BasicAck(deliveryTag, false);
+        }
+
         #endregion Queues
 
         public override string ToString()

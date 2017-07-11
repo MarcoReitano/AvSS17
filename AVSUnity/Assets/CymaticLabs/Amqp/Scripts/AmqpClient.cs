@@ -1753,6 +1753,7 @@ namespace CymaticLabs.Unity3D.Amqp
             AmqpConsole.Color = new Color(1f, 0.5f, 0);
             Log("Message received on {0}: {1}", subscription.QueueName, payload);
             AmqpConsole.Color = null;
+            client.Ack(message.DeliveryTag);
         }
 
         #endregion Utility
