@@ -715,7 +715,7 @@ namespace CymaticLabs.Unity3D.Amqp.RabbitMq
                 };
 
                 // Begin consuming messages
-                Channel.BasicConsume(subscription.QueueName, !subscription.UseAck, consumer);
+                subscription.ConsumerTag = Channel.BasicConsume(subscription.QueueName, !subscription.UseAck, consumer);
                 Console.WriteLine("Subscribed to {0} on {1}", subscription.QueueName, subscription.Connection);
                 //}
             }
