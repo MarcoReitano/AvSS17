@@ -403,6 +403,7 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             AmqpClient.Log("Message acknowledged: " + payload);
             AmqpConsole.Color = null;
         }
+
         #endregion
 
         #region Event Handlers
