@@ -43,6 +43,7 @@ namespace CymaticLabs.Unity3D.Amqp.UI
 
         // List of created exchange subscriptions
         List<AmqpExchangeSubscription> exSubscriptions;
+        List<AmqpQueueSubscription> queueSubscriptions;
 
         // The current list of exchanges
         AmqpExchange[] exchanges;
@@ -60,6 +61,7 @@ namespace CymaticLabs.Unity3D.Amqp.UI
         private void Awake()
         {
             exSubscriptions = new List<AmqpExchangeSubscription>();
+            queueSubscriptions = new List<AmqpQueueSubscription>();
             if (Connection == null) Debug.LogError("AmqpConnectionForm.Connection is not assigned");
             if (ExchangeName == null) Debug.LogError("AmqpConnectionForm.ExchangeName is not assigned");
             if (RoutingKey == null) Debug.LogError("AmqpConnectionForm.RoutingKey is not assigned");
@@ -344,16 +346,38 @@ namespace CymaticLabs.Unity3D.Amqp.UI
         public void SubscribeQueue()
         {
             Debug.Log("SubscribeQueue");
+            var queueName = SubscribeQueueName.text;
+
+            // Ensure this subscription doesn't already exist
+            foreach (var sub in queueSubscriptions)
+            {
+                if (sub.QueueName == queueName)
+                {
+                    AmqpConsole.Color = new Color(1f, 0.5f, 0);
+                    AmqpConsole.WriteLineFormat("Subscription already exists for exchange {0}", queueName);
+                    AmqpConsole.Color = null;
+                    return;
+                }
+            }
+
+            var subscription = new UnityAmqpQueueSubscription(SubscribeQueueName.text, true, null, 
+                AmqpClient.Instance.UnityEventDebugQueueMessageHandler);
+
+            AmqpClient.Subscribe(subscription);
         }
 
         public void UnsubscribeQueue()
         {
             Debug.Log("UnsubscribeQueue");
+            var subscription = new AmqpQueueSubscription();
+            AmqpClient.Unsubscribe(subscription);
         }
 
         public void SendMessageToQueue()
         {
             Debug.Log("SendMessageToQueue");
+            //AmqpClient.Publish
+            AmqpClient.Publish(SendMessageQueueName.text, SendMessageQueueMessage.text);
         }
         #endregion
 
@@ -474,11 +498,13 @@ namespace CymaticLabs.Unity3D.Amqp.UI
         void HandleQueueSubscribed(AmqpQueueSubscription subscription)
         {
             Debug.Log("HandleQueueSubscribed");
+            queueSubscriptions.Add(subscription);
         }
 
         void HandleQueueUnsubscribed(AmqpQueueSubscription subscription)
         {
             Debug.Log("HandleQueueUnsubscribed");
+            queueSubscriptions.Remove(subscription);
         }
 
         #endregion Event Handlers

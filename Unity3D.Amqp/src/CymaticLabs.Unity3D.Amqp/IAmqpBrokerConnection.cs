@@ -353,6 +353,7 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <param name="virtualHost">The optional virtual host to get queues for. If NULL the connection's default virtual host is used.</param>
         void GetQueuesAsync(QueueListEventHandler callback, string virtualHost = null);
 
+        void Ack(ulong deliveryTag);
         #endregion Queues
 
         #endregion Methods
