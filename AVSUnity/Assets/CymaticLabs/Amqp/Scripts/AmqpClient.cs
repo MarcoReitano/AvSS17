@@ -1669,6 +1669,11 @@ namespace CymaticLabs.Unity3D.Amqp
             }, virtualHost);
         }
 
+        public static void AcknowledgeMessage(ulong delivertag)
+        {
+            Instance.client.Ack(delivertag);
+        }
+
         #endregion Queues
 
         #region Logging
