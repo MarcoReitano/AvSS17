@@ -70,33 +70,52 @@ namespace CymaticLabs.Unity3D.Amqp.UI
 
             queueMessages = new Queue<IAmqpReceivedMessage>();
 
-            if (Connection == null) Debug.LogError("AmqpConnectionForm.Connection is not assigned");
-            if (ExchangeName == null) Debug.LogError("AmqpConnectionForm.ExchangeName is not assigned");
-            if (RoutingKey == null) Debug.LogError("AmqpConnectionForm.RoutingKey is not assigned");
-            if (SubscribeButton == null) Debug.LogError("AmqpConnectionForm.SubscribeButton is not assigned");
-            if (UnsubscribeButton == null) Debug.LogError("AmqpConnectionForm.UnsubscribeButton is not assigned");
-            if (PublishExchange == null) Debug.LogError("AmqpConnectionForm.PublishExchange is not assigned");
-            if (PublishRoutingKey == null) Debug.LogError("AmqpConnectionForm.PublishRoutingKey is not assigned");
-            if (PublishMessage == null) Debug.LogError("AmqpConnectionForm.PublishMessage is not assigned");
-            if (PublishButton == null) Debug.LogError("AmqpConnectionForm.PublishButton is not assigned");
+            if (Connection == null)
+                Debug.LogError("AmqpConnectionForm.Connection is not assigned");
+            if (ExchangeName == null)
+                Debug.LogError("AmqpConnectionForm.ExchangeName is not assigned");
+            if (RoutingKey == null)
+                Debug.LogError("AmqpConnectionForm.RoutingKey is not assigned");
+            if (SubscribeButton == null)
+                Debug.LogError("AmqpConnectionForm.SubscribeButton is not assigned");
+            if (UnsubscribeButton == null)
+                Debug.LogError("AmqpConnectionForm.UnsubscribeButton is not assigned");
+            if (PublishExchange == null)
+                Debug.LogError("AmqpConnectionForm.PublishExchange is not assigned");
+            if (PublishRoutingKey == null)
+                Debug.LogError("AmqpConnectionForm.PublishRoutingKey is not assigned");
+            if (PublishMessage == null)
+                Debug.LogError("AmqpConnectionForm.PublishMessage is not assigned");
+            if (PublishButton == null)
+                Debug.LogError("AmqpConnectionForm.PublishButton is not assigned");
 
-            if (DeclareQueueName == null) Debug.LogError("AmqpConnectionForm.DeclareQueueName is not assigned");
-            if (DeclareQueueButton == null) Debug.LogError("AmqpConnectionForm.DeclareQueueButton is not assigned");
-            if (DeleteQueueButton == null) Debug.LogError("AmqpConnectionForm.DeleteQueueButton is not assigned");
-            
-
-            if (SubscribeQueueName == null) Debug.LogError("AmqpConnectionForm.SubscribeQueueName is not assigned");
-            if (SubscribeQueueButton == null) Debug.LogError("AmqpConnectionForm.SubscribeQueueButton is not assigned");
-            if (UnsubscribeQueueButton == null) Debug.LogError("AmqpConnectionForm.UnsubscribeQueueButton is not assigned");
-            
-            if (SendMessageQueueName == null) Debug.LogError("AmqpConnectionForm.SendMessageQueueName is not assigned");
-            if (SendMessageQueueMessage == null) Debug.LogError("AmqpConnectionForm.SendMessageQueue is not assigned");
-            if (SendMessageToQueueButton == null) Debug.LogError("AmqpConnectionForm.SendMessageToQueue is not assigned");
+            if (DeclareQueueName == null)
+                Debug.LogError("AmqpConnectionForm.DeclareQueueName is not assigned");
+            if (DeclareQueueButton == null)
+                Debug.LogError("AmqpConnectionForm.DeclareQueueButton is not assigned");
+            if (DeleteQueueButton == null)
+                Debug.LogError("AmqpConnectionForm.DeleteQueueButton is not assigned");
 
 
-            if (AcknowledgeMessageButton == null) Debug.LogError("AmqpConnectionForm.AcknowledgeMessageButton is not assigned");
-            
-    }
+            if (SubscribeQueueName == null)
+                Debug.LogError("AmqpConnectionForm.SubscribeQueueName is not assigned");
+            if (SubscribeQueueButton == null)
+                Debug.LogError("AmqpConnectionForm.SubscribeQueueButton is not assigned");
+            if (UnsubscribeQueueButton == null)
+                Debug.LogError("AmqpConnectionForm.UnsubscribeQueueButton is not assigned");
+
+            if (SendMessageQueueName == null)
+                Debug.LogError("AmqpConnectionForm.SendMessageQueueName is not assigned");
+            if (SendMessageQueueMessage == null)
+                Debug.LogError("AmqpConnectionForm.SendMessageQueue is not assigned");
+            if (SendMessageToQueueButton == null)
+                Debug.LogError("AmqpConnectionForm.SendMessageToQueue is not assigned");
+
+
+            if (AcknowledgeMessageButton == null)
+                Debug.LogError("AmqpConnectionForm.AcknowledgeMessageButton is not assigned");
+
+        }
 
         private void Start()
         {
@@ -184,7 +203,8 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             }
 
             // Don't continue if values are invald
-            if (!isValid) return;
+            if (!isValid)
+                return;
 
             var exchangeType = AmqpExchangeTypes.Direct;
 
@@ -242,7 +262,8 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             }
 
             // Don't continue if values are invald
-            if (!isValid) return;
+            if (!isValid)
+                return;
 
             var exchangeType = AmqpExchangeTypes.Direct;
 
@@ -309,7 +330,8 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             }
 
             // Don't continue if values are invald
-            if (!isValid) return;
+            if (!isValid)
+                return;
 
             var exchangeType = AmqpExchangeTypes.Direct;
 
@@ -366,13 +388,13 @@ namespace CymaticLabs.Unity3D.Amqp.UI
                 if (sub.QueueName == queueName)
                 {
                     AmqpConsole.Color = new Color(1f, 0.5f, 0);
-                    AmqpConsole.WriteLineFormat("Subscription already exists for exchange {0}", queueName);
+                    AmqpConsole.WriteLineFormat("Subscription already exists for queue {0}", queueName);
                     AmqpConsole.Color = null;
                     return;
                 }
             }
 
-            var subscription = new UnityAmqpQueueSubscription(SubscribeQueueName.text, true, null, 
+            var subscription = new UnityAmqpQueueSubscription(SubscribeQueueName.text, true, null,
                 UnityEventDebugQueueMessageHandler);
 
             AmqpClient.Subscribe(subscription);
@@ -381,14 +403,27 @@ namespace CymaticLabs.Unity3D.Amqp.UI
         public void UnsubscribeQueue()
         {
             Debug.Log("UnsubscribeQueue");
-            var subscription = new AmqpQueueSubscription();
-            AmqpClient.Unsubscribe(subscription);
+            var queueName = SubscribeQueueName.text;
+            foreach (var sub in queueSubscriptions)
+            {
+                if (sub.QueueName == queueName)
+                {
+                    AmqpClient.Unsubscribe(sub);
+                    AmqpConsole.Color = new Color(0f, 1f, 0);
+                    AmqpConsole.WriteLineFormat("Unsubscribed for queue {0}", sub.QueueName);
+                    AmqpConsole.Color = null;
+                    return;
+                }
+            }
+
+            AmqpConsole.Color = new Color(1f, 0f, 0);
+            AmqpConsole.WriteLineFormat("NO Subscription exists for queue {0}", queueName);
+            AmqpConsole.Color = null;
         }
 
         public void SendMessageToQueue()
         {
             Debug.Log("SendMessageToQueue");
-            //AmqpClient.Publish
             AmqpClient.Publish(SendMessageQueueName.text, SendMessageQueueMessage.text);
         }
 
@@ -427,7 +462,8 @@ namespace CymaticLabs.Unity3D.Amqp.UI
 
             foreach (var exchange in exchanges)
             {
-                if (exchange.Name == null || exchange.Name == "/") continue;
+                if (exchange.Name == null || exchange.Name == "/")
+                    continue;
                 var option = new Dropdown.OptionData(exchange.Name);
                 ExchangeName.options.Add(option);
                 PublishExchange.options.Add(option);
@@ -495,7 +531,7 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             SendMessageToQueueButton.interactable = false;
 
             AcknowledgeMessageButton.interactable = false;
-    }
+        }
 
         // Handles a reconnecting event
         void HandleReconnecting(AmqpClient client)
