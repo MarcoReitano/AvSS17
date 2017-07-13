@@ -36,8 +36,15 @@ namespace CymaticLabs.Unity3D.Amqp.UI
         public InputField SendMessageQueueName;
         public InputField SendMessageQueueMessage;
         public Button SendMessageToQueueButton;
+        public Button GetAllQueueButton;
 
+        public Toggle AcknowledgeMultipleButton;
         public Button AcknowledgeMessageButton;
+
+        public InputField PrefetchSize;
+        public InputField PrefetchCount;
+        public Toggle PrefetchGlobal;
+        public Button BasicQosButton;
 
         #endregion Inspector
 
@@ -110,12 +117,24 @@ namespace CymaticLabs.Unity3D.Amqp.UI
                 Debug.LogError("AmqpConnectionForm.SendMessageQueue is not assigned");
             if (SendMessageToQueueButton == null)
                 Debug.LogError("AmqpConnectionForm.SendMessageToQueue is not assigned");
+            if (GetAllQueueButton == null)
+                Debug.LogError("AmqpConnectionForm.GetAllQueueButton is not assigned");
 
 
+            if (AcknowledgeMultipleButton  == null)
+                Debug.LogError("AmqpConnectionForm.AcknowledgeMultipleButton is not assigned");
             if (AcknowledgeMessageButton == null)
                 Debug.LogError("AmqpConnectionForm.AcknowledgeMessageButton is not assigned");
 
-        }
+            if (PrefetchSize == null)
+                Debug.LogError("AmqpConnectionForm.PrefetchSize is not assigned");
+            if (PrefetchCount == null)
+                Debug.LogError("AmqpConnectionForm.PrefetchCount is not assigned");
+            if (PrefetchGlobal == null)
+                Debug.LogError("AmqpConnectionForm.PrefetchGlobal is not assigned");
+            if (BasicQosButton == null)
+                Debug.LogError("AmqpConnectionForm.BasicQos is not assigned");
+    }
 
         private void Start()
         {
@@ -377,6 +396,18 @@ namespace CymaticLabs.Unity3D.Amqp.UI
                 Debug.Log(q.Name);
         }
 
+        public void GetAllQueue()
+        {
+            Debug.Log("GetAllQueue");
+
+            AmqpQueue[] queues = AmqpClient.GetQueues();
+
+            foreach (var q in queues)
+            {
+                AmqpClient.Log(q.Name);
+            }
+        }
+
         public void SubscribeQueue()
         {
             Debug.Log("SubscribeQueue");
@@ -427,18 +458,31 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             AmqpClient.Publish(SendMessageQueueName.text, SendMessageQueueMessage.text);
         }
 
-        public void AcknowledgeMessage()
+        public void BasicAck()
         {
-            var msg = queueMessages.Dequeue();
+            if (queueMessages.Count > 0)
+            {
+                var msg = queueMessages.Dequeue();
 
-            AmqpClient.AcknowledgeMessage(msg.DeliveryTag);
+                AmqpClient.BasicAck(msg.DeliveryTag, false);
 
-            var payload = System.Text.Encoding.UTF8.GetString(msg.Body);
-            AmqpConsole.Color = new Color(1f, 0.5f, 0);
-            AmqpClient.Log("Message acknowledged: " + payload);
-            AmqpConsole.Color = null;
+                var payload = System.Text.Encoding.UTF8.GetString(msg.Body);
+                AmqpConsole.Color = new Color(1f, 0.5f, 0);
+                AmqpClient.Log("Message acknowledged: " + payload);
+                AmqpConsole.Color = null;
+            }
         }
 
+        public void BasicQos()
+        {
+            int prefetchSize, prefetchCount;
+            if (!int.TryParse(PrefetchSize.text, out prefetchSize))
+                prefetchSize = 0;
+            if (!int.TryParse(PrefetchCount.text, out prefetchCount))
+                prefetchCount = 0;
+
+            AmqpClient.BasicQos((uint)prefetchSize, (ushort)prefetchCount, PrefetchGlobal.isOn);
+        }
         #endregion
 
         #region Event Handlers
@@ -497,9 +541,16 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             SendMessageQueueName.interactable = true;
             SendMessageQueueMessage.interactable = true;
             SendMessageToQueueButton.interactable = true;
+            GetAllQueueButton.interactable = true;
 
+            AcknowledgeMultipleButton.interactable = true;
             AcknowledgeMessageButton.interactable = true;
-        }
+
+            PrefetchSize.interactable = true;
+            PrefetchCount.interactable = true;
+            PrefetchGlobal.interactable = true;
+            BasicQosButton.interactable = true;
+    }
 
         // Handles a disconnection event
         void HandleDisconnected(AmqpClient client)
@@ -529,8 +580,15 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             SendMessageQueueName.interactable = false;
             SendMessageQueueMessage.interactable = false;
             SendMessageToQueueButton.interactable = false;
+            GetAllQueueButton.interactable = false;
 
+            AcknowledgeMultipleButton.interactable = false;
             AcknowledgeMessageButton.interactable = false;
+
+            PrefetchSize.interactable = false;
+            PrefetchCount.interactable = false;
+            PrefetchGlobal.interactable = false;
+            BasicQosButton.interactable = false;
         }
 
         // Handles a reconnecting event
@@ -572,6 +630,11 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             queueSubscriptions.Remove(subscription);
         }
 
+        /// <summary>
+        /// A default message received handler useful for debugging.
+        /// </summary>
+        /// <param name="subscription">The subscription the message was received on.</param>
+        /// <param name="message">The message that was received.</param>
         public void UnityEventDebugExhangeMessageHandler(AmqpExchangeSubscription subscription, IAmqpReceivedMessage message)
         {
             // Decode as text
@@ -594,7 +657,6 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             AmqpConsole.Color = new Color(1f, 0.5f, 0);
             AmqpClient.Log("Message received on {0}: {1}", subscription.QueueName, payload);
             AmqpConsole.Color = null;
-            //client.Ack(message.DeliveryTag);
         }
 
         #endregion Event Handlers

@@ -353,8 +353,20 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <param name="virtualHost">The optional virtual host to get queues for. If NULL the connection's default virtual host is used.</param>
         void GetQueuesAsync(QueueListEventHandler callback, string virtualHost = null);
 
-        void AcknowledgeMessage(ulong deliveryTag);
-        void Qos(uint prefetchSize, ushort prefetchCount, bool global);
+        /// <summary>
+        /// Acknowledges a received message identified by the deliveryTag and confirms the processing of the message.
+        /// </summary>
+        /// <param name="deliveryTag">The deliveryTag, which identifies a message.</param>
+        /// <param name="multiple">Wheter or not to acknoledge all previous messages aswell.</param>
+        void BasicAck(ulong deliveryTag, bool multiple);
+
+        /// <summary>
+        /// Sets the Quality of service attributes for the channel.
+        /// </summary>
+        /// <param name="prefetchSize">Specifies the maximum message size to prefetch in octets. 0 for no specific limit.</param>
+        /// <param name="prefetchCount">Specifies the count of messages to prefetch. 0 for no specific limit.</param>
+        /// <param name="global">Whether the settings are applied separately to each new consumer on the channel or shared globally across all consumers on the channel.</param>
+        void BasicQos(uint prefetchSize, ushort prefetchCount, bool global);
         #endregion Queues
 
         #endregion Methods

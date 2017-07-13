@@ -1006,7 +1006,7 @@ namespace CymaticLabs.Unity3D.Amqp
                 hasConnected = true;
                 canSubscribe = true;
             }
-            client.Qos(0, 1, false);
+            client.BasicQos(0, 1, false);
         }
 
         // Handles when the client starts disconnecting
@@ -1775,14 +1775,14 @@ namespace CymaticLabs.Unity3D.Amqp
             }, virtualHost);
         }
 
-        public static void AcknowledgeMessage(ulong delivertag)
+        public static void BasicAck(ulong delivertag, bool multiple)
         {
-            Instance.client.AcknowledgeMessage(delivertag);
+            Instance.client.BasicAck(delivertag, multiple);
         }
 
         public static void BasicQos(uint prefetchSize, ushort prefetchCount, bool global)
         {
-            Instance.client.Qos(prefetchSize, prefetchCount, global);
+            Instance.client.BasicQos(prefetchSize, prefetchCount, global);
         }
 
         #endregion Queues
@@ -1873,7 +1873,7 @@ namespace CymaticLabs.Unity3D.Amqp
             AmqpConsole.Color = new Color(1f, 0.5f, 0);
             Log("Message received on {0}: {1}", subscription.QueueName, payload);
             AmqpConsole.Color = null;
-            client.AcknowledgeMessage(message.DeliveryTag);
+            client.BasicAck(message.DeliveryTag, false);
         }
 
         #endregion Utility

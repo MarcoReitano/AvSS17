@@ -1258,12 +1258,34 @@ namespace CymaticLabs.Unity3D.Amqp.RabbitMq
             state.Callback(queues.ToArray());
         }
 
-        public void AcknowledgeMessage(ulong deliveryTag)
+        /// <summary>
+        /// Acknowledges a received message identified by the deliveryTag and confirms the processing of the message.
+        /// </summary>
+        /// <param name="deliveryTag">The deliveryTag, which identifies a message.</param>
+        /// <param name="multiple">Wheter or not to acknoledge all previous messages aswell.</param>
+        public void BasicAck(ulong deliveryTag, bool multiple)
         {
-            Channel.BasicAck(deliveryTag, false);
+            Channel.BasicAck(deliveryTag, multiple);
         }
 
-        public void Qos(uint prefetchSize, ushort prefetchCount, bool global)
+        /// <summary>
+        /// Rejects a received message identified by the deliveryTag.
+        /// </summary>
+        /// <param name="deliveryTag">The deliveryTag, which identifies a message.</param>
+        /// <param name="multiple">Wheter or not to reject all previous messages aswell.</param>
+        /// <param name="requeue">Whether or not to requeue the message(s).</param>
+        void BasicNack(ulong deliveryTag, bool multiple, bool requeue)
+        {
+            Channel.BasicNack(deliveryTag, multiple, requeue);
+        }
+
+        /// <summary>
+        /// Sets the Quality of service attributes for the channel.
+        /// </summary>
+        /// <param name="prefetchSize">Specifies the maximum message size to prefetch in octets. 0 for no specific limit.</param>
+        /// <param name="prefetchCount">Specifies the count of messages to prefetch. 0 for no specific limit.</param>
+        /// <param name="global">Whether the settings are applied separately to each new consumer on the channel or shared globally across all consumers on the channel.</param>
+        public void BasicQos(uint prefetchSize, ushort prefetchCount, bool global)
         {
             Channel.BasicQos(prefetchSize, prefetchCount, global);
         }
