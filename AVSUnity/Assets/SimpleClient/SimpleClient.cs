@@ -4,13 +4,12 @@ using System.Collections.Generic;
 
 using CymaticLabs.Unity3D.Amqp;
 using CymaticLabs.Unity3D.Amqp.SimpleJSON;
-using CymaticLabs.Unity3D.Amqp.UI;
 
 using UnityEditor;
 
 using UnityEngine;
 
-
+//[ExecuteInEditMode]
 public class SimpleClient : MonoBehaviour
 {
     #region Inspector
@@ -54,25 +53,27 @@ public class SimpleClient : MonoBehaviour
     IAmqpBrokerConnection client;
 
     // Flag used to tell when the client should restore subscriptions
-    bool canSubscribe = false;
+    public bool canSubscribe = false;
 
     // Flag used to tell when the connection to the host was blocked
-    bool wasBlocked = false;
+    public bool wasBlocked = false;
 
     // Flag used to tell when the client has connected to the host
-    bool hasConnected = false;
+    public bool hasConnected = false;
+
+    public bool isConnecting = false;
 
     // Whether or not the client has begun graceful disconnection
-    bool isDisconnecting = false;
+    public bool isDisconnecting = false;
 
     // Flag to tell whether when the client has disconnected from the host
-    bool hasDisconnected = false;
+    public bool hasDisconnected = false;
 
     // Flag to tell whether when the client has aborted its connection the host
-    bool hasAborted = false;
+    public bool hasAborted = false;
 
     // Flag to tell when the client is attempting to reconnect to the host
-    bool isReconnecting = false;
+    public bool isReconnecting = false;
 
     // List of available connections
     static List<AmqpConnection> connections = new List<AmqpConnection>();
@@ -103,7 +104,7 @@ public class SimpleClient : MonoBehaviour
     Queue<AsyncQueueListResult> queueListResults;
 
     // Whether or not the application is currently quitting
-    bool isQuitting = false;
+    public bool isQuitting = false;
 
     /// The message broker host.
     string host;
@@ -225,6 +226,9 @@ public class SimpleClient : MonoBehaviour
     /// Occurs when the client has begun disconnecting from the AMQP message broker, but before it has finished.
     /// </summary>
     public SimpleClientUnityEvent OnDisconnecting;
+    IEnumerator disconnectingEnumerator;
+
+
 
     /// <summary>
     /// Occurs when the client has disconnected from the AMQP message broker.
@@ -274,8 +278,14 @@ public class SimpleClient : MonoBehaviour
 
     #region Methods
     #region Init
-    private void Awake()
+    private void Reset()
     {
+        Debug.Log("<color=blue><b>" + this.name + ": SimpleClient.Reset()</b></color>");
+    }
+
+    public void Awake()
+    {
+        Debug.Log("<color=blue><b>" + this.name + ": SimpleClient.Awake()</b></color>");
         // Initialize fields
         this.queueSubscriptions = new List<AmqpQueueSubscription>();
         this.queueMessages = new Queue<AmqpQueueReceivedMessage>();
@@ -325,11 +335,26 @@ public class SimpleClient : MonoBehaviour
             Debug.LogErrorFormat("{0}", ex);
         }
 
-        EditorApplication.update += this.Update;
+        //EditorApplication.update += this.Update;
     }
+
+    public void EnableUpdate()
+    {
+        EditorApplication.update -= this.Update;
+        EditorApplication.update += this.Update;
+        Debug.Log("<color=green><b>" + this.name + ": Started listening to EditorApplication.update</b></color>");
+    }
+
+    public void DisableUpdate()
+    {
+        EditorApplication.update -= this.Update;
+        Debug.Log("<color=red><b>" + this.name + ": Stopped listening to EditorApplication.update</b></color>");
+    }
+
 
     private void Start()
     {
+        Debug.Log("<color=blue><b>" + this.name + ": SimpleClient.Start()</b></color>");
         // Connect to host broker on start if configured
         if (this.ConnectOnStart)
             this.Connect();
@@ -340,6 +365,7 @@ public class SimpleClient : MonoBehaviour
     // Handle Unity update loop
     private void Update()
     {
+        Debug.Log("<color=blue><b>" + this.name + ": SimpleClient.Update()</b></color>");
         /** These flags are set by the thread that the AMQP client runs on and then handled in Unity's game thread **/
 
         // The client has connected
@@ -364,7 +390,12 @@ public class SimpleClient : MonoBehaviour
         if (this.isDisconnecting)
         {
             this.isDisconnecting = false;
-            this.StartCoroutine(this.DelayDisconnection(2));
+            this.disconnectingEnumerator = this.DelayDisconnection(2);
+            this.StartCoroutine(this.disconnectingEnumerator);
+        }
+        if (this.disconnectingEnumerator != null)
+        {
+            this.disconnectingEnumerator.MoveNext();
         }
 
         // The client has disconnected
@@ -578,28 +609,26 @@ public class SimpleClient : MonoBehaviour
         if (string.IsNullOrEmpty(name))
             throw new ArgumentNullException("name");
 
-        foreach (var c in connections)
+        foreach (var connection in connections)
         {
-            if (c.Name == name)
-                return c;
+            if (connection.Name == name)
+                return connection;
         }
 
         return null;
     }
+
 
     /// <summary>
     /// Connects to the messaging broker.
     /// </summary>
     public void Connect()
     {
-        this.ConnectToHost();
-    }
+        if (!this.isConnecting)
+        {
+            this.isConnecting = true;
+        }
 
-    /// <summary>
-    /// Connects to the messaging broker.
-    /// </summary>
-    public void ConnectToHost()
-    {
         if (this.client != null && this.client.IsConnected)
         {
             Log("<color=red>Client is already connected and cannot reconnect</color>");
@@ -607,24 +636,34 @@ public class SimpleClient : MonoBehaviour
         }
 
         // Find the connection by name
-        var c = GetConnection(this.Connection);
+        var connection = GetConnection(this.Connection);
 
-        if (c != null)
+        if (connection != null)
         {
-            this.host = c.Host;
-            this.amqpPort = c.AmqpPort;
-            this.webPort = c.WebPort;
-            this.virtualHost = c.VirtualHost;
-            this.username = c.Username;
-            this.password = c.Password;
-            this.reconnectInterval = c.ReconnectInterval;
-            this.requestedHeartBeat = c.RequestedHeartBeat;
+            this.host = connection.Host;
+            this.amqpPort = connection.AmqpPort;
+            this.webPort = connection.WebPort;
+            this.virtualHost = connection.VirtualHost;
+            this.username = connection.Username;
+            this.password = connection.Password;
+            this.reconnectInterval = connection.ReconnectInterval;
+            this.requestedHeartBeat = connection.RequestedHeartBeat;
         }
 
         // Create the client for the connection
         if (this.client == null)
         {
-            this.client = AmqpConnectionFactory.Create(this.host, this.amqpPort, this.webPort, this.virtualHost, this.username, this.password, this.reconnectInterval, this.requestedHeartBeat);
+            this.client = AmqpConnectionFactory.Create(
+                this.host,
+                this.amqpPort,
+                this.webPort,
+                this.virtualHost,
+                this.username,
+                this.password,
+                this.reconnectInterval,
+                this.requestedHeartBeat);
+
+            Debug.Log("<color=green><b>Initializing EventHandler</b></color>");
             this.client.Blocked += this.Client_Blocked;
             this.client.Connected += this.Client_Connected;
             this.client.Disconnected += this.Client_Disconnected;
@@ -641,14 +680,21 @@ public class SimpleClient : MonoBehaviour
         // Or reuse it if possibly
         else
         {
-            this.client.Server = c.Host;
-            this.client.AmqpPort = c.AmqpPort;
-            this.client.WebPort = c.WebPort;
-            this.client.VirtualHost = c.VirtualHost;
-            this.client.Username = this.username;
-            this.client.Password = this.password;
-            this.client.ReconnectInterval = c.ReconnectInterval;
-            this.client.RequestedHeartbeat = c.RequestedHeartBeat;
+            if (connection != null)
+            {
+                this.client.Server = connection.Host;
+                this.client.AmqpPort = connection.AmqpPort;
+                this.client.WebPort = connection.WebPort;
+                this.client.VirtualHost = connection.VirtualHost;
+                this.client.Username = this.username;
+                this.client.Password = this.password;
+                this.client.ReconnectInterval = connection.ReconnectInterval;
+                this.client.RequestedHeartbeat = connection.RequestedHeartBeat;
+            }
+            else
+            {
+                Debug.Log("<color=red><b>Connection is NULL</b></color>");
+            }
         }
 
         // Connect the client
@@ -660,14 +706,6 @@ public class SimpleClient : MonoBehaviour
     /// Disconnects from the messaging broker.
     /// </summary>
     public void Disconnect()
-    {
-        this.DisconnectFromHost();
-    }
-
-    /// <summary>
-    /// Disconnects from the messaging broker.
-    /// </summary>
-    public void DisconnectFromHost()
     {
         if (this.client == null || !this.client.IsConnected)
         {
@@ -690,18 +728,11 @@ public class SimpleClient : MonoBehaviour
             this.client.Disconnect();
     }
 
-    /// <summary>
-    /// Resets the connection when it has ended up in an aborted state.
-    /// </summary>
-    public void ResetConnection()
-    {
-        this.ResetConnectionToHost();
-    }
 
     /// <summary>
     /// Resets the connection when it has ended up in an aborted state.
     /// </summary>
-    public void ResetConnectionToHost()
+    public void ResetConnection()
     {
         if (this.client == null)
             return;
@@ -727,6 +758,7 @@ public class SimpleClient : MonoBehaviour
     {
         lock (this)
         {
+            this.isConnecting = false;
             this.hasConnected = true;
             this.canSubscribe = true;
         }
@@ -737,6 +769,7 @@ public class SimpleClient : MonoBehaviour
     // Handles when the client starts disconnecting
     private void Client_Disconnecting(object sender, EventArgs e)
     {
+        Debug.Log("<color=red><b>Disconnecting Handled...</b></color>");
         lock (this)
         {
             this.isDisconnecting = true;
@@ -863,32 +896,32 @@ public class SimpleClient : MonoBehaviour
         if (this.isQuitting)
             return;
 
-        foreach (var sub in this.queueSubscriptions)
+        foreach (var queueSubscription in this.queueSubscriptions)
         {
-            if (!string.IsNullOrEmpty(sub.ConsumerTag))
+            if (!string.IsNullOrEmpty(queueSubscription.ConsumerTag))
                 continue; // already subscribed
 
             // Assign the thread-safe handler; to interact with Unity's game thread/loop we need this
-            sub.ThreadsafeHandler = this.Client_QueueMessageReceived;
+            queueSubscription.ThreadsafeHandler = this.Client_QueueMessageReceived;
 
             // If this is the Unity subscription type, hook up its Unity event handler
-            if (sub is UnityAmqpQueueSubscription)
+            if (queueSubscription is UnityAmqpQueueSubscription)
             {
-                var usub = (UnityAmqpQueueSubscription)sub;
+                var unityQueueSubscription = (UnityAmqpQueueSubscription)queueSubscription;
 
                 // Assign a default handler that invokes the UnityEvent
-                if (usub.Handler == null)
+                if (unityQueueSubscription.Handler == null)
                 {
-                    usub.Handler = (r) =>
+                    unityQueueSubscription.Handler = (r) =>
                         {
-                            if (usub.Enabled && usub.OnMessageReceived != null)
-                                usub.OnMessageReceived.Invoke(r.Subscription, r.Message);
+                            if (unityQueueSubscription.Enabled && unityQueueSubscription.OnMessageReceived != null)
+                                unityQueueSubscription.OnMessageReceived.Invoke(r.Subscription, r.Message);
                         };
                 }
             }
 
             // Subscribe with the message broker
-            this.client.Subscribe(sub);
+            this.client.Subscribe(queueSubscription);
         }
     }
 
@@ -1090,11 +1123,22 @@ public class SimpleClient : MonoBehaviour
             virtualHost);
     }
 
+    /// <summary>
+    /// BasicAck
+    /// </summary>
+    /// <param name="delivertag"></param>
+    /// <param name="multiple"></param>
     public void BasicAck(ulong delivertag, bool multiple)
     {
         this.client.BasicAck(delivertag, multiple);
     }
 
+    /// <summary>
+    /// BasicQos
+    /// </summary>
+    /// <param name="prefetchSize"></param>
+    /// <param name="prefetchCount"></param>
+    /// <param name="global"></param>
     public void BasicQos(uint prefetchSize, ushort prefetchCount, bool global)
     {
         this.client.BasicQos(prefetchSize, prefetchCount, global);
@@ -1159,9 +1203,8 @@ public class SimpleClient : MonoBehaviour
     {
         // Decode as text
         var payload = System.Text.Encoding.UTF8.GetString(message.Body);
-        AmqpConsole.Color = new Color(1f, 0.5f, 0);
+        // new Color(1f, 0.5f, 0);
         Log("<color=ff7f00ff>Message received on {0}: {1}</color>", subscription.QueueName, payload);
-        AmqpConsole.Color = null;
         this.client.BasicAck(message.DeliveryTag, false);
     }
     #endregion // Utility

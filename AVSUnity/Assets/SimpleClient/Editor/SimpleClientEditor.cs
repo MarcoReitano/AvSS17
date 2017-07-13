@@ -77,8 +77,47 @@ public class SimpleClientEditor : Editor
 
         // Draw the rest of the inspector's default layout
         //DrawDefaultInspector();
+        if (GUILayout.Button("Awake"))
+        {
+            this.client.Awake();
+            this.Repaint();
+        }
+
+        if (GUILayout.Button("EnableUpdate"))
+        {
+            this.client.EnableUpdate();
+            this.Repaint();
+        }
+
+        if (GUILayout.Button("DisableUpdate"))
+        {
+            this.client.DisableUpdate();
+            this.Repaint();
+        }
+
+        EditorGUILayout.Toggle("IsConnecting?", this.client.isConnecting);
+        EditorGUILayout.Toggle("IsConnected?", this.client.IsConnected);
+        EditorGUILayout.Toggle("hasConnected?", this.client.hasConnected);
+        EditorGUILayout.Toggle("isDisconnecting?", this.client.isDisconnecting);
+        EditorGUILayout.Toggle("hasDisconnected?", this.client.hasDisconnected);
+        EditorGUILayout.Toggle("isReconnecting?", this.client.isReconnecting);
+        EditorGUILayout.Toggle("wasBlocked?", this.client.wasBlocked);
+        EditorGUILayout.Toggle("hasAborted?", this.client.hasAborted);
+        EditorGUILayout.Toggle("canSubscribe?", this.client.canSubscribe);
 
 
+
+        if (GUILayout.Button("Connect"))
+        {
+            this.client.Connect();
+            this.Repaint();
+        }
+
+        if (GUILayout.Button("Disconnect"))
+        {
+            this.client.Disconnect();
+            this.Repaint();
+        }
 
 
         // Save/serialized modified connection
