@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -464,12 +465,21 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             {
                 var msg = queueMessages.Dequeue();
 
-                AmqpClient.BasicAck(msg.DeliveryTag, false);
+                try
+                {
+                    AmqpClient.BasicAck(msg.DeliveryTag, false);
 
-                var payload = System.Text.Encoding.UTF8.GetString(msg.Body);
-                AmqpConsole.Color = new Color(1f, 0.5f, 0);
-                AmqpClient.Log("Message acknowledged: " + payload);
-                AmqpConsole.Color = null;
+                    var payload = System.Text.Encoding.UTF8.GetString(msg.Body);
+                    AmqpConsole.Color = new Color(1f, 0.5f, 0);
+                    AmqpClient.Log("Message acknowledged: " + payload);
+                    AmqpConsole.Color = null;
+                }
+                catch (Exception ex)
+                {
+                    AmqpConsole.Color = new Color(1f, 0.5f, 0);
+                    AmqpClient.Log("ERROR: " + ex.Message);
+                    AmqpConsole.Color = null;
+                }
             }
         }
 
@@ -642,6 +652,8 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             AmqpConsole.Color = new Color(1f, 0.5f, 0);
             AmqpClient.Log("Message received on {0}: {1}", subscription.ExchangeName + (!string.IsNullOrEmpty(message.RoutingKey) ? ":" + message.RoutingKey : ""), payload);
             AmqpConsole.Color = null;
+
+            MessageListController.AddMessage(subscription, message);
         }
 
         /// <summary>
@@ -657,6 +669,8 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             AmqpConsole.Color = new Color(1f, 0.5f, 0);
             AmqpClient.Log("Message received on {0}: {1}", subscription.QueueName, payload);
             AmqpConsole.Color = null;
+
+            MessageListController.AddMessage(subscription, message);
         }
 
         #endregion Event Handlers
