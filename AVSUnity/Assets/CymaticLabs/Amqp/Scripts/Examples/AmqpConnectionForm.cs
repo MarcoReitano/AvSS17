@@ -122,7 +122,7 @@ namespace CymaticLabs.Unity3D.Amqp.UI
                 Debug.LogError("AmqpConnectionForm.GetAllQueueButton is not assigned");
 
 
-            if (AcknowledgeMultipleButton  == null)
+            if (AcknowledgeMultipleButton == null)
                 Debug.LogError("AmqpConnectionForm.AcknowledgeMultipleButton is not assigned");
             if (AcknowledgeMessageButton == null)
                 Debug.LogError("AmqpConnectionForm.AcknowledgeMessageButton is not assigned");
@@ -135,7 +135,7 @@ namespace CymaticLabs.Unity3D.Amqp.UI
                 Debug.LogError("AmqpConnectionForm.PrefetchGlobal is not assigned");
             if (BasicQosButton == null)
                 Debug.LogError("AmqpConnectionForm.BasicQos is not assigned");
-    }
+        }
 
         private void Start()
         {
@@ -560,7 +560,7 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             PrefetchCount.interactable = true;
             PrefetchGlobal.interactable = true;
             BasicQosButton.interactable = true;
-    }
+        }
 
         // Handles a disconnection event
         void HandleDisconnected(AmqpClient client)
