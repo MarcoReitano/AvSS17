@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 using CymaticLabs.Unity3D.Amqp;
 using CymaticLabs.Unity3D.Amqp.SimpleJSON;
-
+#if UNITY_EDITOR
 using UnityEditor;
-
+#endif
 using UnityEngine;
 
 //[ExecuteInEditMode]
@@ -337,7 +337,7 @@ public class SimpleClient : MonoBehaviour
 
         //EditorApplication.update += this.Update;
     }
-
+#if UNITY_EDITOR
     public void EnableUpdate()
     {
         EditorApplication.update -= this.Update;
@@ -350,7 +350,7 @@ public class SimpleClient : MonoBehaviour
         EditorApplication.update -= this.Update;
         Debug.Log("<color=red><b>" + this.name + ": Stopped listening to EditorApplication.update</b></color>");
     }
-
+#endif
 
     private void Start()
     {

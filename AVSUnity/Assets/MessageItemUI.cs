@@ -116,7 +116,7 @@ namespace CymaticLabs.Unity3D.Amqp.UI
 
                 var payload = System.Text.Encoding.UTF8.GetString(message.Body);
                 AmqpConsole.Color = new Color(1f, 0.5f, 0);
-                AmqpClient.Log("Message acknowledged: " + payload);
+                AmqpClient.Log("This message was acknowledged: " + payload);
                 AmqpConsole.Color = null;
             }
             catch (Exception ex)
@@ -136,7 +136,7 @@ namespace CymaticLabs.Unity3D.Amqp.UI
 
                 var payload = System.Text.Encoding.UTF8.GetString(message.Body);
                 AmqpConsole.Color = new Color(1f, 0.5f, 0);
-                AmqpClient.Log("Message acknowledged: " + payload);
+                AmqpClient.Log("This message (and all previous unacknowledged ones) were acknowledged: " + payload);
                 AmqpConsole.Color = null;
             }
             catch (Exception ex)
