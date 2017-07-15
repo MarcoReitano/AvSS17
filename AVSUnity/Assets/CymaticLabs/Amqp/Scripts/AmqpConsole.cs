@@ -496,7 +496,7 @@ namespace CymaticLabs.Unity3D.Amqp.UI
         /// <returns>The sanitized text string.</returns>
         public static string SanitizeInput(string text)
         {
-            if (text == null || text.Length == 1) return text;
+            if (string.IsNullOrEmpty(text) || text.Length == 1) return text;
             return (byte)text[text.Length - 1] == 10 ? text.Substring(0, text.Length - 1) : text;
         }
 

@@ -715,7 +715,7 @@ namespace CymaticLabs.Unity3D.Amqp.RabbitMq
                 };
 
                 // Begin consuming messages
-                Channel.BasicConsume(subscription.QueueName, !subscription.UseAck, consumer);
+                subscription.ConsumerTag = Channel.BasicConsume(subscription.QueueName, !subscription.UseAck, consumer);
                 Console.WriteLine("Subscribed to {0} on {1}", subscription.QueueName, subscription.Connection);
                 //}
             }
@@ -854,7 +854,7 @@ namespace CymaticLabs.Unity3D.Amqp.RabbitMq
         /// <param name="immediate">Whether or not to publish with the AMQP "immediate" flag.</param>
         public void Publish(string exchange, string routingKey, IAmqpMessageProperties properties, byte[] body, bool mandatory = false, bool immediate = false)
         {
-            if (string.IsNullOrEmpty(exchange)) throw new ArgumentNullException("exchange");
+            //if (string.IsNullOrEmpty(exchange)) throw new ArgumentNullException("exchange");
             if (routingKey == null) routingKey = "";
             if (body == null) throw new ArgumentNullException("body");
             if (body.Length == 0) throw new ArgumentException("body length cannot be 0");
@@ -1089,7 +1089,7 @@ namespace CymaticLabs.Unity3D.Amqp.RabbitMq
         /// <returns>An Exception if one occurred during the operation, otherwise NULL.</returns>
         public Exception DeclareQueue(string name, bool durable = true, bool autoDelete = false, bool exclusive = false, IDictionary<string, object> args = null)
         {
-            if (IsConnected) throw new InvalidOperationException("Exchanges cannot be declared when disconnected");
+            if (!IsConnected) throw new InvalidOperationException("Queue cannot be declared when disconnected");
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
 
             try
@@ -1116,7 +1116,7 @@ namespace CymaticLabs.Unity3D.Amqp.RabbitMq
         /// <returns>An Exception if one occurred during the operation, otherwise NULL.</returns>
         public Exception DeleteQueue(string name, bool ifUnused = false, bool ifEmpty = false)
         {
-            if (IsConnected) throw new InvalidOperationException("Exchanges cannot be declared when disconnected");
+            if (!IsConnected) throw new InvalidOperationException("Queue cannot be deleted when disconnected");
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
 
             try
@@ -1256,6 +1256,38 @@ namespace CymaticLabs.Unity3D.Amqp.RabbitMq
 
             // Pass results to callback
             state.Callback(queues.ToArray());
+        }
+
+        /// <summary>
+        /// Acknowledges a received message identified by the deliveryTag and confirms the processing of the message.
+        /// </summary>
+        /// <param name="deliveryTag">The deliveryTag, which identifies a message.</param>
+        /// <param name="multiple">Wheter or not to acknoledge all previous messages aswell.</param>
+        public void BasicAck(ulong deliveryTag, bool multiple)
+        {
+            Channel.BasicAck(deliveryTag, multiple);
+        }
+
+        /// <summary>
+        /// Rejects a received message identified by the deliveryTag.
+        /// </summary>
+        /// <param name="deliveryTag">The deliveryTag, which identifies a message.</param>
+        /// <param name="multiple">Wheter or not to reject all previous messages aswell.</param>
+        /// <param name="requeue">Whether or not to requeue the message(s).</param>
+        void BasicNack(ulong deliveryTag, bool multiple, bool requeue)
+        {
+            Channel.BasicNack(deliveryTag, multiple, requeue);
+        }
+
+        /// <summary>
+        /// Sets the Quality of service attributes for the channel.
+        /// </summary>
+        /// <param name="prefetchSize">Specifies the maximum message size to prefetch in octets. 0 for no specific limit.</param>
+        /// <param name="prefetchCount">Specifies the count of messages to prefetch. 0 for no specific limit.</param>
+        /// <param name="global">Whether the settings are applied separately to each new consumer on the channel or shared globally across all consumers on the channel.</param>
+        public void BasicQos(uint prefetchSize, ushort prefetchCount, bool global)
+        {
+            Channel.BasicQos(prefetchSize, prefetchCount, global);
         }
 
         #endregion Queues

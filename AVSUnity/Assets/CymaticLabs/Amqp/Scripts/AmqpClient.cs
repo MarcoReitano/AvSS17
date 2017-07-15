@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
-using UnityEngine.Events;
 using CymaticLabs.Unity3D.Amqp.SimpleJSON;
 using CymaticLabs.Unity3D.Amqp.UI;
+using UnityEngine;
 
 namespace CymaticLabs.Unity3D.Amqp
 {
@@ -177,14 +175,20 @@ namespace CymaticLabs.Unity3D.Amqp
         /// this value is it will always resolve to the last instance to have initialized. This is
         /// convenient for global access to the class when only one instance is being used at a time.
         /// </remarks>
-        public static AmqpClient Instance { get; private set; }
+        public static AmqpClient Instance
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// Gets whether or not the amqp messaging system is currently connected or not.
         /// </summary>
         public bool IsConnected
         {
-            get { return client != null ? client.IsConnected : false; }
+            get
+            {
+                return client != null ? client.IsConnected : false;
+            }
         }
 
         /// <summary>
@@ -192,7 +196,10 @@ namespace CymaticLabs.Unity3D.Amqp
         /// </summary>
         public uint ReconnectRetryLimit
         {
-            get { return client != null ? client.ReconnectRetryLimit : uint.MaxValue; }
+            get
+            {
+                return client != null ? client.ReconnectRetryLimit : uint.MaxValue;
+            }
 
             set
             {
@@ -211,7 +218,10 @@ namespace CymaticLabs.Unity3D.Amqp
         /// </remarks>
         public byte SubscribeRetryLimit
         {
-            get { return client != null ? client.SubscribeRetryLimit : (byte)10; }
+            get
+            {
+                return client != null ? client.SubscribeRetryLimit : (byte)10;
+            }
 
             set
             {
@@ -222,14 +232,23 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <summary>
         /// The underlying broker connection used by the client.
         /// </summary>
-        public IAmqpBrokerConnection BrokerConnection {  get { return client; } }
+        public IAmqpBrokerConnection BrokerConnection
+        {
+            get
+            {
+                return client;
+            }
+        }
 
         /// <summary>
         /// Gets the file name for the AMQP connections data.
         /// </summary>
         public static string ConfigurationFilename
         {
-            get { return "AmqpConfiguration.json"; }
+            get
+            {
+                return "AmqpConfiguration.json";
+            }
         }
 
         #endregion Properties
@@ -363,7 +382,7 @@ namespace CymaticLabs.Unity3D.Amqp
                 Debug.LogErrorFormat("AMQP JSON configuration asset not found: {0}", ConfigurationFilename);
                 return;
             }
-            
+
             // Parse connection JSON data
             try
             {
@@ -376,7 +395,7 @@ namespace CymaticLabs.Unity3D.Amqp
                     var c = AmqpConnection.FromJsonObject(jsonConnections[i].AsObject);
                     connections.Add(c);
                 }
-                    
+
             }
             catch (Exception ex)
             {
@@ -385,9 +404,10 @@ namespace CymaticLabs.Unity3D.Amqp
         }
 
         private void Start()
-        {          
+        {
             // Connect to host broker on start if configured
-            if (ConnectOnStart) Connect();
+            if (ConnectOnStart)
+                Connect();
         }
 
         #endregion Init
@@ -406,7 +426,8 @@ namespace CymaticLabs.Unity3D.Amqp
             {
                 hasConnected = false; // reset the flag for the next event
                 Log("Connected to AMQP host {0}", AmqpHelper.GetConnectionInfo(client));
-                if (OnConnected != null) OnConnected.Invoke(this);
+                if (OnConnected != null)
+                    OnConnected.Invoke(this);
             }
 
             // The client has disconnected
@@ -414,7 +435,8 @@ namespace CymaticLabs.Unity3D.Amqp
             {
                 hasDisconnected = false; // reset the flag for the next event
                 Log("Disconnected from AMQP host {0}", AmqpHelper.GetConnectionInfo(client));
-                if (OnDisconnected != null) OnDisconnected.Invoke(this);
+                if (OnDisconnected != null)
+                    OnDisconnected.Invoke(this);
             }
 
             // Handle client graceful disconnect
@@ -429,7 +451,8 @@ namespace CymaticLabs.Unity3D.Amqp
             {
                 isReconnecting = false; // reset the flag for the next event
                 Log("Reconnecting to AMQP host: {0}", AmqpHelper.GetConnectionInfo(client));
-                if (OnReconnecting != null) OnReconnecting.Invoke(this);
+                if (OnReconnecting != null)
+                    OnReconnecting.Invoke(this);
             }
 
             // The client has been blocked
@@ -439,7 +462,8 @@ namespace CymaticLabs.Unity3D.Amqp
                 AmqpConsole.Color = Color.red;
                 Log("Connection to AMQP host blocked: {0}", AmqpHelper.GetConnectionInfo(client));
                 AmqpConsole.Color = null;
-                if (OnBlocked != null) OnBlocked.Invoke(this);
+                if (OnBlocked != null)
+                    OnBlocked.Invoke(this);
             }
 
             // The client connection has aborted
@@ -449,7 +473,8 @@ namespace CymaticLabs.Unity3D.Amqp
                 AmqpConsole.Color = Color.red;
                 Log("Connection to AMQP host aborted: {0}", AmqpHelper.GetConnectionInfo(client));
                 AmqpConsole.Color = null;
-                if (OnConnectionAborted != null) OnConnectionAborted.Invoke(this);
+                if (OnConnectionAborted != null)
+                    OnConnectionAborted.Invoke(this);
             }
 
             // It's safe to subscribe so restore subscriptions
@@ -461,7 +486,8 @@ namespace CymaticLabs.Unity3D.Amqp
 
             #endregion Process State Change Flags
 
-            if (isQuitting) return;
+            if (isQuitting)
+                return;
 
             #region Process Exceptions
 
@@ -470,7 +496,7 @@ namespace CymaticLabs.Unity3D.Amqp
             {
                 var errors = new Exception[connectionExceptions.Count];
 
-                lock(this)
+                lock (this)
                 {
                     // Copy the list and clear queue
                     connectionExceptions.CopyTo(errors, 0);
@@ -480,7 +506,8 @@ namespace CymaticLabs.Unity3D.Amqp
                 foreach (var ex in errors)
                 {
                     // Notify
-                    if (OnConnectionError != null) OnConnectionError.Invoke(ex);
+                    if (OnConnectionError != null)
+                        OnConnectionError.Invoke(ex);
 
                     // Log
                     AmqpConsole.Color = Color.red;
@@ -504,7 +531,8 @@ namespace CymaticLabs.Unity3D.Amqp
                 foreach (var ex in errors)
                 {
                     // Notify
-                    if (OnExchangeSubscribeError != null) OnExchangeSubscribeError.Invoke(ex);
+                    if (OnExchangeSubscribeError != null)
+                        OnExchangeSubscribeError.Invoke(ex);
 
                     // Log
                     AmqpConsole.Color = Color.red;
@@ -528,7 +556,8 @@ namespace CymaticLabs.Unity3D.Amqp
                 foreach (var ex in errors)
                 {
                     // Notify
-                    if (OnExchangeUnsubscribeError != null) OnExchangeUnsubscribeError.Invoke(ex);
+                    if (OnExchangeUnsubscribeError != null)
+                        OnExchangeUnsubscribeError.Invoke(ex);
 
                     // Log
                     AmqpConsole.Color = Color.red;
@@ -552,7 +581,8 @@ namespace CymaticLabs.Unity3D.Amqp
                 foreach (var ex in errors)
                 {
                     // Notify
-                    if (OnQueueSubscribeError != null) OnQueueSubscribeError.Invoke(ex);
+                    if (OnQueueSubscribeError != null)
+                        OnQueueSubscribeError.Invoke(ex);
 
                     // Log
                     AmqpConsole.Color = Color.red;
@@ -576,12 +606,16 @@ namespace CymaticLabs.Unity3D.Amqp
                 foreach (var ex in errors)
                 {
                     // Notify
-                    if (OnQueueUnsubscribeError != null) OnQueueUnsubscribeError.Invoke(ex);
+                    if (OnQueueUnsubscribeError != null)
+                        OnQueueUnsubscribeError.Invoke(ex);
 
                     // Log
-                    AmqpConsole.Color = Color.red;
-                    Log("{0}", ex);
-                    AmqpConsole.Color = null;
+                    if (ex != null)
+                    {
+                        AmqpConsole.Color = Color.red;
+                        Log("{0}", ex);
+                        AmqpConsole.Color = null;
+                    }
                 }
             }
 
@@ -604,7 +638,8 @@ namespace CymaticLabs.Unity3D.Amqp
                 foreach (var sub in subscriptions)
                 {
                     // Notify
-                    if (OnSubscribedToExchange != null) OnSubscribedToExchange.Invoke(sub);
+                    if (OnSubscribedToExchange != null)
+                        OnSubscribedToExchange.Invoke(sub);
 
                     // Log
                     Log("Subscribed to exchange: {0}:{1}", sub.ExchangeName, sub.RoutingKey);
@@ -626,7 +661,8 @@ namespace CymaticLabs.Unity3D.Amqp
                 foreach (var sub in subscriptions)
                 {
                     // Notify
-                    if (OnSubscribedToQueue != null) OnSubscribedToQueue.Invoke(sub);
+                    if (OnSubscribedToQueue != null)
+                        OnSubscribedToQueue.Invoke(sub);
 
                     // Log
                     Log("Subscribed to queue: {0}:{1}", sub.QueueName, sub.UseAck);
@@ -652,7 +688,8 @@ namespace CymaticLabs.Unity3D.Amqp
                 foreach (var sub in subscriptions)
                 {
                     // Notify
-                    if (OnUnsubscribedFromExchange != null) OnUnsubscribedFromExchange.Invoke(sub);
+                    if (OnUnsubscribedFromExchange != null)
+                        OnUnsubscribedFromExchange.Invoke(sub);
 
                     // Log
                     Log("Unsubscribed from exchange: {0}:{1}", sub.ExchangeName, sub.RoutingKey);
@@ -674,7 +711,8 @@ namespace CymaticLabs.Unity3D.Amqp
                 foreach (var sub in subscriptions)
                 {
                     // Notify
-                    if (OnUnsubscribedFromQueue != null) OnUnsubscribedFromQueue.Invoke(sub);
+                    if (OnUnsubscribedFromQueue != null)
+                        OnUnsubscribedFromQueue.Invoke(sub);
 
                     // Log
                     Log("Unsubscribed from queue: {0}:{1}", sub.QueueName, sub.UseAck);
@@ -741,7 +779,8 @@ namespace CymaticLabs.Unity3D.Amqp
                 }
 
                 // Invoke the callbacks and pass the results
-                foreach (var result in results) result.Callback(result.ExchangeList);
+                foreach (var result in results)
+                    result.Callback(result.ExchangeList);
             }
 
             #endregion Process Async Exchange Listings
@@ -760,7 +799,8 @@ namespace CymaticLabs.Unity3D.Amqp
                 }
 
                 // Invoke the callbacks and pass the results
-                foreach (var result in results) result.Callback(result.QueueList);
+                foreach (var result in results)
+                    result.Callback(result.QueueList);
             }
 
             #endregion Process Async Queue Listings
@@ -773,9 +813,11 @@ namespace CymaticLabs.Unity3D.Amqp
         // Handles clean-up of AMQP resources when quitting the application
         private void OnApplicationQuit()
         {
-            if (isQuitting) return;
+            if (isQuitting)
+                return;
             isQuitting = true;
-            if (client != null && client.IsConnected) client.Disconnect(); // if not properly disconnected, Unity will hang on quit
+            if (client != null && client.IsConnected)
+                client.Disconnect(); // if not properly disconnected, Unity will hang on quit
         }
 
         #endregion Clean Up
@@ -798,11 +840,13 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <returns>The connection if it is found, otherwise NULL.</returns>
         public static AmqpConnection GetConnection(string name)
         {
-            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException("name");
 
             foreach (var c in connections)
             {
-                if (c.Name == name) return c;
+                if (c.Name == name)
+                    return c;
             }
 
             return null;
@@ -813,7 +857,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// </summary>
         public static void Connect()
         {
-            if (Instance == null) return;
+            if (Instance == null)
+                return;
             Instance.ConnectToHost();
         }
 
@@ -886,7 +931,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// </summary>
         public static void Disconnect()
         {
-            if (Instance == null) return;
+            if (Instance == null)
+                return;
             Instance.DisconnectFromHost();
         }
 
@@ -903,7 +949,8 @@ namespace CymaticLabs.Unity3D.Amqp
 
             // Connect the client
             Log("Disconnecting from AMQP host: {0}", AmqpHelper.GetConnectionInfo(client));
-            if (OnDisconnecting != null) OnDisconnecting.Invoke(this);
+            if (OnDisconnecting != null)
+                OnDisconnecting.Invoke(this);
             isDisconnecting = true;
         }
 
@@ -911,7 +958,8 @@ namespace CymaticLabs.Unity3D.Amqp
         IEnumerator DelayDisconnection(float delay)
         {
             yield return new WaitForSeconds(delay);
-            if (client != null) client.Disconnect();
+            if (client != null)
+                client.Disconnect();
         }
 
         /// <summary>
@@ -919,7 +967,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// </summary>
         public static void ResetConnection()
         {
-            if (Instance == null) return;
+            if (Instance == null)
+                return;
             Instance.ResetConnectionToHost();
         }
 
@@ -928,7 +977,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// </summary>
         public void ResetConnectionToHost()
         {
-            if (client == null) return;
+            if (client == null)
+                return;
 
             // Connect the client
             Log("Reseting connection for AMQP host: {0}", AmqpHelper.GetConnectionInfo(client));
@@ -942,7 +992,7 @@ namespace CymaticLabs.Unity3D.Amqp
         // Handles a connection being blocked
         private void Client_Blocked(object sender, System.EventArgs e)
         {
-            lock(this)
+            lock (this)
             {
                 wasBlocked = true;
             }
@@ -953,9 +1003,10 @@ namespace CymaticLabs.Unity3D.Amqp
         {
             lock (this)
             {
-                hasConnected= true;
+                hasConnected = true;
                 canSubscribe = true;
             }
+            client.BasicQos(0, 1, false);
         }
 
         // Handles when the client starts disconnecting
@@ -988,7 +1039,7 @@ namespace CymaticLabs.Unity3D.Amqp
         // Handles when a connection error occurs
         private void Client_ConnectionError(object sender, ExceptionEventArgs e)
         {
-            lock(this)
+            lock (this)
             {
                 connectionExceptions.Enqueue(e.Exception);
             }
@@ -997,7 +1048,7 @@ namespace CymaticLabs.Unity3D.Amqp
         // Handles when the client connection is aborted
         private void Client_ConnectionAborted(object sender, EventArgs e)
         {
-            lock(this)
+            lock (this)
             {
                 hasAborted = true;
             }
@@ -1006,7 +1057,7 @@ namespace CymaticLabs.Unity3D.Amqp
         // Handles when an exchange is subscribed to
         private void Client_SubscribedToExchange(AmqpExchangeSubscription subscription)
         {
-            lock(this)
+            lock (this)
             {
                 subscribedExchanges.Enqueue(subscription);
             }
@@ -1078,7 +1129,8 @@ namespace CymaticLabs.Unity3D.Amqp
         // Handles when a message is received from the client
         void Client_ExchangeMessageReceived(AmqpExchangeReceivedMessage received)
         {
-            if (isQuitting) return;
+            if (isQuitting)
+                return;
 
             // Enqueue the message for processing
             lock (this)
@@ -1090,7 +1142,8 @@ namespace CymaticLabs.Unity3D.Amqp
         // Handles when a message is received from the client
         void Client_QueueMessageReceived(AmqpQueueReceivedMessage received)
         {
-            if (isQuitting) return;
+            if (isQuitting)
+                return;
 
             // Enqueue the message for processing
             lock (this)
@@ -1102,14 +1155,15 @@ namespace CymaticLabs.Unity3D.Amqp
         #endregion Event Handlers
 
         #region Subscriptions
-        
+
         /// <summary>
         /// Subscribes to a given exchange.
         /// </summary>
         /// <param name="subscription">The exchange subscription to apply.</param>
         public static void Subscribe(AmqpExchangeSubscription subscription)
         {
-            if (Instance == null) return;
+            if (Instance == null)
+                return;
             Instance.SubscribeToExchange(subscription);
         }
 
@@ -1119,9 +1173,12 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <param name="subscription">The exchange subscription to apply.</param>
         public void SubscribeToExchange(AmqpExchangeSubscription subscription)
         {
-            if (isQuitting) return;
-            if (subscription == null) throw new System.ArgumentNullException("subscription");
-            if (exSubscriptions.Contains(subscription)) return;
+            if (isQuitting)
+                return;
+            if (subscription == null)
+                throw new System.ArgumentNullException("subscription");
+            if (exSubscriptions.Contains(subscription))
+                return;
             exSubscriptions.Add(subscription);
 
             // Process new subscriptions if we're currently connected
@@ -1134,7 +1191,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <param name="subscription">The exchange subscription to apply.</param>
         public static void Subscribe(AmqpQueueSubscription subscription)
         {
-            if (Instance == null) return;
+            if (Instance == null)
+                return;
             Instance.SubscribeToQueue(subscription);
         }
 
@@ -1144,9 +1202,12 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <param name="subscription">The exchange subscription to apply.</param>
         public void SubscribeToQueue(AmqpQueueSubscription subscription)
         {
-            if (isQuitting) return;
-            if (subscription == null) throw new System.ArgumentNullException("subscription");
-            if (queueSubscriptions.Contains(subscription)) return;
+            if (isQuitting)
+                return;
+            if (subscription == null)
+                throw new System.ArgumentNullException("subscription");
+            if (queueSubscriptions.Contains(subscription))
+                return;
             queueSubscriptions.Add(subscription);
 
             // Process new subscriptions if we're currently connected
@@ -1156,12 +1217,14 @@ namespace CymaticLabs.Unity3D.Amqp
         // Restores the current list of subscriptions
         void RestoreSubscriptions()
         {
-            if (isQuitting) return;
+            if (isQuitting)
+                return;
 
             // Process API added subscriptions
             foreach (var sub in exSubscriptions)
             {
-                if (!string.IsNullOrEmpty(sub.ConsumerTag)) continue; // already subscribed
+                if (!string.IsNullOrEmpty(sub.ConsumerTag))
+                    continue; // already subscribed
 
                 // Assign the thread-safe handler; to interact with Unity's game thread/loop we need this
                 sub.ThreadsafeHandler = Client_ExchangeMessageReceived;
@@ -1176,7 +1239,8 @@ namespace CymaticLabs.Unity3D.Amqp
                     {
                         usub.Handler = (r) =>
                         {
-                            if (usub.Enabled && usub.OnMessageReceived != null) usub.OnMessageReceived.Invoke(r.Subscription, r.Message);
+                            if (usub.Enabled && usub.OnMessageReceived != null)
+                                usub.OnMessageReceived.Invoke(r.Subscription, r.Message);
                         };
                     }
                 }
@@ -1187,7 +1251,8 @@ namespace CymaticLabs.Unity3D.Amqp
 
             foreach (var sub in queueSubscriptions)
             {
-                if (!string.IsNullOrEmpty(sub.ConsumerTag)) continue; // already subscribed
+                if (!string.IsNullOrEmpty(sub.ConsumerTag))
+                    continue; // already subscribed
 
                 // Assign the thread-safe handler; to interact with Unity's game thread/loop we need this
                 sub.ThreadsafeHandler = Client_QueueMessageReceived;
@@ -1202,7 +1267,8 @@ namespace CymaticLabs.Unity3D.Amqp
                     {
                         usub.Handler = (r) =>
                         {
-                            if (usub.Enabled && usub.OnMessageReceived != null) usub.OnMessageReceived.Invoke(r.Subscription, r.Message);
+                            if (usub.Enabled && usub.OnMessageReceived != null)
+                                usub.OnMessageReceived.Invoke(r.Subscription, r.Message);
                         };
                     }
                 }
@@ -1215,7 +1281,8 @@ namespace CymaticLabs.Unity3D.Amqp
         // Sets up subscriptions on the message broker
         IEnumerator DoRestoreSubscriptions(float delay)
         {
-            if (isQuitting) yield break;
+            if (isQuitting)
+                yield break;
             yield return new WaitForSeconds(delay);
             RestoreSubscriptions();
         }
@@ -1226,7 +1293,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <param name="subscription">The exchange subscription to unsubscribe from.</param>
         public static void Unsubscribe(AmqpExchangeSubscription subscription)
         {
-            if (Instance == null) return;
+            if (Instance == null)
+                return;
             Instance.UnsubscribeFromExchange(subscription);
         }
 
@@ -1236,9 +1304,12 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <param name="subscription">The exchange subscription to unsubscribe from.</param>
         public void UnsubscribeFromExchange(AmqpExchangeSubscription subscription)
         {
-            if (isQuitting) return;
-            if (subscription == null) throw new System.ArgumentNullException("subscription");
-            if (exSubscriptions.Contains(subscription)) exSubscriptions.Remove(subscription);
+            if (isQuitting)
+                return;
+            if (subscription == null)
+                throw new System.ArgumentNullException("subscription");
+            if (exSubscriptions.Contains(subscription))
+                exSubscriptions.Remove(subscription);
 
             if (client.IsConnected)
             {
@@ -1252,7 +1323,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <param name="subscription">The queue subscription to unsubscribe from.</param>
         public static void Unsubscribe(AmqpQueueSubscription subscription)
         {
-            if (Instance == null) return;
+            if (Instance == null)
+                return;
             Instance.UnsubscribeFromQueue(subscription);
         }
 
@@ -1262,13 +1334,21 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <param name="subscription">The queue subscription to unsubscribe from.</param>
         public void UnsubscribeFromQueue(AmqpQueueSubscription subscription)
         {
-            if (isQuitting) return;
-            if (subscription == null) throw new System.ArgumentNullException("subscription");
-            if (queueSubscriptions.Contains(subscription)) queueSubscriptions.Remove(subscription);
+            if (isQuitting)
+                return;
+            if (subscription == null)
+                throw new System.ArgumentNullException("subscription");
+            if (queueSubscriptions.Contains(subscription))
+                queueSubscriptions.Remove(subscription);
 
             if (client.IsConnected)
             {
-                client.Unsubscribe(subscription);
+
+                Debug.Log("ConsumerTag null? " + (subscription.ConsumerTag == null).ToString());
+                Debug.Log("QueueName null? " + (subscription.QueueName == null).ToString());
+
+                Exception ex = client.Unsubscribe(subscription);
+                Debug.Log("QueueUnsubscribe: client not connected " + ex.ToString());
             }
         }
 
@@ -1287,27 +1367,9 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <param name="immediate">Whether or not to publish with the AMQP "immediate" flag.</param>
         public static void Publish(string exchangeName, string routingKey, string message, IAmqpMessageProperties properties = null, bool mandatory = false, bool immediate = false)
         {
-            if (Instance == null) return;
+            if (Instance == null)
+                return;
             Instance.PublishToExchange(exchangeName, routingKey, message, properties, mandatory, immediate);
-        }
-
-        /// <summary>
-        /// Publishes a message on a given exchange.
-        /// </summary>
-        /// <param name="exchangeName">The name of the exchange to publish the message on.</param>
-        /// <param name="routingKey">The optional routing key to use.</param>
-        /// <param name="message">The message to publish.</param>
-        /// <param name="properties">The optional message properties to use when publishing the message.</param>
-        /// <param name="mandatory">Whether or not to publish with the AMQP "mandatory" flag.</param>
-        /// <param name="immediate">Whether or not to publish with the AMQP "immediate" flag.</param>
-        public void PublishToExchange(string exchangeName, string routingKey, string message, IAmqpMessageProperties properties = null, bool mandatory = false, bool immediate = false)
-        {
-            if (isQuitting) return;
-            if (string.IsNullOrEmpty(exchangeName)) throw new System.ArgumentNullException("exchangeName");
-            if (routingKey == null) routingKey = "";
-            if (string.IsNullOrEmpty(message)) throw new System.ArgumentNullException("message");
-            if (client == null) throw new System.InvalidOperationException("Must be connected to message broker first.");
-            client.Publish(exchangeName, routingKey, properties, message, mandatory, immediate);
         }
 
         /// <summary>
@@ -1321,8 +1383,46 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <param name="immediate">Whether or not to publish with the AMQP "immediate" flag.</param>
         public static void Publish(string exchangeName, string routingKey, byte[] message, IAmqpMessageProperties properties = null, bool mandatory = false, bool immediate = false)
         {
-            if (Instance == null) return;
+            if (Instance == null)
+                return;
             Instance.PublishToExchange(exchangeName, routingKey, message, properties, mandatory, immediate);
+        }
+
+        public static void Publish(string queueName, string message, IAmqpMessageProperties properties = null, bool mandatory = false, bool immediate = false)
+        {
+            if (Instance == null)
+                return;
+            Instance.PublishToExchange("", queueName, message, properties, mandatory, immediate);
+        }
+
+        public static void Publish(string queueName, byte[] message, IAmqpMessageProperties properties = null, bool mandatory = false, bool immediate = false)
+        {
+            if (Instance == null)
+                return;
+            Instance.PublishToExchange("", queueName, message, properties, mandatory, immediate);
+        }
+
+        /// <summary>
+        /// Publishes a message on a given exchange.
+        /// </summary>
+        /// <param name="exchangeName">The name of the exchange to publish the message on.</param>
+        /// <param name="routingKey">The optional routing key to use.</param>
+        /// <param name="message">The message to publish.</param>
+        /// <param name="properties">The optional message properties to use when publishing the message.</param>
+        /// <param name="mandatory">Whether or not to publish with the AMQP "mandatory" flag.</param>
+        /// <param name="immediate">Whether or not to publish with the AMQP "immediate" flag.</param>
+        public void PublishToExchange(string exchangeName, string routingKey, string message, IAmqpMessageProperties properties = null, bool mandatory = false, bool immediate = false)
+        {
+            if (isQuitting)
+                return;
+            //if (string.IsNullOrEmpty(exchangeName)) throw new System.ArgumentNullException("exchangeName");
+            if (routingKey == null)
+                routingKey = "";
+            if (string.IsNullOrEmpty(message))
+                throw new System.ArgumentNullException("message");
+            if (client == null)
+                throw new System.InvalidOperationException("Must be connected to message broker first.");
+            client.Publish(exchangeName, routingKey, properties, message, mandatory, immediate);
         }
 
         /// <summary>
@@ -1336,30 +1436,36 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <param name="immediate">Whether or not to publish with the AMQP "immediate" flag.</param>
         public void PublishToExchange(string exchangeName, string routingKey, byte[] message, IAmqpMessageProperties properties = null, bool mandatory = false, bool immediate = false)
         {
-            if (isQuitting) return;
-            if (string.IsNullOrEmpty(exchangeName)) throw new System.ArgumentNullException("exchangeName");
-            if (routingKey == null) routingKey = "";
-            if (message == null || message.Length == 0) throw new System.ArgumentNullException("message");
-            if (client == null) throw new System.InvalidOperationException("Must be connected to message broker first.");
+            if (isQuitting)
+                return;
+            //if (string.IsNullOrEmpty(exchangeName)) throw new System.ArgumentNullException("exchangeName");
+            if (routingKey == null)
+                routingKey = "";
+            if (message == null || message.Length == 0)
+                throw new System.ArgumentNullException("message");
+            if (client == null)
+                throw new System.InvalidOperationException("Must be connected to message broker first.");
             client.Publish(exchangeName, routingKey, properties, message, mandatory, immediate);
         }
 
-        // TODO Test and support queue publishing scenarios
+        //// TODO Test and support queue publishing scenarios
         ///// <summary>
         ///// Publishes a message to a given queue.
         ///// </summary>
-        ///// <param name="quueName">The name of the queue.</param>
+        ///// <param name="queueName">The name of the queue.</param>
         ///// <param name="message">The message to publish.</param>
         ///// <param name="mandatory">Whether or not to publish with the AMQP "mandatory" flag.</param>
         ///// <param name="immediate">Whether or not to publish with the AMQP "immediate" flag.</param>
-        //public void PublishToQueue(string quueName, string message, bool mandatory = false, bool immediate = false)
+        //public void PublishToQueue(string queueName, string message, bool mandatory = false, bool immediate = false)
         //{
         //    if (isQuitting) return;
-        //    if (string.IsNullOrEmpty(quueName)) throw new System.ArgumentNullException("quueName");
+        //    if (string.IsNullOrEmpty(queueName)) throw new System.ArgumentNullException("queueName");
         //    if (string.IsNullOrEmpty(message)) throw new System.ArgumentNullException("message");
         //    if (client == null) throw new System.InvalidOperationException("Must be connected to message broker first.");
-        //    client.Publish("", quueName, message, mandatory, immediate);
+        //    client.Publish("", queueName, message, mandatory, immediate);
         //}
+
+
 
         #endregion Publish
 
@@ -1376,7 +1482,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <returns>An Exception if one occurred during the operation, otherwise NULL.</returns>
         public static Exception DeclareExchange(string name, AmqpExchangeTypes type, bool durable = true, bool autoDelete = false, IDictionary<string, object> args = null)
         {
-            if (Instance == null) return null;
+            if (Instance == null)
+                return null;
             return Instance.DeclareExchangeOnHost(name, type, durable, autoDelete, args);
         }
 
@@ -1402,7 +1509,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <returns>An Exception if one occurred during the operation, otherwise NULL.</returns>
         public static Exception DeleteExchange(string name, bool ifUnused = false)
         {
-            if (Instance == null) return null;
+            if (Instance == null)
+                return null;
             return Instance.DeleteExchangeOnHost(name, ifUnused);
         }
 
@@ -1425,7 +1533,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <returns>True if the exchange exists, False if not.</returns>
         public static bool ExchangeExists(string name, string virtualHost = null)
         {
-            if (Instance == null) throw new InvalidOperationException("not initialized");
+            if (Instance == null)
+                throw new InvalidOperationException("not initialized");
             return Instance.ExchangeExistsOnHost(name, virtualHost);
         }
 
@@ -1447,7 +1556,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <returns>A list of AMQP exchanges for the current connection.</returns>
         public static AmqpExchange[] GetExchanges(string virtualHost = null)
         {
-            if (Instance == null) return new AmqpExchange[0];
+            if (Instance == null)
+                return new AmqpExchange[0];
             return Instance.GetExchangeList(virtualHost);
         }
 
@@ -1458,7 +1568,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <returns>A list of AMQP exchanges for the current connection.</returns>
         public AmqpExchange[] GetExchangeList(string virtualHost = null)
         {
-            if (!IsConnected) return new AmqpExchange[0];
+            if (!IsConnected)
+                return new AmqpExchange[0];
             return client.GetExchanges(virtualHost);
         }
 
@@ -1474,7 +1585,8 @@ namespace CymaticLabs.Unity3D.Amqp
         {
             if (Instance == null)
             {
-                if (callback != null) callback(new AmqpExchange[0]);
+                if (callback != null)
+                    callback(new AmqpExchange[0]);
                 return;
             }
 
@@ -1493,14 +1605,15 @@ namespace CymaticLabs.Unity3D.Amqp
         {
             if (!IsConnected)
             {
-                if (callback != null) callback(new AmqpExchange[0]);
+                if (callback != null)
+                    callback(new AmqpExchange[0]);
                 return;
             }
 
             client.GetExchangesAsync((exchangeList) =>
             {
                 // Queue the results to be handled on the game thread
-                lock(this)
+                lock (this)
                 {
                     exchangeListResults.Enqueue(new AsyncExchangeListResult(callback, exchangeList));
                 }
@@ -1522,7 +1635,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <returns>An Exception if one occurred during the operation, otherwise NULL.</returns>
         public static Exception DeclareQueue(string name, bool durable = true, bool autoDelete = false, bool exclusive = false, IDictionary<string, object> args = null)
         {
-            if (Instance == null) return null;
+            if (Instance == null)
+                return null;
             return Instance.DeclareQueueOnHost(name, durable, autoDelete, exclusive, args);
         }
 
@@ -1549,7 +1663,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <returns>An Exception if one occurred during the operation, otherwise NULL.</returns>
         public static Exception DeleteQueue(string name, bool ifUnused = false, bool ifEmpty = false)
         {
-            if (Instance == null) return null;
+            if (Instance == null)
+                return null;
             return Instance.DeleteQueueOnHost(name, ifUnused, ifEmpty);
         }
 
@@ -1573,7 +1688,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <returns>True if the queue exists, False if not.</returns>
         public static bool QueueExists(string name, string virtualHost = null)
         {
-            if (Instance == null) throw new InvalidOperationException("not initialized");
+            if (Instance == null)
+                throw new InvalidOperationException("not initialized");
             return Instance.QueueExistsOnHost(name, virtualHost);
         }
 
@@ -1595,7 +1711,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <returns>A list of AMQP exchanges for the current connection.</returns>
         public static AmqpQueue[] GetQueues(string virtualHost = null)
         {
-            if (Instance == null) return new AmqpQueue[0];
+            if (Instance == null)
+                return new AmqpQueue[0];
             return Instance.GetQueueList(virtualHost);
         }
 
@@ -1606,7 +1723,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <returns>A list of AMQP exchanges for the current connection.</returns>
         public AmqpQueue[] GetQueueList(string virtualHost = null)
         {
-            if (!IsConnected) return new AmqpQueue[0];
+            if (!IsConnected)
+                return new AmqpQueue[0];
             return client.GetQueues(virtualHost);
         }
 
@@ -1622,7 +1740,8 @@ namespace CymaticLabs.Unity3D.Amqp
         {
             if (Instance == null)
             {
-                if (callback != null) callback(new AmqpQueue[0]);
+                if (callback != null)
+                    callback(new AmqpQueue[0]);
                 return;
             }
 
@@ -1641,7 +1760,8 @@ namespace CymaticLabs.Unity3D.Amqp
         {
             if (!IsConnected)
             {
-                if (callback != null) callback(new AmqpQueue[0]);
+                if (callback != null)
+                    callback(new AmqpQueue[0]);
                 return;
             }
 
@@ -1653,6 +1773,16 @@ namespace CymaticLabs.Unity3D.Amqp
                     queueListResults.Enqueue(new AsyncQueueListResult(callback, queueList));
                 }
             }, virtualHost);
+        }
+
+        public static void BasicAck(ulong delivertag, bool multiple)
+        {
+            Instance.client.BasicAck(delivertag, multiple);
+        }
+
+        public static void BasicQos(uint prefetchSize, ushort prefetchCount, bool global)
+        {
+            Instance.client.BasicQos(prefetchSize, prefetchCount, global);
         }
 
         #endregion Queues
@@ -1667,7 +1797,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <param name="value">The value to log.</param>
         public static void Log(object value)
         {
-            if (Instance == null) return;
+            if (Instance == null)
+                return;
             Instance.LogToConsole(value);
         }
 
@@ -1680,7 +1811,8 @@ namespace CymaticLabs.Unity3D.Amqp
         public void LogToConsole(object value)
         {
             Debug.Log(value);
-            if (WriteToConsole) AmqpConsole.WriteLine(value, true);
+            if (WriteToConsole)
+                AmqpConsole.WriteLine(value, true);
         }
 
         /// <summary>
@@ -1692,7 +1824,8 @@ namespace CymaticLabs.Unity3D.Amqp
         /// <param name="values">The values to use in the formatted string.</param>
         public static void Log(string text, params object[] values)
         {
-            if (Instance == null) return;
+            if (Instance == null)
+                return;
             Instance.LogToConsole(text, values);
         }
 
@@ -1706,7 +1839,8 @@ namespace CymaticLabs.Unity3D.Amqp
         public void LogToConsole(string text, params object[] values)
         {
             Debug.LogFormat(text, values);
-            if (WriteToConsole) AmqpConsole.WriteLineFormat(text, true, values);
+            if (WriteToConsole)
+                AmqpConsole.WriteLineFormat(text, true, values);
         }
 
         #endregion Logging
@@ -1739,6 +1873,7 @@ namespace CymaticLabs.Unity3D.Amqp
             AmqpConsole.Color = new Color(1f, 0.5f, 0);
             Log("Message received on {0}: {1}", subscription.QueueName, payload);
             AmqpConsole.Color = null;
+            client.BasicAck(message.DeliveryTag, false);
         }
 
         #endregion Utility
