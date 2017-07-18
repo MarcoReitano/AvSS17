@@ -872,6 +872,17 @@ public class SimpleClient : MonoBehaviour
         this.SubscribeToQueue(subscription);
     }
 
+    public void SubscribeToQueue(string name)
+    {
+
+        UnityAmqpQueueSubscription subscription =
+            new UnityAmqpQueueSubscription(
+                name, true, null,
+            UnityEventDebugQueueMessageHandler);
+
+        SubscribeToQueue(subscription);
+    }
+
     /// <summary>
     /// Subscribes to a given exchange.
     /// </summary>

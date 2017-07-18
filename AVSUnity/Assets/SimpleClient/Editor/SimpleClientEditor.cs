@@ -1,7 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+
 using CymaticLabs.Unity3D.Amqp;
 using UnityEditor;
+using UnityEditor.SceneManagement;
+
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+using Debug = UnityEngine.Debug;
 
 [CustomEditor(typeof(SimpleClient))]
 public class SimpleClientEditor : Editor
@@ -47,6 +54,12 @@ public class SimpleClientEditor : Editor
         }
     }
 
+
+    private static bool showAvailableQueues;
+
+    private string queueName;
+
+    private string message;
     public override void OnInspectorGUI()
     {
         // Update client
@@ -82,7 +95,7 @@ public class SimpleClientEditor : Editor
             this.client.Awake();
             this.Repaint();
         }
-
+        EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("EnableUpdate"))
         {
             this.client.EnableUpdate();
@@ -94,6 +107,7 @@ public class SimpleClientEditor : Editor
             this.client.DisableUpdate();
             this.Repaint();
         }
+        EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.Toggle("IsConnecting?", this.client.isConnecting);
         EditorGUILayout.Toggle("IsConnected?", this.client.IsConnected);
@@ -106,7 +120,7 @@ public class SimpleClientEditor : Editor
         EditorGUILayout.Toggle("canSubscribe?", this.client.canSubscribe);
 
 
-
+        EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Connect"))
         {
             this.client.Connect();
@@ -118,6 +132,111 @@ public class SimpleClientEditor : Editor
             this.client.Disconnect();
             this.Repaint();
         }
+        EditorGUILayout.EndHorizontal();
+
+        if (showAvailableQueues = EditorGUILayout.Foldout(showAvailableQueues, "Available Queues:"))
+        {
+            foreach (var queue in this.client.GetQueues())
+            {
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("Name:", queue.Name);
+
+
+                //if (GUILayout.Button("Subscribe", GUILayout.Width(30)))
+                //{
+                //    //this.client.SubscribeToQueue(new AmqpQueueSubscription(queue.Name, true, this.client.UnityEventDebugQueueMessageHandler()));
+                //}
+
+                if (GUILayout.Button("X", GUILayout.Width(30)))
+                {
+                    this.client.DeleteQueue(queue.Name);
+                }
+                EditorGUILayout.EndHorizontal();
+            }
+        }
+
+        this.queueName = EditorGUILayout.TextField("Queue Name", this.queueName);
+        using (new EditorGUILayout.HorizontalScope())
+        {
+            if (GUILayout.Button("Create Queue"))
+            {
+                this.client.DeclareQueue(this.queueName);
+            }
+
+            if (GUILayout.Button("Subscribe Queue"))
+            {
+                this.client.SubscribeToQueue(this.queueName);
+            }
+
+        }
+
+        this.message = EditorGUILayout.TextField("Message", this.message);
+        if (GUILayout.Button("Send Message"))
+        {
+            this.client.PublishToQueue(this.queueName, this.message);
+        }
+
+        if (GUILayout.Button("Send JSON-Message"))
+        {
+
+
+            Stopwatch sw = new Stopwatch();
+
+            for (int x = 0; x < 3; x++)
+            {
+                for (int z = 0; z < 3; z++)
+                {
+                    sw.Start();
+
+                    // Aktuelle Szene als MainScene merken
+                    mainScene = EditorSceneManager.GetActiveScene();
+
+                    // Neue (leere) Szene erstellen
+                    newScene = EditorSceneManager.NewScene(
+                        NewSceneSetup.EmptyScene,
+                        NewSceneMode.Additive);
+
+                    // Neue Szene als aktive Szene setzen
+                    EditorSceneManager.SetActiveScene(this.newScene);
+
+                    //###########################
+                    // Erzeuge Content:
+                    GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    cube.transform.position = new Vector3(x, 0f, z);
+                    //###########################
+
+                    // Szene speichern
+                    string filename = RelativeAssetPathTo("Scene_" + x + "_" + z + ".unity");
+                    EditorSceneManager.SaveScene(newScene, filename);
+
+                    // ByteArray für Message aus Szene erstellen
+                    byte[] bytes = SceneFileToByteArray(this.newScene);
+
+                    // Filename must be send in some form... 
+                    //
+                    //      |
+                    //      |
+                    // Transfer via RabbitMQ-Message
+                    //      |
+                    //     \|/
+                    //      v
+
+                    Scene transferedScene = ByteArrayToScene(filename, bytes);
+                    EditorSceneManager.SetActiveScene(transferedScene);
+                    EditorSceneManager.CloseScene(this.newScene, true);
+                    sw.Stop();
+                    Debug.Log("Szene " + x + "," + z + " took: " + sw.ElapsedMilliseconds + "ms");
+
+                }
+
+            }
+
+
+
+
+            this.client.PublishToQueue(this.queueName, this.message);
+        }
+
 
 
         // Save/serialized modified connection
