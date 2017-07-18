@@ -40,11 +40,12 @@ public class OSMData
                 }
 		}
 		UnityEngine.Debug.Log("New OSMDATA: " + nodes.Count + " Nodes " + ways.Count + " Ways " + relations.Count + " Relations");		
-		Console.AddMessage("New OSMDATA: " + nodes.Count + " Nodes " + ways.Count + " Ways " + relations.Count + " Relations");
+        Console.AddMessage("New OSMDATA: " + nodes.Count + " Nodes " + ways.Count + " Ways " + relations.Count + " Relations");
 	}
 	
 	public OSMData(Stream osmXMLStream)
 	{		
+        UnityEngine.Debug.Log(osmXMLStream);
 		XmlTextReader xmlReader = new XmlTextReader(osmXMLStream); 
         xmlReader.MoveToContent();
 		while(xmlReader.Read()){

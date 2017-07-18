@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Threading;
+using System.Globalization;
 #if UNITY_EDITOR
 //using UnityEditor;
 #endif
@@ -50,6 +52,7 @@ public struct OSMBoundingBox
 
     public string ToQLString()
     {
+        Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
         return string.Format("({0},{1},{2},{3})", minLatitude, minLongitude, maxLatitude, maxLongitude);
     }
 }

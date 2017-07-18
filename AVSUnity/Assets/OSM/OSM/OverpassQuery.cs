@@ -1,4 +1,8 @@
 using UnityEngine;
+using System.Threading;
+using System.Globalization;
+
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -18,8 +22,10 @@ using System.IO;
 [System.Serializable]
 public class OverpassQuery
 {
+	
     public OverpassQuery()
     {
+		
         logPath = Application.dataPath + "/Logs/OSM.xml";
 #if UNITY_STANDALONE
         if(!Directory.Exists(Application.dataPath + "/OSMQueries/"))
@@ -90,10 +96,13 @@ public class OverpassQuery
 
     public void ParseOSMXml(object sender, DownloadStringCompletedEventArgs args)
     {
+        
 		string result = args.Result;
-		
+        if (result == null) return;
+        UnityEngine.Debug.Log(result);
+
 #if UNITY_EDITOR
-		File.WriteAllBytes(logPath, Encoding.UTF8.GetBytes(result));
+		//File.WriteAllBytes(logPath, Encoding.UTF8.GetBytes(result));
 #endif
 
 		OSM = new OSMData(new MemoryStream(Encoding.UTF8.GetBytes(result)));
