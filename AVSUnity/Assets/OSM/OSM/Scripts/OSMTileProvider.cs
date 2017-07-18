@@ -336,6 +336,9 @@ public static class OSMTileProvider
             //string url = "http://tile.stamen.com/watercolor" + tilePath;
 
             string tmpFolder = EditorPrefs.GetString("OSMTileCachePath");
+            if (tmpFolder == null || tmpFolder == "") {
+                tmpFolder = Application.dataPath + @"/OSM_TILE_TMP";
+            }
             //string tmpFolder = EditorApplication.applicationContentsPath + @"/OSM_TILE_TMP";
             string tmpFile = tmpFolder + tilePath;
 
