@@ -163,7 +163,7 @@ public class SceneLoaderEditor : Editor
         }
     }
 
-    private void MergeScenesToNew()
+    public void MergeScenesToNew()
     {
         this.newScene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
 
@@ -184,7 +184,7 @@ public class SceneLoaderEditor : Editor
         EditorSceneManager.SaveScene(this.newScene, RelativeAssetPath() + "/MergedScene.unity");
     }
 
-    public byte[] SceneFileToByteArray(Scene scene)
+    public static byte[] SceneFileToByteArray(Scene scene)
     {
         Debug.Log("datapath: " + Application.dataPath);
         Debug.Log("scene.path: " + scene.path);
@@ -192,13 +192,13 @@ public class SceneLoaderEditor : Editor
     }
 
 
-    public Scene ByteArrayToScene(string filename, byte[] bytes)
+    public static Scene ByteArrayToScene(string filename, byte[] bytes)
     {
         ByteArrayToSceneFile(filename, bytes);
         return EditorSceneManager.OpenScene(filename, OpenSceneMode.Additive);
     }
 
-    public void ByteArrayToSceneFile(string filename, byte[] bytes)
+    public static void ByteArrayToSceneFile(string filename, byte[] bytes)
     {
         File.WriteAllBytes(Application.dataPath + "/test_" + filename.Substring("/Assets".Length), bytes);
     }
@@ -209,7 +209,7 @@ public class SceneLoaderEditor : Editor
     /// </summary>
     /// <param name="filename"></param>
     /// <returns></returns>
-    private static string RelativeAssetPathTo(string filename)
+    public static string RelativeAssetPathTo(string filename)
     {
         return RelativeAssetPath() + "/" + filename;
     }
@@ -218,7 +218,7 @@ public class SceneLoaderEditor : Editor
     /// 
     /// </summary>
     /// <returns></returns>
-    private static string RelativeAssetPath()
+    public static string RelativeAssetPath()
     {
         return "Assets" + Application.dataPath.Substring(Application.dataPath.Length);
     }

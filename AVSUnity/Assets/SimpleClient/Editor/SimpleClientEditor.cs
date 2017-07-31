@@ -60,6 +60,10 @@ public class SimpleClientEditor : Editor
     private string queueName;
 
     private string message;
+
+    private Scene mainScene;
+    private Scene newScene;
+
     public override void OnInspectorGUI()
     {
         // Update client
@@ -206,11 +210,11 @@ public class SimpleClientEditor : Editor
                     //###########################
 
                     // Szene speichern
-                    string filename = RelativeAssetPathTo("Scene_" + x + "_" + z + ".unity");
+                    string filename = SceneLoaderEditor.RelativeAssetPathTo("Scene_" + x + "_" + z + ".unity");
                     EditorSceneManager.SaveScene(newScene, filename);
 
                     // ByteArray für Message aus Szene erstellen
-                    byte[] bytes = SceneFileToByteArray(this.newScene);
+                    byte[] bytes = SceneLoaderEditor.SceneFileToByteArray(this.newScene);
 
                     // Filename must be send in some form... 
                     //
@@ -221,7 +225,7 @@ public class SimpleClientEditor : Editor
                     //     \|/
                     //      v
 
-                    Scene transferedScene = ByteArrayToScene(filename, bytes);
+                    Scene transferedScene = SceneLoaderEditor.ByteArrayToScene(filename, bytes);
                     EditorSceneManager.SetActiveScene(transferedScene);
                     EditorSceneManager.CloseScene(this.newScene, true);
                     sw.Stop();
