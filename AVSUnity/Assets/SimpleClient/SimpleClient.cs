@@ -4,10 +4,14 @@ using System.Collections.Generic;
 
 using CymaticLabs.Unity3D.Amqp;
 using CymaticLabs.Unity3D.Amqp.SimpleJSON;
+using CymaticLabs.Unity3D.Amqp.UI;
+
+using UnityEditor.SceneManagement;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //[ExecuteInEditMode]
 public class SimpleClient : MonoBehaviour
@@ -37,6 +41,8 @@ public class SimpleClient : MonoBehaviour
     [Tooltip("Whether or not to use relaxed SSL certificate validation for the broker. Server SSL certificates will not be verified but encryption will be used.")]
     public bool RelaxedSslValidation = false;
 
+    [Tooltip("Whether or not to act as Server (Changes our handling of Messages).")]
+    public bool ServerMode = false;
 
     /// <summary>
     /// A list of queue subscriptions to subscribe to when connected.
@@ -872,6 +878,17 @@ public class SimpleClient : MonoBehaviour
         this.SubscribeToQueue(subscription);
     }
 
+    public void SubscribeToQueue(string name)
+    {
+
+        UnityAmqpQueueSubscription subscription =
+            new UnityAmqpQueueSubscription(
+                name, true, null,
+            UnityEventDebugQueueMessageHandler);
+
+        SubscribeToQueue(subscription);
+    }
+
     /// <summary>
     /// Subscribes to a given exchange.
     /// </summary>
@@ -1201,11 +1218,84 @@ public class SimpleClient : MonoBehaviour
     /// <param name="message">The message that was received.</param>
     public void UnityEventDebugQueueMessageHandler(AmqpQueueSubscription subscription, IAmqpReceivedMessage message)
     {
-        // Decode as text
-        var payload = System.Text.Encoding.UTF8.GetString(message.Body);
-        // new Color(1f, 0.5f, 0);
-        Log("<color=ff7f00ff>Message received on {0}: {1}</color>", subscription.QueueName, payload);
-        this.client.BasicAck(message.DeliveryTag, false);
+        if (ServerMode)
+        {
+            // Decode as text
+            var payload = System.Text.Encoding.UTF8.GetString(message.Body);
+            // new Color(1f, 0.5f, 0);
+            Debug.Log("<b>Server:</b> <color=ff7f00ff>Message received on " + subscription.QueueName + ": " +
+                //payload + 
+                "</color>");
+            SceneMessage sceneMessage = SceneMessage.FromJson(payload);
+
+
+
+            this.client.BasicAck(message.DeliveryTag, false);
+        }
+        else
+        {
+            // Decode as text
+            var payload = System.Text.Encoding.UTF8.GetString(message.Body);
+            //new Color(1f, 0.5f, 0);
+            Debug.Log("<b>Client:</b> <color=ff7f00ff>Message received on " + subscription.QueueName + ": " +
+                //payload + 
+                "</color>");
+            JobMessage jobMessage = JobMessage.FromJson(payload);
+
+
+            // Aktuelle Szene als MainScene merken
+            Scene mainScene = EditorSceneManager.GetActiveScene();
+
+            // Neue (leere) Szene erstellen
+            Scene newScene = EditorSceneManager.NewScene(
+                NewSceneSetup.EmptyScene,
+                NewSceneMode.Additive);
+
+            // Neue Szene als aktive Szene setzen
+            EditorSceneManager.SetActiveScene(newScene);
+
+            //###########################
+            // Erzeuge Content:
+            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.transform.position = new Vector3(jobMessage.x, 0f, jobMessage.y);
+            //###########################
+
+            // Szene speichern
+            string filename = RelativeAssetPathTo("Scene_" + jobMessage.x + "_" + jobMessage.y + ".unity");
+            Debug.Log("before newScene-Path: " + newScene.path);
+            EditorSceneManager.SaveScene(newScene, filename);
+            Debug.Log("after newScene-Path: " + newScene.path);
+
+
+            SceneMessage sceneMessage = new SceneMessage("replyScene_" + jobMessage.x + "_" + jobMessage.y + ".unity", newScene);
+            string jsonMessage = sceneMessage.ToJSON();
+            Debug.Log(jsonMessage);
+            EditorSceneManager.CloseScene(newScene, true);
+            Debug.Log("afterClosing newScene-Path: " + newScene.path);
+            EditorSceneManager.SetActiveScene(mainScene);
+
+            PublishToQueue(jobMessage.replyToQueue, jsonMessage);
+            BasicAck(message.DeliveryTag, false);
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="filename"></param>
+    /// <returns></returns>
+    public static string RelativeAssetPathTo(string filename)
+    {
+        return RelativeAssetPath() + "/" + filename;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public static string RelativeAssetPath()
+    {
+        return "Assets" + Application.dataPath.Substring(Application.dataPath.Length);
     }
     #endregion // Utility
     #endregion // Methods
