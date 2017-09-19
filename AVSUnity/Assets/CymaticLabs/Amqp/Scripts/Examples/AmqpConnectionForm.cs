@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CymaticLabs.Unity3D.Amqp.RabbitMq;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -456,7 +457,14 @@ namespace CymaticLabs.Unity3D.Amqp.UI
         public void SendMessageToQueue()
         {
             Debug.Log("SendMessageToQueue");
-            AmqpClient.Publish(SendMessageQueueName.text, SendMessageQueueMessage.text);
+            var rabbitCon = AmqpClient.Instance.BrokerConnection as RabbitMqBrokerConnection;
+            var basicprops = rabbitCon.Channel.CreateBasicProperties();
+
+            basicprops.ReplyTo = "blubb://bla/test";
+
+            RabbitMqMessageProperties rabbitProps = new RabbitMqMessageProperties(basicprops);
+
+            AmqpClient.Publish(SendMessageQueueName.text, SendMessageQueueMessage.text, rabbitProps);
         }
 
         public void BasicAck()
@@ -668,6 +676,7 @@ namespace CymaticLabs.Unity3D.Amqp.UI
             var payload = System.Text.Encoding.UTF8.GetString(message.Body);
             AmqpConsole.Color = new Color(1f, 0.5f, 0);
             AmqpClient.Log("Message received on {0}: {1}", subscription.QueueName, payload);
+            AmqpClient.Log("ReplyTo: " + message.Properties.ReplyTo);
             AmqpConsole.Color = null;
 
             MessageListController.AddMessage(subscription, message);
