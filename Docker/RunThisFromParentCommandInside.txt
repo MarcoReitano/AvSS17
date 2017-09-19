@@ -1,1 +1,5 @@
+Buildinstructions:
+Create a "UnityInstall" folder in the parent folder with the install package "unity-editor-5.4.1f1+20160913_amd64.deb" inside it
+Building the image:
 docker build -t avsunity -f Docker/Dockerfile .
+
