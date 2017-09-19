@@ -371,7 +371,7 @@ public class SimpleClient : MonoBehaviour
     // Handle Unity update loop
     private void Update()
     {
-        Debug.Log("<color=blue><b>" + this.name + ": SimpleClient.Update()</b></color>");
+        //Debug.Log("<color=blue><b>" + this.name + ": SimpleClient.Update()</b></color>");
         /** These flags are set by the thread that the AMQP client runs on and then handled in Unity's game thread **/
 
         // The client has connected
