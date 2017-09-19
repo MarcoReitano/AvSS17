@@ -1,0 +1,68 @@
+﻿
+public enum OSMWayType
+{
+
+    highway_motorway,
+    highway_motorway_link,
+    highway_trunk,
+    highway_trunk_link,
+    highway_primary,
+    highway_primary_link,
+    highway_secondary,
+    highway_secondary_link,
+    highway_tertiary,
+    highway_unclassified,
+    highway_road,
+    highway_residential,
+    highway_living_street,
+    highway_service,
+    highway_track,
+    highway_pedestrian,
+    highway_raceway,
+    highway_services,
+    highway_bus_guideway,
+
+
+    highway_path,
+    highway_cycleway,
+    highway_footway,
+    highway_bridleway,
+    highway_byway,
+    highway_steps,
+
+    junction_roundabout,
+    junction_jughandle,
+
+    cycleway_lane,
+    cycleway_track,
+    cycleway_opposite_lane,
+    cycleway_opposite_track,
+    cycleway_opposite,
+    cycleway_User_Defined,
+
+    tracktype_grade1,
+    tracktype_grade2,
+    tracktype_grade3,
+    tracktype_grade4,
+    tracktype_grade5,
+    railway_rail,
+    railway_tram,
+    railway_light_rail,
+    railway_abandoned,
+    railway_disused,
+    railway_subway,
+    railway_preserved,
+    railway_narrow_gauge,
+    railway_construction,
+    railway_monorail,
+    railway_funicular,
+    bridge_yes,
+    cutting_yes,
+    electrified_contact_line,
+    electrified_rail,
+    electrified_yes,
+    electrified_no,
+
+    railway_platform,
+
+}
