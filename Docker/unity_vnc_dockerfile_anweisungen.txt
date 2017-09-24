@@ -1,0 +1,52 @@
+In Dieser Datei befinden sind Anweisungen zum Erstellen und Ausführen des Docker-Containers.
+
+1. Docker Container erstellen.
+
+Um den Docker Container zu erstellen, kann folgender Befehl verwendet werden,
+wenn sich im aktuellen Pfad sich im Parent folder befindet im .  Wichtig der Punkt ist Teil
+des Befehls und sollte nicht vergessen werden.  Der Name kann frei gewählt
+werden und wird ohne die {} Klammern geschrieben.
+
+docker build -t {name} -f Docker/unity_vnc_dockerfile
+
+Dieser Prozess kann eine Ganze weile dauern.
+
+2. Docker Container Ausführen
+
+Um Den Docker-Container Auszuführen wird der Unten stehende Befehl verwendet.Der
+Name ist hier derselbe wie beim Erstellen des Containers.  Die --privileged
+Option ist aufgrund der Chrome Sandbox die Unity verwendet.
+
+docker run -ti -p 5901:5901 -p 6901:6901 --privileged {name} bash
+
+Nach diesen Befehl befindet man sich Im Docker "interactive terminal" und kann
+Terminalbefehle im Docker Container ausführen. Wichtig es kommen paar Ausgaben
+von vncserver, weil dieser gerade Startet. Man kann aber Enter drücken um den
+Gewohnten Terminal promt zu bekommen.
+
+3. Vnc Server Verbinden
+
+Um zum Vnc Sever zu verbinden, der auf dem Docker Container läuft. Kann ein Vnc
+client Verwendet werden der Port für den Vnc server ist.
+
+5901
+
+und das Password für den Vnc Server ist:
+
+vncpassword
+
+HINWEIS: falls der Vnc Server nicht mehr läuft da im Terminal die Taste
+ctrl/strg+c betätigt wurde kann dieser mit den Befehl "vncserver" wieder
+gestartet werden.
+
+4. Unity starten
+
+Unity kann folgendermaßen im Terminal gestartet werden.
+
+/opt/Unity/Editor/Unity -logFile
+
+Die -logFile Option erzeugt Output in STDOUT wenn keine Datei angegeben wird.
+Nach dem Starten kann mithilfe von Vnc die Lizenz aktiviert werden.
+
+
+Nach der Aktivierung sollte ein "Docker commit" ausgeführt werden.
