@@ -1348,7 +1348,8 @@ namespace CymaticLabs.Unity3D.Amqp
                 Debug.Log("QueueName null? " + (subscription.QueueName == null).ToString());
 
                 Exception ex = client.Unsubscribe(subscription);
-                Debug.Log("QueueUnsubscribe: client not connected " + ex.ToString());
+                if(ex != null)
+                    Debug.Log("QueueUnsubscribe: client not connected " + ex.ToString());
             }
         }
 
