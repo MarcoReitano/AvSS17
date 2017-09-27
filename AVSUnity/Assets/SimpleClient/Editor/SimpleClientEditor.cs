@@ -233,6 +233,13 @@ public class SimpleClientEditor : Editor
             this.xMax = EditorGUILayout.IntSlider("xMax", this.xMax, 1, 10);
             this.zMax = EditorGUILayout.IntSlider("zMax", this.zMax, 1, 10);
 
+            EditorGUILayout.BeginVertical("box");
+            TileManager.TileWidth = (double)EditorGUILayout.FloatField("TileWidth", (float)TileManager.TileWidth);
+            TileManager.tileRadius = EditorGUILayout.IntField("TileRadius", TileManager.tileRadius);
+            TileManager.LOD = EditorGUILayout.IntField("LOD", TileManager.LOD);
+            TileManager.OriginLatitude = (double)EditorGUILayout.FloatField("OriginLatitude", (float)TileManager.OriginLatitude);
+            TileManager.OriginLongitude = (double)EditorGUILayout.FloatField("OriginLongitude", (float)TileManager.OriginLongitude);
+            EditorGUILayout.EndVertical();
 
 
             if (GUILayout.Button("Send Job-Messages"))
@@ -250,6 +257,37 @@ public class SimpleClientEditor : Editor
                         Debug.Log("Created Job-Message for (" + x + "," + z + "): " + jsonMessage);
                     }
                 }
+            }
+
+            if (GUILayout.Button("Send OSM-Job-Messages"))
+            {
+                if (GUILayout.Button("Create TileMap"))
+                    TileManager.CreateTileMap();
+
+                // make sure we have subscribed the replyQueue
+                this.client.SubscribeToQueue(replyQueueName);
+
+                for (int i = -TileManager.tileRadius; i <= TileManager.tileRadius; i++)
+                {   
+                    for (int j = -TileManager.tileRadius; j <= TileManager.tileRadius; j++)
+                    {
+                        OSMJobMessage jobMessage = new OSMJobMessage(i, j, replyQueueName);
+                        string jsonMessage = jobMessage.ToJson();
+                        this.client.PublishToQueue(jobQueueName, jsonMessage);
+                        Debug.Log("Created Job-Message for (" + i + "," + j + "): " + jsonMessage);
+                    }
+                }
+
+                //for (int x = 0; x < this.xMax; x++)
+                //{
+                //    for (int z = 0; z < this.zMax; z++)
+                //    {
+                //        JobMessage jobMessage = new JobMessage(x, z, replyQueueName);
+                //        string jsonMessage = jobMessage.ToJson();
+                //        this.client.PublishToQueue(jobQueueName, jsonMessage);
+                //        Debug.Log("Created Job-Message for (" + x + "," + z + "): " + jsonMessage);
+                //    }
+                //}
             }
         }
         else // Client-Mode
