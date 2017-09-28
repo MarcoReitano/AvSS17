@@ -2,14 +2,14 @@
 #
 #                   Before Building the Image Download the deb file
 #  +---------------------------------------------------------------------------------------+
-#  | http://beta.unity3d.com/download/e06241adb51f/unity-editor_amd64-5.5.2xf1Linux.deb    |
+#  |  http://beta.unity3d.com/download/d72e16ff4aba/unity-editor_amd64-5.6.3xf1Linux.deb   |
 #  +---------------------------------------------------------------------------------------+
-#    AND Make shure its in the Same Directory as this dockerfile and Named:
 #
-#               unity-editor_amd64-5.5.2xf1Linux.deb
 #
-
-
+#    AND Make shure its in the UnityInstall Directory in the Root of the Project and not Rename the file
+#
+#               unity-editor_amd64-5.6.3xf1Linux.deb
+#
 From consol/ubuntu-xfce-vnc
 
 USER root
@@ -22,15 +22,13 @@ RUN apt-get install -qq -y curl gconf-service lib32gcc1 lib32stdc++6 libasound2 
 RUN mkdir -p $HOME/.cache/unity3d && mkdir -p $HOME/.local/share/unity3d
 
 
-# Before Running this Container
-# install the Neeeded Version for this Dockerbuild go to this link
-# http://beta.unity3d.com/download/e06241adb51f/unity-editor_amd64-5.5.2xf1Linux.deb .
-ADD  ./unity-editor_amd64-5.5.2xf1Linux.deb .
+ADD ./UnityInstall/unity-editor_amd64-5.6.3xf1Linux.deb .
 
 #install the Downloaded Editor
-RUN dpkg -i unity-editor_amd64-5.5.2xf1Linux.deb
+RUN dpkg -i unity-editor_amd64-5.6.3xf1Linux.deb
+
 # Remove the Install file
-RUN rm unity-editor_amd64-5.5.2xf1Linux.deb
+RUN rm unity-editor_amd64-5.6.3xf1Linux.deb
 
 
 # Unity Chrome Sandbox Fixes
