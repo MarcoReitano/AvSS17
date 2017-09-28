@@ -1,11 +1,33 @@
 In Dieser Datei befinden sind Anweisungen zum Erstellen und Ausführen des Docker-Containers.
 
-1. Docker Container erstellen.
+Am Anfang gibt es zwei Optionen mit einen vorher heruntergeladenen Unity Paket
+oder ohne einen vorher heruntergeladenen Unity Paket. Siehe 1a. und 1b.
 
-Um den Docker Container zu erstellen, kann folgender Befehl verwendet werden,
-wenn sich im aktuellen Pfad sich im Parent folder befindet im .  Wichtig der Punkt ist Teil
-des Befehls und sollte nicht vergessen werden.  Der Name kann frei gewählt
-werden und wird ohne die {} Klammern geschrieben.
+1a. Docker Image mit vorher heruntergeladenen deb Paket erstellen
+
+Um den diesen Docker Image zu erstellen müssen vorher folgende schritte im
+Vorhinein gemacht werden.
+
+1a.1. Die Richtige Version von Unity installieren diese Findet man unter Folgenden
+Link:
+
+http://beta.unity3d.com/download/e06241adb51f/unity-editor_amd64-5.5.2xf1Linux.deb
+
+1a.2 Diese Datei muss dann im selben Ordner wie die Dockerfile liegen damit
+dieser das Image mit Unity erstellen kann
+
+Danach kann das Docker image mit folgenden Befehl generiert werden. Der Name
+kann frei gewählt werden und wird ohne die {} Klammern geschrieben.
+
+
+docker build -t {name} -f ./unity_preDownloaded_vnc_dockerfile
+
+
+1b. Docker ohne heruntergeladenen Deb paket installieren Image erstellen.
+
+Um den Docker Image zu erstellen, kann folgender Befehl verwendet werden,
+wenn sich im aktuellen Pfad sich im Parent folder befindet. Der Name kann frei
+gewählt werden und wird ohne die {} Klammern geschrieben.
 
 docker build -t {name} -f Docker/unity_vnc_dockerfile
 
@@ -26,12 +48,12 @@ Gewohnten Terminal promt zu bekommen.
 
 3. Vnc Server Verbinden
 
-Um zum Vnc Sever zu verbinden, der auf dem Docker Container läuft. Kann ein Vnc
-client Verwendet werden der Port für den Vnc server ist.
+Um zum Vnc Server zu verbinden, der auf dem Docker Container läuft. Kann ein Vnc
+Client Verwendet werden der Port für den Vnc Server ist.
 
 5901
 
-und das Password für den Vnc Server ist:
+und das Passwort für den Vnc Server ist:
 
 vncpassword
 
@@ -45,8 +67,9 @@ Unity kann folgendermaßen im Terminal gestartet werden.
 
 /opt/Unity/Editor/Unity -logFile
 
-Die -logFile Option erzeugt Output in STDOUT wenn keine Datei angegeben wird.
+Die -logFile Option erzeugt Output im STDOUT wenn keine Datei angegeben wird.
 Nach dem Starten kann mithilfe von Vnc die Lizenz aktiviert werden.
 
 
-Nach der Aktivierung sollte ein "Docker commit" ausgeführt werden.
+Nach der Aktivierung sollte ein "Docker commit" ausgeführt werden. Um die
+Änderung auf das Image zu schreiben
