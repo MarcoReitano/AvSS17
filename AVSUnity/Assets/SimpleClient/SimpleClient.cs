@@ -16,6 +16,22 @@ using UnityEngine.SceneManagement;
 //[ExecuteInEditMode]
 public class SimpleClient : MonoBehaviour
 {
+#if UNITY_EDITOR
+    [MenuItem("DistributedCityGeneration/Create Server")]
+    public static void CreateServer()
+    {
+        GameObject serverGO = new GameObject("Server");
+        SimpleClient server = serverGO.AddComponent<SimpleClient>();
+        server.ServerMode = true;
+    }
+
+    [MenuItem("DistributedCityGeneration/Create Client")]
+    public static void CreateClient()
+    {
+        GameObject clientGO = new GameObject("Client");
+        clientGO.AddComponent<SimpleClient>();
+    }
+#endif 
     #region Inspector
     /// <summary>
     /// The name of the connection to use.
@@ -371,7 +387,7 @@ public class SimpleClient : MonoBehaviour
     // Handle Unity update loop
     private void Update()
     {
-        Debug.Log("<color=blue><b>" + this.name + ": SimpleClient.Update()</b></color>");
+        //Debug.Log("<color=blue><b>" + this.name + ": SimpleClient.Update()</b></color>");
         /** These flags are set by the thread that the AMQP client runs on and then handled in Unity's game thread **/
 
         // The client has connected
@@ -558,6 +574,7 @@ public class SimpleClient : MonoBehaviour
             foreach (var rx in received)
             {
                 // Call the non-threadsafe handler, this should be the actual Unity message handler
+                Debug.Log("Received: " + received.GetLength(0));
                 rx.Subscription.Handler(rx);
             }
         }
@@ -1218,6 +1235,7 @@ public class SimpleClient : MonoBehaviour
     /// <param name="message">The message that was received.</param>
     public void UnityEventDebugQueueMessageHandler(AmqpQueueSubscription subscription, IAmqpReceivedMessage message)
     {
+        currentMessage = message;
         if (ServerMode)
         {
             // Decode as text
@@ -1235,19 +1253,19 @@ public class SimpleClient : MonoBehaviour
         else
         {
             // Decode as text
-            var payload = System.Text.Encoding.UTF8.GetString(message.Body);
+            string payload = System.Text.Encoding.UTF8.GetString(message.Body);
             //new Color(1f, 0.5f, 0);
             Debug.Log("<b>Client:</b> <color=ff7f00ff>Message received on " + subscription.QueueName + ": " +
                 //payload + 
                 "</color>");
-            JobMessage jobMessage = JobMessage.FromJson(payload);
+            jobMessage = JobMessage.FromJson(payload);
 
 
             // Aktuelle Szene als MainScene merken
-            Scene mainScene = EditorSceneManager.GetActiveScene();
+            mainScene = EditorSceneManager.GetActiveScene();
 
             // Neue (leere) Szene erstellen
-            Scene newScene = EditorSceneManager.NewScene(
+            newScene = EditorSceneManager.NewScene(
                 NewSceneSetup.EmptyScene,
                 NewSceneMode.Additive);
 
@@ -1256,27 +1274,45 @@ public class SimpleClient : MonoBehaviour
 
             //###########################
             // Erzeuge Content:
-            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cube.transform.position = new Vector3(jobMessage.x, 0f, jobMessage.y);
-            //###########################
+            //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            //cube.transform.position = new Vector3(jobMessage.x, 0f, jobMessage.y);
 
-            // Szene speichern
-            string filename = RelativeAssetPathTo("Scene_" + jobMessage.x + "_" + jobMessage.y + ".unity");
-            Debug.Log("before newScene-Path: " + newScene.path);
-            EditorSceneManager.SaveScene(newScene, filename);
-            Debug.Log("after newScene-Path: " + newScene.path);
+            Tile newTile = Tile.CreateTileGO(jobMessage.x, jobMessage.y, 5);
+            newTile.ProceduralDone += GenerationDone;
+            newTile.StartQuery();
+            
 
-
-            SceneMessage sceneMessage = new SceneMessage("replyScene_" + jobMessage.x + "_" + jobMessage.y + ".unity", newScene);
-            string jsonMessage = sceneMessage.ToJSON();
-            Debug.Log(jsonMessage);
-            EditorSceneManager.CloseScene(newScene, true);
-            Debug.Log("afterClosing newScene-Path: " + newScene.path);
-            EditorSceneManager.SetActiveScene(mainScene);
-
-            PublishToQueue(jobMessage.replyToQueue, jsonMessage);
-            BasicAck(message.DeliveryTag, false);
+            Debug.Log(jobMessage.x + "/" + jobMessage.y);
+            
         }
+    }
+    Scene mainScene;
+    Scene newScene;
+    JobMessage jobMessage;
+    IAmqpReceivedMessage currentMessage;
+
+    private void GenerationDone(object sender, EventArgs e)
+    {
+        //tiles.Add(i + ":" + j, newTile);
+        //###########################
+
+        // Szene speichern
+        string filename = RelativeAssetPathTo("Scene_" + jobMessage.x + "_" + jobMessage.y + ".unity");
+        Debug.Log("before newScene-Path: " + newScene.path);
+        EditorSceneManager.SaveScene(newScene, filename);
+        Debug.Log("after newScene-Path: " + newScene.path);
+
+
+        SceneMessage sceneMessage = new SceneMessage("replyScene_" + jobMessage.x + "_" + jobMessage.y + ".unity", newScene);
+        string jsonMessage = sceneMessage.ToJSON();
+        Debug.Log(jsonMessage);
+        EditorSceneManager.CloseScene(newScene, true);
+        Debug.Log("afterClosing newScene-Path: " + newScene.path);
+        EditorSceneManager.SetActiveScene(mainScene);
+
+        Debug.Log("Reply newScene to queue: " + jobMessage.replyToQueue);
+        PublishToQueue(jobMessage.replyToQueue, jsonMessage);
+        BasicAck(currentMessage.DeliveryTag, false);
     }
 
     /// <summary>
