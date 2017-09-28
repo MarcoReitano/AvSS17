@@ -224,7 +224,7 @@ public class
 
             float height = 0f;
 
-            //terrain.terrainData.SetHeights(0, 0, SRTMHeightProvider.GetInterpolatedTerrain(this.Query.BoundingBox, out height));
+            terrain.terrainData.SetHeights(0, 0, SRTMHeightProvider.GetInterpolatedTerrain(this.Query.BoundingBox, out height));
             terrain.terrainData.size = new Vector3((float)TileManager.TileWidth * (float)TileManager.Scaling, height, (float)TileManager.TileWidth * (float)TileManager.Scaling);
 
             //SplatPrototypes

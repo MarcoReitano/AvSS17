@@ -105,7 +105,7 @@ public class OSMNode
 
     public static implicit operator Vector3(OSMNode node)
     {
-        return new Vector3(node.X, 0, node.Z);
+        return new Vector3(node.X, SRTMHeightProvider.GetInterpolatedHeight(node.Latitude, node.Longitude), node.Z);
     }
     public static implicit operator Vector2(OSMNode node)
     {

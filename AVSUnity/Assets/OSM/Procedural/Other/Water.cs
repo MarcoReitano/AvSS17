@@ -74,7 +74,7 @@ public class Water : IProceduralObjects
             {
                 if (osm.nodes.TryGetValue(way.WayNodes[i], out node))
                 {
-                    Vector3 pos = new Vector3(node.X, 0, node.Z);
+                    Vector3 pos = new Vector3(node.X, SRTMHeightProvider.GetInterpolatedHeight(node.Latitude, node.Longitude), node.Z);
                     layout.Add(new Vertex(pos));
                 }
             }
@@ -86,7 +86,7 @@ public class Water : IProceduralObjects
             {
                 if (osm.nodes.TryGetValue(way.WayNodes[i], out node))
                 {
-                    Vector3 pos = new Vector3(node.X, 0, node.Z);
+                    Vector3 pos = new Vector3(node.X, SRTMHeightProvider.GetInterpolatedHeight(node.Latitude, node.Longitude), node.Z);
                     layout.Add(new Vertex(pos));
                 }
 
