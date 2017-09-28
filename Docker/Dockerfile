@@ -21,7 +21,7 @@ RUN apt-get install -qq -y curl gconf-service lib32gcc1 lib32stdc++6 libasound2 
 # Create Dirs for Unity
 RUN mkdir -p $HOME/.cache/unity3d && mkdir -p $HOME/.local/share/unity3d
 
-
+ADD ./AVSUnity /app/AVSUnity
 ADD ./UnityInstall/unity-editor_amd64-5.6.3xf1Linux.deb .
 
 #install the Downloaded Editor
@@ -37,4 +37,4 @@ RUN chmod 4755 /opt/Unity/Editor/chrome-sandbox
 
 # Clone the Project from github
 RUN cd $HOME
-RUN git clone https://github.com/MarcoReitano/AvSS17.git
+#RUN git clone https://github.com/MarcoReitano/AvSS17.git
