@@ -75,10 +75,12 @@ public class
     private System.Text.StringBuilder sB = new System.Text.StringBuilder();
 
     bool shouldStartProcedural = false;
+    public bool done = false;
 
     public event EventHandler ProceduralDone;
     protected void OnProceduralDone()
     {
+        done = true;
         if (ProceduralDone != null)
             ProceduralDone(this, new EventArgs());
     }

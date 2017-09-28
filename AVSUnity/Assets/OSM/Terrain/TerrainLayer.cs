@@ -16,7 +16,7 @@ public static class TerrainLayer
         minTerrainHeightSet = false;
         minTerrainHeight = 0f;
         maxTerrainHeight = 1f;
-        Debug.Log("RESET");
+        //Debug.Log("RESET");
     }
 
     public static float MinTerrainHeight
