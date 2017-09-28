@@ -1,37 +1,22 @@
 In Dieser Datei befinden sind Anweisungen zum Erstellen und Ausführen des Docker-Containers.
 
-Am Anfang gibt es zwei Optionen mit einen vorher heruntergeladenen Unity Paket
-oder ohne einen vorher heruntergeladenen Unity Paket. Siehe 1a. und 1b.
-
 1a. Docker Image mit vorher heruntergeladenen deb Paket erstellen
 
 Um den diesen Docker Image zu erstellen müssen vorher folgende schritte im
 Vorhinein gemacht werden.
 
-1a.1. Die Richtige Version von Unity installieren diese Findet man unter Folgenden
+1.1. Die Richtige Version von Unity installieren diese Findet man unter Folgenden
 Link:
 
-http://beta.unity3d.com/download/e06241adb51f/unity-editor_amd64-5.5.2xf1Linux.deb
+http://beta.unity3d.com/download/d72e16ff4aba/unity-editor_amd64-5.6.3xf1Linux.deb
 
-1a.2 Diese Datei muss dann im selben Ordner wie die Dockerfile liegen damit
+1.2 Diese Datei muss dann im selben Ordner wie die Dockerfile liegen damit
 dieser das Image mit Unity erstellen kann
 
-Danach kann das Docker image mit folgenden Befehl generiert werden. Der Name
-kann frei gewählt werden und wird ohne die {} Klammern geschrieben.
+Danach kann das Docker image mit folgenden Befehl generiert werden.
 
+docker build -t avsunity -f ./Docker/Dockerfile
 
-docker build -t {name} -f ./unity_preDownloaded_vnc_dockerfile
-
-
-1b. Docker ohne heruntergeladenen Deb paket installieren Image erstellen.
-
-Um den Docker Image zu erstellen, kann folgender Befehl verwendet werden,
-wenn sich im aktuellen Pfad sich im Parent folder befindet. Der Name kann frei
-gewählt werden und wird ohne die {} Klammern geschrieben.
-
-docker build -t {name} -f Docker/unity_vnc_dockerfile
-
-Dieser Prozess kann eine Ganze weile dauern.
 
 2. Docker Container Ausführen
 
@@ -39,7 +24,7 @@ Um Den Docker-Container Auszuführen wird der Unten stehende Befehl verwendet.De
 Name ist hier derselbe wie beim Erstellen des Containers.  Die --privileged
 Option ist aufgrund der Chrome Sandbox die Unity verwendet.
 
-docker run -ti -p 5901:5901 -p 6901:6901 --privileged {name} bash
+docker run -ti -p 5901:5901 -p 6901:6901 --privileged avsunity bash
 
 Nach diesen Befehl befindet man sich Im Docker "interactive terminal" und kann
 Terminalbefehle im Docker Container ausführen. Wichtig es kommen paar Ausgaben
