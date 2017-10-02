@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 
+#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
+#endif
+
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,7 +22,6 @@ public class SceneMessage
         this.scene = scene;
         this.sceneBytes = SceneFileToByteArray(this.scene);
     }
-
 
     public string ToJSON()
     {
@@ -46,7 +46,11 @@ public class SceneMessage
     public static Scene ByteArrayToScene(string filename, byte[] bytes)
     {
         ByteArrayToSceneFile(filename, bytes);
+#if UNITY_EDITOR
         return EditorSceneManager.OpenScene(Application.dataPath + "/" + filename, OpenSceneMode.Additive);
+#else
+        return SceneManager.GetSceneByPath(Application.dataPath + "/" + filename);
+#endif
     }
 
     public static void ByteArrayToSceneFile(string filename, byte[] bytes)

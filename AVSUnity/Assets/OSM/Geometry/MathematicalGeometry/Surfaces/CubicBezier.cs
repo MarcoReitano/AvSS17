@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System.Globalization;
 
 
@@ -113,20 +115,7 @@ public class CubicBezier : MonoBehaviour
         meshFilter.sharedMesh = null;
     }
 
-    public void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(this.startPosition, 0.3f);
-        Gizmos.DrawSphere(this.endPosition, 0.3f);
 
-        DrawBezier(Color.green);
-
-        //if (this.curves != null)
-        //{
-        //    foreach (List<Vector3> points in curves)
-        //        DrawBezier(points, Color.yellow);
-        //}
-    }
 
     public Vector3 GetMinDistancePointOnCurve(Vector3 point)
     {
@@ -147,9 +136,24 @@ public class CubicBezier : MonoBehaviour
         return returnValue;
     }
 
-
+#if UNITY_EDITOR
     public float width = 1f;
     public bool isLine = false;
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(this.startPosition, 0.3f);
+        Gizmos.DrawSphere(this.endPosition, 0.3f);
+
+        DrawBezier(Color.green);
+
+        //if (this.curves != null)
+        //{
+        //    foreach (List<Vector3> points in curves)
+        //        DrawBezier(points, Color.yellow);
+        //}
+    }
 
     public void OnDrawGizmosSelected()
     {
@@ -223,7 +227,7 @@ public class CubicBezier : MonoBehaviour
         DrawBezier(points, color);
 
     }
-
+#endif
     //public void DrawBezierOffset(Color color, float offset, float heightOffset)
     //{
     //    if (this.bezierPoints != null)

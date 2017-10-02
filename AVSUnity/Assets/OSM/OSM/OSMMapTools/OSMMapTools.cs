@@ -8,11 +8,14 @@ using System.Collections;
 /// OSMColors.
 /// </summary>
 
+#if UNITY_EDITOR
 [InitializeOnLoad]
+#endif
 public static class OSMMapTools
 {
     static OSMMapTools()
     {
+#if UNITY_EDITOR
         defaultColor = HasColorKey("OSMdefaultColor") ? GetColor("OSMdefaultColor") : SetColor("OSMdefaultColor", defaultColor);
         highwayColor = HasColorKey("OSMhighwayColor") ? GetColor("OSMhighwayColor") : SetColor("OSMhighwayColor", highwayColor);
         highwayFootwayColor = HasColorKey("OSMhighwayFootwayColor") ? GetColor("OSMhighwayFootwayColor") : SetColor("OSMhighwayFootwayColor", highwayFootwayColor);
@@ -28,6 +31,7 @@ public static class OSMMapTools
             keySearchTerm = EditorPrefs.GetString("OSMKeySearchTerm");
         if (EditorPrefs.HasKey("OSMValueSearchTerm"))
             valueSearchTerm = EditorPrefs.GetString("OSMValueSearchTerm");
+#endif
     }
 
     public static Color DefaultColor
@@ -38,8 +42,10 @@ public static class OSMMapTools
             if (defaultColor != value)
             {
                 defaultColor = value;
+#if UNITY_EDITOR
                 SetColor("OSMdefaultColor", value);
                 SceneView.RepaintAll();
+#endif
             }
         }
  
@@ -52,8 +58,10 @@ public static class OSMMapTools
             if (highwayColor != value)
             {
                 highwayColor = value;
+#if UNITY_EDITOR
                 SetColor("OSMhighwayColor", value);
                 SceneView.RepaintAll();
+#endif
             }
         }
     }
@@ -65,8 +73,10 @@ public static class OSMMapTools
             if (highwayFootwayColor != value)
             {
                 highwayFootwayColor = value;
+#if UNITY_EDITOR
                 SetColor("OSMhighwayFootwayColor", value);
                 SceneView.RepaintAll();
+#endif
             }
         }
     }
@@ -78,8 +88,10 @@ public static class OSMMapTools
             if (highwayServiceColor != value)
             {
                 highwayServiceColor = value;
+#if UNITY_EDITOR
                 SetColor("OSMhighwayServiceColor", value);
                 SceneView.RepaintAll();
+#endif
             }
         }
     }
@@ -91,8 +103,10 @@ public static class OSMMapTools
             if (highwaySecondaryColor != value)
             {
                 highwaySecondaryColor = value;
+#if UNITY_EDITOR
                 SetColor("OSMhighwaySecondaryColor", value);
                 SceneView.RepaintAll();
+#endif
             }
         }
     }
@@ -104,8 +118,10 @@ public static class OSMMapTools
             if (highwayTertiaryColor != value)
             {
                 highwayTertiaryColor = value;
+#if UNITY_EDITOR
                 SetColor("OSMhighwayTertiaryColor", value);
                 SceneView.RepaintAll();
+#endif
             }
         }
     }
@@ -117,8 +133,10 @@ public static class OSMMapTools
             if (buildingColor != value)
             {
                 buildingColor = value;
+#if UNITY_EDITOR
                 SetColor("OSMbuildingColor", value);
                 SceneView.RepaintAll();
+#endif
             }
         }
     }
@@ -130,8 +148,10 @@ public static class OSMMapTools
             if (waterwayColor != value)
             {
                 waterwayColor = value;
+#if UNITY_EDITOR
                 SetColor("OSMwaterwayColor", value);
                 SceneView.RepaintAll();
+#endif
             }
         }
     }
@@ -144,8 +164,10 @@ public static class OSMMapTools
             if (highlightColor != value)
             {
                 highlightColor = value;
+#if UNITY_EDITOR
                 SetColor("OSMhighlightColor", value);
                 SceneView.RepaintAll();
+#endif
             }
  
         }
@@ -161,7 +183,7 @@ public static class OSMMapTools
     private static Color waterwayColor= Color.blue;
 
     private static Color highlightColor = Color.red;
-
+#if UNITY_EDITOR
     public static void ResetToDefaultColors()
     {
         defaultColor = SetColor("OSMdefaultColor", Color.gray);
@@ -203,6 +225,7 @@ public static class OSMMapTools
             return false;
     }
 
+
     #region Key Value Search
     public static bool KeySearch
     {
@@ -243,6 +266,7 @@ public static class OSMMapTools
     private static string keySearchTerm = "";
     private static string valueSearchTerm = "";
     #endregion
+#endif
 
     public static OSMWay SelectedWay;
 
@@ -254,7 +278,9 @@ public static class OSMMapTools
             if (drawOnTerrainHeight != value)
             {
                 drawOnTerrainHeight = value;
+#if UNITY_EDITOR
                 SceneView.RepaintAll();
+#endif
             }
         }
     }
@@ -267,7 +293,9 @@ public static class OSMMapTools
             if (drawAsHandles != value)
             {
                 drawAsHandles = value;
+#if UNITY_EDITOR
                 SceneView.RepaintAll();
+#endif
             }
         }
     }

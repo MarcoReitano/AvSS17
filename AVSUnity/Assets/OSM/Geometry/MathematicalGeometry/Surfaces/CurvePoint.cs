@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 //using CITYEditor.Util.Procedural;
 
 
@@ -144,8 +143,8 @@ public class CurvePoint : MonoBehaviour
 	}
 
 
-
-	public void OnDrawGizmos()
+#if UNITY_EDITOR
+    public void OnDrawGizmos()
 	{
 		Gizmos.DrawIcon(Position, "CurvesAndSurfaces/red8.png");
 	}
@@ -160,10 +159,10 @@ public class CurvePoint : MonoBehaviour
 		Handles.Label(StartTangentPosition, "Ts");
 		Handles.Label(EndTangentPosition, "Te");
 	}
+#endif
 
 
-
-	[SerializeField]
+    [SerializeField]
 	private List<UnityEngine.Object> positionListener = new List<UnityEngine.Object>();
 
 

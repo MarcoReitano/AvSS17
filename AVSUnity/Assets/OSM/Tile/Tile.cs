@@ -419,7 +419,7 @@ public class
     public bool drawOSMHandles = false;
     public bool drawOSMGizmos = true;
     public bool drawStreetPolygonGizmos = false;
-
+#if UNITY_EDITOR
     public void OnDrawGizmos()
     {
         if (LayerTool.OSMGizmoMap && !LayerTool.OSMGizmoMapOnlyOnSelected && !OSMMapTools.DrawAsHandles)//Only draw Gizmos, when no control key is pressed, otherwise draw Handles (from TileEditor.OnSceneGUI)
@@ -447,5 +447,5 @@ public class
             }
         }
     }
-
+#endif
 }

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 
@@ -20,8 +20,6 @@ public static class OSMTileProvider
     private static double[] metersPerPixel = new double[30];
 
     public static readonly int TileSizeInPixels = 256;  // Für mobile auch 64 möglich
-
-
 
     // Static constructor for the initialisation of the degreesPerPixel Array
     static OSMTileProvider()
@@ -335,10 +333,12 @@ public static class OSMTileProvider
             //string url = "http://tile.stamen.com/toner" + tilePath;
             //string url = "http://tile.stamen.com/watercolor" + tilePath;
 
-            string tmpFolder = EditorPrefs.GetString("OSMTileCachePath");
-            if (tmpFolder == null || tmpFolder == "") {
-                tmpFolder = Application.dataPath + @"/OSM_TILE_TMP";
-            }
+            string tmpFolder;
+#if UNITY_EDITOR
+            tmpFolder = EditorPrefs.GetString("OSMTileCachePath");
+#else
+            tmpFolder = Application.dataPath + @"/OSM_TILE_TMP";
+#endif
             //string tmpFolder = EditorApplication.applicationContentsPath + @"/OSM_TILE_TMP";
             string tmpFile = tmpFolder + tilePath;
 

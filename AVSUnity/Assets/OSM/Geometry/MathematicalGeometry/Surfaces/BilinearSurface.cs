@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class BilinearSurface : MonoBehaviour
@@ -137,6 +139,7 @@ public class BilinearSurface : MonoBehaviour
     public bool drawGizmos = true;
     public bool drawMeshGizmo = false;
 
+#if UNITY_EDITOR
     public void OnDrawGizmos()
     {
 
@@ -176,15 +179,6 @@ public class BilinearSurface : MonoBehaviour
         //		
 
     }
-
-
-    void Reset()
-    {
-        GenerateMesh();
-
-    }
-
-
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
@@ -196,6 +190,15 @@ public class BilinearSurface : MonoBehaviour
         Handles.Label(this.P10, "P10");
         Handles.Label(this.P11, "P11");
     }
+#endif
+
+    void Reset()
+    {
+        GenerateMesh();
+
+    }
+
+
 
 
     public Mesh mesh;

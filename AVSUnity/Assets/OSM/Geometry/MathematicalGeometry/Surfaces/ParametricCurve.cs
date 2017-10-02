@@ -1,6 +1,7 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
-using System.Collections;
+#endif
 using System.Collections.Generic;
 
 public class ParametricCurve : MonoBehaviour
@@ -66,26 +67,26 @@ public class ParametricCurve : MonoBehaviour
 		}
 	}
 
-//	public void CalculatePointsLong()
-//	{
-//		points = new List<Vector3>();
-//
-//		float delta = 0.1f; //1/steps;
-//
-//
-//		for(float t = 0f; t < 1f; t += delta) {
-//			points.Add(
-//			           A * Mathf.Pow(t,3) +
-//			           B * Mathf.Pow(t,2) +
-//			           C * t +
-//			           D);
-//		}
-//	}
+    //	public void CalculatePointsLong()
+    //	{
+    //		points = new List<Vector3>();
+    //
+    //		float delta = 0.1f; //1/steps;
+    //
+    //
+    //		for(float t = 0f; t < 1f; t += delta) {
+    //			points.Add(
+    //			           A * Mathf.Pow(t,3) +
+    //			           B * Mathf.Pow(t,2) +
+    //			           C * t +
+    //			           D);
+    //		}
+    //	}
 
 
 
-
-	public void OnDrawGizmos()
+#if UNITY_EDITOR
+    public void OnDrawGizmos()
 	{
 		
 		if(points != null) {
@@ -103,10 +104,10 @@ public class ParametricCurve : MonoBehaviour
 			}
 		}
 	}
+#endif
 
-
-	// Use this for initialization
-	void Start()
+    // Use this for initialization
+    void Start()
 	{
 		
 	}

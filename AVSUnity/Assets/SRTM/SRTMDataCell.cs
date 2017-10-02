@@ -626,13 +626,17 @@ public class SRTMDataCell
                     progressBar += prozent;
 
                 }
+#if UNITY_EDITOR
                 UnityEditor.EditorUtility.DisplayProgressBar("Writing to File: " + file,
                         "writing",
                         progressBar);
+#endif
                 writer.WriteLine();
             }
             writer.Close();
+#if UNITY_EDITOR
             UnityEditor.EditorUtility.ClearProgressBar();
+#endif
         }
         catch
         {

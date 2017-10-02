@@ -8,7 +8,9 @@ using UnityEditor;
 /// <summary>
 /// SRTMHeightProvider.
 /// </summary>
+#if UNITY_EDITOR
 [InitializeOnLoad]
+#endif
 public static class SRTMHeightProvider
 {
     static SRTMHeightProvider()
@@ -49,8 +51,7 @@ public static class SRTMHeightProvider
     //public static string SRTMDataPath = "C:/Users/MReitano/Documents/DEV/Resources/SRTM/version21/eurasia"; // Büro Win Marco
     //public static string SRTMDataPath = "E:/DEV/SRTM"; // Home Win Marco
     public static string SRTMDataPath = "C:/UnityWorkspace/GeoData/SRTM/";//eurasia"; // Dennis Büro
-
-
+    
     public static void PrintDataCells()
     {
         StringBuilder sb = new StringBuilder();

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class BicubicPatch : MonoBehaviour
 {
@@ -81,9 +83,6 @@ public class BicubicPatch : MonoBehaviour
     //    return result;
     //}
 
-
-
-
     public Vector3 P(float u, float w)
     {
 
@@ -129,8 +128,6 @@ public class BicubicPatch : MonoBehaviour
         }
     }
 
-
-
     //	public Vector3[,] surfacePoints;
     public List<Vector3> surfacePoints;
 
@@ -174,6 +171,7 @@ public class BicubicPatch : MonoBehaviour
     public bool drawGizmos = true;
     public bool drawMeshGizmo = false;
 
+#if UNITY_EDITOR
     public void OnDrawGizmos()
     {
 
@@ -201,8 +199,7 @@ public class BicubicPatch : MonoBehaviour
                 Gizmos.DrawLine(this.points[u, w], this.points[u + 1, w]);
 
     }
-
-
+    
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
@@ -212,7 +209,7 @@ public class BicubicPatch : MonoBehaviour
                 Handles.Label(this.points[u, w], "P" + u + w);
 
     }
-
+#endif
 
     public Mesh mesh;
     public bool generateMesh = true;
@@ -292,9 +289,6 @@ public class BicubicPatch : MonoBehaviour
 
         }
     }
-
-
-
 
     public void Initialize()
     {

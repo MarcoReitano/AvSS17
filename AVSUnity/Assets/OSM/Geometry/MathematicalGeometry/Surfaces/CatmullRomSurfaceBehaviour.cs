@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System.Collections.Generic;
 
 public class CatmullRomSurfaceBehaviour : MonoBehaviour
@@ -74,6 +76,7 @@ public class CatmullRomSurfaceBehaviour : MonoBehaviour
     public bool drawGizmos = true;
     public bool drawMeshGizmo = false;
 
+#if UNITY_EDITOR
     public void OnDrawGizmos()
     {
         DrawSurface();
@@ -100,7 +103,6 @@ public class CatmullRomSurfaceBehaviour : MonoBehaviour
             for (int y = 0; y < surface.NumberOfControlPointsHeight; y++)
                 Gizmos.DrawLine(surface.controlPoints[x, y], surface.controlPoints[x + 1, y]);
     }
-
 
     public void DrawControlGridSplines()
     {
@@ -130,7 +132,6 @@ public class CatmullRomSurfaceBehaviour : MonoBehaviour
             CardinalSpline.DrawCurveGizmo(points, 0.5f, Color.red);
         }
     }
-
 
     void OnDrawGizmosSelected()
     {
@@ -169,9 +170,7 @@ public class CatmullRomSurfaceBehaviour : MonoBehaviour
             for (int w = 0; w < surface.surfacePoints.Height; w++)
                 Gizmos.DrawLine(surface.surfacePoints[u, w], surface.surfacePoints[u + 1, w]);
     }
-
-
-
+#endif
 
     public Mesh mesh;
     public bool generateMesh = true;

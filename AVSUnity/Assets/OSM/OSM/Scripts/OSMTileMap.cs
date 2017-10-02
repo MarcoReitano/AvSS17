@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using System.Net;
 using System.IO;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 
 public class OSMTileMap
 {
-
-    
-
     public OSMTileMap()
     {
 
@@ -48,7 +44,9 @@ public class OSMTileMap
             LoadTileTextures();
 
         // Display the Map
+#if UNITY_EDITOR
         DisplayTileTextures();
+#endif
 
     }
 
@@ -150,7 +148,7 @@ public class OSMTileMap
             mouseTexture.Apply();
         }
     }
-
+#if UNITY_EDITOR
     /// <summary>
     /// 
     /// </summary>
@@ -175,7 +173,7 @@ public class OSMTileMap
             xIndex++;
         }
     }
-
+#endif
     /// <summary>
     /// 
     /// </summary>
@@ -211,7 +209,11 @@ public class OSMTileMap
             string tilePath = "/" + zoom + "/" + xpos + "/" + ypos + ".png";
             string url = "http://tile.openstreetmap.org" + tilePath;
 
+#if UNITY_EDITOR
             string tmpFolder = EditorApplication.applicationContentsPath + @"/OSM_TILE_TMP";
+#else
+            string tmpFolder = Application.dataPath + @"/OSM_TILE_TMP";
+#endif
             string tmpFile = tmpFolder + tilePath;
 
             if (!Directory.Exists(tmpFolder + @"/" + zoom + "/" + xpos))

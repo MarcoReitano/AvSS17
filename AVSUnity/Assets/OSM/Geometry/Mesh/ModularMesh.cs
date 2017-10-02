@@ -304,11 +304,7 @@ public class ModularMesh
 
         relatedUnityMesh.RecalculateBounds();
         mF.mesh = relatedUnityMesh;
-#if UNITY_EDITOR
         mC.sharedMesh = relatedUnityMesh;
-#else
-        mC.mesh = mesh;
-#endif
     }
     public void FillMeshDivideMaterials(Transform transform, bool excludingChilds, bool destroyChildsFirst)
     {
@@ -321,16 +317,12 @@ public class ModularMesh
         if (!mR)
             mR = transform.gameObject.GetComponent<MeshRenderer>();
 
-#if UNITY_EDITOR
         if(mC.sharedMesh != null)
             mC.sharedMesh.Clear();
         mC.sharedMesh = null;
         if(mF.sharedMesh != null)
             mF.sharedMesh.Clear();
-#else
-        mC.mesh.Clear();
-        mF.mesh.Clear();
-#endif
+
         mR.materials = new Material[0];
 
         if (excludingChilds)

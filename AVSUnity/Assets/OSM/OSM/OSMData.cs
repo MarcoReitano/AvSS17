@@ -215,6 +215,7 @@ public class OSMData
     public Dictionary<long, OSMWay> ways = new Dictionary<long, OSMWay>();
     public Dictionary<long, OSMRelation> relations = new Dictionary<long, OSMRelation>();
 
+#if UNITY_EDITOR
     public void OnDrawGizmos(Vector3 osmPos)
     {
         //if (nodes != null)
@@ -303,7 +304,6 @@ public class OSMData
         }
     }
 
-#if UNITY_EDITOR
     public void OnSceneGUI()
     {
         //if (nodes != null)

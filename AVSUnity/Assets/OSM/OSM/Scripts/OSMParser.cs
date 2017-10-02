@@ -3,7 +3,9 @@ using System.IO;
 using System.Xml;
 using UnityEngine;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System.Diagnostics;
 
 using Debug = UnityEngine.Debug;
@@ -96,8 +98,11 @@ public class OSMParser
         Stopwatch timer = new Stopwatch();
         timer.Start();
 
-
+#if UNITY_EDITOR
         string tmpFolder = EditorApplication.applicationContentsPath + @"/OSM_TMP/";
+#else
+        string tmpFolder = Application.dataPath + @"/OSM_TMP/";
+#endif
         string tmpFile = tmpFolder + MapBounds.MaxBounds(this.boundsList).GetHashCode();
 
 
@@ -106,7 +111,11 @@ public class OSMParser
             if (!Directory.Exists(tmpFolder))
             {
                 Debug.Log("!Directory.Exists(tmpFolder): " + !Directory.Exists(tmpFolder));
+#if UNITY_EDITOR
                 string newPath = Path.Combine(EditorApplication.applicationContentsPath, "OSM_TMP");
+#else
+                string newPath = Path.Combine(Application.dataPath, "OSM_TMP");
+#endif
                 Directory.CreateDirectory(newPath);
             }
 
@@ -170,7 +179,9 @@ public class OSMParser
                 yPointer -= chunkHeight;
             }
             Debug.Log("\r* Parsing completed...\n");
+#if UNITY_EDITOR
             EditorUtility.DisplayProgressBar("OSM-Data", "Writing to XML-File... ", this.progressBar);
+#endif
 
             //this.WriteXMLFile(@"e:\dennis\XML-Chunks\Unity-Test.osm");
             this.WriteXMLFile(tmpFile);
@@ -201,8 +212,11 @@ public class OSMParser
         Stopwatch timer = new Stopwatch();
         timer.Start();
 
-
+#if UNITY_EDITOR
         string tmpFolder = EditorApplication.applicationContentsPath + @"/OSM_TMP/";
+#else
+        string tmpFolder = Application.dataPath + @"/OSM_TMP/";
+#endif
         string tmpFile = tmpFolder + MapBounds.MaxBounds(this.boundsList).GetHashCode();
 
 
@@ -211,7 +225,11 @@ public class OSMParser
             if (!Directory.Exists(tmpFolder))
             {
                 Debug.Log("!Directory.Exists(tmpFolder): " + !Directory.Exists(tmpFolder));
+#if UNITY_EDITOR
                 string newPath = Path.Combine(EditorApplication.applicationContentsPath, "OSM_TMP");
+#else
+                string newPath = Path.Combine(Application.dataPath, "OSM_TMP");
+#endif
                 Directory.CreateDirectory(newPath);
             }
 
@@ -241,7 +259,9 @@ public class OSMParser
             this.ParseOSM();
 
             Debug.Log("\r* Parsing completed...\n");
+#if UNITY_EDITOR
             EditorUtility.DisplayProgressBar("OSM-Data", "Writing to XML-File... ", this.progressBar);
+#endif
 
             //this.WriteXMLFile(@"e:\dennis\XML-Chunks\Unity-Test.osm");
             this.WriteXMLFile(tmpFile);
@@ -285,7 +305,6 @@ public class OSMParser
         }
         return this.map;
     }
-
 
     public void WriteXMLFile(string pathAndFilename)
     {

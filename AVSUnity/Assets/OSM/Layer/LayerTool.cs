@@ -8,8 +8,9 @@ using System.Collections.Generic;
 /// <summary>
 /// LayerTool.
 /// </summary>
-
+#if UNITY_EDITOR
 [InitializeOnLoad]
+#endif
 public static class LayerTool
 {
     public static bool Terrain

@@ -6,8 +6,8 @@ using CymaticLabs.Unity3D.Amqp;
 using CymaticLabs.Unity3D.Amqp.SimpleJSON;
 using CymaticLabs.Unity3D.Amqp.UI;
 
-using UnityEditor.SceneManagement;
 #if UNITY_EDITOR
+using UnityEditor.SceneManagement;
 using UnityEditor;
 #endif
 using UnityEngine;
@@ -598,7 +598,7 @@ public class SimpleClient : MonoBehaviour
         }
         #endregion // Process Async Queue Listings
     }
-    #endregion // Update
+#endregion // Update
 
     #region Clean Up
     // Handles clean-up of AMQP resources when quitting the application
@@ -1262,8 +1262,13 @@ public class SimpleClient : MonoBehaviour
 
 
             // Aktuelle Szene als MainScene merken
+#if UNITY_EDITOR
             mainScene = EditorSceneManager.GetActiveScene();
+#else
+            mainScene = SceneManager.GetActiveScene();
+#endif
 
+#if UNITY_EDITOR
             // Neue (leere) Szene erstellen
             newScene = EditorSceneManager.NewScene(
                 NewSceneSetup.EmptyScene,
@@ -1271,6 +1276,10 @@ public class SimpleClient : MonoBehaviour
 
             // Neue Szene als aktive Szene setzen
             EditorSceneManager.SetActiveScene(newScene);
+#else
+            newScene = SceneManager.CreateScene("");
+            SceneManager.SetActiveScene(newScene);
+#endif
 
             //###########################
             // Erzeuge Content:
@@ -1299,16 +1308,29 @@ public class SimpleClient : MonoBehaviour
         // Szene speichern
         string filename = RelativeAssetPathTo("Scene_" + jobMessage.x + "_" + jobMessage.y + ".unity");
         Debug.Log("before newScene-Path: " + newScene.path);
+#if UNITY_EDITOR
         EditorSceneManager.SaveScene(newScene, filename);
+#else
+        //TODO: SceneManager cant save scenes? What to do? Do we need to save?
+#endif
         Debug.Log("after newScene-Path: " + newScene.path);
 
 
         SceneMessage sceneMessage = new SceneMessage("replyScene_" + jobMessage.x + "_" + jobMessage.y + ".unity", newScene);
         string jsonMessage = sceneMessage.ToJSON();
         Debug.Log(jsonMessage);
+#if UNITY_EDITOR
         EditorSceneManager.CloseScene(newScene, true);
+#else
+        //TODO: SceneManager cant close scenes, do we have to?
+#endif 
+
         Debug.Log("afterClosing newScene-Path: " + newScene.path);
+#if UNITY_EDITOR
         EditorSceneManager.SetActiveScene(mainScene);
+#else
+        SceneManager.SetActiveScene(mainScene);
+#endif
 
         Debug.Log("Reply newScene to queue: " + jobMessage.replyToQueue);
         PublishToQueue(jobMessage.replyToQueue, jsonMessage);
@@ -1333,6 +1355,6 @@ public class SimpleClient : MonoBehaviour
     {
         return "Assets" + Application.dataPath.Substring(Application.dataPath.Length);
     }
-    #endregion // Utility
-    #endregion // Methods
+#endregion // Utility
+#endregion // Methods
 }
