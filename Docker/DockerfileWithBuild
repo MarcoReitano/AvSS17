@@ -1,0 +1,8 @@
+From ubuntu:latest
+
+USER root
+
+ADD ./Build /app
+
+RUN chmod +x ./app/Standard.x86_64
+RUN ./app/Standard.x86_64
