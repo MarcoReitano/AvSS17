@@ -1,0 +1,10 @@
+version: "3"
+services:
+    avsbuild:
+        build:
+           context: ../
+           dockerfile: /DockerfileWithBuild
+        networks:
+            - avsnetwork
+networks:
+    avsnetwork:
