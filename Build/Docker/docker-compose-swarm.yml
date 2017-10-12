@@ -1,0 +1,30 @@
+version: "3"
+services:
+  avsbuild:
+    image: avsbuild
+    deploy:
+      replicas: 2
+    networks:
+      - avsnetwork
+  rabbit:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    deploy:
+      replicas: 1
+    networks:
+      - avsnetwork
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - avsnetwork
+networks:
+  avsnetwork:
