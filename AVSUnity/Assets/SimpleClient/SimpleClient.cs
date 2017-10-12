@@ -787,6 +787,7 @@ public class SimpleClient : MonoBehaviour
         }
 
         this.client.BasicQos(0, 1, false);
+        SubscribeToQueue("avsqueue");
     }
 
     // Handles when the client starts disconnecting
