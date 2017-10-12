@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function cmd() {
-    $1
+bash -c "$1"
     if [[ $? != 0 ]]; then
         echo "failed to run: $1"
         exit 0
@@ -43,8 +43,7 @@ echo "| Creatring a Swarm  as the Manager |"
 echo "+-----------------------------------+"
 docker swarm leave --force
 cmd "docker swarm init --advertise-addr=$1"
-
-cmd "docker swarm join-token worker | grep docker | sed 's/ *//' | tee tokenfile.sh"
+cmd 'docker swarm join-token worker  | grep docker  | sed s/\ *// | tee tokenfile.sh'
 cmd 'sudo chmod +x ./tokenfile.sh'
 
 echo "+---------------------------------------------+"
