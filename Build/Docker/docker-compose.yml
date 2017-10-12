@@ -2,12 +2,5 @@ version: "3"
 services:
     avsbuild:
         build:
-           context: ../../Build
-           dockerfile: Docker/DockerfileWithBuild
-        networks:
-           avsnetwork:
-                aliases:
-                    - avsbuild
-networks:
-    avsnetwork:
-        driver: bridge
+           context: ./../
+           dockerfile: Docker/Dockerfile
