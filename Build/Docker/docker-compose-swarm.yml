@@ -3,7 +3,7 @@ services:
   avsbuild:
     image: docker_avsbuild
     deploy:
-      replicas: 2
+      replicas: 5
     networks:
       - avsnetwork
   rabbit:
