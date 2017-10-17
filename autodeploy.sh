@@ -30,7 +30,7 @@ if  $(uname | grep 'darwin' -i -q) ; then
         if [[ $? != 0 ]]; then
             /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         fi
-        cmd 'brew install docker'
+        cmd 'brew cask install docker'
         which docker
         if [[ $? != 0 ]]; then
             echo "docker coudn't be installed"
@@ -45,22 +45,21 @@ fi
 
 # All other Machines
 for ip in $(cat ./hosts) ; do
-    ssh -t "$2@$ip" "which docker"
+    ssh -t "$2@$ip" "ls /Applications/Docker.app"
     if [[ $? != 0 ]]; then
-        ssh -t "$2@$ip" "which brew"
+        ssh -t "$2@$ip" "ls /usr/local/bin/brew"
         if [[ $? != 0 ]]; then
             ssh -t "$2@$ip" '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
         fi
-        ssh -t "$2@$ip" 'brew install docker'
+        ssh -t "$2@$ip" 'brew cask install docker'
 
-        ssh -t "$2@$ip" "which docker"
+        ssh -t "$2@$ip" "ls /Applications/Docker.app"
         if [[ $? != 0 ]]; then
             echo "docker coudn't be installed on machine $ip"
         fi
     fi
-    ssh -t "$2@$ip" "which docker"
+    cmd "open /Applications/Docker.app"
 done
-
 
 
 cmd 'docker-compose -f ./Build/Docker/docker-compose.yml build'
