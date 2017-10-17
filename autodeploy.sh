@@ -8,9 +8,9 @@ function cmd() {
     fi
 }
 
-if [[ $# < 2 ]]; then
+if [[ $# < 1 ]]; then
     echo 'Ip address is missing please give the IP address as the argument'
-    echo './autodeploy.sh [IP Address] [user]'
+    echo './autodeploy.sh [IP Address]'
     exit 0
 fi
 
@@ -45,15 +45,15 @@ fi
 
 # All other Machines
 for ip in $(cat ./hosts) ; do
-    ssh -t "$2@$ip" "ls /Applications/Docker.app"
+    ssh -t "$USER@$ip" "ls /Applications/Docker.app"
     if [[ $? != 0 ]]; then
-        ssh -t "$2@$ip" "ls /usr/local/bin/brew"
+        ssh -t "$USER@$ip" "ls /usr/local/bin/brew"
         if [[ $? != 0 ]]; then
-            ssh -t "$2@$ip" '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+            ssh -t "$USER@$ip" '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
         fi
-        ssh -t "$2@$ip" 'brew cask install docker'
+        ssh -t "$USER@$ip" 'brew cask install docker'
 
-        ssh -t "$2@$ip" "ls /Applications/Docker.app"
+        ssh -t "$USER@$ip" "ls /Applications/Docker.app"
         if [[ $? != 0 ]]; then
             echo "docker coudn't be installed on machine $ip"
         fi
@@ -79,7 +79,7 @@ if [[ $? != 0 ]]; then
 fi
 # run the token Command for each  Host in the hosts File
 for ip in $(cat ./hosts) ; do
-    ssh -t "$2@$ip" "open /Applications/Docker.app"
+    ssh -t "$USER@$ip" "open /Applications/Docker.app"
 done
 
 
@@ -91,7 +91,7 @@ read -n1 -s tmp
 
 tokenCommand=$(docker swarm join-token worker  | grep docker  | sed s/\ *//)
 for ip in $(cat ./hosts) ; do
-    ssh "$2@$ip"  "$tokenCommand"
+    ssh "$USER@$ip"  "$tokenCommand"
 done
 cmd 'docker node ls' # print all Connected Nodes
 echo "+---------------------------------------------+"
