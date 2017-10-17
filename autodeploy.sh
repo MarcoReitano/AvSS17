@@ -51,7 +51,7 @@ for ip in $(cat ./hosts) ; do
         if [[ $? != 0 ]]; then
             ssh -t "$USER@$ip" '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
         fi
-        ssh -t "$USER@$ip" 'brew cask install docker'
+        ssh -t "$USER@$ip" '/usr/local/bin/brew cask install docker'
 
         ssh -t "$USER@$ip" "ls /Applications/Docker.app"
         if [[ $? != 0 ]]; then
