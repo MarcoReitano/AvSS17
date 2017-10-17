@@ -30,7 +30,7 @@ if  $(uname | grep 'darwin' -i -q) ; then
         if [[ $? != 0 ]]; then
             /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         fi
-        cmd 'brew cask install docker'
+        cmd 'sudo -u admin brew cask install docker'
         which docker
         if [[ $? != 0 ]]; then
             echo "docker coudn't be installed"
@@ -51,7 +51,7 @@ for ip in $(cat ./hosts) ; do
         if [[ $? != 0 ]]; then
             ssh -t "$USER@$ip" '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
         fi
-        ssh -t "$USER@$ip" '/usr/local/bin/brew cask install docker'
+        ssh -t "$USER@$ip" 'sudo -u admin /usr/local/bin/brew cask install docker'
 
         ssh -t "$USER@$ip" "ls /Applications/Docker.app"
         if [[ $? != 0 ]]; then
