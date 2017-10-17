@@ -22,6 +22,7 @@ if [[ $? != 0 ]]; then
 fi
 
 # check if inside a mac Darwin is Linux for mac
+# Only This machine
 if  $(uname | grep 'darwin' -i -q) ; then
     wich docker
     if [[ $? != 0 ]]; then
@@ -35,9 +36,28 @@ if  $(uname | grep 'darwin' -i -q) ; then
             echo "docker coudn't be installed"
             exit -1
         fi
-        cmd "open /Applications/Docker.app"
     fi
+    cmd "open /Applications/Docker.app"
 fi
+
+# All other Machines
+for ip in $(cat ./hosts) ; do
+    ssh -t "$2@$ip" "which docker"
+    if [[ $? != 0 ]]; then
+        ssh -t "$2@$ip" "which brew"
+        if [[ $? != 0 ]]; then
+            ssh -t "$2@$ip" '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+        fi
+        ssh -t "$2@$ip" 'brew install docker'
+
+        ssh -t "$2@$ip" "which docker"
+        if [[ $? != 0 ]]; then
+            echo "docker coudn't be installed on machine $ip"
+        fi
+    fi
+    ssh -t "$2@$ip" "which docker"
+done
+
 
 
 cmd 'docker-compose -f ./Build/Docker/docker-compose.yml build'
@@ -57,7 +77,7 @@ if [[ $? != 0 ]]; then
 fi
 # run the token Command for each  Host in the hosts File
 for ip in $(cat ./hosts) ; do
-    ssh "$2@$ip" "open /Applications/Docker.app"
+    ssh -t "$2@$ip" "open /Applications/Docker.app"
 done
 
 
