@@ -24,14 +24,14 @@ fi
 # check if inside a mac Darwin is Linux for mac
 # Only This machine
 if  $(uname | grep 'darwin' -i -q) ; then
-    wich docker
+    which docker
     if [[ $? != 0 ]]; then
-        wich brew
+        which brew
         if [[ $? != 0 ]]; then
             /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         fi
         cmd 'brew install docker'
-        wich docker
+        which docker
         if [[ $? != 0 ]]; then
             echo "docker coudn't be installed"
             exit -1
@@ -39,6 +39,9 @@ if  $(uname | grep 'darwin' -i -q) ; then
     fi
     cmd "open /Applications/Docker.app"
 fi
+
+
+
 
 # All other Machines
 for ip in $(cat ./hosts) ; do
