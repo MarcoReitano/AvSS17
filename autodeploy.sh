@@ -55,12 +55,12 @@ for ip in $(cat ./hosts) ; do
         ssh -t "$USER@$ip" "sudo chown -R $(whoami) /usr/local/var/homebrew"
         ssh -t "$USER@$ip" '/usr/local/bin/brew cask install docker'
 
-        ssh -t "$USER@$ip" "ls /Applications/Docker.app"
+        ssh -t "$USER@$ip" "ls /Applications/Docker.app/"
         if [[ $? != 0 ]]; then
             echo "docker coudn't be installed on machine $ip"
         fi
     fi
-    cmd "open /Applications/Docker.app"
+    ssh -t "$USER@$ip" "open /Applications/Docker.app"
 done
 
 
