@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
 function cmd() {
-bash -c "$1"
+    bash -c "$1"
     if [[ $? != 0 ]]; then
         echo "failed to run: $1"
         exit 0
     fi
 }
 
-if [[ $# < 1 ]]; then
+if [[ $# < 2 ]]; then
     echo 'Ip address is missing please give the IP address as the argument'
-    echo './autodeploy.sh [IP Address]'
+    echo './autodeploy.sh [IP Address] [user]'
     exit 0
 fi
 
@@ -21,11 +21,14 @@ if [[ $? != 0 ]]; then
     exit 0
 fi
 
-
+# check if inside a mac Darwin is Linux for mac
 if  $(uname | grep 'darwin' -i -q) ; then
-    which brew
+    wich docker
     if [[ $? != 0 ]]; then
-        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        wich brew
+        if [[ $? != 0 ]]; then
+            /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        fi
         cmd 'brew install docker'
         wich docker
         if [[ $? != 0 ]]; then
@@ -44,13 +47,34 @@ echo "+-----------------------------------+"
 docker swarm leave --force
 cmd "docker swarm init --advertise-addr=$1"
 cmd 'docker swarm join-token worker  | grep docker  | sed s/\ *// | tee tokenfile.sh'
-cmd 'sudo chmod +x ./tokenfile.sh'
+# cmd 'sudo chmod +x ./tokenfile.sh'
 
+
+# Using Hosts file for the list of Ip / Hostnames
+test -f ./hosts
+if [[ $? != 0 ]]; then
+    echo "no host file in ./host found please create one"
+fi
+# run the token Command for each  Host in the hosts File
+for ip in $(cat ./hosts) ; do
+    ssh "$2@$ip" "open /Applications/Docker.app"
+done
+
+
+echo "+-----------------------------------------------------------------+"
+echo "|Press any Key when on every Worker the docker Service is Running |"
+echo "|                     on Every Node                               |"
+echo "+-----------------------------------------------------------------+"
+read -n1 -s tmp
+
+tokenCommand=$(docker swarm join-token worker  | grep docker  | sed s/\ *//)
+for ip in $(cat ./hosts) ; do
+    ssh "$2@$ip"  "$tokenCommand"
+done
+cmd 'docker node ls' # print all Connected Nodes
 echo "+---------------------------------------------+"
 echo "| Press any Key To Deploy the Stack           |"
 echo "| Press after Every worker Joined the Swarm   |"
 echo "+---------------------------------------------+"
 read -n1 -s tmp
 cmd 'docker stack deploy -c ./Build/Docker/docker-compose-swarm.yml avsStack'
-
-
