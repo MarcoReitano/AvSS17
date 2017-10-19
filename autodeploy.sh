@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+docker='/usr/local/bin/docker'
 
 function cmd() {
     bash -c "$1"
@@ -45,22 +46,24 @@ fi
 
 # All other Machines
 for ip in $(cat ./hosts) ; do
+echo "ls1 $ip"
     ssh -t "$USER@$ip" "ls /Applications/Docker.app"
-    if [[ $? != 0 ]]; then
-        ssh -t "$USER@$ip" "ls /usr/local/bin/brew"
-        if [[ $? != 0 ]]; then
-            ssh -t "$USER@$ip" '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
-        fi
-
-        ssh -t "$USER@$ip" "sudo chown -R $(whoami) /usr/local/var/homebrew"
-        ssh -t "$USER@$ip" '/usr/local/bin/brew cask install docker'
-
+#    if [[ $? != 0 ]]; then
+#        ssh -t "$USER@$ip" "ls /usr/local/bin/brew"
+#        if [[ $? != 0 ]]; then
+#           # ssh -t "$USER@$ip" '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+#        fi
+        #ssh -t "$USER@$ip" "sudo chown -R $(whoami) /usr/local/var/homebrew"
+        #ssh -t "$USER@$ip" '/usr/local/bin/brew cask install docker'
+	echo "ls2"
+	echo $ip
         ssh -t "$USER@$ip" "ls /Applications/Docker.app/"
         if [[ $? != 0 ]]; then
             echo "docker coudn't be installed on machine $ip"
+	    continue
         fi
-    fi
-    ssh -t "$USER@$ip" "open /Applications/Docker.app"
+##    fi
+#    ssh -t "$USER@$ip" "open /Applications/Docker.app"
 done
 
 
@@ -86,16 +89,21 @@ done
 
 
 echo "+-----------------------------------------------------------------+"
-echo "|Press any Key when on every Worker the docker Service is Running |"
+echo "| Press 0 to create the Swarm                                     |"
 echo "|                     on Every Node                               |"
 echo "+-----------------------------------------------------------------+"
 read -n1 -s tmp
 
-tokenCommand=$(docker swarm join-token worker  | grep docker  | sed s/\ *//)
+while [[ $tmp -eq 0 ]]; do
+tokenCommand=$(docker swarm join-token worker  | grep docker  | sed s/\ *// | sed s/docker//)
 for ip in $(cat ./hosts) ; do
-    ssh "$USER@$ip"  "$tokenCommand"
+echo "$docker $tokenCommand"
+ssh "$USER@$ip"  "$docker $tokenCommand"
 done
 cmd 'docker node ls' # print all Connected Nodes
+echo " Press 0 to try to nodes join the swarm press 1 to continue "
+read -n1 -s tmp
+done
 echo "+---------------------------------------------+"
 echo "| Press any Key To Deploy the Stack           |"
 echo "| Press after Every worker Joined the Swarm   |"
