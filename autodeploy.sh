@@ -64,14 +64,13 @@ for ip in $(cat ./hosts) ; do
 done
 
 
-cmd 'docker-compose -f ./Build/Docker/docker-compose.yml build'
+# cmd 'docker-compose -f ./Build/Docker/docker-compose.yml build' # later
 echo "+-----------------------------------+"
 echo "| Creatring a Swarm  as the Manager |"
 echo "+-----------------------------------+"
-docker swarm leave --force
-cmd "docker swarm init --advertise-addr=$1"
-cmd 'docker swarm join-token worker  | grep docker  | sed s/\ *// | tee tokenfile.sh'
-# cmd 'sudo chmod +x ./tokenfile.sh'
+cmd "docker-machine ssh default 'docker swarm leave --force'"
+cmd "docker-machine ssh default 'docker swarm init --advertise-addr=$(docker-machine ip)'"
+swarmToken=$(docker-machine ssh default 'docker swarm join-token worker -q')
 
 
 # Using Hosts file for the list of Ip / Hostnames
@@ -79,26 +78,34 @@ test -f ./hosts
 if [[ $? != 0 ]]; then
     echo "no host file in ./host found please create one"
 fi
-# run the token Command for each  Host in the hosts File
+
+#create docker-machines and start them
 for ip in $(cat ./hosts) ; do
-    ssh -t "$USER@$ip" "open /Applications/Docker.app"
+    ssh -t "$USER@$ip" "docker-machine ls | grep default -i -q"
+    if [[ $? !=0 ]]; then
+        ssh -t "$USER@$ip" "docker-machine create default"
+    fi
+    ssh -t "$USER@$ip" "docker-machine start default"
 done
 
 
+#Join the Swarm
+for ip in $(cat ./hosts) ; do
+    ssh -t "$USER@$ip" "docker-machine ssh default 'docker swarm leave --force"
+    ssh -t "$USER@$ip" "docker-machine ssh default 'docker swarm join --token $swarmToken $1:2377'"
+done
+
+
+docker-machine ssh default 'docker node ls'
 echo "+-----------------------------------------------------------------+"
 echo "|Press any Key when on every Worker the docker Service is Running |"
 echo "|                     on Every Node                               |"
 echo "+-----------------------------------------------------------------+"
 read -n1 -s tmp
 
-tokenCommand=$(docker swarm join-token worker  | grep docker  | sed s/\ *//)
-for ip in $(cat ./hosts) ; do
-    ssh "$USER@$ip"  "$tokenCommand"
-done
-cmd 'docker node ls' # print all Connected Nodes
 echo "+---------------------------------------------+"
 echo "| Press any Key To Deploy the Stack           |"
 echo "| Press after Every worker Joined the Swarm   |"
 echo "+---------------------------------------------+"
 read -n1 -s tmp
-cmd 'docker stack deploy -c ./Build/Docker/docker-compose-swarm.yml avsStack'
+cmd 'docker-machine ssh default "docker stack deploy -c ./Build/Docker/docker-compose-swarm.yml avsStack"'
