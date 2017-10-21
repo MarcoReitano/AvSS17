@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 docker='/usr/local/bin/docker'
-
+dockermachine='/usr/local/bin/docker-machine'
 function cmd() {
     bash -c "$1"
     if [[ $? != 0 ]]; then
@@ -42,8 +42,8 @@ if  $(uname | grep 'darwin' -i -q) ; then
 fi
 
 
-
-
+function installDocker() {
+# Install Stuff
 # All other Machines
 for ip in $(cat ./hosts) ; do
 echo "ls1 $ip"
@@ -55,8 +55,7 @@ echo "ls1 $ip"
 #        fi
         #ssh -t "$USER@$ip" "sudo chown -R $(whoami) /usr/local/var/homebrew"
         #ssh -t "$USER@$ip" '/usr/local/bin/brew cask install docker'
-	echo "ls2"
-	echo $ip
+
         ssh -t "$USER@$ip" "ls /Applications/Docker.app/"
         if [[ $? != 0 ]]; then
             echo "docker coudn't be installed on machine $ip"
@@ -65,14 +64,14 @@ echo "ls1 $ip"
 ##    fi
 #    ssh -t "$USER@$ip" "open /Applications/Docker.app"
 done
-
+}
 
 # cmd 'docker-compose -f ./Build/Docker/docker-compose.yml build' # later
 echo "+-----------------------------------+"
 echo "| Creatring a Swarm  as the Manager |"
 echo "+-----------------------------------+"
-cmd "docker-machine ssh default 'docker swarm leave --force'"
-cmd "docker-machine ssh default 'docker swarm init --advertise-addr=$(docker-machine ip)'"
+cmd "$dockermachine ssh default 'docker swarm leave --force'"
+cmd "$dockermachine ssh default 'docker swarm init --advertise-addr=$(docker-machine ip)'"
 swarmToken=$(docker-machine ssh default 'docker swarm join-token worker -q')
 
 
@@ -84,28 +83,30 @@ fi
 
 #create docker-machines and start them
 for ip in $(cat ./hosts) ; do
-    ssh -t "$USER@$ip" "docker-machine ls | grep default -i -q"
-    if [[ $? !=0 ]]; then
-        ssh -t "$USER@$ip" "docker-machine create default"
+    echo "Working on $ip"
+    ssh -q -t "$USER@$ip" "ls /Applications/VirtualBox.app/ >/dev/null"
+    if [[ $? != 0 ]]; then
+	ssh -q -t "$USER@$ip" '/usr/local/bin/brew cask install virtualbox'
     fi
-    ssh -t "$USER@$ip" "docker-machine start default"
+    vm=$(ssh -q -t "$USER@$ip" "$dockermachine ls") 
+    echo $vm | grep default -i -q
+    if [[ $? != 0 ]]; then
+        ssh -q -t "$USER@$ip" "$dockermachine create default"
+    fi
+    echo $vm | grep default -i | grep running -i -q
+    if [[ $? != 0 ]]; then
+	ssh -q -t "$USER@$ip" "$dockermachine start default"
+    fi
+    ssh -q -t "$USER@$ip" "$dockermachine ssh default 'docker swarm leave --force'"
+    ssh -q -t "$USER@$ip" "$dockermachine ssh default 'docker swarm join --token $swarmToken $1:2377'"
 done
 
-
-#Join the Swarm
-for ip in $(cat ./hosts) ; do
-    ssh -t "$USER@$ip" "docker-machine ssh default 'docker swarm leave --force"
-    ssh -t "$USER@$ip" "docker-machine ssh default 'docker swarm join --token $swarmToken $1:2377'"
-done
 
 
 docker-machine ssh default 'docker node ls'
-echo "+-----------------------------------------------------------------+"
-echo "| Press 0 to create the Swarm                                     |"
-echo "|                     on Every Node                               |"
-echo "+-----------------------------------------------------------------+"
-read -n1 -s tmp
 
+numberOfNodes=$(docker-machine ssh default 'docker node ls' | sed 1d | wc -l )
+echo "| You Have $numberOfNodes Nodes in your Swarm " 
 echo "+---------------------------------------------+"
 echo "| Press any Key To Deploy the Stack           |"
 echo "| Press after Every worker Joined the Swarm   |"
