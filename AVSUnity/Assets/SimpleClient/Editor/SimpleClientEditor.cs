@@ -277,7 +277,7 @@ public class SimpleClientEditor : Editor
                         Debug.Log("Created Job-Message for (" + i + "," + j + "): " + jsonMessage);
                     }
                 }
-
+                
                 //for (int x = 0; x < this.xMax; x++)
                 //{
                 //    for (int z = 0; z < this.zMax; z++)

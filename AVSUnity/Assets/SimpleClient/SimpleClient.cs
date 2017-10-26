@@ -1260,17 +1260,23 @@ public class SimpleClient : MonoBehaviour
                 "</color>");
             jobMessage = JobMessage.FromJson(payload);
 
-
+            
             // Aktuelle Szene als MainScene merken
-            mainScene = EditorSceneManager.GetActiveScene();
+            //mainScene = EditorSceneManager.GetActiveScene();
+            mainScene = SceneManager.GetActiveScene();
+
 
             // Neue (leere) Szene erstellen
-            newScene = EditorSceneManager.NewScene(
-                NewSceneSetup.EmptyScene,
-                NewSceneMode.Additive);
+            //newScene = EditorSceneManager.NewScene(
+            //    NewSceneSetup.EmptyScene,
+            //    NewSceneMode.Additive);
+            newScene = SceneManager.CreateScene(jobMessage.x + "-" + jobMessage.y);
+
+           
 
             // Neue Szene als aktive Szene setzen
             EditorSceneManager.SetActiveScene(newScene);
+            SceneManager.SetActiveScene(newScene);
 
             //###########################
             // Erzeuge Content:
@@ -1299,16 +1305,17 @@ public class SimpleClient : MonoBehaviour
         // Szene speichern
         string filename = RelativeAssetPathTo("Scene_" + jobMessage.x + "_" + jobMessage.y + ".unity");
         Debug.Log("before newScene-Path: " + newScene.path);
-        EditorSceneManager.SaveScene(newScene, filename);
+        
+        //EditorSceneManager.SaveScene(newScene, filename);
         Debug.Log("after newScene-Path: " + newScene.path);
-
+        
 
         SceneMessage sceneMessage = new SceneMessage("replyScene_" + jobMessage.x + "_" + jobMessage.y + ".unity", newScene);
         string jsonMessage = sceneMessage.ToJSON();
         Debug.Log(jsonMessage);
-        EditorSceneManager.CloseScene(newScene, true);
+        //EditorSceneManager.CloseScene(newScene, true);
         Debug.Log("afterClosing newScene-Path: " + newScene.path);
-        EditorSceneManager.SetActiveScene(mainScene);
+        //EditorSceneManager.SetActiveScene(mainScene);
 
         Debug.Log("Reply newScene to queue: " + jobMessage.replyToQueue);
         PublishToQueue(jobMessage.replyToQueue, jsonMessage);

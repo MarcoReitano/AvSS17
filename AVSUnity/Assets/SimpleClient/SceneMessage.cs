@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEditor.SceneManagement;
 
 using UnityEngine;
@@ -21,7 +23,7 @@ public class SceneMessage
         this.scene = scene;
         this.sceneBytes = SceneFileToByteArray(this.scene);
     }
-
+   
 
     public string ToJSON()
     {
@@ -37,9 +39,15 @@ public class SceneMessage
 
     public static byte[] SceneFileToByteArray(Scene scene)
     {
-        Debug.Log("datapath: " + Application.dataPath);
-        Debug.Log("scene.path: " + scene.path);
-        return File.ReadAllBytes(Application.dataPath + "/" + scene.path.Substring("/Assets".Length));
+        //Debug.Log("datapath: " + Application.dataPath);
+        //Debug.Log("scene.path: " + scene.path);
+        BinaryFormatter bf = new BinaryFormatter();
+        //FileStream file = new FileStream("c:\\test.scene", FileMode.Create);
+        MemoryStream mem = new MemoryStream();
+        bf.Serialize(mem, scene);
+        byte[] bytes = mem.GetBuffer();
+        return bytes;
+        //return File.ReadAllBytes(Application.dataPath + "/" + scene.path.Substring("/Assets".Length));
     }
 
 
