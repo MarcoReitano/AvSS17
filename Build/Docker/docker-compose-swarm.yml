@@ -13,6 +13,8 @@ services:
       - "5672:5672"
     deploy:
       replicas: 1
+      placement:
+        constraints: [node.role == manager]
     networks:
       - avsnetwork
   visualizer:
