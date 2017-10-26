@@ -6,7 +6,7 @@ services:
       replicas: 5
     networks:
       - avsnetwork
-  rabbit:
+  rabbitDocker:
     image: rabbitmq:3-management
     ports:
       - "15672:15672"
