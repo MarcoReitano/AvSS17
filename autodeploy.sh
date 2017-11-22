@@ -38,7 +38,7 @@ if  $(uname | grep 'darwin' -i -q) ; then
             exit -1
         fi
     fi
-    cmd "open /Applications/Docker.app"
+#    cmd "open /Applications/Docker.app"
 fi
 
 
@@ -112,4 +112,5 @@ echo "| Press any Key To Deploy the Stack           |"
 echo "| Press after Every worker Joined the Swarm   |"
 echo "+---------------------------------------------+"
 read -n1 -s tmp
-cmd 'docker-machine ssh default "docker stack deploy -c ./Build/Docker/docker-compose-swarm.yml avsStack"'
+eval $(docker-machine env)
+docker stack deploy -c ./Build/Docker/docker-compose-swarm.yml avsStack
