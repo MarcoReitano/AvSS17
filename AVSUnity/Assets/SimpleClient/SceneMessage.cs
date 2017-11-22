@@ -1,9 +1,6 @@
 ﻿using System.IO;
 
-#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
-#endif
-
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -49,7 +46,8 @@ public class SceneMessage
 #if UNITY_EDITOR
         return EditorSceneManager.OpenScene(Application.dataPath + "/" + filename, OpenSceneMode.Additive);
 #else
-        return SceneManager.GetSceneByPath(Application.dataPath + "/" + filename);
+        //return SceneManager.GetSceneByPath(Application.dataPath + "/" + filename);
+        return EditorSceneManager.OpenScene(Application.dataPath + "/" + filename, OpenSceneMode.Additive);
 #endif
     }
 

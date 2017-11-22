@@ -6,10 +6,10 @@ using CymaticLabs.Unity3D.Amqp;
 using CymaticLabs.Unity3D.Amqp.SimpleJSON;
 using CymaticLabs.Unity3D.Amqp.UI;
 
-#if UNITY_EDITOR
+
 using UnityEditor.SceneManagement;
 using UnityEditor;
-#endif
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -380,6 +380,16 @@ public class SimpleClient : MonoBehaviour
         // Connect to host broker on start if configured
         if (this.ConnectOnStart)
             this.Connect();
+
+
+        newScene = EditorSceneManager.NewScene(
+               NewSceneSetup.EmptyScene,
+               NewSceneMode.Additive);
+        
+        string filename = RelativeAssetPathTo("newScene.unity");
+        Debug.Log("before newScene-Path: " + newScene.path);
+
+        EditorSceneManager.SaveScene(newScene, filename);
     }
     #endregion // Init
 
@@ -1266,7 +1276,8 @@ public class SimpleClient : MonoBehaviour
 #if UNITY_EDITOR
             mainScene = EditorSceneManager.GetActiveScene();
 #else
-            mainScene = SceneManager.GetActiveScene();
+            //mainScene = SceneManager.GetActiveScene();
+             mainScene = EditorSceneManager.GetActiveScene();
 #endif
 
 #if UNITY_EDITOR
@@ -1278,8 +1289,14 @@ public class SimpleClient : MonoBehaviour
             // Neue Szene als aktive Szene setzen
             EditorSceneManager.SetActiveScene(newScene);
 #else
-            newScene = SceneManager.CreateScene("");
-            SceneManager.SetActiveScene(newScene);
+            //newScene = SceneManager.CreateScene("");
+            //SceneManager.SetActiveScene(newScene);
+            newScene = EditorSceneManager.NewScene(
+                NewSceneSetup.EmptyScene,
+                NewSceneMode.Additive);
+
+            // Neue Szene als aktive Szene setzen
+            EditorSceneManager.SetActiveScene(newScene);
 #endif
 
             //###########################
@@ -1313,6 +1330,7 @@ public class SimpleClient : MonoBehaviour
         EditorSceneManager.SaveScene(newScene, filename);
 #else
         //TODO: SceneManager cant save scenes? What to do? Do we need to save?
+        EditorSceneManager.SaveScene(newScene, filename);
 #endif
         Debug.Log("after newScene-Path: " + newScene.path);
 
@@ -1324,6 +1342,7 @@ public class SimpleClient : MonoBehaviour
         EditorSceneManager.CloseScene(newScene, true);
 #else
         //TODO: SceneManager cant close scenes, do we have to?
+        EditorSceneManager.CloseScene(newScene, true);
 #endif 
 
         Debug.Log("afterClosing newScene-Path: " + newScene.path);
@@ -1331,6 +1350,7 @@ public class SimpleClient : MonoBehaviour
         EditorSceneManager.SetActiveScene(mainScene);
 #else
         SceneManager.SetActiveScene(mainScene);
+        EditorSceneManager.SetActiveScene(mainScene);
 #endif
 
         Debug.Log("Reply newScene to queue: " + jobMessage.replyToQueue);
