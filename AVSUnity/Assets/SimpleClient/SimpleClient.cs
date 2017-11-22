@@ -732,7 +732,9 @@ public class SimpleClient : MonoBehaviour
 
         // Connect the client
         Log("<color=green>Connecting to AMQP host: {0}</color>", AmqpHelper.GetConnectionInfo(this.client));
+        Debug.Log("Really trying to connect?");
         this.client.Connect();
+        Debug.Log("After connect()");
     }
 
     /// <summary>
@@ -1270,7 +1272,7 @@ public class SimpleClient : MonoBehaviour
                 //payload + 
                 "</color>");
             jobMessage = JobMessage.FromJson(payload);
-
+            
 
             // Aktuelle Szene als MainScene merken
 #if UNITY_EDITOR
