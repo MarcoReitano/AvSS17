@@ -21,13 +21,36 @@ public class SceneMessage
     {
         this.messageText = messageText;
         this.scene = scene;
-        this.sceneBytes = SceneFileToByteArray(this.scene);
+        //this.sceneBytes = SceneFileToByteArray(this.scene);
     }
-   
 
     public string ToJSON()
     {
-        return JsonUtility.ToJson(this);
+        // Alle Objekte der Szene traversieren
+        // Prüfen ob Mesh vorhanden
+        // Mesh serialisieren --> wie?
+        //     Mesh serializable?
+        //     ansonsten --> Vertex-Array / Triangle-Array(s) / UVs
+        //     Mesh und/oder Scene WrapperKlasse die Serializable ist
+
+        foreach (GameObject item in scene.GetRootGameObjects())
+        {
+            foreach (Transform go in item.GetComponentsInChildren<Transform>())
+            {
+                MeshFilter mf = go.GetComponent<MeshFilter>();
+                if (mf != null)
+                {
+                    Mesh mesh = mf.sharedMesh;
+
+                    byte[] serializedMesh = MeshSerializer.WriteMesh(mesh, false);
+
+                    Debug.Log(go.name + ": SerializedMesh has " + serializedMesh.Length + " bytes");
+                }
+            }
+        }
+        return "It works!";
+
+        //return JsonUtility.ToJson(this);
     }
 
     public static SceneMessage FromJson(string json)
@@ -39,15 +62,17 @@ public class SceneMessage
 
     public static byte[] SceneFileToByteArray(Scene scene)
     {
-        //Debug.Log("datapath: " + Application.dataPath);
-        //Debug.Log("scene.path: " + scene.path);
-        BinaryFormatter bf = new BinaryFormatter();
-        //FileStream file = new FileStream("c:\\test.scene", FileMode.Create);
-        MemoryStream mem = new MemoryStream();
-        bf.Serialize(mem, scene);
-        byte[] bytes = mem.GetBuffer();
-        return bytes;
-        //return File.ReadAllBytes(Application.dataPath + "/" + scene.path.Substring("/Assets".Length));
+        //Didnt work...
+        ////Debug.Log("datapath: " + Application.dataPath);
+        ////Debug.Log("scene.path: " + scene.path);
+        //BinaryFormatter bf = new BinaryFormatter();
+        ////FileStream file = new FileStream("c:\\test.scene", FileMode.Create);
+        //MemoryStream mem = new MemoryStream();
+        //bf.Serialize(mem, scene);
+        //byte[] bytes = mem.GetBuffer();
+        //return bytes;
+        ////return File.ReadAllBytes(Application.dataPath + "/" + scene.path.Substring("/Assets".Length));
+        return null;
     }
 
 

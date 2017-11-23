@@ -1267,11 +1267,13 @@ public class SimpleClient : MonoBehaviour
 
 
             // Neue (leere) Szene erstellen
-            //newScene = EditorSceneManager.NewScene(
-            //    NewSceneSetup.EmptyScene,
-            //    NewSceneMode.Additive);
+#if UNITY_EDITOR
+            newScene = EditorSceneManager.NewScene(
+                NewSceneSetup.EmptyScene,
+                NewSceneMode.Additive);
+#elif UNITY_STANDALONE
             newScene = SceneManager.CreateScene(jobMessage.x + "-" + jobMessage.y);
-
+#endif
            
 
             // Neue Szene als aktive Szene setzen
@@ -1340,6 +1342,6 @@ public class SimpleClient : MonoBehaviour
     {
         return "Assets" + Application.dataPath.Substring(Application.dataPath.Length);
     }
-    #endregion // Utility
-    #endregion // Methods
+#endregion // Utility
+#endregion // Methods
 }
