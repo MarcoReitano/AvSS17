@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-# cat ./hosts | xargs -P10  -I{} ./create-docker-machine.sh {}
+cat ./hosts | xargs -P10  -I{} ./create-docker-machine.sh {}
 
 # Give the machines some time to Boot Up
 sleep 1
