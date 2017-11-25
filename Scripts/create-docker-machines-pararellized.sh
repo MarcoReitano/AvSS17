@@ -6,7 +6,8 @@ sleep 1
 # ping every Host to check if its Running
 
 for ip in $(cat ./hosts) ; do
-    dockerIp=$(echo $ip | cut -d'.' -f4 | sed -e 's/.*/\0 +100/' | bc | sed -e 's/.*/10.0.0.\0/' )
-    ping -w 2 $dockerIp
+    dockerIp=$(echo $(( $(echo $ip | cut -d'.' -f4 ) + 100)))
+    ping -t 2 $dockerIp
+
 done
 
