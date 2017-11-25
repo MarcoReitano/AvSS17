@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 cat ./hosts | xargs -P10  -I{} ./create-docker-machine.sh {}
 
 # Give the machines some time to Boot Up
