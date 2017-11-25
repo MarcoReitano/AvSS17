@@ -1,4 +1,15 @@
 #!/bin/bash
+if [[ $# < 1 ]]; then
+    echo 'Ip address is missing please give the IP address for your Target machine'
+    echo "$0 [IP Address]"
+    exit 0
+fi
+
+if [[ $1 -eq "-h" ]]; then
+    echo 'Ip address is missing please give the IP address for your Target machine'
+    echo "$0 [IP Address]"
+    exit 0
+fi
 
 # Variablen für die Docker-machine
 memory="32768" # 32Gb
