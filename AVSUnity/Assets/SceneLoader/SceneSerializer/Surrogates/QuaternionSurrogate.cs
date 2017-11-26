@@ -18,31 +18,30 @@ using UnityEngine;
 [KnownType(typeof(SceneSurrogate))]
 [KnownType(typeof(GameObjectSurrogate))]
 [KnownType(typeof(SerializableList))]
-public class MaterialSurrogate 
+public class QuaternionSurrogate
 {
-    [DataMember(Name = "ShaderName")]
-    public string shader;
+    [DataMember(Name = "x")]
+    public float x;
 
-    // TODO: Support Texture Serialization
-    //[DataMember(Name = "Texture")]
-    //public Texture2D texture;
+    [DataMember(Name = "y")]
+    public float y;
 
+    [DataMember(Name = "z")]
+    public float z;
 
+    [DataMember(Name = "w")]
+    public float w;
 
-    public MaterialSurrogate(Material material)
+    public QuaternionSurrogate(Quaternion quat)
     {
-        this.shader = material.shader.name;
-
-
-        //Texture2D texture = material.mainTexture as Texture2D;
-        //byte[] rawTextureData = texture.GetRawTextureData();
-
-        //Texture2D tex = new Texture()
+        this.x = quat.x;
+        this.y = quat.y;
+        this.z = quat.z;
+        this.w = quat.w;
     }
 
-
-    public Material Get()
+    public Quaternion Get()
     {
-        return new Material(Shader.Find(shader));
+        return new Quaternion(this.x, this.y, this.z, this.w);
     }
 }

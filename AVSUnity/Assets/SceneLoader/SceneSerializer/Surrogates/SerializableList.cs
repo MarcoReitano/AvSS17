@@ -18,31 +18,14 @@ using UnityEngine;
 [KnownType(typeof(SceneSurrogate))]
 [KnownType(typeof(GameObjectSurrogate))]
 [KnownType(typeof(SerializableList))]
-public class MaterialSurrogate 
+[Serializable]
+public class SerializableList
 {
-    [DataMember(Name = "ShaderName")]
-    public string shader;
+    [DataMember(Name = "List")]
+    public List<int> list;
 
-    // TODO: Support Texture Serialization
-    //[DataMember(Name = "Texture")]
-    //public Texture2D texture;
-
-
-
-    public MaterialSurrogate(Material material)
+    public SerializableList()
     {
-        this.shader = material.shader.name;
-
-
-        //Texture2D texture = material.mainTexture as Texture2D;
-        //byte[] rawTextureData = texture.GetRawTextureData();
-
-        //Texture2D tex = new Texture()
-    }
-
-
-    public Material Get()
-    {
-        return new Material(Shader.Find(shader));
+        list = new List<int>();
     }
 }

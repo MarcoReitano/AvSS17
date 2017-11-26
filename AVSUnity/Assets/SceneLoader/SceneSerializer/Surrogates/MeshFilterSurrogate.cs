@@ -18,31 +18,20 @@ using UnityEngine;
 [KnownType(typeof(SceneSurrogate))]
 [KnownType(typeof(GameObjectSurrogate))]
 [KnownType(typeof(SerializableList))]
-public class MaterialSurrogate 
+public class MeshFilterSurrogate : ComponentSurrogate
 {
-    [DataMember(Name = "ShaderName")]
-    public string shader;
 
-    // TODO: Support Texture Serialization
-    //[DataMember(Name = "Texture")]
-    //public Texture2D texture;
+    [DataMember(Name = "Mesh")]
+    public MeshSurrogate mesh;
 
-
-
-    public MaterialSurrogate(Material material)
+    public MeshFilterSurrogate(MeshFilter meshFilter)
     {
-        this.shader = material.shader.name;
-
-
-        //Texture2D texture = material.mainTexture as Texture2D;
-        //byte[] rawTextureData = texture.GetRawTextureData();
-
-        //Texture2D tex = new Texture()
+        this.mesh = new MeshSurrogate(meshFilter.sharedMesh);
     }
 
+    //public MeshFilter Get()
+    //{
 
-    public Material Get()
-    {
-        return new Material(Shader.Find(shader));
-    }
+    //}
+
 }

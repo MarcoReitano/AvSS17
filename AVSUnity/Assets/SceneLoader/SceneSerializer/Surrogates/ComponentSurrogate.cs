@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿
 using System.Runtime.Serialization;
-using UnityEngine;
+
 
 [DataContract]
 [KnownType(typeof(TransformSurrogate))]
@@ -17,29 +15,9 @@ using UnityEngine;
 [KnownType(typeof(MeshSurrogate))]
 [KnownType(typeof(SceneSurrogate))]
 [KnownType(typeof(GameObjectSurrogate))]
-[KnownType(typeof(float))]
 [KnownType(typeof(SerializableList))]
-public class Vector3Surrogate
+public class ComponentSurrogate
 {
-    [DataMember(Name = "x")]
-    public float x;
 
-    [DataMember(Name = "y")]
-    public float y;
 
-    [DataMember(Name = "z")]
-    public float z;
-
-    public Vector3Surrogate(Vector3 vec)
-    {
-        this.x = vec.x;
-        this.y = vec.y;
-        this.z = vec.z;
-    }
-
-    public Vector3 Get()
-    {
-        return new Vector3(this.x, this.y, this.z);
-    }
 }
-

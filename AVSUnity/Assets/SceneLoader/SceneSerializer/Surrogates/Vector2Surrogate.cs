@@ -18,31 +18,22 @@ using UnityEngine;
 [KnownType(typeof(SceneSurrogate))]
 [KnownType(typeof(GameObjectSurrogate))]
 [KnownType(typeof(SerializableList))]
-public class MaterialSurrogate 
+public class Vector2Surrogate
 {
-    [DataMember(Name = "ShaderName")]
-    public string shader;
+    [DataMember(Name = "x")]
+    public float x;
 
-    // TODO: Support Texture Serialization
-    //[DataMember(Name = "Texture")]
-    //public Texture2D texture;
+    [DataMember(Name = "y")]
+    public float y;
 
-
-
-    public MaterialSurrogate(Material material)
+    public Vector2Surrogate(Vector2 vec)
     {
-        this.shader = material.shader.name;
-
-
-        //Texture2D texture = material.mainTexture as Texture2D;
-        //byte[] rawTextureData = texture.GetRawTextureData();
-
-        //Texture2D tex = new Texture()
+        this.x = vec.x;
+        this.y = vec.y;
     }
 
-
-    public Material Get()
+    public Vector2 Get()
     {
-        return new Material(Shader.Find(shader));
+        return new Vector2(this.x, this.y);
     }
 }

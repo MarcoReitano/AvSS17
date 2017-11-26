@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using UnityEngine;
 
 [DataContract]
@@ -17,29 +14,31 @@ using UnityEngine;
 [KnownType(typeof(MeshSurrogate))]
 [KnownType(typeof(SceneSurrogate))]
 [KnownType(typeof(GameObjectSurrogate))]
-[KnownType(typeof(float))]
 [KnownType(typeof(SerializableList))]
-public class Vector3Surrogate
+public class ColorSurrogate 
 {
-    [DataMember(Name = "x")]
-    public float x;
+    [DataMember(Name = "r")]
+    public float r;
 
-    [DataMember(Name = "y")]
-    public float y;
+    [DataMember(Name = "g")]
+    public float g;
 
-    [DataMember(Name = "z")]
-    public float z;
+    [DataMember(Name = "b")]
+    public float b;
 
-    public Vector3Surrogate(Vector3 vec)
+    [DataMember(Name = "a")]
+    public float a;
+
+    public ColorSurrogate(Color color)
     {
-        this.x = vec.x;
-        this.y = vec.y;
-        this.z = vec.z;
+        this.r= color.r;
+        this.g = color.g;
+        this.b = color.b;
+        this.a = color.a;
     }
 
-    public Vector3 Get()
+    public Color Get()
     {
-        return new Vector3(this.x, this.y, this.z);
+        return new Color(this.r, this.g, this.b, this.a);
     }
 }
-

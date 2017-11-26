@@ -5,6 +5,8 @@ using UnityEditor;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
+using System.IO;
 
 [CustomEditor(typeof(MeshSerializerTest))]
 public class MeshSerializerTestEditor : Editor
@@ -70,6 +72,50 @@ public class MeshSerializerTestEditor : Editor
 
             System.IO.File.WriteAllText(Application.dataPath + @"\scene.txt", json);
 
+
+        }
+
+        if (GUILayout.Button("Surrogatte test"))
+        {
+
+            Scene scene = SceneManager.GetActiveScene();
+
+            SceneSurrogate sceneSurrogate = new SceneSurrogate(scene);
+
+
+            List<System.Type> knownTypes = new List<System.Type>();
+
+            knownTypes.Add(typeof(Vector2Surrogate));
+            knownTypes.Add(typeof(Vector3Surrogate));
+            knownTypes.Add(typeof(Vector4Surrogate));
+            knownTypes.Add(typeof(ColorSurrogate));
+            knownTypes.Add(typeof(QuaternionSurrogate));
+            knownTypes.Add(typeof(TransformSurrogate));
+            knownTypes.Add(typeof(GameObjectSurrogate));
+            knownTypes.Add(typeof(MeshFilterSurrogate));
+            knownTypes.Add(typeof(MeshRendererSurrogate));
+            knownTypes.Add(typeof(MeshSurrogate));
+            knownTypes.Add(typeof(MaterialSurrogate));
+            knownTypes.Add(typeof(ComponentSurrogate));
+            knownTypes.Add(typeof(float));
+            knownTypes.Add(typeof(int));
+            knownTypes.Add(typeof(ListOfInt));
+            knownTypes.Add(typeof(ListOfListOfInt));
+
+            DataContractSerializer serializer = new DataContractSerializer(typeof(SceneSurrogate), knownTypes);
+          
+
+            FileStream writer = new FileStream(Application.dataPath + @"\sceneSurrogate.txt", FileMode.Create);
+  
+            serializer.WriteObject(writer, sceneSurrogate);
+            writer.Close();
+
+            FileStream file = File.OpenRead(Application.dataPath + @"\sceneSurrogate.txt");
+            SceneSurrogate obj = (SceneSurrogate) serializer.ReadObject(file);
+            file.Close();
+
+            obj.Get();
+            
 
         }
     }

@@ -187,5 +187,6 @@ UnityEngine.MeshParticleEmitter
 UnityEngine.ParticleAnimator
 UnityEngine.ParticleRenderer
 UnityEngine.StateMachineBehaviour
-UnityEngine.UserAuthorizationDialog
+UnityEngine.UserAuthorizationDialog
+
 **/
