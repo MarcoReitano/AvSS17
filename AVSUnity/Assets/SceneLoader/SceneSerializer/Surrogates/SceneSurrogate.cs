@@ -3,52 +3,54 @@ using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[DataContract]
-[KnownType(typeof(TransformSurrogate))]
-[KnownType(typeof(ComponentSurrogate))]
-[KnownType(typeof(MeshRendererSurrogate))]
-[KnownType(typeof(MeshFilterSurrogate))]
-[KnownType(typeof(Vector2Surrogate))]
-[KnownType(typeof(Vector3Surrogate))]
-[KnownType(typeof(Vector4Surrogate))]
-[KnownType(typeof(QuaternionSurrogate))]
-[KnownType(typeof(MaterialSurrogate))]
-[KnownType(typeof(MeshSurrogate))]
-[KnownType(typeof(SceneSurrogate))]
-[KnownType(typeof(GameObjectSurrogate))]
-[KnownType(typeof(SerializableList))]
-public class SceneSurrogate
+namespace DataContractSceneSerialization
 {
-    [DataMember(Name = "Name")]
-    public string name;
-
-    [DataMember(Name = "RootGameObjects")]
-    public List<GameObjectSurrogate> rootGameObjects;
-
-
-    public SceneSurrogate(Scene scene)
+    [DataContract]
+    [KnownType(typeof(TransformSurrogate))]
+    [KnownType(typeof(ComponentSurrogate))]
+    [KnownType(typeof(MeshRendererSurrogate))]
+    [KnownType(typeof(MeshFilterSurrogate))]
+    [KnownType(typeof(Vector2Surrogate))]
+    [KnownType(typeof(Vector3Surrogate))]
+    [KnownType(typeof(Vector4Surrogate))]
+    [KnownType(typeof(QuaternionSurrogate))]
+    [KnownType(typeof(MaterialSurrogate))]
+    [KnownType(typeof(MeshSurrogate))]
+    [KnownType(typeof(SceneSurrogate))]
+    [KnownType(typeof(GameObjectSurrogate))]
+    public class SceneSurrogate
     {
-        this.name = scene.name;
+        [DataMember(Name = "Name")]
+        public string name;
 
-        rootGameObjects = new List<GameObjectSurrogate>();
-        foreach (GameObject go in scene.GetRootGameObjects())
+        [DataMember(Name = "RootGameObjects")]
+        public List<GameObjectSurrogate> rootGameObjects;
+
+
+        public SceneSurrogate(Scene scene)
         {
-            GameObjectSurrogate goSurrogate = new GameObjectSurrogate(go);
-            rootGameObjects.Add(goSurrogate);
-        }
-    }
+            this.name = scene.name;
 
-    public Scene Get()
-    {
-        Scene scene = SceneManager.CreateScene(this.name + "Deserialized");
-
-        SceneManager.SetActiveScene(scene);
-
-        foreach (GameObjectSurrogate goSurrogate in rootGameObjects)
-        {
-            goSurrogate.Get();
+            rootGameObjects = new List<GameObjectSurrogate>();
+            foreach (GameObject go in scene.GetRootGameObjects())
+            {
+                GameObjectSurrogate goSurrogate = new GameObjectSurrogate(go);
+                rootGameObjects.Add(goSurrogate);
+            }
         }
 
-        return scene;
+        public Scene Get()
+        {
+            Scene scene = SceneManager.CreateScene(this.name + "Deserialized");
+
+            SceneManager.SetActiveScene(scene);
+
+            foreach (GameObjectSurrogate goSurrogate in rootGameObjects)
+            {
+                goSurrogate.Get();
+            }
+
+            return scene;
+        }
     }
 }

@@ -4,34 +4,47 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using UnityEngine;
 
-[DataContract]
-[KnownType(typeof(TransformSurrogate))]
-[KnownType(typeof(ComponentSurrogate))]
-[KnownType(typeof(MeshRendererSurrogate))]
-[KnownType(typeof(MeshFilterSurrogate))]
-[KnownType(typeof(Vector2Surrogate))]
-[KnownType(typeof(Vector3Surrogate))]
-[KnownType(typeof(Vector4Surrogate))]
-[KnownType(typeof(QuaternionSurrogate))]
-[KnownType(typeof(MaterialSurrogate))]
-[KnownType(typeof(MeshSurrogate))]
-[KnownType(typeof(SceneSurrogate))]
-[KnownType(typeof(GameObjectSurrogate))]
-[KnownType(typeof(SerializableList))]
-public class MeshFilterSurrogate : ComponentSurrogate
+namespace DataContractSceneSerialization
 {
-
-    [DataMember(Name = "Mesh")]
-    public MeshSurrogate mesh;
-
-    public MeshFilterSurrogate(MeshFilter meshFilter)
+    [DataContract]
+    [KnownType(typeof(TransformSurrogate))]
+    [KnownType(typeof(ComponentSurrogate))]
+    [KnownType(typeof(MeshRendererSurrogate))]
+    [KnownType(typeof(MeshFilterSurrogate))]
+    [KnownType(typeof(Vector2Surrogate))]
+    [KnownType(typeof(Vector3Surrogate))]
+    [KnownType(typeof(Vector4Surrogate))]
+    [KnownType(typeof(QuaternionSurrogate))]
+    [KnownType(typeof(MaterialSurrogate))]
+    [KnownType(typeof(MeshSurrogate))]
+    [KnownType(typeof(SceneSurrogate))]
+    [KnownType(typeof(GameObjectSurrogate))]
+    public class MeshFilterSurrogate : ComponentSurrogate
     {
-        this.mesh = new MeshSurrogate(meshFilter.sharedMesh);
+
+        [DataMember(Name = "Mesh")]
+        public MeshSurrogate mesh;
+
+        [DataMember(Name = "HasMesh")]
+        public bool hasMesh;
+
+        public MeshFilterSurrogate(MeshFilter meshFilter)
+        {
+            if (meshFilter.sharedMesh != null)
+            {
+                this.hasMesh = true;
+                this.mesh = new MeshSurrogate(meshFilter.sharedMesh);
+            }
+            else
+            {
+                this.hasMesh = false;
+            }
+        }
+
+        //public MeshFilter Get()
+        //{
+
+        //}
+
     }
-
-    //public MeshFilter Get()
-    //{
-
-    //}
-
 }

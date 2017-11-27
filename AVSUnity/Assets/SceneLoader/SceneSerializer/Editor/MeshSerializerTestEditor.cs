@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 using System.IO;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 [CustomEditor(typeof(MeshSerializerTest))]
 public class MeshSerializerTestEditor : Editor
 {
-
+    
     MeshSerializerTest test;
     public void Awake()
     {
@@ -44,79 +46,92 @@ public class MeshSerializerTestEditor : Editor
             Debug.Log(sceneMessage.ToJSON());
         }
 
-        if (GUILayout.Button("Serialize All Meshes in Scene"))
+        //if (GUILayout.Button("Serialize All Meshes in Scene"))
+        //{
+        //    Debug.Log(SceneSerializer.SerializeScene(SceneManager.GetActiveScene()));
+
+        //}
+
+        //if (GUILayout.Button("Print Unity-Types"))
+        //{
+
+        //    StringBuilder sb = new StringBuilder();
+        //    var unityTypes = typeof(UnityEngine.Object).Assembly.GetTypes().Where(t => typeof(UnityEngine.Object).IsAssignableFrom(t));
+        //    foreach (var item in unityTypes)
+        //    {
+        //        sb.AppendLine(item.ToString());
+        //    }
+        //    Debug.Log(sb.ToString());
+        //}
+
+        //if (GUILayout.Button("JSON test"))
+        //{
+        //    Scene scene = SceneManager.GetActiveScene();
+
+
+        //    Debug.Log(scene.ToJSON());
+        //    string json = scene.ToJSON();
+
+        //    System.IO.File.WriteAllText(Application.dataPath + @"\scene.txt", json);
+
+
+        //}
+
+        if (GUILayout.Button("Surrogate Serialization"))
         {
-            Debug.Log(SceneSerializer.SerializeScene(SceneManager.GetActiveScene()));
 
-        }
-
-        if (GUILayout.Button("Print Unity-Types"))
-        {
-
-            StringBuilder sb = new StringBuilder();
-            var unityTypes = typeof(UnityEngine.Object).Assembly.GetTypes().Where(t => typeof(UnityEngine.Object).IsAssignableFrom(t));
-            foreach (var item in unityTypes)
-            {
-                sb.AppendLine(item.ToString());
-            }
-            Debug.Log(sb.ToString());
-        }
-
-        if (GUILayout.Button("JSON test"))
-        {
             Scene scene = SceneManager.GetActiveScene();
-
-
-            Debug.Log(scene.ToJSON());
-            string json = scene.ToJSON();
-
-            System.IO.File.WriteAllText(Application.dataPath + @"\scene.txt", json);
-
-
-        }
-
-        if (GUILayout.Button("Surrogatte test"))
-        {
-
-            Scene scene = SceneManager.GetActiveScene();
-
-            SceneSurrogate sceneSurrogate = new SceneSurrogate(scene);
-
+            DataContractSceneSerialization.SceneSurrogate sceneSurrogate = new DataContractSceneSerialization.SceneSurrogate(scene);
 
             List<System.Type> knownTypes = new List<System.Type>();
+            knownTypes.Add(typeof(DataContractSceneSerialization.Vector2Surrogate));
+            knownTypes.Add(typeof(DataContractSceneSerialization.Vector3Surrogate));
+            knownTypes.Add(typeof(DataContractSceneSerialization.Vector4Surrogate));
+            knownTypes.Add(typeof(DataContractSceneSerialization.ColorSurrogate));
+            knownTypes.Add(typeof(DataContractSceneSerialization.QuaternionSurrogate));
+            knownTypes.Add(typeof(DataContractSceneSerialization.TransformSurrogate));
+            knownTypes.Add(typeof(DataContractSceneSerialization.GameObjectSurrogate));
+            knownTypes.Add(typeof(DataContractSceneSerialization.MeshFilterSurrogate));
+            knownTypes.Add(typeof(DataContractSceneSerialization.MeshRendererSurrogate));
+            knownTypes.Add(typeof(DataContractSceneSerialization.MeshSurrogate));
+            knownTypes.Add(typeof(DataContractSceneSerialization.MaterialSurrogate));
+            knownTypes.Add(typeof(DataContractSceneSerialization.ComponentSurrogate));
+            //knownTypes.Add(typeof(float));
+            //knownTypes.Add(typeof(int));
+            //knownTypes.Add(typeof(ListOfInt));
+            //knownTypes.Add(typeof(ListOfListOfInt));
 
-            knownTypes.Add(typeof(Vector2Surrogate));
-            knownTypes.Add(typeof(Vector3Surrogate));
-            knownTypes.Add(typeof(Vector4Surrogate));
-            knownTypes.Add(typeof(ColorSurrogate));
-            knownTypes.Add(typeof(QuaternionSurrogate));
-            knownTypes.Add(typeof(TransformSurrogate));
-            knownTypes.Add(typeof(GameObjectSurrogate));
-            knownTypes.Add(typeof(MeshFilterSurrogate));
-            knownTypes.Add(typeof(MeshRendererSurrogate));
-            knownTypes.Add(typeof(MeshSurrogate));
-            knownTypes.Add(typeof(MaterialSurrogate));
-            knownTypes.Add(typeof(ComponentSurrogate));
-            knownTypes.Add(typeof(float));
-            knownTypes.Add(typeof(int));
-            knownTypes.Add(typeof(ListOfInt));
-            knownTypes.Add(typeof(ListOfListOfInt));
+            DataContractSerializer serializer = new DataContractSerializer(typeof(DataContractSceneSerialization.SceneSurrogate), knownTypes);
+            MemoryStream memStream = new MemoryStream();
+            //FileStream writer = new FileStream(Application.dataPath + @"\sceneSurrogate.txt", FileMode.Create);
 
-            DataContractSerializer serializer = new DataContractSerializer(typeof(SceneSurrogate), knownTypes);
-          
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            serializer.WriteObject(memStream, sceneSurrogate);
+            byte[] bytes = memStream.GetBuffer();
 
-            FileStream writer = new FileStream(Application.dataPath + @"\sceneSurrogate.txt", FileMode.Create);
-  
-            serializer.WriteObject(writer, sceneSurrogate);
-            writer.Close();
-
-            FileStream file = File.OpenRead(Application.dataPath + @"\sceneSurrogate.txt");
-            SceneSurrogate obj = (SceneSurrogate) serializer.ReadObject(file);
-            file.Close();
-
-            obj.Get();
+            //SceneMessage message = new SceneMessage()
+            memStream.Close();
             
+            sw.Stop();
+            UnityEngine.Debug.Log("Serialization using DataContractSerializer took " + sw.ElapsedMilliseconds + "ms");
 
+            sw.Reset();
+            sw.Start();
+            FileStream file = File.OpenRead(Application.dataPath + @"\sceneSurrogate.txt");
+            DataContractSceneSerialization.SceneSurrogate obj = (DataContractSceneSerialization.SceneSurrogate) serializer.ReadObject(file);
+            file.Close();
+            sw.Stop();
+            long millis = sw.ElapsedMilliseconds;
+            UnityEngine.Debug.Log("Deserialization using DataContractSerializer took " + millis + "ms");
+
+            sw.Reset();
+            sw.Start();
+            obj.Get();
+            sw.Stop();
+            long millisRecreation = sw.ElapsedMilliseconds;
+            UnityEngine.Debug.Log("Recreation of Scene took" + millisRecreation + "ms");
+            UnityEngine.Debug.Log("Deserialisation/Recreation of Scene took" + (millisRecreation + millis) + "ms");
         }
     }
 }

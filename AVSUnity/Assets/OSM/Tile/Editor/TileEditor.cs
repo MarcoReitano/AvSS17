@@ -4,7 +4,8 @@ using UnityEditor;
 #endif
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 /// <summary>
 /// TileEditor.
 /// </summary>
@@ -31,7 +32,14 @@ public class TileEditor : Editor
         }
 
         if (GUILayout.Button("UpdateTile"))
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             tile.StartQuery();
+            sw.Stop();
+            Debug.Log("Tile-Update took " + sw.ElapsedMilliseconds + "ms");
+        }
+            
     }
 
     public void OnSceneGUI()

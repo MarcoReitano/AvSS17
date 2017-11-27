@@ -1268,16 +1268,24 @@ public class SimpleClient : MonoBehaviour
 
             // Neue (leere) Szene erstellen
 #if UNITY_EDITOR
-            newScene = EditorSceneManager.NewScene(
+            if (EditorApplication.isPlaying)
+            {
+                newScene = SceneManager.CreateScene(jobMessage.x + "-" + jobMessage.y);
+            }
+            else
+            {
+                newScene = EditorSceneManager.NewScene(
                 NewSceneSetup.EmptyScene,
                 NewSceneMode.Additive);
+            }
+            
 #elif UNITY_STANDALONE
             newScene = SceneManager.CreateScene(jobMessage.x + "-" + jobMessage.y);
 #endif
            
 
             // Neue Szene als aktive Szene setzen
-            EditorSceneManager.SetActiveScene(newScene);
+            //EditorSceneManager.SetActiveScene(newScene);
             SceneManager.SetActiveScene(newScene);
 
             //###########################
@@ -1304,19 +1312,19 @@ public class SimpleClient : MonoBehaviour
         //tiles.Add(i + ":" + j, newTile);
         //###########################
 
-        // Szene speichern
-        string filename = RelativeAssetPathTo("Scene_" + jobMessage.x + "_" + jobMessage.y + ".unity");
-        Debug.Log("before newScene-Path: " + newScene.path);
-        
-        //EditorSceneManager.SaveScene(newScene, filename);
-        Debug.Log("after newScene-Path: " + newScene.path);
-        
+        //// Szene speichern
+        //string filename = RelativeAssetPathTo("Scene_" + jobMessage.x + "_" + jobMessage.y + ".unity");
+        //Debug.Log("before newScene-Path: " + newScene.path);
 
+        ////EditorSceneManager.SaveScene(newScene, filename);
+        //Debug.Log("after newScene-Path: " + newScene.path);
+
+        Debug.Log("Create ReplyMessage...");
         SceneMessage sceneMessage = new SceneMessage("replyScene_" + jobMessage.x + "_" + jobMessage.y + ".unity", newScene);
         string jsonMessage = sceneMessage.ToJSON();
-        Debug.Log(jsonMessage);
+        //Debug.Log(jsonMessage);
         //EditorSceneManager.CloseScene(newScene, true);
-        Debug.Log("afterClosing newScene-Path: " + newScene.path);
+        //Debug.Log("afterClosing newScene-Path: " + newScene.path);
         //EditorSceneManager.SetActiveScene(mainScene);
 
         Debug.Log("Reply newScene to queue: " + jobMessage.replyToQueue);

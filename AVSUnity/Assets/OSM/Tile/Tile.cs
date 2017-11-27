@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System;
+using Debug = UnityEngine.Debug;
 
 /// <summary>
 /// OSMTile.
@@ -83,10 +84,16 @@ public class
         done = true;
         if (ProceduralDone != null)
             ProceduralDone(this, new EventArgs());
+
+        sw.Stop();
+        Debug.Log("Generating Tile took " + sw.ElapsedMilliseconds + "ms");
+
     }
 
     public void StartQuery()
     {
+        sw = new Stopwatch();
+        sw.Start();
         Query = new OverpassQuery();
         this.Query.BoundingBox = new OSMBoundingBox
                                             (
@@ -101,13 +108,20 @@ public class
     public void QueryDone(object sender, System.EventArgs e)
     {
         this.Query.QueryDone -= QueryDone;
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.update += EditorAppUpdate;
-        sB.AppendLine("Creating Enumerator");
-        enumerator = Procedural();
-#else
-        shouldStartProcedural = true;
-#endif
+//#if UNITY_EDITOR
+//        if (EditorApplication.isPlaying)
+//        {
+            shouldStartProcedural = true;
+//        }
+//        else
+//        {
+//            UnityEditor.EditorApplication.update += EditorAppUpdate;
+//            sB.AppendLine("Creating Enumerator");
+//            enumerator = Procedural();
+//        }
+//#else
+//        shouldStartProcedural = true;
+//#endif
 
 
     }
