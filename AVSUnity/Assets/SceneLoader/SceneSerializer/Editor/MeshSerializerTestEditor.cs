@@ -141,23 +141,7 @@ public class MeshSerializerTestEditor : Editor
 
             Scene scene = SceneManager.GetActiveScene();
             ProtobufSceneSerialization.SceneSurrogate sceneSurrogate = new ProtobufSceneSerialization.SceneSurrogate(scene);
-
-            List<System.Type> knownTypes = new List<System.Type>();
-            knownTypes.Add(typeof(ProtobufSceneSerialization.Vector2Surrogate));
-            knownTypes.Add(typeof(ProtobufSceneSerialization.Vector3Surrogate));
-            knownTypes.Add(typeof(ProtobufSceneSerialization.Vector4Surrogate));
-            knownTypes.Add(typeof(ProtobufSceneSerialization.ColorSurrogate));
-            knownTypes.Add(typeof(ProtobufSceneSerialization.QuaternionSurrogate));
-            knownTypes.Add(typeof(ProtobufSceneSerialization.TransformSurrogate));
-            knownTypes.Add(typeof(ProtobufSceneSerialization.GameObjectSurrogate));
-            knownTypes.Add(typeof(ProtobufSceneSerialization.MeshFilterSurrogate));
-            knownTypes.Add(typeof(ProtobufSceneSerialization.MeshRendererSurrogate));
-            knownTypes.Add(typeof(ProtobufSceneSerialization.MeshSurrogate));
-            knownTypes.Add(typeof(ProtobufSceneSerialization.MaterialSurrogate));
-            knownTypes.Add(typeof(ProtobufSceneSerialization.ComponentSurrogate));
-
             
-
             Stopwatch sw = new Stopwatch();
             sw.Start();
 

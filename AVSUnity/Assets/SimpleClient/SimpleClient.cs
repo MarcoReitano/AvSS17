@@ -367,7 +367,6 @@ public class SimpleClient : MonoBehaviour
                 SubscribeToQueue("jobs");
                 Debug.LogErrorFormat("<color=green>Subscribed to Job-Queue.</color>");
             }
-
         }
         catch (Exception)
         {
@@ -375,8 +374,28 @@ public class SimpleClient : MonoBehaviour
             //throw;
         }
 
+        EnsureQueue("jobs");
+        EnsureQueue("reply");
 
         //EditorApplication.update += this.Update;
+    }
+
+    private void EnsureQueue(string queueName)
+    {
+        bool foundJobQueue = false;
+        foreach (AmqpQueue queue in this.client.GetQueues())
+        {
+            if (queue.Name == queueName)
+            {
+                foundJobQueue = true;
+                break;
+            }
+        }
+
+        if (!foundJobQueue)
+        {
+            this.client.DeclareQueue("jobs");
+        }
     }
 #if UNITY_EDITOR
     public void EnableUpdate()
