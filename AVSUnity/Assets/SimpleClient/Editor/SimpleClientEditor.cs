@@ -240,6 +240,8 @@ public class SimpleClientEditor : Editor
             TileManager.OriginLongitude = (double)EditorGUILayout.FloatField("OriginLongitude", (float)TileManager.OriginLongitude);
             EditorGUILayout.EndVertical();
 
+            this.client.method = (SerializationMethod)EditorGUILayout.EnumPopup("SerializationMethod", this.client.method);
+
 
             if (GUILayout.Button("Send Job-Messages"))
             {
@@ -266,7 +268,8 @@ public class SimpleClientEditor : Editor
                     TileManager.tileRadius,
                     TileManager.TileWidth,
                     TileManager.OriginLongitude,
-                    TileManager.OriginLatitude);
+                    TileManager.OriginLatitude,
+                    this.client.method);
             }
         }
         else // Client-Mode

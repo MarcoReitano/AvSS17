@@ -1250,7 +1250,7 @@ public class SimpleClient : MonoBehaviour
     public List<OSMJobMessage> osmJobs = new List<OSMJobMessage>();
     public List<SceneMessage> sceneMessages = new List<SceneMessage>();
 
-    public void SendOSMJobMessages(string jobQueueName, string replyQueueName, int tileRadius, double tileWidth, double originLongitude, double originLatitude)
+    public void SendOSMJobMessages(string jobQueueName, string replyQueueName, int tileRadius, double tileWidth, double originLongitude, double originLatitude, SerializationMethod method)
     {
         this.SubscribeToQueue(replyQueueName);
 
@@ -1258,7 +1258,7 @@ public class SimpleClient : MonoBehaviour
         {
             for (int j = -tileRadius; j <= tileRadius; j++)
             {
-                OSMJobMessage jobMessage = new OSMJobMessage(i, j, tileWidth, originLongitude, originLatitude, replyQueueName, DateTime.Now.Ticks);
+                OSMJobMessage jobMessage = new OSMJobMessage(i, j, tileWidth, originLongitude, originLatitude, replyQueueName, DateTime.Now.Ticks, method);
                 osmJobs.Add(jobMessage);
                 string jsonMessage = jobMessage.ToJson();
                 this.PublishToQueue(jobQueueName, jsonMessage);
@@ -1268,6 +1268,7 @@ public class SimpleClient : MonoBehaviour
     }
 
 
+    public SerializationMethod method;
     /// <summary>
     /// A default message received handler useful for debugging.
     /// </summary>
@@ -1401,7 +1402,7 @@ public class SimpleClient : MonoBehaviour
         //Debug.Log("after newScene-Path: " + newScene.path);
 
         Debug.Log("Create ReplyMessage...");
-        SceneMessage sceneMessage = new SceneMessage(jobMessage.x + "/" + jobMessage.y, newScene, jobMessage.timeStamp);
+        SceneMessage sceneMessage = new SceneMessage(jobMessage.x + "/" + jobMessage.y, newScene, jobMessage.timeStamp, jobMessage.method);
         string jsonMessage = sceneMessage.ToJSON();
         //Debug.Log(jsonMessage);
         //EditorSceneManager.CloseScene(newScene, true);

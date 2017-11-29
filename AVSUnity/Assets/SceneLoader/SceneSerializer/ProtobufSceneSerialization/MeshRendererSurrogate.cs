@@ -11,11 +11,11 @@ namespace ProtobufSceneSerialization
     public class MeshRendererSurrogate : ComponentSurrogate
     {
         [ProtoMember(1)]
-        public List<MaterialSurrogate> materials;
+        public List<MaterialSurrogate> materials = new List<MaterialSurrogate>();
 
         public MeshRendererSurrogate()
         {
-
+           
         }
 
         public MeshRendererSurrogate(MeshRenderer meshRenderer)

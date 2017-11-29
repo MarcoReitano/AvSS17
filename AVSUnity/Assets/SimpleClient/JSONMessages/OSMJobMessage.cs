@@ -14,9 +14,9 @@ public class OSMJobMessage
 
     public string replyToQueue;
     public long timeStamp;
+    public SerializationMethod method;
 
-
-    public OSMJobMessage(int x, int y, double tileWidth, double originLongitude, double originLatitude, string replyQueueName, long timeStamp)
+    public OSMJobMessage(int x, int y, double tileWidth, double originLongitude, double originLatitude, string replyQueueName, long timeStamp, SerializationMethod method)
     {
         this.x = x;
         this.y = y;
@@ -25,6 +25,7 @@ public class OSMJobMessage
         this.originLatitude = originLatitude;
         this.replyToQueue = replyQueueName;
         this.timeStamp = timeStamp;
+        this.method = method;
     }
 
     public string ToJson()
