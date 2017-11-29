@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 
@@ -335,7 +337,12 @@ public static class OSMTileProvider
             //string url = "http://tile.stamen.com/toner" + tilePath;
             //string url = "http://tile.stamen.com/watercolor" + tilePath;
 
-            string tmpFolder = EditorPrefs.GetString("OSMTileCachePath");
+            string tmpFolder = string.Empty;
+#if UNITY_EDITOR
+            tmpFolder = EditorPrefs.GetString("OSMTileCachePath");
+#elif STANDALONE
+            //tmpFolder = EditorPrefs.GetString("OSMTileCachePath");
+#endif
             if (tmpFolder == null || tmpFolder == "") {
                 tmpFolder = Application.dataPath + @"/OSM_TILE_TMP";
             }

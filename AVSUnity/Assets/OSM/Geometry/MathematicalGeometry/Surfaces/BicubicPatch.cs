@@ -1,9 +1,9 @@
 ﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
+using UnityEngine;
 
 public class BicubicPatch : MonoBehaviour
 {
@@ -206,11 +206,11 @@ public class BicubicPatch : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-
+#if UNITY_EDITOR
         for (int u = 0; u < 4; u++)
             for (int w = 0; w < 4; w++)
                 Handles.Label(this.points[u, w], "P" + u + w);
-
+#endif
     }
 
 

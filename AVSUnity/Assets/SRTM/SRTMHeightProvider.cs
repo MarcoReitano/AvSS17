@@ -8,7 +8,9 @@ using UnityEditor;
 /// <summary>
 /// SRTMHeightProvider.
 /// </summary>
+#if UNITY_EDITOR
 [InitializeOnLoad]
+#endif
 public static class SRTMHeightProvider
 {
     static SRTMHeightProvider()

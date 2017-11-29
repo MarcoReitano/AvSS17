@@ -306,7 +306,7 @@ public class ModularMesh
         mF.mesh = relatedUnityMesh;
 #if UNITY_EDITOR
         mC.sharedMesh = relatedUnityMesh;
-#else
+#elif STANDALONE
         mC.mesh = mesh;
 #endif
     }
@@ -328,8 +328,10 @@ public class ModularMesh
         if(mF.sharedMesh != null)
             mF.sharedMesh.Clear();
 #else
-        mC.mesh.Clear();
-        mF.mesh.Clear();
+        if(mC.sharedMesh != null)
+            mC.sharedMesh.Clear();
+        if(mF.sharedMesh != null)
+            mF.sharedMesh.Clear();
 #endif
         mR.materials = new Material[0];
 

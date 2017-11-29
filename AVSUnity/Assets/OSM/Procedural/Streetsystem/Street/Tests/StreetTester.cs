@@ -78,7 +78,9 @@ public class StreetTester : MonoBehaviour
         for (int i = 0; i < secPolyline.Count; i++)
         {
             Gizmos.DrawCube(secPolyline[i].Position, Vector3.one);
+#if UNITY_EDITOR
             Handles.Label(secPolyline[i].Position, i.ToString());
+#endif
         }
 
         //Gizmos.color = Color.green;

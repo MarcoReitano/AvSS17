@@ -146,6 +146,7 @@ public class
     {
         if (shouldStartProcedural)
         {
+            Debug.Log("ShouldStartProcedural");
             StartCoroutine(Procedural());
             shouldStartProcedural = false;
         }
@@ -176,6 +177,7 @@ public class
         if (lOD == 0)
         {
             Console.AddMessage("Procedural lod 0");
+            Debug.Log("Procedural lod 0");
             #region terrain
             TerrainData terrainData = new TerrainData();
 
@@ -193,13 +195,13 @@ public class
             terrainData.SetHeights(0, 0, heights);
             terrainData.size = new Vector3((float)TileManager.TileWidth * (float)TileManager.Scaling, 10f, (float)TileManager.TileWidth * (float)TileManager.Scaling);
 
-            //SplatPrototypes
-            SplatPrototype[] splatPrototypes = new SplatPrototype[1];
-            splatPrototypes[0] = new SplatPrototype();
-            //splatPrototypes[0].texture = (Texture2D)Resources.Load("Textures/White1px");
-            splatPrototypes[0].texture = (Texture2D)Resources.Load("Textures/Terrain/Grass (Hill)");
+            ////SplatPrototypes
+            //SplatPrototype[] splatPrototypes = new SplatPrototype[1];
+            //splatPrototypes[0] = new SplatPrototype();
+            ////splatPrototypes[0].texture = (Texture2D)Resources.Load("Textures/White1px");
+            //splatPrototypes[0].texture = (Texture2D)Resources.Load("Textures/Terrain/Grass (Hill)");
 
-            terrainData.splatPrototypes = splatPrototypes;
+            //terrainData.splatPrototypes = splatPrototypes;
 
             terrain.terrainData = terrainData;
             tC.terrainData = terrainData;
@@ -217,7 +219,7 @@ public class
 
             TileMesh.FillMeshDivideMaterialsKeepMeshStructure(transform, true);
             #endregion
-
+            Debug.Log("Procedural lod 0 - Done");
         }
         #endregion
 
@@ -225,6 +227,7 @@ public class
         if (lOD == 5)
         {
             Console.AddMessage("Procedural lod 5");
+            Debug.Log("Procedural lod 5");
             sw.Stop();
             sB.AppendLine(sw.ElapsedMilliseconds.ToString() + "ms Terrain");
             sw.Start();
@@ -241,52 +244,52 @@ public class
             //terrain.terrainData.SetHeights(0, 0, SRTMHeightProvider.GetInterpolatedTerrain(this.Query.BoundingBox, out height));
             terrain.terrainData.size = new Vector3((float)TileManager.TileWidth * (float)TileManager.Scaling, height, (float)TileManager.TileWidth * (float)TileManager.Scaling);
 
-            //SplatPrototypes
-            SplatPrototype[] splatPrototypes = new SplatPrototype[3];
-            splatPrototypes[0] = new SplatPrototype();
-            splatPrototypes[1] = new SplatPrototype();
-            splatPrototypes[2] = new SplatPrototype();
+            ////SplatPrototypes
+            //SplatPrototype[] splatPrototypes = new SplatPrototype[3];
+            //splatPrototypes[0] = new SplatPrototype();
+            //splatPrototypes[1] = new SplatPrototype();
+            //splatPrototypes[2] = new SplatPrototype();
 
-            splatPrototypes[0].texture = (Texture2D)Resources.Load("Textures/Terrain/GoodDirt");
-            splatPrototypes[1].texture = (Texture2D)Resources.Load("Textures/Terrain/Grass&Rock");
-            splatPrototypes[2].texture = (Texture2D)Resources.Load("Textures/Terrain/Grass (Hill)"); 
-            terrain.terrainData.splatPrototypes = splatPrototypes;
-
-            
+            //splatPrototypes[0].texture = (Texture2D)Resources.Load("Textures/Terrain/GoodDirt");
+            //splatPrototypes[1].texture = (Texture2D)Resources.Load("Textures/Terrain/Grass&Rock");
+            //splatPrototypes[2].texture = (Texture2D)Resources.Load("Textures/Terrain/Grass (Hill)"); 
+            //terrain.terrainData.splatPrototypes = splatPrototypes;
 
 
-            float[, ,] splatmapData = new float[terrain.terrainData.alphamapWidth, terrain.terrainData.alphamapHeight, terrain.terrainData.alphamapLayers];
 
-            //UnityEngine.Debug.Log("alphamapWidth: " + terrain.terrainData.alphamapWidth);
-            //UnityEngine.Debug.Log("alphamapHeight: " + terrain.terrainData.alphamapHeight);
-            //UnityEngine.Debug.Log("TerrainLayer.MinTerrainHeight: " + TerrainLayer.MinTerrainHeight);
-            //UnityEngine.Debug.Log("TerrainLayer.MaxTerrainHeight: " + TerrainLayer.MaxTerrainHeight);
 
-            for (int x = 0; x < terrain.terrainData.alphamapHeight; x++)
-            {
-                for (int y = 0; y < terrain.terrainData.alphamapWidth; y++)
-                {
-                    float terrainPointHeight = (terrain.terrainData.GetHeight(x, y) - TerrainLayer.MinTerrainHeight) / (TerrainLayer.MaxTerrainHeight - TerrainLayer.MinTerrainHeight);
-                    Vector3 splat = new Vector3(0, 1, 0);
+            //float[, ,] splatmapData = new float[terrain.terrainData.alphamapWidth, terrain.terrainData.alphamapHeight, terrain.terrainData.alphamapLayers];
 
-                    //if (x == 0)
-                    //    UnityEngine.Debug.Log("terrainPointHeight " + terrainPointHeight);
+            ////UnityEngine.Debug.Log("alphamapWidth: " + terrain.terrainData.alphamapWidth);
+            ////UnityEngine.Debug.Log("alphamapHeight: " + terrain.terrainData.alphamapHeight);
+            ////UnityEngine.Debug.Log("TerrainLayer.MinTerrainHeight: " + TerrainLayer.MinTerrainHeight);
+            ////UnityEngine.Debug.Log("TerrainLayer.MaxTerrainHeight: " + TerrainLayer.MaxTerrainHeight);
 
-                    if (terrainPointHeight > 0.5f)
-                        splat = Vector3.Slerp(splat, new Vector3(0, 0, 1), (terrainPointHeight - 0.5f) * 2);
-                    else
-                        splat = Vector3.Slerp(new Vector3(1, 0, 0), splat, terrainPointHeight * 2);
+            //for (int x = 0; x < terrain.terrainData.alphamapHeight; x++)
+            //{
+            //    for (int y = 0; y < terrain.terrainData.alphamapWidth; y++)
+            //    {
+            //        float terrainPointHeight = (terrain.terrainData.GetHeight(x, y) - TerrainLayer.MinTerrainHeight) / (TerrainLayer.MaxTerrainHeight - TerrainLayer.MinTerrainHeight);
+            //        Vector3 splat = new Vector3(0, 1, 0);
 
-                    splat.Normalize();
-                    splatmapData[y, x, 0] = splat.x;
-                    splatmapData[y, x, 1] = splat.y;
-                    splatmapData[y, x, 2] = splat.z;
-                }
-            }
+            //        //if (x == 0)
+            //        //    UnityEngine.Debug.Log("terrainPointHeight " + terrainPointHeight);
 
-            terrain.terrainData.SetAlphamaps(0, 0, splatmapData);
+            //        if (terrainPointHeight > 0.5f)
+            //            splat = Vector3.Slerp(splat, new Vector3(0, 0, 1), (terrainPointHeight - 0.5f) * 2);
+            //        else
+            //            splat = Vector3.Slerp(new Vector3(1, 0, 0), splat, terrainPointHeight * 2);
+
+            //        splat.Normalize();
+            //        splatmapData[y, x, 0] = splat.x;
+            //        splatmapData[y, x, 1] = splat.y;
+            //        splatmapData[y, x, 2] = splat.z;
+            //    }
+            //}
+
+            //terrain.terrainData.SetAlphamaps(0, 0, splatmapData);
             //TODO
-
+            Debug.Log("TerrainData");
             tC.terrainData = terrain.terrainData;
             sw.Stop();
             sB.AppendLine(sw.ElapsedMilliseconds.ToString() + "ms Terrain done");
@@ -295,26 +298,31 @@ public class
             #region mesh
             TileMesh.Clear();
 
+            Debug.Log("BackgroundMesh");
             if (BackgroundMesh != null)
                 BackgroundMesh.Clear();
             else
                 BackgroundMesh = new ModularMesh(TileMesh, "BackgroundMesh");
 
+            Debug.Log("BuildingMesh");
             if (BuildingMesh != null)
                 BuildingMesh.Clear();
             else
                 BuildingMesh = new ModularMesh(TileMesh, "BuildingMesh");
 
+            Debug.Log("StreetMesh");
             if (StreetMesh != null)
                 StreetMesh.Clear();
             else
                 StreetMesh = new ModularMesh(TileMesh, "StreetMesh");
 
+            Debug.Log("OtherMesh");
             if (OtherMesh != null)
                 OtherMesh.Clear();
             else
                 OtherMesh = new ModularMesh(TileMesh, "OtherMesh");
 
+            Debug.Log("TileQuad");
             Vertex[] tileQuadVertices = new Vertex[4];
             tileQuadVertices[0] = new Vertex(new Vector3((float)(-TileManager.TileWidth * TileManager.Scaling / 2d), 0f, (float)(-TileManager.TileWidth * TileManager.Scaling / 2d)) + TilePosition);
             tileQuadVertices[1] = new Vertex(new Vector3((float)(-TileManager.TileWidth * TileManager.Scaling / 2d), 0f, (float)(TileManager.TileWidth * TileManager.Scaling / 2d)) + TilePosition);
@@ -325,7 +333,7 @@ public class
 
 
             yield return null;
-
+            Debug.Log("River");
             //Create Domain Objects
             ///Relations
             foreach (KeyValuePair<long, OSMRelation> kV in Query.OSM.relations)
@@ -336,7 +344,7 @@ public class
                 yield return null;
             }
 
-            
+            Debug.Log("Ways");
             ///Ways
             foreach (KeyValuePair<long, OSMWay> kV in Query.OSM.ways)
             {
@@ -360,22 +368,30 @@ public class
                 TrafficSignal.TryCreateFromOSM(node, this);
             }
 
-            //Create Streets (and Bridges)
-            Street.CreateStreets(this);
+            //Debug.Log("CreateStreets");
+            ////Create Streets (and Bridges)
+            //Street.CreateStreets(this);
 
 
 
             //CreateTheMeshes
-            Street.CreateAllMeshes(StreetMesh);
+            //Debug.Log("CreateAllMeshes StreetMesh");
+            //Street.CreateAllMeshes(StreetMesh);
 
-            Bridge.CreateAllMeshes(StreetMesh);
-            Intersection.CreateAllMeshes(StreetMesh);
+            //Debug.Log("CreateAllMeshes StreetMesh Bridge");
+            //Bridge.CreateAllMeshes(StreetMesh);
+            //Debug.Log("CreateAllMeshes StreetMesh Intersection");
+            //Intersection.CreateAllMeshes(StreetMesh);
 
-            Street.CreateAllMeshes(StreetMesh); // A second time, cause Intersections change streetproperties
+            //Debug.Log("CreateAllMeshes StreetMesh Street");
+            //Street.CreateAllMeshes(StreetMesh); // A second time, cause Intersections change streetproperties
 
+            Debug.Log("CreateAllMeshes Building");
             Building.CreateAllMeshes(BuildingMesh);
-            Water.CreateAllMeshes(OtherMesh);
-            TrafficSignal.CreateAllMeshes(OtherMesh);
+            //Debug.Log("CreateAllMeshes Water");
+            //Water.CreateAllMeshes(OtherMesh);
+            //Debug.Log("CreateAllMeshes TrafficSignal");
+            //TrafficSignal.CreateAllMeshes(OtherMesh);
 
             //StreetPolygon currentStreetPolygon;
             //bool hasLeftPolygon = false;
@@ -410,6 +426,7 @@ public class
             sw.Stop();
             sB.AppendLine(sw.ElapsedMilliseconds.ToString() + "ms Start to fill Mesh");
             sw.Start();
+            Debug.Log("FillMeshDivideMaterialsKeepMeshStructure");
             TileMesh.FillMeshDivideMaterialsKeepMeshStructure(transform, true);
             sw.Stop();
             sB.AppendLine(sw.ElapsedMilliseconds.ToString() + "ms Done with fill Mesh");
@@ -417,15 +434,19 @@ public class
             #endregion
 
             sB.AppendLine(sw.ElapsedMilliseconds.ToString() + "ms Procedural done");
+            Debug.Log("Procedural lod 5 - Done");
         }
         #endregion
 
         sB.AppendLine(sw.ElapsedMilliseconds.ToString() + "ms Starting GarbageCollection");
+        Debug.Log(sw.ElapsedMilliseconds.ToString() + "ms Starting GarbageCollection");
         System.GC.Collect();
+        Debug.Log(sw.ElapsedMilliseconds.ToString() + "ms Done GarbageCollection");
         sB.AppendLine(sw.ElapsedMilliseconds.ToString() + "ms Done with GarbageCollection");
         UnityEngine.Debug.Log(sB.ToString());
 
         yield return null;
+        Debug.Log("OnProceduralDone");
         OnProceduralDone();
         yield return true;
     }
@@ -434,32 +455,32 @@ public class
     public bool drawOSMGizmos = true;
     public bool drawStreetPolygonGizmos = false;
 
-    public void OnDrawGizmos()
-    {
-        if (LayerTool.OSMGizmoMap && !LayerTool.OSMGizmoMapOnlyOnSelected && !OSMMapTools.DrawAsHandles)//Only draw Gizmos, when no control key is pressed, otherwise draw Handles (from TileEditor.OnSceneGUI)
-        {
-            if (Query != null)
-            {
-                if (Query.OSM != null)
-                { 
-                      Query.OSM.OnDrawGizmos(transform.position);
-                }
-            } 
-        }
-    }
+    //public void OnDrawGizmos()
+    //{
+    //    if (LayerTool.OSMGizmoMap && !LayerTool.OSMGizmoMapOnlyOnSelected && !OSMMapTools.DrawAsHandles)//Only draw Gizmos, when no control key is pressed, otherwise draw Handles (from TileEditor.OnSceneGUI)
+    //    {
+    //        if (Query != null)
+    //        {
+    //            if (Query.OSM != null)
+    //            { 
+    //                  Query.OSM.OnDrawGizmos(transform.position);
+    //            }
+    //        } 
+    //    }
+    //}
 
-    public void OnDrawGizmosSelected()
-    {
-        if (LayerTool.OSMGizmoMap && !OSMMapTools.DrawAsHandles) //Only draw Gizmos, when no control key is pressed, otherwise draw Handles (from TileEditor.OnSceneGUI)
-        {
-            if (Query != null)
-            {
-                if (Query.OSM != null)
-                {
-                     Query.OSM.OnDrawGizmos(transform.position); 
-                }
-            }
-        }
-    }
+    //public void OnDrawGizmosSelected()
+    //{
+    //    if (LayerTool.OSMGizmoMap && !OSMMapTools.DrawAsHandles) //Only draw Gizmos, when no control key is pressed, otherwise draw Handles (from TileEditor.OnSceneGUI)
+    //    {
+    //        if (Query != null)
+    //        {
+    //            if (Query.OSM != null)
+    //            {
+    //                 Query.OSM.OnDrawGizmos(transform.position); 
+    //            }
+    //        }
+    //    }
+    //}
 
 }

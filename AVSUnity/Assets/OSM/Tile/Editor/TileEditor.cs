@@ -42,33 +42,33 @@ public class TileEditor : Editor
             
     }
 
-    public void OnSceneGUI()
-    {
-        if (OSMMapTools.DrawAsHandles) //Only draw Handles when control down, otherwise draw Gizmos from Tile.OnDrawGizmos
-        {
-            if (LayerTool.OSMGizmoMapOnlyOnSelected)
-            {
-                if (tile.Query != null)
-                {
-                    if (tile.Query.OSM != null)
-                        tile.Query.OSM.OnSceneGUI();
-                }
-            }
-            else
-            {
-                foreach (KeyValuePair<string, Tile> kV in TileManager.tiles)
-                {
-                    if (kV.Value.Query != null)
-                    {
-                        if (kV.Value.Query.OSM != null)
-                        {
-                            kV.Value.Query.OSM.OnSceneGUI();
-                        }
-                    }
-                }
-            }
-        }
-    }
+    //public void OnSceneGUI()
+    //{
+    //    if (OSMMapTools.DrawAsHandles) //Only draw Handles when control down, otherwise draw Gizmos from Tile.OnDrawGizmos
+    //    {
+    //        if (LayerTool.OSMGizmoMapOnlyOnSelected)
+    //        {
+    //            if (tile.Query != null)
+    //            {
+    //                if (tile.Query.OSM != null)
+    //                    tile.Query.OSM.OnSceneGUI();
+    //            }
+    //        }
+    //        else
+    //        {
+    //            foreach (KeyValuePair<string, Tile> kV in TileManager.tiles)
+    //            {
+    //                if (kV.Value.Query != null)
+    //                {
+    //                    if (kV.Value.Query.OSM != null)
+    //                    {
+    //                        kV.Value.Query.OSM.OnSceneGUI();
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
 
 }

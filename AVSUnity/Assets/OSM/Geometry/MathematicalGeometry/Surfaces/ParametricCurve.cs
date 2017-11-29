@@ -1,7 +1,8 @@
-using UnityEngine;
-using UnityEditor;
-using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+using UnityEngine;
 
 public class ParametricCurve : MonoBehaviour
 {
@@ -89,15 +90,16 @@ public class ParametricCurve : MonoBehaviour
 	{
 		
 		if(points != null) {
-			Handles.Label(A, "A");
+#if UNITY_EDITOR
+            Handles.Label(A, "A");
 			Handles.Label(B, "B");
 			Handles.Label(C, "C");
 			Handles.Label(D, "D");
 			Handles.color = Color.white;
 			Handles.DrawPolyLine(A,B,C,D);
+#endif
 
-
-			Gizmos.color = Color.green;
+            Gizmos.color = Color.green;
 			for(int i = 0; i < points.Count - 1; i++) {
 				Gizmos.DrawLine(points[i], points[i + 1]);
 			}

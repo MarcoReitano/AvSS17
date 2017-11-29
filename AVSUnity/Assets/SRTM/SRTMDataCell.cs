@@ -1,16 +1,12 @@
 using UnityEngine;
 #if UNITY_EDITOR
-//using UnityEditor;
+using UnityEditor;
 #endif
-using System.Collections;
 using System.IO;
 using Ionic.Zip;
 using System;
 using System.Text;
-using System.Net;
 using System.Globalization;
-using System.Security.Cryptography.X509Certificates;
-using System.Net.Security;
 //using ICSharpCode.SharpZipLib.Zip;
 
 /// <summary>
@@ -626,13 +622,17 @@ public class SRTMDataCell
                     progressBar += prozent;
 
                 }
+#if UNITY_EDITOR
                 UnityEditor.EditorUtility.DisplayProgressBar("Writing to File: " + file,
                         "writing",
                         progressBar);
+#endif
                 writer.WriteLine();
             }
             writer.Close();
+#if UNITY_EDITOR
             UnityEditor.EditorUtility.ClearProgressBar();
+#endif
         }
         catch
         {

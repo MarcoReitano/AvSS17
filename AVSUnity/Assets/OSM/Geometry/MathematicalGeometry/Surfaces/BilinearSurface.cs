@@ -1,9 +1,9 @@
 ﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
+using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class BilinearSurface : MonoBehaviour
@@ -191,10 +191,12 @@ public class BilinearSurface : MonoBehaviour
         Gizmos.DrawLine(this.P00, this.P10);
         Gizmos.DrawLine(this.P01, this.P11);
 
+#if UNITY_EDITOR
         Handles.Label(this.P00, "P00");
         Handles.Label(this.P01, "P01");
         Handles.Label(this.P10, "P10");
         Handles.Label(this.P11, "P11");
+#endif
     }
 
 

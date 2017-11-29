@@ -6,8 +6,9 @@ using CymaticLabs.Unity3D.Amqp;
 using CymaticLabs.Unity3D.Amqp.SimpleJSON;
 using CymaticLabs.Unity3D.Amqp.UI;
 
-using UnityEditor.SceneManagement;
+
 #if UNITY_EDITOR
+using UnityEditor.SceneManagement;
 using UnityEditor;
 #endif
 using UnityEngine;
@@ -356,6 +357,23 @@ public class SimpleClient : MonoBehaviour
         {
             Debug.LogErrorFormat("{0}", ex);
         }
+
+        Connect();
+        try
+        {
+            if (!ServerMode)
+            {
+                SubscribeToQueue("jobs");
+                Debug.LogErrorFormat("<color=green>Subscribed to Job-Queue.</color>");
+            }
+
+        }
+        catch (Exception)
+        {
+            Debug.LogErrorFormat("<color=red>Could not Subscribe to Queue: jobs</color>");
+            //throw;
+        }
+
 
         //EditorApplication.update += this.Update;
     }
@@ -1228,6 +1246,27 @@ public class SimpleClient : MonoBehaviour
     #endregion // Logging
 
     #region Utility
+    public List<OSMJobMessage> osmJobs = new List<OSMJobMessage>();
+    public List<SceneMessage> sceneMessages = new List<SceneMessage>();
+
+    public void SendOSMJobMessages(string jobQueueName, string replyQueueName, int tileRadius, double tileWidth, double originLongitude, double originLatitude)
+    {
+        this.SubscribeToQueue(replyQueueName);
+
+        for (int i = -tileRadius; i <= tileRadius; i++)
+        {
+            for (int j = -tileRadius; j <= tileRadius; j++)
+            {
+                OSMJobMessage jobMessage = new OSMJobMessage(i, j, tileWidth, originLongitude, originLatitude, replyQueueName, DateTime.Now.Ticks);
+                osmJobs.Add(jobMessage);
+                string jsonMessage = jobMessage.ToJson();
+                this.PublishToQueue(jobQueueName, jsonMessage);
+                Debug.Log("Created Job-Message for (" + i + "," + j + "): " + jsonMessage);
+            }
+        }
+    }
+
+
     /// <summary>
     /// A default message received handler useful for debugging.
     /// </summary>
@@ -1245,8 +1284,9 @@ public class SimpleClient : MonoBehaviour
                 //payload + 
                 "</color>");
             SceneMessage sceneMessage = SceneMessage.FromJson(payload);
+            sceneMessages.Add(sceneMessage);
 
-
+            Debug.Log("Done Deserializing Scene... Process since job took : " + new TimeSpan(DateTime.Now.Ticks - sceneMessage.timeStamp).TotalMilliseconds + " ms");
 
             this.client.BasicAck(message.DeliveryTag, false);
         }
@@ -1258,53 +1298,93 @@ public class SimpleClient : MonoBehaviour
             Debug.Log("<b>Client:</b> <color=ff7f00ff>Message received on " + subscription.QueueName + ": " +
                 //payload + 
                 "</color>");
-            jobMessage = JobMessage.FromJson(payload);
+            jobMessage = OSMJobMessage.FromJson(payload);
 
-            
-            // Aktuelle Szene als MainScene merken
-            //mainScene = EditorSceneManager.GetActiveScene();
-            mainScene = SceneManager.GetActiveScene();
-
-
+            string sceneName = jobMessage.x + "-" + jobMessage.y;
             // Neue (leere) Szene erstellen
 #if UNITY_EDITOR
             if (EditorApplication.isPlaying)
             {
-                newScene = SceneManager.CreateScene(jobMessage.x + "-" + jobMessage.y);
+                // Aktuelle Szene als MainScene merken
+                mainScene = SceneManager.GetActiveScene();
+                // Erzeuge einen noch nicht vorhandenen Szenenname
+                sceneName = CheckForExistingScene(sceneName);
+                newScene = SceneManager.CreateScene(sceneName);
+                // Neue Szene als aktive Szene setzen
+                SceneManager.SetActiveScene(newScene);
             }
             else
             {
+                // Aktuelle Szene als MainScene merken
+                mainScene = EditorSceneManager.GetActiveScene();
+                // Erzeuge einen noch nicht vorhandenen Szenenname
+                sceneName = CheckForExistingSceneEditor(sceneName);
                 newScene = EditorSceneManager.NewScene(
                 NewSceneSetup.EmptyScene,
                 NewSceneMode.Additive);
+                // Neue Szene als aktive Szene setzen
+                EditorSceneManager.SetActiveScene(newScene);
             }
-            
-#elif UNITY_STANDALONE
-            newScene = SceneManager.CreateScene(jobMessage.x + "-" + jobMessage.y);
-#endif
-           
 
+#elif UNITY_STANDALONE
+            // Aktuelle Szene als MainScene merken
+            mainScene = SceneManager.GetActiveScene();
+            // Erzeuge einen noch nicht vorhandenen Szenenname
+            sceneName = CheckForExistingScene(sceneName);
+            newScene = SceneManager.CreateScene(sceneName);
             // Neue Szene als aktive Szene setzen
-            //EditorSceneManager.SetActiveScene(newScene);
             SceneManager.SetActiveScene(newScene);
+#endif
 
             //###########################
             // Erzeuge Content:
-            //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            //cube.transform.position = new Vector3(jobMessage.x, 0f, jobMessage.y);
+            TileManager.TileWidth = jobMessage.tileWidth;
+            TileManager.OriginLongitude = jobMessage.originLongitude;
+            TileManager.OriginLatitude = jobMessage.originLatitude;
 
             Tile newTile = Tile.CreateTileGO(jobMessage.x, jobMessage.y, 5);
             newTile.ProceduralDone += GenerationDone;
             newTile.StartQuery();
-            
 
             Debug.Log(jobMessage.x + "/" + jobMessage.y);
-            
         }
     }
+
+    private static string CheckForExistingScene(string sceneName)
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene checkScene = SceneManager.GetSceneAt(i);
+            if (checkScene.name == sceneName)
+            {
+                sceneName += "_Dublicate";
+                return CheckForExistingScene(sceneName);
+            }
+        }
+
+        return sceneName;
+    }
+
+#if UNITY_EDITOR
+    private static string CheckForExistingSceneEditor(string sceneName)
+    {
+        for (int i = 0; i < EditorSceneManager.sceneCount; i++)
+        {
+            Scene checkScene = EditorSceneManager.GetSceneAt(i);
+            if (checkScene.name == sceneName)
+            {
+                sceneName += "_Dublicate";
+                return CheckForExistingScene(sceneName);
+            }
+        }
+
+        return sceneName;
+    }
+#endif
+
     Scene mainScene;
     Scene newScene;
-    JobMessage jobMessage;
+    OSMJobMessage jobMessage;
     IAmqpReceivedMessage currentMessage;
 
     private void GenerationDone(object sender, EventArgs e)
@@ -1320,13 +1400,20 @@ public class SimpleClient : MonoBehaviour
         //Debug.Log("after newScene-Path: " + newScene.path);
 
         Debug.Log("Create ReplyMessage...");
-        SceneMessage sceneMessage = new SceneMessage("replyScene_" + jobMessage.x + "_" + jobMessage.y + ".unity", newScene);
+        SceneMessage sceneMessage = new SceneMessage(jobMessage.x + "/" + jobMessage.y, newScene, jobMessage.timeStamp);
         string jsonMessage = sceneMessage.ToJSON();
         //Debug.Log(jsonMessage);
         //EditorSceneManager.CloseScene(newScene, true);
         //Debug.Log("afterClosing newScene-Path: " + newScene.path);
         //EditorSceneManager.SetActiveScene(mainScene);
 
+        Debug.Log(SceneManager.sceneCount + " Scenes open.");
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Debug.Log("Scene " + i + " is named: " + SceneManager.GetSceneAt(i).name);
+        }
+        SceneManager.SetActiveScene(mainScene);
+        SceneManager.UnloadSceneAsync(newScene.name);
         Debug.Log("Reply newScene to queue: " + jobMessage.replyToQueue);
         PublishToQueue(jobMessage.replyToQueue, jsonMessage);
         BasicAck(currentMessage.DeliveryTag, false);
@@ -1350,6 +1437,6 @@ public class SimpleClient : MonoBehaviour
     {
         return "Assets" + Application.dataPath.Substring(Application.dataPath.Length);
     }
-#endregion // Utility
-#endregion // Methods
+    #endregion // Utility
+    #endregion // Methods
 }

@@ -1,7 +1,5 @@
 using UnityEngine;
-using System.Collections;
 using System;
-using UnityEditor;
 using System.Text;
 using System.IO;
 using System.Globalization;

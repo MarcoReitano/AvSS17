@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
-using System.Net;
 using System.IO;
+using System.Net;
+using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
-
+#endif
 
 public class OSMTileMap
 {
 
-    
+
 
     public OSMTileMap()
     {
@@ -38,7 +36,7 @@ public class OSMTileMap
 
     public bool changed = true;
 
-    
+
 
 
     public void DisplayTileMap()
@@ -104,8 +102,8 @@ public class OSMTileMap
         Vector2 result = new Vector2();
 
 
-        result.x = (float) this.centerLongitude - ((this.centerTileCoordsOnWindow.x - (float)x) * this.degreesPerPixel);
-        result.y = (float) this.centerLatitude + ((this.centerTileCoordsOnWindow.y - (float)y) * this.degreesPerPixel);
+        result.x = (float)this.centerLongitude - ((this.centerTileCoordsOnWindow.x - (float)x) * this.degreesPerPixel);
+        result.y = (float)this.centerLatitude + ((this.centerTileCoordsOnWindow.y - (float)y) * this.degreesPerPixel);
 
         return result;
     }
@@ -164,12 +162,14 @@ public class OSMTileMap
             yIndex = -2;
             for (int y = 0; y < 5; y++)
             {
+#if UNTIY_EDITOR
                 EditorGUI.DrawPreviewTexture(
                     new Rect(
                         centerTileCoordsOnWindow.x + xIndex * tileSize - tileSize / 2,
                         centerTileCoordsOnWindow.y + yIndex * tileSize - tileSize / 2,
                         tileSize, tileSize),
                         textureArray[y, x]);
+#endif
                 yIndex++;
             }
             xIndex++;
@@ -211,8 +211,17 @@ public class OSMTileMap
             string tilePath = "/" + zoom + "/" + xpos + "/" + ypos + ".png";
             string url = "http://tile.openstreetmap.org" + tilePath;
 
-            string tmpFolder = EditorApplication.applicationContentsPath + @"/OSM_TILE_TMP";
-            string tmpFile = tmpFolder + tilePath;
+
+            string tmpFolder = string.Empty;
+            string tmpFile = string.Empty;
+
+#if UNTIY_EDITOR
+            tmpFolder = EditorApplication.applicationContentsPath + @"/OSM_TILE_TMP";
+            tmpFile = tmpFolder + tilePath;
+#elif STANDALONE
+            tmpFolder = UnityEngine.Application.dataPath + @"/OSM_TILE_TMP";
+            tmpFile = tmpFolder + tilePath;
+#endif
 
             if (!Directory.Exists(tmpFolder + @"/" + zoom + "/" + xpos))
             {
@@ -259,7 +268,8 @@ public class OSMTileMap
         do
         {
             len = stream.Read(buffer, 0, buffersize);
-            if (len < 1) break;
+            if (len < 1)
+                break;
             fileStream.Write(buffer, 0, len);
         } while (len > 0);
         fileStream.Close();

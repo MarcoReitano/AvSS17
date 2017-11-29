@@ -121,7 +121,8 @@ public class TriangleTester : MonoBehaviour
         }
 
         triangles = splitresult;
-
+#if UNITY_EDITOR
         SceneView.RepaintAll();
+#endif
     }
 }

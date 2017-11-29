@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
-//using CITYEditor.Util.Procedural;
-
-
+#endif
+using UnityEngine;
 
 public class CurvePoint : MonoBehaviour
 {
@@ -155,11 +151,13 @@ public class CurvePoint : MonoBehaviour
 		Gizmos.color = Color.yellow;
 		Gizmos.DrawLine(Position, StartTangentPosition);
 		Gizmos.DrawLine(Position, EndTangentPosition);
-		
-		Handles.Label(Position, "P");
+
+#if UNITY_EDITOR
+        Handles.Label(Position, "P");
 		Handles.Label(StartTangentPosition, "Ts");
 		Handles.Label(EndTangentPosition, "Te");
-	}
+#endif
+    }
 
 
 

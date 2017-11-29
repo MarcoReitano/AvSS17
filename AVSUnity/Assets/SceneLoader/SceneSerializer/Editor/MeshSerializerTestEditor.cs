@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
-using UnityEngine.SceneManagement;
-using System.Linq;
-using System.Text;
-using System.Runtime.Serialization;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using Debug = UnityEngine.Debug;
+using System.IO;
+using System.Runtime.Serialization;
+using ProtoBuf;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [CustomEditor(typeof(MeshSerializerTest))]
 public class MeshSerializerTestEditor : Editor
@@ -22,29 +19,29 @@ public class MeshSerializerTestEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
-        if (GUILayout.Button("Serialize Mesh"))
-        {
-            Mesh mesh = test.GetComponent<MeshFilter>().sharedMesh;
+        //base.OnInspectorGUI();
+        //if (GUILayout.Button("Serialize Mesh"))
+        //{
+        //    Mesh mesh = test.GetComponent<MeshFilter>().sharedMesh;
 
-            byte[] serializedMesh = MeshSerializer.WriteMesh(mesh, false);
-            Debug.Log("SerializedMesh has " + serializedMesh.Length + " bytes");
+        //    byte[] serializedMesh = MeshSerializer.WriteMesh(mesh, false);
+        //    Debug.Log("SerializedMesh has " + serializedMesh.Length + " bytes");
 
 
-            Mesh deserializedMesh = MeshSerializer.ReadMesh(serializedMesh);
-            GameObject go = new GameObject("Deserialized Mesh");
-            MeshFilter meshFilter = go.AddComponent<MeshFilter>();
-            go.AddComponent<MeshRenderer>();
+        //    Mesh deserializedMesh = MeshSerializer.ReadMesh(serializedMesh);
+        //    GameObject go = new GameObject("Deserialized Mesh");
+        //    MeshFilter meshFilter = go.AddComponent<MeshFilter>();
+        //    go.AddComponent<MeshRenderer>();
 
-            meshFilter.sharedMesh = deserializedMesh;
-        }
+        //    meshFilter.sharedMesh = deserializedMesh;
+        //}
 
-        if (GUILayout.Button("Serialize All Meshes in Scene"))
-        {
-            SceneMessage sceneMessage = new SceneMessage("bla", SceneManager.GetActiveScene());
+        //if (GUILayout.Button("Serialize All Meshes in Scene"))
+        //{
+        //    SceneMessage sceneMessage = new SceneMessage("bla", SceneManager.GetActiveScene());
 
-            Debug.Log(sceneMessage.ToJSON());
-        }
+        //    Debug.Log(sceneMessage.ToJSON());
+        //}
 
         //if (GUILayout.Button("Serialize All Meshes in Scene"))
         //{
@@ -76,7 +73,7 @@ public class MeshSerializerTestEditor : Editor
 
 
         //}
-
+        #region DataContractSerializer
         if (GUILayout.Button("Surrogate Serialization"))
         {
 
@@ -118,9 +115,10 @@ public class MeshSerializerTestEditor : Editor
 
             sw.Reset();
             sw.Start();
-            FileStream file = File.OpenRead(Application.dataPath + @"\sceneSurrogate.txt");
-            DataContractSceneSerialization.SceneSurrogate obj = (DataContractSceneSerialization.SceneSurrogate) serializer.ReadObject(file);
-            file.Close();
+            MemoryStream outMemStream = new MemoryStream(bytes);
+            //FileStream file = File.OpenRead(Application.dataPath + @"\sceneSurrogate.txt");
+            DataContractSceneSerialization.SceneSurrogate obj = (DataContractSceneSerialization.SceneSurrogate) serializer.ReadObject(outMemStream);
+            outMemStream.Close();
             sw.Stop();
             long millis = sw.ElapsedMilliseconds;
             UnityEngine.Debug.Log("Deserialization using DataContractSerializer took " + millis + "ms");
@@ -132,6 +130,66 @@ public class MeshSerializerTestEditor : Editor
             long millisRecreation = sw.ElapsedMilliseconds;
             UnityEngine.Debug.Log("Recreation of Scene took" + millisRecreation + "ms");
             UnityEngine.Debug.Log("Deserialisation/Recreation of Scene took" + (millisRecreation + millis) + "ms");
+            UnityEngine.Debug.Log("###############################");
+
         }
+        #endregion DataContractSerializer
+
+        #region Protobuf Serializer
+        if (GUILayout.Button("Protobuf Serialization"))
+        {
+
+            Scene scene = SceneManager.GetActiveScene();
+            ProtobufSceneSerialization.SceneSurrogate sceneSurrogate = new ProtobufSceneSerialization.SceneSurrogate(scene);
+
+            List<System.Type> knownTypes = new List<System.Type>();
+            knownTypes.Add(typeof(ProtobufSceneSerialization.Vector2Surrogate));
+            knownTypes.Add(typeof(ProtobufSceneSerialization.Vector3Surrogate));
+            knownTypes.Add(typeof(ProtobufSceneSerialization.Vector4Surrogate));
+            knownTypes.Add(typeof(ProtobufSceneSerialization.ColorSurrogate));
+            knownTypes.Add(typeof(ProtobufSceneSerialization.QuaternionSurrogate));
+            knownTypes.Add(typeof(ProtobufSceneSerialization.TransformSurrogate));
+            knownTypes.Add(typeof(ProtobufSceneSerialization.GameObjectSurrogate));
+            knownTypes.Add(typeof(ProtobufSceneSerialization.MeshFilterSurrogate));
+            knownTypes.Add(typeof(ProtobufSceneSerialization.MeshRendererSurrogate));
+            knownTypes.Add(typeof(ProtobufSceneSerialization.MeshSurrogate));
+            knownTypes.Add(typeof(ProtobufSceneSerialization.MaterialSurrogate));
+            knownTypes.Add(typeof(ProtobufSceneSerialization.ComponentSurrogate));
+
+            
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
+            MemoryStream memStream = new MemoryStream();
+            Serializer.Serialize<ProtobufSceneSerialization.SceneSurrogate>(memStream, sceneSurrogate);
+            //byte[] bytes = memStream.GetBuffer();
+
+            byte[] bytes = memStream.ToArray();
+            //Debug.Log("memStream.Length=" + memStream.Length + "  -->  bytes.Length=" + bytes.Length + "  -->  bytes2.Length=" + bytes2.Length);
+            memStream.Close();
+            sw.Stop();
+            UnityEngine.Debug.Log("Serialization using Protobuf-Serialization took " + sw.ElapsedMilliseconds + "ms");
+
+            sw.Reset();
+            sw.Start();
+          
+            MemoryStream outMemStream = new MemoryStream(bytes,0, bytes.Length);
+            ProtobufSceneSerialization.SceneSurrogate obj = 
+                (ProtobufSceneSerialization.SceneSurrogate) Serializer.Deserialize<ProtobufSceneSerialization.SceneSurrogate>(outMemStream);
+            outMemStream.Close();
+            sw.Stop();
+            long millis = sw.ElapsedMilliseconds;
+            UnityEngine.Debug.Log("Deserialization using Protobuf-Serialization took " + millis + "ms");
+
+            sw.Reset();
+            sw.Start();
+            obj.Get();
+            sw.Stop();
+            long millisRecreation = sw.ElapsedMilliseconds;
+            UnityEngine.Debug.Log("Recreation of Scene took" + millisRecreation + "ms");
+            UnityEngine.Debug.Log("Deserialisation/Recreation of Scene took" + (millisRecreation + millis) + "ms");
+        }
+        #endregion Protobuf Serializer
     }
 }

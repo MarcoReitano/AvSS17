@@ -1,7 +1,8 @@
-using UnityEngine;
-using System.Collections;
-using UnityEditor;
 using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+using UnityEngine;
 
 public class CatmullRomSurfaceBehaviour : MonoBehaviour
 {
@@ -144,7 +145,9 @@ public class CatmullRomSurfaceBehaviour : MonoBehaviour
         for (int u = 0; u < surface.NumberOfControlPointsWidth; u++)
             for (int w = 0; w < surface.NumberOfControlPointsHeight; w++)
             {
+#if UNITY_EDITOR
                 Handles.Label(surface.controlPoints[u, w], "P" + u + w);
+#endif
                 Gizmos.DrawIcon(surface.controlPoints[u, w], "CurvesAndSurfaces/circle_green_8.png", false);
             }
 
@@ -190,7 +193,7 @@ public class CatmullRomSurfaceBehaviour : MonoBehaviour
         this.mesh = MeshHelper.GenerateGridMesh(this.mesh, this.transform.position, surface.surfacePoints);
         
 
-        MeshRenderer meshRenderer = (MeshRenderer)this.gameObject.GetComponent<MeshRenderer>();
+        MeshRenderer meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
         if (meshRenderer == null)
             meshRenderer = gameObject.AddComponent<MeshRenderer>();
 
