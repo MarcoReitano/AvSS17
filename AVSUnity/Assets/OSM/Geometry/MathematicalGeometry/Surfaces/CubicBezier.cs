@@ -1,12 +1,10 @@
-﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 using System.Globalization;
+
 
 
 public class CubicBezier : MonoBehaviour
@@ -169,13 +167,14 @@ public class CubicBezier : MonoBehaviour
         Gizmos.DrawSphere(this.StartTangentPosition, 0.2f);
         Gizmos.DrawSphere(this.EndTangentPosition, 0.2f);
 
+#if UNITY_EDITOR
         Handles.Label(this.midPoint, "" + this.arcLength.ToString("0.##", CultureInfo.CreateSpecificCulture("en-US")));
 
         Handles.Label(this.startPosition, "P0");
         Handles.Label(this.startTangentPosition, "T0");
         Handles.Label(this.endPosition, "P1");
         Handles.Label(this.endTangentPosition, "T1");
-
+#endif
     }
 
 
@@ -783,12 +782,6 @@ public class CubicBezier : MonoBehaviour
             meshFilter.sharedMesh = this.mesh;
             //			DoMesh(ref meshFilter);
         }
-
-
-
-
     }
-
-
 }
 

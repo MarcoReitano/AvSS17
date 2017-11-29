@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -15,9 +16,7 @@ using Debug = UnityEngine.Debug;
 [CustomEditor(typeof(SimpleClient))]
 public class SimpleClientEditor : Editor
 {
-
-
-
+    
     #region Fields
 
     // The index of the selected connection
@@ -241,6 +240,8 @@ public class SimpleClientEditor : Editor
             TileManager.OriginLongitude = (double)EditorGUILayout.FloatField("OriginLongitude", (float)TileManager.OriginLongitude);
             EditorGUILayout.EndVertical();
 
+            this.client.method = (SerializationMethod)EditorGUILayout.EnumPopup("SerializationMethod", this.client.method);
+
 
             if (GUILayout.Button("Send Job-Messages"))
             {
@@ -261,33 +262,14 @@ public class SimpleClientEditor : Editor
 
             if (GUILayout.Button("Send OSM-Job-Messages"))
             {
-                if (GUILayout.Button("Create TileMap"))
-                    TileManager.CreateTileMap();
-
-                // make sure we have subscribed the replyQueue
-                this.client.SubscribeToQueue(replyQueueName);
-
-                for (int i = -TileManager.tileRadius; i <= TileManager.tileRadius; i++)
-                {   
-                    for (int j = -TileManager.tileRadius; j <= TileManager.tileRadius; j++)
-                    {
-                        OSMJobMessage jobMessage = new OSMJobMessage(i, j, replyQueueName);
-                        string jsonMessage = jobMessage.ToJson();
-                        this.client.PublishToQueue(jobQueueName, jsonMessage);
-                        Debug.Log("Created Job-Message for (" + i + "," + j + "): " + jsonMessage);
-                    }
-                }
-
-                //for (int x = 0; x < this.xMax; x++)
-                //{
-                //    for (int z = 0; z < this.zMax; z++)
-                //    {
-                //        JobMessage jobMessage = new JobMessage(x, z, replyQueueName);
-                //        string jsonMessage = jobMessage.ToJson();
-                //        this.client.PublishToQueue(jobQueueName, jsonMessage);
-                //        Debug.Log("Created Job-Message for (" + x + "," + z + "): " + jsonMessage);
-                //    }
-                //}
+                this.client.SendOSMJobMessages(
+                    jobQueueName,
+                    replyQueueName,
+                    TileManager.tileRadius,
+                    TileManager.TileWidth,
+                    TileManager.OriginLongitude,
+                    TileManager.OriginLatitude,
+                    this.client.method);
             }
         }
         else // Client-Mode
@@ -312,78 +294,48 @@ public class SimpleClientEditor : Editor
             #endregion // JobQueue
         }
 
-        //this.replyToQueue = EditorGUILayout.TextField("ReplyToQueue", this.replyToQueue);
+        if (this.client.osmJobs.Count > 0)
+        {
+            GUI.backgroundColor = Color.white;
+            EditorGUILayout.BeginVertical("box");
+            {
+                GUI.backgroundColor = Color.grey;
+                foreach (OSMJobMessage osmJob in this.client.osmJobs)
+                {
+                    EditorGUILayout.BeginVertical("box");
+                    {
+                        bool replyReceived = false;
+                        SceneMessage receivedReply = null;
+                        foreach (SceneMessage reply in this.client.sceneMessages)
+                        {
+                            if (reply.messageText == (osmJob.x + "/" + osmJob.y))
+                            {
+                                receivedReply = reply;
+                                replyReceived = true;
+                                break;
+                            }
+                        }
+                        if (replyReceived)
+                            GUI.backgroundColor = Color.green;
+                        else
+                            GUI.backgroundColor = Color.grey;
 
-        //this.message = EditorGUILayout.TextField("Message", this.message);
-        //if (GUILayout.Button("Send Message"))
-        //{
-        //    this.client.PublishToQueue(this.queueName, this.message);
-        //}
+                        EditorGUILayout.LabelField("Jobname", osmJob.x + "/" + osmJob.y);
+                        EditorGUILayout.LabelField("replyQueue", osmJob.replyToQueue);
+                        EditorGUILayout.LabelField("started at", new DateTime(osmJob.timeStamp).ToString());
 
-        //if (GUILayout.Button("Send JSON-Message"))
-        //{
-
-
-        //    Stopwatch sw = new Stopwatch();
-
-        //    for (int x = 0; x < 3; x++)
-        //    {
-        //        for (int z = 0; z < 3; z++)
-        //        {
-        //            sw.Start();
-
-        //            // Aktuelle Szene als MainScene merken
-        //            mainScene = EditorSceneManager.GetActiveScene();
-
-        //            // Neue (leere) Szene erstellen
-        //            newScene = EditorSceneManager.NewScene(
-        //                NewSceneSetup.EmptyScene,
-        //                NewSceneMode.Additive);
-
-        //            // Neue Szene als aktive Szene setzen
-        //            EditorSceneManager.SetActiveScene(this.newScene);
-
-        //            //###########################
-        //            // Erzeuge Content:
-        //            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //            cube.transform.position = new Vector3(x, 0f, z);
-        //            //###########################
-
-        //            // Szene speichern
-        //            string filename = SceneLoaderEditor.RelativeAssetPathTo("Scene_" + x + "_" + z + ".unity");
-        //            EditorSceneManager.SaveScene(newScene, filename);
-
-        //            SceneMessage sceneMessage = new SceneMessage("Scene_" + x + "_" + z + ".unity", this.newScene);
-        //            string jsonMessage = sceneMessage.ToJSON();
-        //            Debug.Log(jsonMessage);
-
-        //            //// ByteArray für Message aus Szene erstellen
-        //            //byte[] bytes = SceneLoaderEditor.SceneFileToByteArray(this.newScene);
-
-        //            //JsonUtility.ToJson()
-
-        //            this.client.PublishToQueue(this.queueName, jsonMessage);
-        //            //// Filename must be send in some form... 
-        //            ////
-        //            ////      |
-        //            ////      |
-        //            //// Transfer via RabbitMQ-Message
-        //            ////      |
-        //            ////     \|/
-        //            ////      v
-
-        //            //Scene transferedScene = SceneLoaderEditor.ByteArrayToScene(filename, bytes);
-        //            //EditorSceneManager.SetActiveScene(transferedScene);
-        //            //EditorSceneManager.CloseScene(this.newScene, true);
-        //            sw.Stop();
-
-        //            Debug.Log("Szene " + x + "," + z + " took: " + sw.ElapsedMilliseconds + "ms");
-
-        //        }
-
-        //    }
-        //}
-
+                        EditorGUILayout.Toggle(replyReceived, "Received reply");
+                        if (replyReceived)
+                        {
+                            EditorGUILayout.LabelField("Size of Message:", receivedReply.sceneBytes.Length.ToString());
+                        }
+                    }
+                    EditorGUILayout.EndVertical();
+                }
+            }
+            EditorGUILayout.EndVertical();
+        }
+       
         // Save/serialized modified connection
         serializedObject.ApplyModifiedProperties();
 

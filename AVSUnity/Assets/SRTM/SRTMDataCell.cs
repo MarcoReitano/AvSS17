@@ -1,16 +1,12 @@
 using UnityEngine;
 #if UNITY_EDITOR
-//using UnityEditor;
+using UnityEditor;
 #endif
-using System.Collections;
 using System.IO;
 using Ionic.Zip;
 using System;
 using System.Text;
-using System.Net;
 using System.Globalization;
-using System.Security.Cryptography.X509Certificates;
-using System.Net.Security;
 //using ICSharpCode.SharpZipLib.Zip;
 
 /// <summary>
@@ -72,7 +68,7 @@ public class SRTMDataCell
                         Debug.Log("Download SRTMFIle " + downloadURL);
                         zippedSRTMFile = DownloadSRTMFile(downloadURL, chunkFileName, SRTMHeightProvider.SRTMDataPath + "/" + continent, false);
                     }
-                        
+
                 }
             }
 
@@ -190,12 +186,12 @@ public class SRTMDataCell
                         SRTMDataCell cell = SRTMHeightProvider.GetSRTMDataCell(latIndex - 1, longIndex + 1);
                         controlPoints[counterX, counterY] = cell.Data[1199, 2];
                     }
-                         //  |
-                         //X * **
-                         //X * **
-                         //X * **
-                         //X * **
-                         //  |
+                    //  |
+                    //X * **
+                    //X * **
+                    //X * **
+                    //X * **
+                    //  |
                     else
                     {
                         SRTMDataCell cell = SRTMHeightProvider.GetSRTMDataCell(latIndex - 1, longIndex);
@@ -530,7 +526,7 @@ public class SRTMDataCell
                 return false;
             }
         }
-       
+
         return true;
     }
 
@@ -582,7 +578,7 @@ public class SRTMDataCell
                 // request file from local path or server
                 string url = downloadPath + "/" + downloadFilename;
                 //Debug.Log(url);
-               
+
                 WWW www = new WWW(url);
                 while (!www.isDone)
                 {
@@ -620,11 +616,9 @@ public class SRTMDataCell
             {
                 for (int x = 0; x < HeightmapResolution; x++)
                 {
-
                     writer.Write(shortMap[x, y].ToString("000000", CultureInfo.CreateSpecificCulture("en-US")) + " ");
 
                     progressBar += prozent;
-
                 }
 #if UNITY_EDITOR
                 UnityEditor.EditorUtility.DisplayProgressBar("Writing to File: " + file,

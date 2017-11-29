@@ -1,10 +1,8 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
-
-public class CurvePath : MonoBehaviour {
-
-
+public class CurvePath : MonoBehaviour
+{
     public List<AbstractPathCurve> curves = new List<AbstractPathCurve>();
 
     public Vector3 start = new Vector3(10f, 0f, 10f);
@@ -25,15 +23,17 @@ public class CurvePath : MonoBehaviour {
     }
 
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
 
     void OnDrawGizmos()
