@@ -1,7 +1,5 @@
 ﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -21,7 +19,10 @@ public class BilinearSurface : MonoBehaviour
     private Vector3 p00 = new Vector3(0, 0, 0);
     public Vector3 P00
     {
-        get { return this.p00; }
+        get
+        {
+            return this.p00;
+        }
         set
         {
             this.p00 = value;
@@ -33,7 +34,10 @@ public class BilinearSurface : MonoBehaviour
     private Vector3 p01 = new Vector3(0, 0, 10);
     public Vector3 P01
     {
-        get { return this.p01; }
+        get
+        {
+            return this.p01;
+        }
         set
         {
             this.p01 = value;
@@ -46,7 +50,10 @@ public class BilinearSurface : MonoBehaviour
     private Vector3 p10 = new Vector3(10, 0, 0);
     public Vector3 P10
     {
-        get { return this.p10; }
+        get
+        {
+            return this.p10;
+        }
         set
         {
             this.p10 = value;
@@ -58,7 +65,10 @@ public class BilinearSurface : MonoBehaviour
     private Vector3 p11 = new Vector3(10, 0, 10);
     public Vector3 P11
     {
-        get { return this.p11; }
+        get
+        {
+            return this.p11;
+        }
         set
         {
             this.p11 = value;
@@ -86,7 +96,10 @@ public class BilinearSurface : MonoBehaviour
     private int numberOfSegmentsU = 10;
     public int NumberOfSegmentsU
     {
-        get { return numberOfSegmentsU; }
+        get
+        {
+            return numberOfSegmentsU;
+        }
         set
         {
             this.numberOfSegmentsU = value;
@@ -99,7 +112,10 @@ public class BilinearSurface : MonoBehaviour
     private int numberOfSegmentsW = 10;
     public int NumberOfSegmentsW
     {
-        get { return numberOfSegmentsW; }
+        get
+        {
+            return numberOfSegmentsW;
+        }
         set
         {
             this.numberOfSegmentsW = value;
@@ -139,10 +155,10 @@ public class BilinearSurface : MonoBehaviour
     public bool drawGizmos = true;
     public bool drawMeshGizmo = false;
 
-#if UNITY_EDITOR
+
     public void OnDrawGizmos()
     {
-
+#if UNITY_EDITOR
         Gizmos.color = Color.grey;
         Gizmos.DrawLine(this.P00, this.P10);
         Gizmos.DrawLine(this.P01, this.P11);
@@ -174,28 +190,28 @@ public class BilinearSurface : MonoBehaviour
                     Gizmos.DrawLine(this.surfacePoints[0, w], this.surfacePoints[numberOfSegmentsU, w]);
                 }
             }
-
         }
-        //		
-
+#endif
     }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(this.P00, this.P10);
         Gizmos.DrawLine(this.P01, this.P11);
 
+#if UNITY_EDITOR
         Handles.Label(this.P00, "P00");
         Handles.Label(this.P01, "P01");
         Handles.Label(this.P10, "P10");
         Handles.Label(this.P11, "P11");
-    }
 #endif
+    }
+
 
     void Reset()
     {
         GenerateMesh();
-
     }
 
 

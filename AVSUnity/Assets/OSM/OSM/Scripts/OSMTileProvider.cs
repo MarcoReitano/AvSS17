@@ -333,12 +333,24 @@ public static class OSMTileProvider
             //string url = "http://tile.stamen.com/toner" + tilePath;
             //string url = "http://tile.stamen.com/watercolor" + tilePath;
 
+//<<<<<<< HEAD
             string tmpFolder;
 #if UNITY_EDITOR
             tmpFolder = EditorPrefs.GetString("OSMTileCachePath");
 #else
             tmpFolder = Application.dataPath + @"/OSM_TILE_TMP";
 #endif
+//=======
+//            string tmpFolder = string.Empty;
+//#if UNITY_EDITOR
+//            tmpFolder = EditorPrefs.GetString("OSMTileCachePath");
+//#elif STANDALONE
+//            //tmpFolder = EditorPrefs.GetString("OSMTileCachePath");
+//#endif
+//            if (tmpFolder == null || tmpFolder == "") {
+//                tmpFolder = Application.dataPath + @"/OSM_TILE_TMP";
+//            }
+//>>>>>>> scenemanager
             //string tmpFolder = EditorApplication.applicationContentsPath + @"/OSM_TILE_TMP";
             string tmpFile = tmpFolder + tilePath;
 

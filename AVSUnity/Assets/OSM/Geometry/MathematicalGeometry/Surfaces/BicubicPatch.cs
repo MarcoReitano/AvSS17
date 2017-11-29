@@ -1,7 +1,4 @@
-﻿
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -9,10 +6,8 @@ using UnityEditor;
 
 public class BicubicPatch : MonoBehaviour
 {
-
     public BicubicPatch()
     {
-
 
     }
 
@@ -107,7 +102,10 @@ public class BicubicPatch : MonoBehaviour
     private int numberOfSegmentsU = 10;
     public int NumberOfSegmentsU
     {
-        get { return numberOfSegmentsU; }
+        get
+        {
+            return numberOfSegmentsU;
+        }
         set
         {
             this.numberOfSegmentsU = value;
@@ -120,7 +118,10 @@ public class BicubicPatch : MonoBehaviour
     private int numberOfSegmentsW = 10;
     public int NumberOfSegmentsW
     {
-        get { return numberOfSegmentsW; }
+        get
+        {
+            return numberOfSegmentsW;
+        }
         set
         {
             this.numberOfSegmentsW = value;
@@ -171,10 +172,10 @@ public class BicubicPatch : MonoBehaviour
     public bool drawGizmos = true;
     public bool drawMeshGizmo = false;
 
-#if UNITY_EDITOR
+
     public void OnDrawGizmos()
     {
-
+#if UNITY_EDITOR
         Gizmos.color = Color.grey;
 
         //if (surfacePoints == null) {
@@ -197,19 +198,18 @@ public class BicubicPatch : MonoBehaviour
         for (int u = 0; u < 3; u++)
             for (int w = 0; w < 4; w++)
                 Gizmos.DrawLine(this.points[u, w], this.points[u + 1, w]);
-
+#endif
     }
-    
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-
+#if UNITY_EDITOR
         for (int u = 0; u < 4; u++)
             for (int w = 0; w < 4; w++)
                 Handles.Label(this.points[u, w], "P" + u + w);
-
-    }
 #endif
+    }
 
     public Mesh mesh;
     public bool generateMesh = true;

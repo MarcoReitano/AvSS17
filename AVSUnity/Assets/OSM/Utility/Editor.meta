@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: b43a275cb3ed02144a0d781797efbba3
 folderAsset: yes
 timeCreated: 1506610611
+=======
+guid: 7f32a27b9a58972488e9fe3520eb16ec
+folderAsset: yes
+timeCreated: 1511782922
+>>>>>>> scenemanager
 licenseType: Free
 DefaultImporter:
   userData: 

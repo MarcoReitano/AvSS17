@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-//using CITYEditor.Util.Procedural;
-
+using UnityEngine;
 
 
 public class CurvePoint : MonoBehaviour
@@ -143,7 +142,7 @@ public class CurvePoint : MonoBehaviour
 	}
 
 
-#if UNITY_EDITOR
+
     public void OnDrawGizmos()
 	{
 		Gizmos.DrawIcon(Position, "CurvesAndSurfaces/red8.png");
@@ -154,12 +153,14 @@ public class CurvePoint : MonoBehaviour
 		Gizmos.color = Color.yellow;
 		Gizmos.DrawLine(Position, StartTangentPosition);
 		Gizmos.DrawLine(Position, EndTangentPosition);
-		
-		Handles.Label(Position, "P");
+
+#if UNITY_EDITOR
+        Handles.Label(Position, "P");
 		Handles.Label(StartTangentPosition, "Ts");
 		Handles.Label(EndTangentPosition, "Te");
-	}
 #endif
+    }
+
 
 
     [SerializeField]
