@@ -99,7 +99,7 @@ public class OverpassQuery
         
 		string result = args.Result;
         if (result == null) return;
-        UnityEngine.Debug.Log(result);
+        //UnityEngine.Debug.Log(result);
 
 #if UNITY_EDITOR
 		//File.WriteAllBytes(logPath, Encoding.UTF8.GetBytes(result));

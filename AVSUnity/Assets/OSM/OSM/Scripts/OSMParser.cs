@@ -1,20 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Xml;
 using UnityEngine;
-using System.Collections.Generic;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using System.Diagnostics;
 
 using Debug = UnityEngine.Debug;
 
 
 public class OSMParser
 {
-    
-
     public volatile float progressBar;
 
     public volatile string lastMessage = string.Empty;
@@ -24,23 +22,41 @@ public class OSMParser
     private OSMMap map;
     public OSMMap Map
     {
-        get { return map; }
-        set { map = value; }
+        get
+        {
+            return map;
+        }
+        set
+        {
+            map = value;
+        }
     }
 
     private List<MapBounds> boundsList;
     public List<MapBounds> BoundsList
     {
-        get { return boundsList; }
-        set { boundsList = value; }
+        get
+        {
+            return boundsList;
+        }
+        set
+        {
+            boundsList = value;
+        }
     }
 
     // The Filepath of the XML-OSMmap-file
     private string filePath;
     public String FilePath
     {
-        get { return filePath; }
-        set { this.filePath = value; }
+        get
+        {
+            return filePath;
+        }
+        set
+        {
+            this.filePath = value;
+        }
     }
 
     public OSMSourceType sourceType = OSMSourceType.Server;
@@ -49,15 +65,27 @@ public class OSMParser
     private string serverURL;
     public String ServerURL
     {
-        get { return serverURL; }
-        set { this.serverURL = value; }
+        get
+        {
+            return serverURL;
+        }
+        set
+        {
+            this.serverURL = value;
+        }
     }
 
     private string outfilePath;
     public string OutfilePath
     {
-        get { return outfilePath; }
-        set { outfilePath = value; }
+        get
+        {
+            return outfilePath;
+        }
+        set
+        {
+            outfilePath = value;
+        }
     }
 
     private XmlTextReader xmlReader;
@@ -96,26 +124,27 @@ public class OSMParser
         isRunning = true;
         finished = false;
         Stopwatch timer = new Stopwatch();
+
         timer.Start();
 
-#if UNITY_EDITOR
-        string tmpFolder = EditorApplication.applicationContentsPath + @"/OSM_TMP/";
-#else
-        string tmpFolder = Application.dataPath + @"/OSM_TMP/";
-#endif
-        string tmpFile = tmpFolder + MapBounds.MaxBounds(this.boundsList).GetHashCode();
 
+        string tmpFolder = string.Empty;
+        string tmpFile = string.Empty;
+#if UNITY_EDITOR
+        tmpFolder = EditorApplication.applicationContentsPath + @"/OSM_TMP/";
+        tmpFile = tmpFolder + MapBounds.MaxBounds(this.boundsList).GetHashCode();
+#elif STANDALONE
+        tmpFolder = UnityEngine.Application.dataPath + @"/OSM_TMP/";
+        tmpFile = tmpFolder + MapBounds.MaxBounds(this.boundsList).GetHashCode();
+#endif
 
         if (!File.Exists(tmpFile) || reloadContent)
         {
             if (!Directory.Exists(tmpFolder))
             {
+
                 Debug.Log("!Directory.Exists(tmpFolder): " + !Directory.Exists(tmpFolder));
-#if UNITY_EDITOR
-                string newPath = Path.Combine(EditorApplication.applicationContentsPath, "OSM_TMP");
-#else
-                string newPath = Path.Combine(Application.dataPath, "OSM_TMP");
-#endif
+                string newPath = Path.Combine(tmpFolder, "OSM_TMP");
                 Directory.CreateDirectory(newPath);
             }
 
@@ -178,12 +207,13 @@ public class OSMParser
                 }
                 yPointer -= chunkHeight;
             }
+
             Debug.Log("\r* Parsing completed...\n");
 #if UNITY_EDITOR
             EditorUtility.DisplayProgressBar("OSM-Data", "Writing to XML-File... ", this.progressBar);
 #endif
-
             //this.WriteXMLFile(@"e:\dennis\XML-Chunks\Unity-Test.osm");
+
             this.WriteXMLFile(tmpFile);
             Debug.Log("done " + tmpFile + ".\n\n");
 
@@ -210,6 +240,7 @@ public class OSMParser
         isRunning = true;
         finished = false;
         Stopwatch timer = new Stopwatch();
+
         timer.Start();
 
 #if UNITY_EDITOR
@@ -220,6 +251,20 @@ public class OSMParser
         string tmpFile = tmpFolder + MapBounds.MaxBounds(this.boundsList).GetHashCode();
 
 
+        //=======
+        //        timer.Start();
+
+
+        //        string tmpFolder = string.Empty;
+        //        string tmpFile = string.Empty;
+        //#if UNITY_EDITOR
+        //        tmpFolder = EditorApplication.applicationContentsPath + @"/OSM_TMP/";
+        //        tmpFile = tmpFolder + MapBounds.MaxBounds(this.boundsList).GetHashCode();
+        //#elif STANDALONE
+        //        tmpFolder = UnityEngine.Application.dataPath + @"/OSM_TMP/";
+        //        tmpFile = tmpFolder + MapBounds.MaxBounds(this.boundsList).GetHashCode();
+        //#endif
+        //>>>>>>> scenemanager
         if (!File.Exists(tmpFile) || reloadContent)
         {
             if (!Directory.Exists(tmpFolder))
@@ -230,6 +275,7 @@ public class OSMParser
 #else
                 string newPath = Path.Combine(Application.dataPath, "OSM_TMP");
 #endif
+
                 Directory.CreateDirectory(newPath);
             }
 
@@ -257,6 +303,7 @@ public class OSMParser
 
 
             this.ParseOSM();
+
 
             Debug.Log("\r* Parsing completed...\n");
 #if UNITY_EDITOR

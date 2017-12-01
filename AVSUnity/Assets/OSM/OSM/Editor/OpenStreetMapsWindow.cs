@@ -1,13 +1,9 @@
-using System.IO;
+
+using System.Collections.Generic;
+using System.Globalization;
 using UnityEditor;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
-using System.Collections.Generic;
-using System;
-using System.Collections;
-using System.Net;
-using System.Globalization;
-using System.Text;
 
 
 
@@ -64,7 +60,7 @@ public class OpenStreetMapsWindow : EditorWindow
     }
 
 
-    #region HilfsMethoden
+#region HilfsMethoden
     /// <summary>
     /// start a new element-Group
     /// </summary>
@@ -83,7 +79,7 @@ public class OpenStreetMapsWindow : EditorWindow
         GUILayout.EndVertical();
         GUILayout.EndHorizontal();
     }
-    #endregion
+#endregion
 
 
     /// <summary>
@@ -523,7 +519,7 @@ public class OpenStreetMapsWindow : EditorWindow
     }
 
 
-    #region Zoom Control-Display and Handling
+#region Zoom Control-Display and Handling
 
     float zoomButtonHeight = 80f;
     float zoomButtonWidth = 80f;
@@ -659,7 +655,7 @@ public class OpenStreetMapsWindow : EditorWindow
         }
 
     }
-    #endregion
+#endregion
 
 
     /// <summary>
@@ -789,7 +785,7 @@ public class OpenStreetMapsWindow : EditorWindow
     private class MyGUIUtils
     {
 
-        #region HilfsMethoden
+#region HilfsMethoden
         /// <summary>
         /// start a new element-Group
         /// </summary>
@@ -808,7 +804,7 @@ public class OpenStreetMapsWindow : EditorWindow
             GUILayout.EndVertical();
             GUILayout.EndHorizontal();
         }
-        #endregion
+#endregion
 
 
         public static Vector2 scrollView;

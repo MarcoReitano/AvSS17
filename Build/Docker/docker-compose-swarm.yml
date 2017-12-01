@@ -1,12 +1,12 @@
 version: "3"
 services:
   avsbuild:
-    image: docker_avsbuild
+    image: avsss17/avsss17
     deploy:
-      replicas: 5
+      replicas: 10
     networks:
       - avsnetwork
-  rabbitDocker:
+  rabbitmq:
     image: rabbitmq:3-management
     ports:
       - "15672:15672"

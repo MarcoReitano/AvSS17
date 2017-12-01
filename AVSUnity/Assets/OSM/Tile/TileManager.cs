@@ -69,6 +69,7 @@ public class TileManager : Singleton<TileManager>
 
     
     public static Dictionary<string, Tile> tiles = new Dictionary<string, Tile>();
+
 #if UNITY_EDITOR
     [UnityEditor.MenuItem("City/CalculateScale")]
 #endif

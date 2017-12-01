@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+
 using UnityEngine;
 
 [Serializable]
@@ -27,74 +28,125 @@ public class OSMTile
 
     public int X
     {
-        get { return x; }
+        get
+        {
+            return x;
+        }
     }
 
     public int Y
     {
-        get { return y; }
+        get
+        {
+            return y;
+        }
     }
 
     public double Longitude
     {
-        get { return longitude; }
-        set { longitude = value; }
+        get
+        {
+            return longitude;
+        }
+        set
+        {
+            longitude = value;
+        }
     }
 
     public double Latitude
     {
-        get { return latitude; }
-        set { latitude = value; }
+        get
+        {
+            return latitude;
+        }
+        set
+        {
+            latitude = value;
+        }
     }
 
     public int ZoomLevel
     {
-        get { return zoomLevel; }
+        get
+        {
+            return zoomLevel;
+        }
     }
 
     public Texture2D Image
     {
-        get { return image; }
+        get
+        {
+            return image;
+        }
     }
 
     public MapBounds MapBounds
     {
-        get { return mapBounds; }
+        get
+        {
+            return mapBounds;
+        }
     }
 
 
     public OSMTile North
     {
-        get { return GetOSMTile(x, y - 1, zoomLevel); }
+        get
+        {
+            return GetOSMTile(x, y - 1, zoomLevel);
+        }
     }
     public OSMTile East
     {
-        get { return GetOSMTile(x + 1, y, zoomLevel); }
+        get
+        {
+            return GetOSMTile(x + 1, y, zoomLevel);
+        }
     }
     public OSMTile South
     {
-        get { return GetOSMTile(x, y + 1, zoomLevel); }
+        get
+        {
+            return GetOSMTile(x, y + 1, zoomLevel);
+        }
     }
     public OSMTile West
     {
-        get { return GetOSMTile(x - 1, y, zoomLevel); }
+        get
+        {
+            return GetOSMTile(x - 1, y, zoomLevel);
+        }
     }
 
     public OSMTile NorthEast
     {
-        get { return GetOSMTile(x + 1, y - 1, zoomLevel); }
+        get
+        {
+            return GetOSMTile(x + 1, y - 1, zoomLevel);
+        }
     }
     public OSMTile NorthWest
     {
-        get { return GetOSMTile(x - 1, y - 1, zoomLevel); }
+        get
+        {
+            return GetOSMTile(x - 1, y - 1, zoomLevel);
+        }
     }
     public OSMTile SouthEast
     {
-        get { return GetOSMTile(x + 1, y + 1, zoomLevel); }
+        get
+        {
+            return GetOSMTile(x + 1, y + 1, zoomLevel);
+        }
     }
     public OSMTile SouthWest
     {
-        get { return GetOSMTile(x - 1, y + 1, zoomLevel); }
+        get
+        {
+            return GetOSMTile(x - 1, y + 1, zoomLevel);
+        }
     }
 
     /// <summary>
@@ -105,7 +157,7 @@ public class OSMTile
     public List<OSMTile> GetNeightbours()
     {
         List<OSMTile> neighbours = new List<OSMTile>();
-        
+
         neighbours.Add(North);
         neighbours.Add(NorthEast);
         neighbours.Add(East);
@@ -132,7 +184,7 @@ public class OSMTile
 
         return OSMTileProvider.tiles[zoomLevel][coords];
     }
-      
+
 
     public static OSMTile GetOSMTile(double longitude, double latitude, int zoomLevel)
     {
@@ -183,7 +235,7 @@ public class OSMTile
 
     public List<GameObject> GetSubTilesGameObjects()
     {
-		 return OSMTileProvider.GetOSMTileGameObjects(GetSubTiles());
+        return OSMTileProvider.GetOSMTileGameObjects(GetSubTiles());
     }
 
     public GameObject GetSuperTileGameObject()
@@ -194,7 +246,10 @@ public class OSMTile
 
     public Vector2 TileToRealWorldPosition
     {
-        get { return OSMTileProvider.Tile2GeoCoordinates(x, y, zoomLevel); }
+        get
+        {
+            return OSMTileProvider.Tile2GeoCoordinates(x, y, zoomLevel);
+        }
     }
 
     public Vector2 PixelToParameter(int x, int y)
@@ -217,8 +272,8 @@ public class OSMTile
     {
         Vector2 result = new Vector2();
 
-        result.x = Mathf.RoundToInt(256f*x);
-        result.y = Mathf.RoundToInt(256f*y);
+        result.x = Mathf.RoundToInt(256f * x);
+        result.y = Mathf.RoundToInt(256f * y);
         return result;
     }
 
@@ -242,7 +297,7 @@ public class OSMTile
         double latStep = this.mapBounds.NorthSouthDistance / 256d;
         double lonStep = this.mapBounds.EastWestDistance / 256d;
 
-        
+
         float correctedLongitude = Mathf.Clamp((float)lon, (float)this.mapBounds.West, (float)this.mapBounds.East);
         float correctedLatitude = Mathf.Clamp((float)lat, (float)this.mapBounds.North, (float)this.mapBounds.West);
 
@@ -252,8 +307,9 @@ public class OSMTile
         float southDistance = Mathf.Abs(correctedLatitude - (float)mapBounds.South);
 
 
-        result.x =  westDistance / (float)this.mapBounds.EastWestDistance;
-        result.y = southDistance / (float)this.mapBounds.NorthSouthDistance; ;
+        result.x = westDistance / (float)this.mapBounds.EastWestDistance;
+        result.y = southDistance / (float)this.mapBounds.NorthSouthDistance;
+        ;
 
         return result;
     }

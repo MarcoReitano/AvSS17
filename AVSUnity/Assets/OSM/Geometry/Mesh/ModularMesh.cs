@@ -306,6 +306,7 @@ public class ModularMesh
         mF.mesh = relatedUnityMesh;
         mC.sharedMesh = relatedUnityMesh;
     }
+
     public void FillMeshDivideMaterials(Transform transform, bool excludingChilds, bool destroyChildsFirst)
     {
         if(destroyChildsFirst)
@@ -350,6 +351,7 @@ public class ModularMesh
         }
  
     }
+
     public void FillMeshDivideMaterialsKeepMeshStructure(Transform transform, bool destroyChildsFirst)
     {
         if (destroyChildsFirst)
