@@ -8126,3 +8126,267 @@ UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave
  
 (Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/Tile/Tile.cs Line: 95)
 
+Sendinen minss mgesshegedehradfar laeid
+Udn
+UntitynEgginn.en.tULngirttyr:ogrirtteSrriWrgiotnetytLiogT(SUtiryLngg)St
+UriiynE)
+gnineyEUngitnLeg.rinttr:LWgWire(tSrtWrintg()tr(itnC:)\(bt iCl\bsildsveavueituyi\y\ublu\aldtiaftacfasc\sggennretrdactmeod\\uncioemUmilsnind\nrsugnn.csi9m2)e
+SyUtiems.inOdTenxstgerntecs:9W2r
+itseemi.eIS.tertWngi)e :War iUtersinbu(itlidgu (ear /Ubeusibliddsslrabvied/lmvo/mon//buuli/mcs/clads//omlcbsS/scel.aO/sesx/Wrctorrcl:i9b)/
+SSstymsCtneome:.rItOL/nT(etrxngt War iUtere/ru.lcussr:bu2l9s6a)e
+Sosto/mb.uoislld:/ricseLcians/(ctoirgl i(/Sty/steer/C/ouisduleec/s:u4ld2s)la
+vyeatmino/abusilUn/icsy/D.lmqsp.coablbbiStsMem./abobistMleBrcsk:r4o3ne)c
+tCymnaCtoineLatbon.UCnnntyc3DonAmhup.doawbi(MOq.jRctbb tSqhrukedrwCEonentercst
+ioab:bCotnnQ.cCilniCenne.ctraomShnut.Iowpl(OCbnjeceicntOn,h tdSwh(u
+tadbotwQnClEevte.nrtmAnr.ImglsCon)e
+iRnaHbndleMbiiLooMEQc.Cptieonn.(Frhauindgw.EIemtprls)Co
+RanebitiMon.:lOenSh.Ftroanm)
+R.amblb.tMon.nliceinnt.MFirLaom(i
+
+nC:gb.iIdsmape/uCioynbnile/Ructite/ieownr:/HlaanedClmeuMiaatnLropGexncrelponioent(oS.hpu tinoen v3n4Ar] s)
+(
+Fableitame:.C/UieertsF/amuildgu.eIm/lbCoindseltavon/:oMo/inuLiopd(/
+m
+cs/:/lbails/sollaiv/ey/teu.In/iettyr/tbr.cusiLlnd:/2R6u
+n
+time/Network/PClasha!!
+yerCommSnicytom/Ienerilto:n cSiomnbcop-p elrceh3P6a t
+hF i.;en\aMea:\H/UmeerDr/bpbioxd\sUr/ibyuorldssaleaAvSSe7/UmioyBunlo6/;b\uMalc/\cH/ocelaros/boor\Uin/StysWoer.IsOa/e\eAtWSSi1t\eU.cit yiBeu:l 6496C:
+W
+CrNsD!O!W
+S;C:\WINDOWS\systemS2ySmVICn\iebs:m oSs*htty:m/bsol.miclo-oStecam/dcwhlPaa/sytbhl:; ,'s.m;p\i\nM: c\30om U\DerNompb odxbUuidyeorkupa'
+e\SAVeSSs17o\nUnit1B0il.64;\0M.c1H5m0\6r3p o(\)n tyWor0spxc1\0v0S17\UnityBuild64-C0\xI1D
+S;C:\WINDOWS\system32;SRV*C:\websymbols*http://msdl.microsoft.com/download\/MscyHomebDroplos\;n'tyW osykmOapetAvonS1: \5n3t0,BuUiedr4NCaimnt:.e e:dCuleiue'n
+OS.eVxrei (n:0 070.F0C.F150006)3  i(e:  x27020060818
+ (result: 0), SymType: '-exported-', PDB: '\\Mac\Home\Dropbox\UnityWorkspace\AvSS17\\UMiayBuHolm64\\rCpbionx\.Unxety,Wfoleksepsicen:Av5.S1.7.46n3t1B9ui
+ld64\Client.exe:Client.exe (00007FF6CEF10000), size: 27250688 (result: 0), SymType: '-exported-', PDB: '\\Mac\Home\Dropbox\UnityWorkspace\AvSS17\UnityBuild64\ClientCe:e\,WfIlNVDrsWon\:Y T5M35.\n.t6d1l9l
+.dll:ntdll.dll (00007FFE67F90000), size: 1945600 (result: 0), SymType: '-exported-', PDB: 'C:CW:\NWOWNSO\SSSYSTTEMM232ntnddll..ld:nlt,dfli.lle V0e0r7FFio6nF9 010000.)506,.6si8z
+e: 1945600 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\ntdll.dll', fileVersion: 10.0.15063.608
+C:\CI:D\WSWSIsteN3D\KORNWLS2\DLS:yEsNtLe2mD3L\ E(N0030.07LLF:6ER6N00L30.D,Lsi z0e0:7F71E2766400r0su0)t:  i0e) ,1 7S4y(mesulyte: 0'-, xpyorypeed-'-, xPoDr:t'e:\-W,IPDDBWS \CS\yINtDmO3S2S\yEsReN3E\LK2EDRLN,Efil.DVLrs',ofi: eV0r.io.1:501302.9.1
+5063.296
+C:\W:\NWOIS\DOysStSesm3e232\KEENENEBLSEA.EddlllK:RKELRBEABSSE..ldl l00(000F0E047DF0E04F0D,0 0s)i,e:s ze3:92319061(r0e(ruets u)l ty:Ty0),: S'mTeyppree:d'--,e pPrtB:d-'',: WIDN:D'OW:SW\NSOsWe\my3te\mE3N2\BKSE.dNlLlAS, .dill'V, rfiin: eV0e0si1o0n3:7 21
+0.0.15063.726
+C:\WINDOWS\System32\CS:EWI3DO.dS\lys:UemE332\.dSlE 3(.d00l:7FSFR3629.Fl0 (000)07 sFi6z9e0:0103)5 1i6e8:  r1s3l51:6 00)re symlT: p0:)',e poyrmeT-y,pPeB:  -'xCo:t\dWI, DDOW:\S'Ct\eImD3W2\USERst2edl3'2 UfEi3l.elVlr's foi:l1e.V.15s0i3.n:261
+0.15063.726
+C:\WINDOWS\System32Cw:n\2uWdlI:wNnD2uW.\dyslem(300\0i7F32Eu6d4El:00in3)2u sdlze ( 020800 7FrFsEl6: E5),00Sy)m, ypiee: '2-8e0 p(rtedul':  0D):  SCy\WmNDypWS:\'Seypterme3-\'in 3DBu:d l',Cf:l\WVIrsDOoW: \1S.0s.e1320w6n32u60d8l
+', fileVersion: 10.0.15063.608
+C:\WINDOWS\System32\GDI32.dll:GC:I\2WdIl DO00S\0SFyFte6m0620G0I032). dile::DI 21dl5 9070474F 6(0r0e0s)u lizt::1 90)4  y(Trpes u-lxtor t),d-S'm,y eP D-: x'p:\rtIdDO'W S\DS:y'sCt:m\2WGDND3O.dSlSy',t mf2\lGDeIs3o2:.dl '1 f.i.l5eV6er.s0on
+: 10.0.15063.0
+C:\WINDC:OWWND\WSSSysseme332\\did332fflu.lll.:ddil3g2if2uull..ddll(l00(070FE074F2F0E06)5,0 0s)i ziez e6:1 5636 53r6su(rte s)u t:ym0)y, eS y-mxToyret ed--x'p oDr: 'ed:-WI,NPOWB\:y teC32\\gINi3OWf\Sly.dtllm3, \fdil3Vefuslon.:ll'0,0f.i5l6e.V74r
+ion: 10.0.15063.674
+C:\WINDOWS\SystCm:2\mWvIpNwDnOdll\:mstvcmp2_\im.sllc _wi0n0.Fdl6l6:0m0v0c,p_swiien .3d7l4  (0r00s7lF:F064, SBm0y0e0):  i'e- 6x3o07e8-' ,( rDBs:l : C:),WISNmTOWpS:\'Seyptom3t2d\'m sDv:c'p:_WIiN.dOlSlS'st eim3e\Vsrsci_oinn:d l1'.,. 1i5le3V.r0s
+ion: 10.0.15063.0
+C:\WINDOWS\System32\Cu\cIrDtWb\aysetdlm3:2c\tucsr.tlb a00e00llF:Ecr4Eb7s0.0d),l (0iz00: FF0E761E6 00r00su,lstz:: 01,0Sy76Ty6 e: es-ltx:or0)e,-'Sy mPyDeB :- xpC:rtWeND-O,WPD\S:y'Ct:\32I\DOcrStSyastem.2dulrlb's,e dfli, eileeresrosno:  10..0..51630.36674
+
+CC\WIN\DINWD\SWSs\Smy2stlem322dlole3:.olle3o2ldel2 d(l0(00000F7E6F6640400000,)si sei z33: 210 3(1es0l0: (r)s,lStm T)y pye:y e:- x-eoxtpdo',t d-DB,: PCD\W:I'N:DWIWN\DyWs\Seys3t\elm33.2l\',lef3l2Vedrls,ifin:e 1e0s.on.1 1003.502.
+15063.502
+C:\WINDOWS\SCs:emW3ND\Wc\Smybtams2ec.dmlblacsmea.eddlllc m(a0e0.d7lFl6 090000007,FsEi6e:0 910107)0 s6ze(:es3u1t:7 56)  (yrTepeu:t  0-e,xSpymrTey-'e:  D':-'Cx:o\teId-D'WS \DS:y's:\emI3D2W\c\Smyasetdlml2'c,ofmblaVsresdlo',: 1f.l0.V15r63i.n6 008
+.15063.608
+C:\:I\DWWI\NyDteW3S\\PSCyTs.telmR3C2T4R.CdlTl. ll00R00RTF4E.6dBl0l0 ,(si0z0eF:E 61B20000,1si8 e:re1s0u1l8t(r 0su, tS:m y0e): S'y-Tyeex 'peoprrted-d-, ,PPDBB ' CC:\\IWDONDS\WS\yytsm3e23\\RPCCTRTdl.d'l li'e,efrlseoV: rsi.o.n50 3.06071406
+3.674
+C:CWI\DWWIS\DSWy\SteST3E\Mc3y2t\rHmIt.iLve:H.IlD:.bLLr pt0P00i7iFiFeE.6l3 20C00007)F FEz4eB:0 0304,  s(iezul:t4:4 706, (Sesmuylet ' -)e xymoTtydp'e :D : -ex:p\rtINd-OW, \PYSBTE MC3\W\NHOISDS.stLe'm 3f\bleVyprtioP:r1i.0m1i063.0t
+ives.dll', fileVersion: 10.0.15:0W6ND.72S\
+System32\bcryptPrimitives.dll:bcryptPrimitives.dll (00:0W0N7OFS\ES44Bte0m3),\ssiczest .34l1:7e6h s(.rles (0l0t0:F E06)1, 0S0mT)y se:z e:-e36p4o4r tredsu't,  PD),: 'Cy:T\We:N O'S\Sxstormt2\db'c PypBP: mC:tiWvNDs.Wd\Sl'st fm3l2\Vsrschoo: t.0.ll., 50i6le.V7e6r
+sion: 10.0.15063.0
+C:\WINDOWS\System32\msvcrt.dll:msvcrt.dll (00007FFE65C20000), size: 643072 (result: 0), SymType: '-exp:orWIeND-'W,\SPstBem 3C2\\INHDWOPW.SllS:sSeH3L\mAsIvdlrl d(l0',0 FFiEl6e9V00rs)i,onsi z.e.1 3033107
+76 (result: 0), SymType: '-exported-', PDB: 'C:\\WINNDDWSWSSstSesme33\2ecSHoLsWA.PlI.sellh'st .idleV (rs0i0oFnE:6108.00.10)0,3 .i0z
+e: 364544 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOW:\\WINyDtOmW2S\Syechems3.d\lslc't .ideVle:msivcn: 1t0d.l .(006037F0F
+E65C20000), size: 643072 (result: 0), SymTypC: 'WIexDpWo\rSedst'e,3 \PHLBW A'C.d\lIlDOSWLW\SPIs.eml3 200ms0v7rF.FlE',6 90il0eV)e ssizne: 73.17.7566 .(
+result: 0), SymType: '-exported-', PDB: 'C:CW:NDWIWNSO\SSSysteemm2\2PSHAWPPI.DdlLlPS,A IfDLle V00r00ioFnE: 5E050.0105,0si3z50:232
+768 (result: 0), SymType: '-exported-', PCD\BI:DO'W:SW\NDysWteSms3e23P2SPAAPI..LD:LP'S fPIl.VDrLiLn:( 00.0.050F6E35E05
+0000), size: 32768 (result: 0), SymType: '-exported-', PDC::'CW:NDWONWOW\S\Syttmm23A2VAPPA3P.Il.:ALDV'A PiIeV2edrlsi(o0n07 F0.E6.65369.00
+0), size: 659456 (result: 0), SymType: '-exported-', PD:BW:I'N:\OINSDSOstWmS2S\sAeD3V\ADPAII322d.ld, lfAiVlPeV32rsdiln  (0000100073F6764
+90000), size: 659456 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SCs:em\2WAIVAPID2OdWlSlS's,e m3l2VeSHsEoLn2:dl10:.H0.LL536.3l. 60040
+07FFE66B40000), size: 21196800 (result: 0), SymType: '-exported-C, \PINB: WSC\:y\tWmI2NSDEOLW2.\Sly:sHEeL323\.dHl LL03027FdFl6lB40'0,)  filzVe:rsi2n1 1096081006 3r.s7ul6
+: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\SHELL32.dll', Cf\iIlDeWVSr\iSny:t m31\0f.mg.135.d6l.7:2f6mg
+r32.dll (00007FFE654A0000), size: 299008C(:esWuNDtO:WS0)SysStmeyme3 '\-cxfogtmdg'r 3D2:.dC:l\cWgmNrO3S\.Slylt m(20c0f7gFEm6g4r002.0d, li'z ei:e e2s9o9:01080 15r06s3.l0:
+0), SymType: '-exported-', PDBC :C:\WINDWWI\NysDeO3W\Sf\mgy3s.del32'\ siheVoeerdsl:os:co1r.e..d5l 6(00
+007FFE65550000), size: 696320 (result: C): \yWTIpN:D'OexWoSt\dS'y PDs: 't:eWmN3O2S\sycoteem3l\s:csrh.cdrl.d'l f i0l0e7VFEr6io55:0100),0.si5z0: 396300 
+(result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\shcore.dll', fCi\lINDeOsWon\:y t1m02.w0nd1o06s3s.o6a0g
+e.dll:windows.storage.dll (00007FFE64750000), sizeC :27\859W IrNsDlO:W0S,\SSmyyps:t'eempo3r2e\-w,iPnB:o wC:.sWIoNDaOeW.Sl\:Siydswes3.s\woiane.owsl.(s00or7aFEe.4d50l0,0f0l)Ve rise:o :7120708159263(.e74u
+: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\windo:\sWsIorDaWSe\dSly, tfm3l2Veersnien:. a0p0p1c06r3e.dl74:k
+ernel.appcore.dll (00007FFE64490000), size: 69632 (result: 0:,\SyImDTWy\pys: em-3x2o\teedn-e'. aPpDBr: .dCl\lINkeOrSnSesl.ma2pkeconrel.dapp c0o0r7eF.64ll90, 0i0eV,erise:o6n63 20.(r.e5s6u.0t
+ 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\kernel.appcore.dll', fileVersion: 10.0.15063.0
+C:\WINDOWS\System32\powrprof.Cl::\oWrpNrOoSfS.sdem3 2\0p07wFpFr6o44.0d0l, :soirpe:of31d1l2(960(r0eFsEu44400l0t,:si0e:, Sy1m2T6 p(r e-eulptr:ed0-),  PDyBT:p :''C-\WxpNrtOeSdSy',tePmB3 '\Co:wWpIrDOf.d\lS'y siteVme2rpoiornr:f d1l0,.f0.e15r0i6n:. 
+10.0.15063.0
+C:\WINDC:W\\WyItemO3S\\pyrtefmpi2.\lp:rrffapp.il. d0l0l7:Fp64of00p00.d),l s(z0:0800067(rFe6s40l0t0 0)) ,ymsTzep:  86no1s yrmsbltl:s0-)',  DS:ym'Cyp:: WI-DOoWySb\lS-y, tPm3B2 \Cp\rINfDpO.WlS'\ SiystlmeV2eprosapi.dlo'n f 1l0V.r.s5i63n:0
+10.0.15063.0
+CC\W\IINDOOS\S\Syytetmm322W\2W322.d2.l:lW:SS2__23d2lld l( (000070FFFE6665900000)),  iziee:  424263 68r s(rltsu l0: , )S yymTTpy:p'-: x'-erxedo-t'd,',P BP DCB\W ICN\DIONDS\WS\Ssytsmt2\mWS\2S__322dldll,'fi eferlsVeors:i n:0.10...11053006
+3.0
+CC\:I\DWIWNSDSyWSt\m3ys\OemE3UT\O2.EAlU:TL3AU.Tl3:2.LEllUT(02.0d7lFlE(0560070F06060)0 0i0e0 7,8 4s2i(zre: u7t8:4 3)2 S(rmTsyuel :'0-,e Soytmedyp'e:  DB-:e'x:pWIrNeD-'W,\SPDst:e 3'\CL:EWANUOTS3\.Sly's timl2eOVLrsAUon3 1.0l.'0. 1il0e3V6er
+sion: 10.0.15063.674
+C:\WINDOWS\System32\:IWMMD3WS.\llysItMm322.IdlMl2 d(l0l0I0M3F2FdEl 6(E00000),F Es6iEz0e0) ,8 3si0z(er:s lt8: 20)  (yrmsuylp: :0')e, pSrtmTdy-e,  P-Dxp:o'r:tWIN-'O,S PSyB:te'mC2:\WIMN3O2Wdl\S'ys fei3l\IVMrMi3n2 1dl.l.1, 06il.e0e
+ion: 10.0.15063.0
+C:\WINDOWS\SYSTEM32\HID.DLL:HID.D:LWI N0DO00S\FSY6S2TE0030\)E,SIsOzN:.5d24l lr:sVltE 0S,ISOmNy.ed l-lx po0t0d0'0 7DF:F'E:5\W4IFD0WS0S0ST, Ms2\zH:I40.9L6'0  i(ereesult:o :010,0 15y0T6p3:.'0e
+ported-', PDB: 'C:\WINDOWS\SYSTEM32\VERSCO\W.IllD,OfS\leYSeTsiMo2:V RS0IO0..1ll0:3V0E
+RSION.dll (00007FFE5A4F0000), size: 40960 (result: 0)C \SIymOTS\peYS 'EMe2xOPorNeG-L,3P2DBd:l OPC:NGW3N2OWdl\lYS(EM0302FFVER4I2N6dl0l0',,s zf:i1l8e7V4 (srons:u10t:0 100)3,0 
+SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\OPENGL32.dll', fileVersion: 10.0.15063.0
+C:\WINDOWS\SYSTEM32\WINMM.dll:WINMM.dll (00007FFE542D0000C:\ WizNeOW 1\S336TE 3(2e\uDtN SA)P Iy.Tdpl:l':eDpNrSeA-I,.PdB:l 'C0:\0WFIE6D3WS9\00YS)TE s3i\zIN: M6d1ll4' ,rfeseVle:r0)io nym 1y0e. 0'1-06x3.rt
+ed-', PDB: 'C:\WINDOWS\SYSTEM32\DNSAPI.dll', fileVersion: 10.0.15063.674
+C:\WINDOWS\SYSTEM32\DNSAPI.Cd\lIlD:WD\NYSTEMA2PIIHLdAlP I0.0L0:I7FHFPEPI3.9D0L0) ,0s0z0:067FF7463 (50e0u0t:) 0s)z,eS:mT2y5p80: '(erepuot:te0d,-'S,m yPe: :''-:eWxNDoOtWSd\'Y, TDE:M '2CD:S\PW.dNlDlWS, SfiTlMe2VIeHLsPiPo.nL:'  10i.e0.e15s6i.o7n4:
+10.0.15063.0
+C:\WINDOWS\CystWeNmD3WS\NSSysdtlemN3I.\NlS I0.0d7lFE:6S7.Fl8l00(00)0 7sFFzE: 73807608),( rssilz:e0):  y3T2p7:6'8e porteds'u lDt: 'C::WI D0W)\,y tSmy2mNSyIe. d-lxlo',tefdi'l eDBe:si'Cn: 1WI.N.D50W6\3S0y
+stem32\NSI.dll', fileVersion: 10.0.15063.0:WINDOWS\SYSTEM32\IPHLPAPI.DLL:IPHLPAPI.DLL (00007FFE63A50000), size: 225280C(:esWuNlO: S0S)ST EyMT3y\peN:M d'l-WeNpor.deld -0'0,7 FP5D4: D0C0:0W)ND sWiSeSY 14E3336IP HrLsuAPtI 0D)L Lym,TfylpVer:io'ne x0.o0te1d0-3'0,
+DB: 'C:\WINDOWS\SYSTEM32\WINMM.dll', fileVersion: 10.0.15063.0
+C:\WINDOWS\SYSTEM32\WINHTTP.dll:WINHTTP.dll (00007FFE60AD0000), size: 876544 (result: 0), SymType: '-exported-', PCB: \C:IWNNDOOWS\SSSYEMTE2MWI2NwHnTmPb.sdl.ll'l fwinmemebsaos:e10d.l (0000.75F63E.4227
+0000), size: 176128 (result: 0), SymType: '-export:\dW'I,D WP\DYBT: 32C\\WINNMMOBSA\E.YdTlEl32:wWnImNaMeMdBlSl.d,lfli(l0e07erFs5i27n0:0010. 0i.1: 0673.108 
+(result: 0), SymType: '-exported-', PDB: 'CC:\\WNNDOOSWSSS\TYETMM322\WIINHTMTA.SlE:WdIlN, TfPildelV(e00s0onF:E 01D0.0.05)0 6iz.e
+: 876544 (result: 0), SymType: '-expCo\WtIdNDO WDS:\'S:\STIEDMW3\2SOYENTELM2.2lW:IPNNHLT2Tdl.lll(0,0f0l0V7rFsEiAo60:0 01,0s.ze.:5 61.12637
+44 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\OPENGL32.dll', fileVersion: 10.0.15063.0
+C:\WINDOWS\SYSTEM32\CL:3\.WlI:GDUO2WdllSY(0T0M020GLFUE621dBl0G0U020d)l s(0ze0:7 FE6021200 0r0s)l,: 0s,i zym:T1y02e2 4- x(peourtt ed,'  SDyBTy 'eC:\ I'D-WSxpSoSrEt3e\dL-'32 PdDlB,:f l'VCe:siWoN:D1O.W.S5\6S.0S
+TEM32\GLU32.dll', fileVersion: 10.0.15063.0
+C:\\INIDDOWSS\ssysset3e\u3x\txhhemme..dlll:uuxxhtmh.dlel dl0l0 7(FE0602FDE020000000,)si ziee: 660100 (0r e(seuult:: 00, , ySmmyTey p-exp o-rxtordt'e dD-:'',C \PINBD OC:S\WsNyOWtSesmst2emu3x\txhhemm.el.',l 'f flelVVerrisni on:. .0.50.653630.
+0
+\\\Macc\Hoome\\rorppboo\x\nUtnytWWorrskppacee\AASv17S1U7i\yUBiuyiulld66\C\Cilntenta_aDMant\m\Mnondo\lmmonn.d.lll:m(o0n0o7dFlF 340EE0070F030E)E0 s0z0:)2, 82i7e: 29r9s8l2:70)  (ymeTuytp :0')e, oSrmtyeed --e,xPpB:o'\t\dM'a P\HBo m'\\r\pMoa\cniHtmy\Wropkbsoaxe\AUvStSy1o7k\pancty\AuvldS14\\lUent_tDBaitda4\CMionto_mDaotdal\,MfolnVorsmionn 1.d0l0l1
+, fileVersion: 1.0.0.1
+C:\WINDOWS\SYSTEMC2\\MISDWOOWKSd\lSMYWSOTKEdMl3(20\07SWFS6OCCB.0l0:0SW)S OiCe:.d3l6l32( 00re7sFEl6tCB 0000,)Sy miTe:p : 7'8-2e(rposrlt: d0-,, PDyBTy 'e::'-WIxNorOtSeSdS-EM, 2PMSBW S'O:CWI.NdOlSlS'ST fMi2lMeWVOeK.silo',:fi10e.e0r15i0n:3 01
+0.0.15063.0
+C:\WINDOCS:S\SWEIMD3W2\\YdTEcMc3vc\6h.pLc:dvh6c.cDvcL6d.cDcLvL6.(D0L0LFF(E00E0670F0F, 5Eiz60: 000,11s2z :(90e1u1t:  re), lty:Ty0)e, 'SyeTypper:e -', eDx: o'r:\eW-I,NPDB:W \SC:S\EMI3D2\WSh\pcYsTEcM.D2LdLh, piceVve6rDsL'o,: fi0l0e1V0e3rs
+ion: 10.0.15063.0
+C:\WINDCW:\SWYNSOTSEMS3ST\Md2hcdpcpsvscc.DLLL::hdccppsccsDLcLDL(L 0(00007FFE5EE54E040000)), ssziee:  014066(4e9u6t  ()r Symuypt::' e0p)rt Sd-m'yp eD: : -'Cxp\WrIedD-W'\S YDTBM:2 d'cCcs\vW.INLDO, SiSlSeEV3e\dshonp:s c.0D0L1L06,3fi0
+eVersion: 10.0.15063.0
+C:\WINDOCS:syWItNmD3W2\\naspimn2snapinslp:.aplnlp.ndplnlp .(d0l0lF E40E08007F),E Es8i00e0 )0,1  srizsu:l9t1:2 (0e)u,t  S)y myTTyyep e-:x o't-ed-p'o PtDBe dC-\'I,D WP\DyBt:m3'2:\WnNDOaSpsyitnms2\npp.ndpldll',,f lefeisloe:V1e.r.15063.0
+sioCn\:I DO1S0s.s0e.31\5n0p6s3.dl.:0n
+nsp.dll (00007FFE4E960000), size: 106496 (result: 0), SCm:y\eW I-expoNtDd-O, WDS:\'Cs\WyNDsWt\sesme332\p\rpnnprdpln,sfple.edsilnl :p.0rp15sp0d6l3(.000
+7FFE4E960000), size: 106496 (result: 0), SymType: '-exported-',CP:B\ WCI\NIDDOWO\sWsSe\3s\pnrpyss.tll',efml3V2rs\on:N1L.A.a5p6i.0d
+l:NLAapi.dll (00007FFE5F2B0000), size: 98304 (result: 0), SymType: 'Ce:pWoNrOtSesds-e'32 \PLB:a i.C:l\:WLANapOiW.\sllste00302FNFAa5pF.dB0l'0,),f leieres 9o8: 01 0re0su15t:6 .0
+), SymType: '-exported-', PDB: 'C:\WINDOWS\system32\NLAaCp\WINDOiS.Sdslel3'\,i rfridllewiVrerrdsl i0o0n7:F 4E1500.00,.s1ze06 5.7
+344 (result: 0), SymType: '-exported-', PDB: CC\WINDOWS\System32\winrnr.dl::\iWrIrNdlD O0W0S7\FS4y9s0t0e)m 3i2e:\5w3i4n(renurt:.0d,lSlm'y,e  'feiplreeV-'e rDs:i'o:nW:ND W1\0ys.e03.\1in5n0.d3.l0,
+fileVersion: 10.0.C50\3W0
+INCD\OIWDSWS\SSsyes32\MSCtF.ellmM3C2F\dlM S0C0T7FFE.5dE0l00), sile: M466S6C (Fe.udtl 0()0,0 FSE6m5CyE0e:0 0)-,e psoitzed:',14PD63: 8 C:reWIuNtDO 0S\, ysymemy3e:\M'SCeTpFr.eld-',  fDil:eVeC:siWoND: W1S0.S0y.1te0m623M.6T7.4
+ll', fileVersion: 10.0.15063.674
+C:\WINDOWS\systeC3:\d\mapW.dIlNdwDaOiWdSl\(s0st07m3F25\DFwm0a0)i,dlslz::d1w20a3i. drles(u0l0:70FFE S3DmFyp00: ),-sezx:p17rt0e2d(-e'u,t :DB0:, SyCm\yWeI N-DxOorStsesdt',m3P2B\ 'wCa:piW.Nll'W,\ sfyislee32edwsmaop: i0.0d1l0l3'0,
+ filCe\VIeDrWs\iYoTnM:2 d1d01.d0l.d1d510d6l3(.000
+FE62210000), size: 3010560 (result: 0), S:yWmNTOWpe\:Y T'EexpoMt3d2'\ dD3:d'C1\1I.DdWl\lY:TdM32dd3111..ld'l li e(e0s0o0:017.F.F5E66.2
+210C0\0I0N)O,S SsSiEz32ed:gi d3l0d1g0.5l6 00 0(7rFe6s3u0l0t):  i0e) 6,1 4S yrmsTly:p0),eS:mT p':-'eexpproer-t,ePdB- 'C,\ IPDDWS\SBS:E 3'\Cx:i\dWl'N,OWfS\eSeYsiTEnM 3020\1d033d512
+.dll', fileVersion: 10.0.15063.0
+C:\WINDOWS\SYSTEM32\prl_umdd10.dll:prl_umdd10.dll (00007FFE602A0000), size: 143360 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\prC_:m\dW0.IlN'D OiWeVSr\iSnY S.T5E1M.32623\
+dxgiC.\dIlDlW:\dyxtgmi2.cldcatlld l:00l00c7tF.FlE 60300570F0F,Esi56e:0060017, 4 i(e:e ul47:106,  (ymesyple:: '0ex,poymteyde- '-,x oPtDdB':  D':C'C:\\INWOISNSDsOeW3S\\lbcatqSdYlS,TfElMV3r2i\nd x00g.i2.1d9l1.'6,84f
+leVersion: 10.0.15063.502
+C:\WINDOWS\system32\wbem\wbemproxCd:l:\bWmIrNx.DllWS(\S0Y0SFTEEBM39200p0l0u)d,1s0z.:d65l5p3l_ mrdsu1l.d:l0l, (0y0T00peFF E-e02pAr0ed0-)' s PzeB::1'4:\3W0 NrDsOlt:\s0y, tSm3mT\ype:m'\exbeomtpd-ox,. PllB', 'fCi\lIeDVWe\rYsTiM3o\pnl:u d1100d.l0,.fil1V5r0i6n3 ..05
+0.32663
+C:\WINDOWS\System32\clbcatq.dll:clbcaCq:dll \00IN07OFWES6SY6CTE0M03,2\swzb:e64c7m1n6.d lrlewbulmt:o 0n.,dSlylTy(0e00 0-eFxEpoBr00e0-'0,,P Bs iCz\eI:D W5\S3ste234\8l0c t(.dles'u fti 0e)er SiyoTnpe :0 1'12e.p1rt9e1d16'3 P4D
+B: 'C:\WINDOWS\SYSTEM32\wbemcomn.dll', Cil\eVIerDsWi\sny s0.e03.\w5b0m6wb.0mp
+rox.dll:wbemprox.dll (00007FFE5B890000), Cs\iINzOeS:S ST6M525bc3y6t dl(:rceypt.dll (s0u0l7:F0F, 6S42mT0yp00:)',e xpioer te5d5-'2  (DBes 'lt:\W0IN DymWSy\es:s 'm-e2\pwrbeem-\'b,m rPx.Bd 'l':\ fIilDOVer\sYSoT: M12\.c0.p1.0d3l0
+', fileVersion: 10.0.15063.0
+C:\WINDOWS\system32\wbem\wbemsvc.dll:wCem:v\.dIllD(0W0\0YS7TFE5MA300\0b0e)c,osmzn:.8dl92:w (rmeomul.d: l0()0,0 FSFmEy5pe80 '0-e0)po stezd: ',32P48:  (C:e\WIltD:WS s0st, mS3m2y\ew b-em\pobetesdc-d'l,, fPlDVB:s'iConWI 1DO.WS\5SY3.T0M
+2\wbemcomn.dll', fileVersion: 10.0.15063.0
+C:\WINDOWS\SYSTEM32\bcrypt.dll:bcrypt.dll (00007FFE642D0000), size: 151552 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\bcrypt.dll',Cf:l\VWrsionI 1D0.W0S15s0st3e0m
+32\wbem\fastprox.dll:fastprox.dll (00007FFE55960000), size: 9:83W04ND OrWsSl\t:y te)m S2ywmeT\wpee m-sxvor.dedl-wb,e sPvBc .dCll\ IN0D0O7FS\Es4yE0te003)2 \izb: m8f1s9p2o0 .drlsll':  f),l eyVmrTspi:o'ne:p rt0e0d1-0, 3P.B0 
+:\WINDOWS\system32\wbem\wbemsvc.dll', fileVersion: 10.0.15C6:3WI0
+OWS\System32\MMDevApi.dll:MMDevApi.dll (00007FFE5E340000), size: 421888 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\MMDevApi.dll', fileVersion: 10.0.15063.447
+C:\WINDOWS\system32\wbeCm\WfIsNpDoWx\.ydtlefms3p2o\.DlE (O0B0JFFdl5l59D6V0BJ.0)l, (s0ze00 783FE403 60re0su,lstz:: 1063,8S4m0y e:r 'ulex:p0o,rStmeyp-e,:P B:- x'Co:t\eIN-D,OPWB:\ y'te:mWI2DOwSbSesme\3a2t\rDx.VdBl.d',l ,ffilleVVrsrsoon::1 .1.0.5063105
+063.0
+C:\WINDOWS\SyCte:32\PWOISNSDdOWl:\PysPSeY3S2d\l MD0e0v7AFp6i8.00ll0)MM esAii.d:l16 (2090706F F(5r34s00l0:00)) Sy sTyzp: :4 18-e8 p(rteeudt- '), SPyBm TCy\WeN:OW'-\exyosteem-'2\PRDBPS 'S.:\lW',N OfWlSVSyrsteon3:\ M.M.D5e6v.A08i
+dll', fileVersion: 10.0C15\0I6DO.W4S
+\SYSTEM32\wdmaud.drv:wdmaud.drv (00007FFE5F8C0:0\),INsDzO:W2S6S2y0s e(3r\esOuSltS 0d)l ly:TyReO 'S-Sedxl or00ed0-F,FPEB6 0C8\4IN0O0W)S \iSzSeE:3216w6m2u9.d6r(r'e fuit:e e0r)i, n:y T1p0: 0'1-0ex.4o4te
+d-', PDB: 'C:\WINDOWS\System32\PROPSYS.dll', fileVersion: 7.0.15063.608
+C:\WINCD\OIWD\OYST\M32s\eA3V\RETOBdJldl:lADERVO.BlJ (d0l0(00070FEF6F7E03060000)) ,izsei z5e5:  (6r8e0s(ulstl:: 00, ,SSymmyTey p-ex:o r-txeor-'e,-'P,B  D': :'CI:D\WW\ISDyWs\SeY3S\TEVMO2BAV.T.ld'l li'e,e sfoi: e1e0.si.o5n6:. 00
+.0.15063.0
+C:\WINDOWS\SYSTEM32Cw:m\uW.IrN:DdOaWdSd\rYvTE(M03027\Fk5s8u00er0dll :kiseu s66r2d0l(lr(e0s0uFlEt:0 6)7 S00m0T, spze:  '3-86xp oretsdu'l : D0: ,'SCm:yWIeN D-OxSpSoSrEMed2', \DBdm au:dW.NdOrS\'S YilTeMV3r2i\n:s se0r..d50l3'4,7 
+fileVersion: 10.0.15063.0
+C:\WINDOWS\SYSTEM32\AVRT.dll:AVRT.dll (00007FFE60790000), size: 45056 (result: 0), SymType: '-exported-':,W NPODSBS YCST\EIMD3W2\\SUYISTESM.2D\LAAVDITOdSlE, .fLi l0e0e0s07oF:F15020A.00506,3s.i0e
+ 1069056 (result: 0), SymType: '-exported-', PDB: 'C:\WICDO\WSNDSWST\EYMT3M22\kAusDeOSr.SdDlL':,s sir.edelslo : 00000.75F6F.E50070
+000), size: 36864 (result: 0), SymType: '-exported-'C :D\:W'I:NWDNOOWSSS\SSEY3S\TiEtMp3s2d\lkwsnuysee.dldll'(0 f0i7lFe6V3e0r0si)o ni:e :0 .28.104086(3es0
+lt: 0), SymType: '-exported-', PDB: 'C:CW:N\OWSISNSTEDM32S\SYinTtyMpe2sAUdlIO',ESf.leLVLrsAUoD:I1O.S.E1.5LL6 .(0
+07FFE5D2A0000), size: 1069056 (result: 0), SymTCy\WeI:D W'\SeYpoTrM3e2-',s cP3D.Br:: s'cm:\2WdIvN(D0O0WFF\EY6T0M527A00D0O0S,EsSz.:D5L2L8'(,e ulite:e s0o):,1 .0y1m06y3e. 5-0x2o
+ed-', PDB: 'C:\WINDOWS\SYSTEM32\msacm32.drv', fileCe:s\oW:I1N.D.1WS0\3.YS
+TEM32\wintypes.dll:wintypes.dll (00007FFE61380000), size: 1282048 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWC\:Y\TEIMD2OwWnSy\esY.STlE'M 3i2e\eMsSonCM 12..d.l50:6SA.C
+M32.dll (00007FFE60550000), size: 114688 (result: 0),CS:m\yWeI 'D-We\xYoSrEt3e\ds-cm,2.Pdr: :'sCc:3\.WrI N00O0S\7SFY6S5T7M020M0A0M3, .slzl:, 5i3l48V rsrisou:l1t:. 0),1 06ym.T5p02:
+'-exported-', PDB: 'C:\WINDOWS\SYSTEM32\msacm3C2\.INrvO'S\ SiYeVTrEiMn32 \0m.di.1ap0.3.0l
+:midimap.dll (00007FFE60330000), size: 40960 (result: C:)\W IymDTWSpeSY 'T-Me2xMpAoCt3e.d-'l: MDS:A M3C2\WIlDO W0S0S0S7EMF36255m00d0ma, .dizle,:fi1le46e8si ore: ul0t0. 05)6,.0 
+SymType: '-exported-', PDB: 'C:\WINDOWS\SYC:\WSNTOESMW3n2x\\MmS6A_CicMo3o2t.widdlwslco'm,n confrill_e5V5e6r1s4icfodf_6n0:1 01304.30n.n1_56006d37.7c07
+44a2\comctl32.dll:comctl32.dll (00007FFE513A000:\)W IiNeD OW5S9\4S YrSsTlE:M03,2S\mmTdympa:p'.edplrl:em-'di mDa:p'Cd:l\ (I0N0D7OFWE\W03n3xS0\0a,msdz6: 409_0m(rcsrlo: of)t SwynmoTsycpmem 'n-coxptoorts_d-59, bP6D1B:4 cCc\W1dND_OW.0\S1YS0T6M3.24m8d3i_an.dnle'_2 6fi02eV27rescio4na:\ om0.tl.12.0d3l.0',
+ fileVersion: 6.10.15063.483
+C:\WINDOWS\WinSxS\amd64_micr:o\soNfOW.SinSdSwTEcMmm2oTe-xottIons_u6t95ra6m14w4rc.dfldl_:.Te.x5t6I.4p8u_tnFnr_2m6w0o2kdd2l7(07c0704Fa2E\4oFcFBl0302,.sdilzcem:c l332.d8ll ((r0s00l0t:F E5),3 0S00m)yp ei:e:'-25xp90rt0 d('r eDs:ul : C0\W,ISNmOTS\peY:T E'-2\xeptonruteF-r,m wPrkB.:l l',Cf:l\eIVDOrWs\Woin:S10S.a.1d6043.mi02
+osoft.windows.common-controls_6595b64144ccf1df_6.0.15063.483Cn:n\_2I6D0O0WdS7\7S7Y4S2TcEmMt332.\lC'o rieUVeCroimnp o.n0.nt5s0d63:Co8e
+UIComponents.dll (00007FFE50150000),C \sINiOzS\:S29S7T1E Mr3s2ltT: xtI,nSpmuypFea: e'o-kedxlpToxrItpud-F'a,e PrD.d:l ('0C0:F\E4INFDO0W0\)Y,T Ms2iCzreU:C m5o3e2t4.8ll , rfsill: V)e rysTipen:  -1x0or0.e15-6'.,7 
+PDB: 'C:\WINDOWS\SYSTEM32\TextInputFramework.dll', fileVersion: 10.0.15063.502
+CC\:I\DWWI\NYDTOMW2SCo\eSeYsSgTngEdMl:3o2eM\sCaoirgedMle(s00s7aFg6i4n0g0.),llsiCoer e29e7s9g2n .(lr e0s0u7lFt6:4 0000, , ysmzT: pe2:9'7e9xp (rtesdu',t:P B:)  'ym:TWIpeD:WS'\SeYpSrtEMd-'\C oPeDes: agC:n\W.IdDOlW,SfiSlSeEV32rsCirenM e0s0s1ag06n3.d6l5l
+, fileVersion: 10.0.15063.675
+C:\WINDOWS\SYSTEM32\CoreUICo:p\nWnIsNdDl:WCSreSUSIEC3o\mspromegtr.clli.(dll00u7FeFEm5r0li5.00l0) ,0 0s7izFe5D 290507)3 1i2e  (60e1u6t  0)r,s lS:y0m,TSympTep:: ''e-perxep-', oDr:t'C:\WIeDdW-\'YS,E 3P\DserBgrc:i d'l'C :i\eVWrIiNnD O0W0S1\0S3.Y
+STEM32\CoreUICompCo\nIeDnWt\SsS.Ed3l\lt'a,t .fli:ltearVaedlr s0i0onFF 163.01010003.)6 s5
+ze: 200704 (result: 0), SymType: '-exported-', PD:\: IND:\WSI\DSYS\TEYMTE2Mnt2mnatmta.dtal:dnlt,mfirteV.drls (o0: 000.F0E.3110003.0)
+, size: 200704 (result: 0), SymType: '-exported-', PDB: 'C:\WINC:O\S\ISDYWS\SEY32T\EtMar2\axdilpu',1_f3ledler:siipotn_3 .1l0 (0010003000
+00007460000), size: 122880 (result: 0), SymType:C'-\eINoDOteS\-'YS PEMB3 '\u:\eWmgNDcOWiSdlSlSTseMmg2clxi.pult 1(30d0l0,0f7leFeFsEo5:D9218.044.0
+0), size: 86016 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\usermgrcli.dll', fileVersion: 10.0.15063.0
+C:\WINDOWS\SystCm32\SWTIPNPD.OllS\SEYUPAEPI32\ll np00t0_037dFl:E6in7p0u0103)d,l (s0z0e00 400309638 00re0s,uslzt:  022, S0y(Tyese:lt': ex)po StemT-'pe P D': exC:orWtNeOW-S, SyDst:e'C32\WSENTOUS\ASIYSdTl',32\ixiVepusi1_n:.d1l.0',1 0f3i60e8
+rsion: 9.18.944.0
+C:\WINDOWS\SYSTEM32\CRYPTSP.dll:CRCP:SP.IdDOlW \(y0t0m02\7EFUFAP6IE.0d0l),:SsiTzPA:I.94ll08(0(r00suFt:E 506)0,0 ,Ssyzm:T p4: 3'9-8e(xroetsd-l':  0P, B:y TyCp\eW NDOWS\SY'TEeMpo2rCtYeTdP-dl,lP',: 'Ci:eVWIrNiDnO W0.0S15\6S.y
+stem32\SETUPAPI.dll'C,\ IfDiWl\sVestsim3n:\r10ae0.h.5d63l.rs08en
+h.dll (00007FFE638D0000), size: 212992 (result: 0), :\yWTyNDe:WS'-SYxpTErMe3-2, CPYDTS:P'.:l\:WRIPTDOPWSdslsle 320\0s00e7hF.6dE5l'0, 0il, Veirs: o4n2 18 .(.r50su3l0
+: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\S:\SWEMND2OCWYP\SSPSTdlMl2\,CRfYPlTVeArEs.od:l1l.0C.Y1T5A0E6d3l.(0
+0007FFE63E70000), size: 45056 (result: 0), :SyWITyDOe:S\'-ysxpemrt2\r-s,aeDBh:dl'C::\saINnhOWdl\S (0T0M307\CFEYP3TB00S0E),d sl'ze f 2l1V2rs92o (:r1e0.u0t:1500)3,0 
+SymType: '-exported-', PDB: 'C:\WINDOWS\system32\rCa:nhW.dndl'ws fiyseterms2onr:sa1d.h0p.15ll63.a0s
+adhlp.dll (00007FFE5C4C0000), size: 409:6WI N(OrSeSsSuEl3t\:R P0B)SE SdlmlypCeY:T A'E.exllor(te000',FFPE6B3 '70:0\0W, nsdzews \4y5te5632(rrassaldtlp 0dll 'ym fyieleV'-respiroen-:, 1P.D.B1 5C:6\.W
+INDOWS\SYSTEM32\CRYPTBASE.dll', fileVersion: 10.0.15063.0
+C:\Windows\System32\rasadhlp.dll:rasadhlp.dll (00007FFE5C4:CW0N0O0S0S)s,e 3s\fzep:cl4nt96dl l:rewsucltn:. l0 (, 0S0ymTFFpE:5 AC-0e0)po steze-:, 43DB2 '2C(r\einudt:w \0y)t,m3S2m\ypaea:hl'pe.pdrlel-',,P Bf 'l:eWVNeOWs\iyote: 31\0w.uc.1n5.0l6',. 
+fileVersion: 10.0.15063.0
+C:\WINDOWS\System32\fwpuclnt.dll:Cwp\uINlDtOWlS (0YS007F32E\DACg0el0p). dilel 4dbg2h2e(les.dltl:( 0007,FSFm5T5y0p00: ' -izxp:o17te08-0,0P B( rCe\sINltO:S S0y,sStmeyme:2 f'peupolnttd.'d PlB:, fiC:\VIeDrWSi\nYS TE0M031206d3.he
+lp.dll', fileVersion: 10.0.15063.250
+C:\WINDOWS\SYSTEM32\dbghelp.dll:dbghelp.dllC \(I0D0W0\0YSTFM3525\0S0s)p iiCeli17d40:8s0 i(liedsllt(:0 07)F FyETy4e33'0e0po0r,tseiz-e,  1DB6:08'C(:\esIuDlWt\:Y T0M)2,d gSelmp.pell ,' efipeoertsdi'o nDB :0 0'1C0:3.WI5N
+DOWS\SYSTEM32\SspiCli.dll', fileVersion: 10.0.1:5W0N6O3S.\6Y7T4M
+2\
+=S=s=iC=li .dUlPlT:NGs iCTAiCdl lR C( 0=0=7F=F=E6=4=3=00=0=0
+)
+, si0xe000066F0867(rCBsuDl (:n0t, Sl)m yRet 'Inextoiael-i,zPeBC rC:t\cWlIecDOWoSE\
+SYx0TE0032FFSs6pFACl57.d (l',d lf itleEerteioCni:i a1Se.c.t5i63n.
+0607047F
+F
+=E==7F==4=4 O0 TPnUTdNGl  StlAEKnTtAerE ri==i=c=a=l=S==c=i=n=0
+
+x000x070F60CFFE674FCC BCBiDnF) phnydlxl:)h fRd:l:nEtrarioerHratncdlleeti::ngxe
+tMx0x0a0lb7FcEk6u7
+F0A04007FF (Cn2t4d8l l)C iRnt)lphntse:rsCdrni:tEircraHSacnidnl
+0xr00:0etFMEa7FCAl4b4ck0N(utm
+lx)0R0lE7nF6CrC2r5i9t iClalenec)tpiyoxn:
+hdx0nd0:7:F6rFr7o3CHDndlCeirn:g) tpahCasxlb:ahdkfun
+d0:E00ro0H7nFdCFe2:7g5tDaDC4l b(cCNlme0n0t00 pFh6yF2x74s8d8n1d(:l:eEt)r rHhasn:dsldfr:d::grrtMraaxdCea:lgleatcakCNlubmc
+N m 
+E0RO0R00 7yFFG6tCyFF7roDmA1 d(6C,lGitLna)sptysrr::r:h fEs :wEurrrdaed vre:retMcatx Calubfc eNune
+ unxz0u07√§s6CiFe 75dDeDs4  u(Cgieentf)n ' h(yddx:e:sshd f0n0dF:Fr6oCHFn1lCr:4:gE)tM
+axxC00l7lFbCa1CFN4u (
+C i eRRtO R
+ : ESRyRm GyeGeSySyFrFrmAmdddrr4,4 G GtLtsLErsrtrE r'Eo w:u'rs e uvder vucrst,chatf,eianfee nu uzuzll√§§ssgeiAgres eAzdzrgeesfsne' (Auzdugsesi 0e0.0' 7(AFdCd1CeFs4 F00)
+70FxC01C0044FF)
+CF1xF400A0(CFFieCFt)C 44
+Ex 0(07lie6CF)4
+77 FREO1: S(mCelSimFntom dprh4,s ::esLadsnt:EErrrrHr:n l'rE:se Mwxuardlb vceNrm
+u0ht0,0 0au0f61e8ne9Dun zMunl J§Isi gC Ader)s (e rzpupzrumgaragieed.- (A-ndrtesvse )0U0i0y7ngF6neF.CUFi4yFog)W
+0x0te00:WFFitCe1SF4riA g(oCniitny)L
+o0 xs0ri0n7gF)CF
+040070E010(C0l1i3e8tE Bh(yosoxJ:T sCdond::)E r[rCH\anudllseare:guntiaxyCballlb\acrNtmi
+a0tx\0e0er0at0e0d6\8c9oD m(n\oruotiJmeT\UCtolesB(irnpdei mgsn.ggde-.tso9-2]a iUe)i yEnntgEnng.innteLUngWtryLtegW:rriteer(:trrni)t
+e0txin0g0T0o0U0n9i5t7y(ogn  JsIr ioneg)
+ 0/xs0rs00bu0i00d6s1e3rEBb uMolnso vJ/mToCndo)/[b:\bluimls/sllsa/vo\ruin/Stys\tueld.\OaTrxtfariter\.es:e2at6d]\Scstmeom\rIOn.Timxt\Uriiles:Wirdiieniges(.tginng.)s 90
+020]0U0n00t0En0Ei9eFU4iDy7og(MrotnroW itIe  odseri n/U)s
+e0sxb0il000s001/b5u9i7Esl aMvon/m oIn o/oudle/)c /[laUsess/bcilrulei/buiSdylsvt/eon/C/bnuolld./sm:s4c3a2s]c rlyite/.Soysslt:eri.tOeTLxtnW rsirtngr)c
+s02x60 0y0st00m0I0.1exEtFW3Fi erMoWnit eITi eC(otdieg)  
+Cx0m0t0c0L0ab1s5BU9i7y4D7AmqMpoRnbb JtMTq.odab)b[iUteMs/Bruolkueer/Cuondsecate/om:oCoobnindemcstcloa_sosn/cciroin/Shusted/owons leo.jccs,:a4bi2]M .Sliseen.to.Sshlu:triotenEivee(ntrAigsg) 
+00x00000000000B05A0FE(9on50 J T MCodn)oCyJmTaCoice)a s.abnbittQy3CDi.nA.Fqr.aambitnqgR.bIimMpBlo.eroCnennteontiOoS:honndewnt on)
+Cox0n0ct00o0S0u0d1wE9 Aob71e t,MaobioM .JlIeTn to.eS RuadbwniEMv.elitenrg.F
+rax00ng0.0Im1p0.5oBn5c7i7n: HMann dJeMIiTL oCEoceep tRoa bRbbibMi.CMQieCnitn..FhrtaomniEnegt.rIsm
+p0.xo0ne0c0t0i0o2n0BO0S3u tMdno wIn  o(e) 
+a0bxt0Q0C0i0n0.0ra0m05ng4.E1m(Ml.nC JnIeTtiCodn)M inabobp t(Q)C
+i0nx.0r00m0n0.0Im06l.2C4o2n(noeocJtT ono:danele MwriaLpoerpErxnctemetiion v(kR)aobbjtMcQ:.uCtlmieinvt.eShvuotidow_nhisen_t(Abrecst
+,ixn0t00t000ntDp2t6r2 i(tMto)no
+ 0J00T0 7FodEe5)0 4Aa3bi(toMQo)Clmoent._Featind.eIfmapult.
+Conxn0e0cFtFoEn4FM5in3Fo1p ()m
+onxo0)0 00o0o06ru20tiA2e i(vookoeJ
+T x0o0e)07(wFrEp3e4 r83n5i2e- imnooneo o bojoethr:erduinnite_riuvpkt_ioin__e_uehsst__(olbg
+ec0,xn0pt00,iFFtEtr50in8tDp tmrno
+)0xun00t0_7mFo3no00r5e4lAc3io(nonmot)odm_ng_eet_mdeftuhto
+d0
+00x000F0FFF3EF6663F2 7(4m(oKoE mNon3_2u) imas_iTnveokden
+tThx0n0
+007x0F0304FFE883002B5  (nmdoln otl UosoethTrreaaSda_ti
+
+=t=r=u=t==o=_=e=u= sNt OfFa 
+STAxC0K07RFFCE3 0=8=DD= (=m=o==o)
+
+ unity_mono_reflection_method_get_method
+0x00007FFE66612774 (KERNEL32) BaseThreadInitThunk
+0x00007FFE68000D51 (ntdll) RtlUserThreadStart
+
+========== END OF STACKTRACE ===========
+
