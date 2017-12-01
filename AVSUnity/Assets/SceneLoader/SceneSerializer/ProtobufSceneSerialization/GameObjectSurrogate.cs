@@ -50,6 +50,12 @@ namespace ProtobufSceneSerialization
                     MeshRendererSurrogate meshRendererSurrogate = new MeshRendererSurrogate(item as MeshRenderer);
                     components.Add(meshRendererSurrogate);
                 }
+                else if (type == typeof(Terrain))
+                {
+                    Debug.Log("Found Terrain");
+                    TerrainSurrogate terrainSurrogate = new TerrainSurrogate(item as Terrain);
+                    components.Add(terrainSurrogate);
+                }
             }
 
             List<GameObject> realChildren = new List<GameObject>();
@@ -100,6 +106,28 @@ namespace ProtobufSceneSerialization
                     MeshRenderer mr = go.AddComponent<MeshRenderer>();
                     mr.sharedMaterials = mrSurrogate.GetMaterials();
                 }
+                else if (type == typeof(TerrainSurrogate))
+                {
+                    Debug.Log("Deserialize Terrain");
+                    TerrainSurrogate terrainSurrogate = component as TerrainSurrogate;
+
+                    Terrain terrain = go.AddComponent<Terrain>();
+                    TerrainData terrainData = terrain.terrainData;
+                    
+                    if (terrainData == null)
+                    {
+                        terrainData = new TerrainData();
+                    }
+                    
+                    float[,] heights = terrainSurrogate.GetHeights();
+
+                    terrainData.heightmapResolution = heights.GetLength(0);
+                    terrainData.SetHeights(0, 0, heights);
+                    terrainData.size = terrainSurrogate.terrainSize.Get();
+                    //terrainData.size = new Vector3((float)TileManager.TileWidth * (float)TileManager.Scaling, 10f, (float)TileManager.TileWidth * (float)TileManager.Scaling);
+                    terrain.terrainData = terrainData;
+                }
+             
             }
 
             foreach (GameObjectSurrogate childSurrogate in children)

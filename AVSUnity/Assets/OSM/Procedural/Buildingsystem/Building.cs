@@ -99,11 +99,11 @@ public class Building : IProceduralObjects
         //topLayout2.Triangulate(mesh, MaterialManager.GetMaterial("diffuseGray"));
 
         new QuadStrip(leveledLayout, layout, mesh, MaterialManager.GetMaterial("diffuseGray"));
-        topLayout1 = leveledLayout.Translate(Vector3.up * height / 2f);
+        topLayout1 = leveledLayout.Translate(Vector3.up * height);
         new QuadStrip(topLayout1, leveledLayout, mesh, MaterialManager.GetMaterial("diffuseGray"));
-        topLayout2 = topLayout1.Translate(Vector3.up * height / 2f);
-        new QuadStrip(topLayout2, topLayout1, mesh, MaterialManager.GetMaterial("diffuseGray"));
-        topLayout2.Triangulate(mesh, MaterialManager.GetMaterial("diffuseGray"));
+        //topLayout2 = topLayout1.Translate(Vector3.up * height / 2f);
+        //new QuadStrip(topLayout2, topLayout1, mesh, MaterialManager.GetMaterial("diffuseGray"));
+        topLayout1.Triangulate(mesh, MaterialManager.GetMaterial("diffuseGray"));
     }
     public void UpdateMesh(ModularMesh mesh)
     {

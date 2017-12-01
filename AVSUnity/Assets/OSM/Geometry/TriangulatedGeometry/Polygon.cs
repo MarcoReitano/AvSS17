@@ -350,147 +350,151 @@ public class Polygon
     }
         */
 
+    //public PolygonSurface Triangulate(ModularMesh mesh, Material material)
+    //{
+    //    List<Triangle> triangles = new List<Triangle>();
+    //    List<Vertex> worklist = new List<Vertex>(vertices);
+
+    //    bool polygonIsClockwise = Math2D.IsClockwise(vertices.ToArray());
+    //    bool triangleIsClockwise = false;
+
+    //    //Cant triangulate selfIntersecting Polygons
+    //    //if (IsSelfIntersecting())
+    //    //{
+    //    //    //Debug.Log("Is self intersecting");
+    //    //    return new PolygonSurface(triangles);
+    //    //}
+
+    //    int current;
+    //    int next;
+    //    int nextnext;
+
+    //    // Beginne mit i = 0
+    //    int i = 0;
+    //    int count = 0;
+    //    int countSameTriangle = 0;
+    //    // Solange mehr als 2 Punkte in der Liste
+    //    while (worklist.Count > 2)
+    //    {
+    //        count++;
+
+    //        if (count > 500)
+    //            return new PolygonSurface(triangles);
+    //        // Indizes der Points
+    //        // Hole die nächsten 3 Punkte current, next, nextnext
+    //        current = i % worklist.Count;
+    //        next = (i + 1) % worklist.Count;
+    //        nextnext = (i + 2) % worklist.Count;
+
+    //        // Ist das Triangle in Clockwise-Order 
+    //        triangleIsClockwise = Math2D.IsClockwise(
+    //            worklist[current],
+    //            worklist[next],
+    //            worklist[nextnext]);
+
+    //        if (countSameTriangle == 3)
+    //        {
+    //            triangles.Add(
+    //                   new Triangle(
+    //                       worklist[current],
+    //                       worklist[nextnext],
+    //                       worklist[next]));
+
+    //            worklist.RemoveAt(next);
+    //            break;
+    //        }
+
+    //        // Wenn Polygon und Triangle im Uhrzeigersinn angeordnet sind
+    //        if (polygonIsClockwise == triangleIsClockwise)
+    //        {
+    //            // Liegt keiner der Punkte im Triangle?
+    //            if (!Math2D.AnyPointInTriangle(
+    //                worklist[current],
+    //                worklist[next],
+    //                worklist[nextnext],
+    //                worklist))
+    //            {
+    //                //    Füge das Triangle hinzu
+    //                triangles.Add(
+    //                    new Triangle(
+    //                        worklist[current],
+    //                        worklist[next],
+    //                        worklist[nextnext]));
+    //                //    Lösche next aus der Liste
+    //                worklist.RemoveAt(next);
+
+    //                // Gehe zum nächsten Point
+    //                i++;
+    //            }
+    //            else
+    //                i++;
+    //        }
+    //        else
+    //        {
+    //            i++;
+    //            if (worklist.Count == 3)
+    //                countSameTriangle++;
+    //        }
+
+    //    }
+    //    return new PolygonSurface(triangles);
+    //}
+
     public PolygonSurface Triangulate(ModularMesh mesh, Material material)
     {
         List<Triangle> triangles = new List<Triangle>();
-        List<Vertex> worklist = new List<Vertex>(vertices);
+        List<Vertex> workList = new List<Vertex>(vertices);
 
         bool polygonIsClockwise = Math2D.IsClockwise(vertices.ToArray());
         bool triangleIsClockwise = false;
-
-        //Cant triangulate selfIntersecting Polygons
-        //if (IsSelfIntersecting())
-        //{
-        //    //Debug.Log("Is self intersecting");
-        //    return new PolygonSurface(triangles);
-        //}
-
-        int current;
         int next;
         int nextnext;
 
-        // Beginne mit i = 0
-        int i = 0;
-        int count = 0;
-        int countSameTriangle = 0;
-        // Solange mehr als 2 Punkte in der Liste
-        while (worklist.Count > 2)
+        //Cant triangulate selfIntersecting Polygons
+        if (IsSelfIntersecting())
         {
-            count++;
+            //Debug.Log("Is self intersecting");
+            return new PolygonSurface(triangles);
+        }
 
-            if (count > 500)
+        int count = 0;
+        int helper = 0;
+        while (workList.Count > 2)
+        {
+            if (helper < 0)
+                helper = 0;
+            if (helper > workList.Count - 1)
+                helper = 0;
+
+            if(count++ > 500)
                 return new PolygonSurface(triangles);
-            // Indizes der Points
-            // Hole die nächsten 3 Punkte current, next, nextnext
-            current = i % worklist.Count;
-            next = (i + 1) % worklist.Count;
-            nextnext = (i + 2) % worklist.Count;
 
-            // Ist das Triangle in Clockwise-Order 
-            triangleIsClockwise = Math2D.IsClockwise(
-                worklist[current],
-                worklist[next],
-                worklist[nextnext]);
-
-            if (countSameTriangle == 3)
+            for (int i = helper; i < workList.Count; i++)
             {
-                triangles.Add(
-                       new Triangle(
-                           worklist[current],
-                           worklist[nextnext],
-                           worklist[next]));
+                helper = i + 1;
+                next = i + 1;
+                if (next >= workList.Count)
+                    next -= workList.Count;
+                nextnext = i + 2;
+                if (nextnext >= workList.Count)
+                    nextnext -= workList.Count;
 
-                worklist.RemoveAt(next);
-                break;
-            }
+                triangleIsClockwise = Math2D.IsClockwise(new Vertex[] { workList[i], workList[next], workList[nextnext] });
 
-            // Wenn Polygon und Triangle im Uhrzeigersinn angeordnet sind
-            if (polygonIsClockwise == triangleIsClockwise)
-            {
-                // Liegt keiner der Punkte im Triangle?
-                if (!Math2D.AnyPointInTriangle(
-                    worklist[current],
-                    worklist[next],
-                    worklist[nextnext],
-                    worklist))
+                if (triangleIsClockwise == polygonIsClockwise)
                 {
-                    //    Füge das Triangle hinzu
-                    triangles.Add(
-                        new Triangle(
-                            worklist[current],
-                            worklist[next],
-                            worklist[nextnext]));
-                    //    Lösche next aus der Liste
-                    worklist.RemoveAt(next);
-
-                    // Gehe zum nächsten Point
-                    i++;
+                    if (!Math2D.AnyPointInTriangle(workList[i], workList[next], workList[nextnext], workList))
+                    {
+                        triangles.Add(new Triangle(workList[i], workList[next], workList[nextnext], mesh, material));
+                        workList.RemoveAt(next);
+                        break;
+                    }
                 }
-                else
-                    i++;
             }
-            else
-            {
-                i++;
-                if (worklist.Count == 3)
-                    countSameTriangle++;
-            }
-
         }
         return new PolygonSurface(triangles);
     }
 
-  //  public PolygonSurface Triangulate(ModularMesh mesh, Material material)
-  //  {
-  //      List<Triangle> triangles = new List<Triangle>();
-  //      List<Vertex> workList = new List<Vertex>(vertices);
-
-  //      bool polygonIsClockwise = Math2D.IsClockwise(vertices.ToArray());
-  //      bool triangleIsClockwise = false;
-  //      int next;
-  //      int nextnext;
-		
-		////Cant triangulate selfIntersecting Polygons
-		//if(IsSelfIntersecting())
-		//{
-		//	//Debug.Log("Is self intersecting");
-		//	return new PolygonSurface(triangles);
-		//}
-
-  //      int helper = 0;
-  //      while (workList.Count > 2)
-  //      {
-  //          if (helper < 0)
-  //              helper = 0;
-  //          if (helper > workList.Count - 1)
-  //              helper = 0;
-
-  //          for (int i = helper; i < workList.Count; i++)
-  //          {
-  //              helper = i+1;
-  //              next = i + 1;
-  //              if (next >= workList.Count)
-  //                  next -= workList.Count;
-  //              nextnext = i + 2;
-  //              if (nextnext >= workList.Count)
-  //                  nextnext -= workList.Count;
-                
-  //              triangleIsClockwise = Math2D.IsClockwise(new Vertex[] { workList[i], workList[next], workList[nextnext] });
-
-  //              if (triangleIsClockwise == polygonIsClockwise)
-  //              {
-		//			if(!Math2D.AnyPointInTriangle(workList[i], workList[next], workList[nextnext], workList))
-		//			{
-  //                  	triangles.Add(new Triangle(workList[i], workList[next], workList[nextnext], mesh, material));
-  //                  	workList.RemoveAt(next);
-  //                  	break;
-		//			}
-  //              } 
-  //          }
-  //      }
-  //      return new PolygonSurface(triangles);
-  //  }
- 
     public void OnDrawGizmos()
     {
         for (int i = 0; i < vertices.Count - 1; i++)

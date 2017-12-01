@@ -16,7 +16,7 @@ using Debug = UnityEngine.Debug;
 [CustomEditor(typeof(SimpleClient))]
 public class SimpleClientEditor : Editor
 {
-    
+
     #region Fields
 
     // The index of the selected connection
@@ -271,6 +271,34 @@ public class SimpleClientEditor : Editor
                     TileManager.OriginLatitude,
                     this.client.method);
             }
+
+            if (GUILayout.Button("Generate locally"))
+            {
+                mainScene = EditorSceneManager.GetActiveScene();
+                
+                swComplete.Start();
+                
+                
+                for (int i = -TileManager.tileRadius; i <= TileManager.tileRadius; i++)
+                {
+                    for (int j = -TileManager.tileRadius; j <= TileManager.tileRadius; j++)
+                    {
+                        jobs++;
+                        Stopwatch sw = new Stopwatch();
+                        sw.Reset();
+                        sw.Start();
+                        
+                        Tile newTile = Tile.CreateTileGO(i, j, 5);
+                        tileJobsLocal.Add(i + "/" + j, newTile);
+                        tileJobsStopwatchLocal.Add(i + "/" + j, sw);
+                        newTile.ProceduralDone += GenerationDone;
+                        newTile.StartQuery();
+                        //EditorSceneManager.SaveScenes
+                        //SceneManager.SetActiveScene(mainScene);
+                        
+                    }
+                }
+            }
         }
         else // Client-Mode
         {
@@ -335,12 +363,33 @@ public class SimpleClientEditor : Editor
             }
             EditorGUILayout.EndVertical();
         }
-       
+
         // Save/serialized modified connection
         serializedObject.ApplyModifiedProperties();
 
         // Update the last connection index
         lastIndex = index;
+    }
+
+    Dictionary<string, Stopwatch> tileJobsStopwatchLocal = new Dictionary<string, Stopwatch>();
+    Dictionary<string, Tile> tileJobsLocal = new Dictionary<string, Tile>();
+    int jobs = 0;
+    Stopwatch swComplete = new Stopwatch();
+    private void GenerationDone(object sender, EventArgs e)
+    {
+        jobs--;
+
+        Tile tile = (Tile) sender;
+        string tileName = tile.TileIndex[0] + "/" + tile.TileIndex[1];
+
+        Stopwatch sw = tileJobsStopwatchLocal[tileName];
+        sw.Stop();
+        Debug.Log(tileName +" Done! in " + sw.ElapsedMilliseconds + " ms");
+        if (jobs == 0)
+        {
+            swComplete.Stop();
+            Debug.Log("Completed Generation in " + swComplete.ElapsedMilliseconds);
+        }
     }
 
     #endregion Methods

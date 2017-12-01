@@ -360,12 +360,14 @@ public class SimpleClient : MonoBehaviour
         }
 
         Connect();
+        EnsureQueue("jobs");
+        EnsureQueue("reply");
         try
         {
             if (!ServerMode)
             {
                 SubscribeToQueue("jobs");
-                Debug.LogErrorFormat("<color=green>Subscribed to Job-Queue.</color>");
+                Debug.Log("<color=green>Subscribed to Job-Queue.</color>");
             }
         }
         catch (Exception)
@@ -374,8 +376,7 @@ public class SimpleClient : MonoBehaviour
             //throw;
         }
 
-        EnsureQueue("jobs");
-        EnsureQueue("reply");
+        
 
         //EditorApplication.update += this.Update;
     }
@@ -416,7 +417,7 @@ public class SimpleClient : MonoBehaviour
     {
         Debug.Log("<color=blue><b>" + this.name + ": SimpleClient.Start()</b></color>");
         // Connect to host broker on start if configured
-        if (this.ConnectOnStart)
+        if (this.ConnectOnStart && !this.IsConnected)
             this.Connect();
     }
     #endregion // Init
@@ -1308,7 +1309,9 @@ public class SimpleClient : MonoBehaviour
             sceneMessages.Add(sceneMessage);
 
             Debug.Log("Done Deserializing Scene... Process since job took : " + new TimeSpan(DateTime.Now.Ticks - sceneMessage.timeStamp).TotalMilliseconds + " ms");
-
+           
+            System.GC.Collect();
+           
             this.client.BasicAck(message.DeliveryTag, false);
         }
         else
@@ -1371,7 +1374,7 @@ public class SimpleClient : MonoBehaviour
         }
     }
 
-    private static string CheckForExistingScene(string sceneName)
+    public static string CheckForExistingScene(string sceneName)
     {
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
@@ -1387,7 +1390,7 @@ public class SimpleClient : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    private static string CheckForExistingSceneEditor(string sceneName)
+    public static string CheckForExistingSceneEditor(string sceneName)
     {
         for (int i = 0; i < EditorSceneManager.sceneCount; i++)
         {
