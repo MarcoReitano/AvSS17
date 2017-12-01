@@ -40,30 +40,30 @@ namespace ProtobufSceneSerialization
         public Scene Get()
         {
             Scene scene = SceneManager.GetActiveScene();
-            if (Application.isEditor)
-            {
-#if UNITY_EDITOR
-                if (EditorApplication.isPlaying)
-                {
-                    scene = SceneManager.CreateScene(this.name + "Deserialized");
-                    SceneManager.SetActiveScene(scene);
-                }
-                else
-                {
-                    //scene = EditorSceneManager.CreateScene(this.name + "Deserialized");
-                    //EditorSceneManager.SetActiveScene(scene);
+//            if (Application.isEditor)
+//            {
+//#if UNITY_EDITOR
+//                if (EditorApplication.isPlaying)
+//                {
+//                    scene = SceneManager.CreateScene(this.name + "Deserialized");
+//                    SceneManager.SetActiveScene(scene);
+//                }
+//                else
+//                {
+//                    //scene = EditorSceneManager.CreateScene(this.name + "Deserialized");
+//                    //EditorSceneManager.SetActiveScene(scene);
 
-                    scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
-                    //scene.nthis.name + "Deserialized");
-                    EditorSceneManager.SetActiveScene(scene);
-                }
-#endif   
-            }
-            else
-            {
-                scene = SceneManager.CreateScene(this.name + "Deserialized");
-                SceneManager.SetActiveScene(scene);
-            }
+//                    scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
+//                    //scene.nthis.name + "Deserialized");
+//                    EditorSceneManager.SetActiveScene(scene);
+//                }
+//#endif   
+//            }
+//            else
+//            {
+//                scene = SceneManager.CreateScene(this.name + "Deserialized");
+//                SceneManager.SetActiveScene(scene);
+//            }
 
             foreach (GameObjectSurrogate goSurrogate in rootGameObjects)
             {

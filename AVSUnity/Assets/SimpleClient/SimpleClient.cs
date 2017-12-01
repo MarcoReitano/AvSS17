@@ -1440,6 +1440,20 @@ public class SimpleClient : MonoBehaviour
         }
         SceneManager.SetActiveScene(mainScene);
         SceneManager.UnloadSceneAsync(newScene.name);
+
+        // TODO: Szene aufräumen
+        //if (SceneManager.GetActiveScene().name != "Server")
+        //{
+        //    foreach (GameObject item in SceneManager.GetActiveScene().GetRootGameObjects())
+        //    {
+        //        if (item.name != "Client")
+        //        {
+        //            GameObject.Destroy(item);
+        //        }
+        //    }
+        //}
+
+
         Debug.Log("Reply newScene to queue: " + jobMessage.replyToQueue);
         PublishToQueue(jobMessage.replyToQueue, jsonMessage);
         BasicAck(currentMessage.DeliveryTag, false);
