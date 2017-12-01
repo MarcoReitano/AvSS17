@@ -26,7 +26,7 @@ public class HalfEdge
     public HalfEdge Next
     {
         get { return next; }
-        set 
+        set  
         {
             if (value == null)
                 Debug.Log("Next.Set null");

@@ -3,11 +3,13 @@ using UnityEngine;
 using UnityEditor;
 #endif
 using System.IO;
-using Ionic.Zip;
+//using Ionic.Zip;
 using System;
 using System.Text;
 using System.Globalization;
-//using ICSharpCode.SharpZipLib.Zip;
+using System.Collections.Generic;
+using ICSharpCode.SharpZipLib.Zip;
+using ICSharpCode.SharpZipLib.Core;
 
 /// <summary>
 /// SRTMDataCell.
@@ -46,6 +48,7 @@ public class SRTMDataCell
             string chunkFilePathUnzipped = SRTMHeightProvider.SRTMDataPath + "/" + continent + "/" + chunkFileNameUnzipped;
 
             string zippedSRTMFile = chunkFilePath;
+            Debug.Log("Zipped File at: " + zippedSRTMFile);
 
             if (!File.Exists(zippedSRTMFile))
             {
@@ -385,27 +388,77 @@ public class SRTMDataCell
     public int average;
     public void ReadFromFile(string sRTMFilePath)
     {
+        Debug.Log("unzip SRTM-File : " + sRTMFilePath);
+        if (!File.Exists(sRTMFilePath))
+            Debug.Log("File Not available");
+        else
+            Debug.Log("File is available");
 
-        ZipFile zip;
-        try
+        string unzippedFilename = sRTMFilePath.Remove(sRTMFilePath.Length - 4, 4);
+        
+        //FileStream stream = new FileStream(sRTMFilePath, FileMode.Append, FileAccess.Write, FileShare.None);
+
+        //BufferedStream bufStream = new BufferedStream(stream);
+
+        //if (!bufStream.CanRead)
+        //    Debug.Log("Can read from stream");
+        //else
+        //    Debug.Log("Stream NOT readable");
+        if (!File.Exists(unzippedFilename))
         {
-            zip = ZipFile.Read(sRTMFilePath);
-        }
-        catch (Exception ex)
-        {
-            Console.AddMessage("The requested SRTM File doesnt seem to exist at the specified path! /n Initialized the SRTMData with one-heightmap! \n" + ex.Message);
-            for (int i = 0; i < 1201; i++)
+            ZipConstants.DefaultCodePage = 0;
+            ZipFile zf = null;
+            try
             {
-                for (int j = 0; j < 1201; j++)
+                try
                 {
-                    Data[i, j] = 0;
+                    FileStream fs = File.OpenRead(sRTMFilePath);
+                    zf = new ZipFile(fs);
+
+                    foreach (ZipEntry zipEntry in zf)
+                    {
+                        if (!zipEntry.IsFile)
+                        {
+                            continue;           // Ignore directories
+                        }
+                        
+                        byte[] buffer = new byte[4096];     // 4K is optimum
+                        Stream zipStream = zf.GetInputStream(zipEntry);
+
+                        
+                        using (FileStream streamWriter = File.Create(unzippedFilename))
+                        {
+                            StreamUtils.Copy(zipStream, streamWriter, buffer);
+                        }
+                    }
+                }
+                finally
+                {
+                    if (zf != null)
+                    {
+                        zf.IsStreamOwner = true; // Makes close also shut the underlying stream
+                        zf.Close(); // Ensure we release resources
+                    }
                 }
             }
-            return;
-        }
+            catch (Exception ex)
+            {
+                Debug.Log(ex);
+                Debug.Log("The requested SRTM File doesnt seem to exist at the specified path! /n Initialized the SRTMData with one-heightmap! \n" + ex.Message);
 
-        ZipEntry e = zip[0];
-        Stream s = e.OpenReader();
+                Console.AddMessage("The requested SRTM File doesnt seem to exist at the specified path! /n Initialized the SRTMData with one-heightmap! \n" + ex.Message);
+                for (int i = 0; i < 1201; i++)
+                {
+                    for (int j = 0; j < 1201; j++)
+                    {
+                        Data[i, j] = 0;
+                    }
+                }
+                return;
+            }
+        }
+        Debug.Log("unzipped --> read data SRTM-File");
+        Stream s = File.OpenRead(unzippedFilename);
 
         //short max = 0;
         max = 0;
@@ -450,8 +503,99 @@ public class SRTMDataCell
         }
 
         Data = map2;
+        Debug.Log("Done unzipping SRTM File");
     }
 
+    //public void ReadFromFile(string sRTMFilePath)
+    //{
+    //    Debug.Log("unzip SRTM-File : " + sRTMFilePath);
+    //    if (!File.Exists(sRTMFilePath))
+    //        Debug.Log("File Not available");
+    //    else
+    //        Debug.Log("File is available");
+
+    //    FileStream stream = new FileStream(sRTMFilePath, FileMode.Append, FileAccess.Write, FileShare.None);
+
+    //    BufferedStream bufStream = new BufferedStream(stream);
+
+    //    if (!bufStream.CanRead)
+    //        Debug.Log("Can read from stream");
+    //    else
+    //        Debug.Log("Stream NOT readable");
+
+
+    //    ZipFile zip;
+    //    try
+    //    {
+
+    //        Debug.Log("Is Zip-File: " + ZipFile.IsZipFile(sRTMFilePath));
+    //        zip = ZipFile.Read(bufStream);
+
+    //        //zip = ZipFile.Read(sRTMFilePath);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.Log("The requested SRTM File doesnt seem to exist at the specified path! /n Initialized the SRTMData with one-heightmap! \n" + ex.Message);
+
+    //        Console.AddMessage("The requested SRTM File doesnt seem to exist at the specified path! /n Initialized the SRTMData with one-heightmap! \n" + ex.Message);
+    //        for (int i = 0; i < 1201; i++)
+    //        {
+    //            for (int j = 0; j < 1201; j++)
+    //            {
+    //                Data[i, j] = 0;
+    //            }
+    //        }
+    //        return;
+    //    }
+    //    Debug.Log("unzipped --> read data SRTM-File");
+    //    ZipEntry e = zip[0];
+    //    Stream s = e.OpenReader();
+
+    //    //short max = 0;
+    //    max = 0;
+    //    int[] pos = new int[2];
+
+    //    for (int i = 0; i < 1201; i++)
+    //    {
+    //        for (int j = 0; j < 1201; j++)
+    //        {
+    //            byte[] buffer = new byte[2];
+
+    //            s.Read(buffer, 1, 1);
+    //            s.Read(buffer, 0, 1);
+
+    //            Data[i, j] = BitConverter.ToInt16(buffer, 0);
+    //            if (Data[i, j] == -32768)
+    //                Data[i, j] = 0;
+
+    //            average += Data[i, j];
+    //            if (Data[i, j] > max)
+    //            {
+    //                max = Data[i, j];
+    //                pos[0] = i;
+    //                pos[1] = j;
+    //            }
+    //        }
+    //    }
+    //    average = average / (1201 * 1201);
+
+
+    //    // TODO: really necessary???  mirroring the values
+    //    int i2 = 1201;
+    //    short[,] map2 = new short[1201, 1201];
+
+    //    for (var i = 0; i < 1201; i++)
+    //    {
+    //        i2--;
+    //        for (var j = 0; j < 1201; j++)
+    //        {
+    //            map2[i, j] = Data[i2, j];
+    //        }
+    //    }
+
+    //    Data = map2;
+    //    Debug.Log("Done unzipping SRTM File");
+    //}
 
     /// <summary>
     /// 
@@ -588,6 +732,7 @@ public class SRTMDataCell
 
                 file.Write(www.bytes, 0, www.bytes.Length);
                 file.Close();
+                Debug.Log("Download finished! " + tmpFile);
             }
         }
         return tmpFile;

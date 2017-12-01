@@ -1362,6 +1362,8 @@ public class SimpleClient : MonoBehaviour
 
             //###########################
             // Erzeuge Content:
+            SRTMHeightProvider.SRTMDataPath = Application.dataPath;
+
             TileManager.TileWidth = jobMessage.tileWidth;
             TileManager.OriginLongitude = jobMessage.originLongitude;
             TileManager.OriginLatitude = jobMessage.originLatitude;
