@@ -1,5 +1,5 @@
 
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,6 +14,7 @@ using UnityEditor;
 #endif
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Globalization;
 
 //[ExecuteInEditMode]
 public class SimpleClient : MonoBehaviour
@@ -33,7 +34,10 @@ public class SimpleClient : MonoBehaviour
         GameObject clientGO = new GameObject("Client");
         clientGO.AddComponent<SimpleClient>();
     }
-#endif 
+#endif
+
+
+
     #region Inspector
     /// <summary>
     /// The name of the connection to use.
@@ -360,8 +364,17 @@ public class SimpleClient : MonoBehaviour
         }
 
         Connect();
+
+        while (!IsConnected)
+        {
+            // TODO: This is dangerous...  just for testing purpose...
+            // wait 
+        }
+
         EnsureQueue("jobs");
         EnsureQueue("reply");
+        EnsureQueue("statusUpdates");
+
         try
         {
             if (!ServerMode)
@@ -376,7 +389,6 @@ public class SimpleClient : MonoBehaviour
             //throw;
         }
 
-        
 
         //EditorApplication.update += this.Update;
     }
@@ -395,9 +407,10 @@ public class SimpleClient : MonoBehaviour
 
         if (!foundJobQueue)
         {
-            this.client.DeclareQueue("jobs");
+            this.client.DeclareQueue(queueName);
         }
     }
+
 #if UNITY_EDITOR
     public void EnableUpdate()
     {
@@ -1055,18 +1068,40 @@ public class SimpleClient : MonoBehaviour
             throw new InvalidOperationException("Must be connected to message broker first.");
         this.client.Publish(string.Empty, queueName, message, mandatory, immediate);
     }
+
+    //// TODO Test and support queue publishing scenarios
+    ///// <summary>
+    ///// Publishes a message to a given queue.
+    ///// </summary>
+    ///// <param name="queueName">The name of the queue.</param>
+    ///// <param name="message">The message to publish.</param>
+    ///// <param name="mandatory">Whether or not to publish with the AMQP "mandatory" flag.</param>
+    ///// <param name="immediate">Whether or not to publish with the AMQP "immediate" flag.</param>
+    public void PublishToQueue(string queueName, byte[] message, bool mandatory = false, bool immediate = false)
+    {
+        Debug.Log("In here");
+        if (this.isQuitting)
+            return;
+        if (string.IsNullOrEmpty(queueName))
+            throw new ArgumentNullException("queueName");
+        if (message.Length == 0)
+            throw new ArgumentNullException("message");
+        if (this.client == null)
+            throw new InvalidOperationException("Must be connected to message broker first.");
+        this.client.Publish(string.Empty, queueName, message, mandatory, immediate);
+    }
     #endregion // Publish
 
-    #region Queues
-    /// <summary>
-    /// Declares a queue on the broker for the current virtual host.
-    /// </summary>
-    /// <param name="name">The name of the queue to declare.</param>
-    /// <param name="durable">Whether or not the queue should be durable.</param>
-    /// <param name="autoDelete">Whether or not the queue will have auto-delete enabled.</param>
-    /// <param name="exclusive">Whether or not the queue is exclusive.</param>
-    /// <param name="args">Optional exchange arguments.</param>
-    /// <returns>An Exception if one occurred during the operation, otherwise NULL.</returns>
+        #region Queues
+        /// <summary>
+        /// Declares a queue on the broker for the current virtual host.
+        /// </summary>
+        /// <param name="name">The name of the queue to declare.</param>
+        /// <param name="durable">Whether or not the queue should be durable.</param>
+        /// <param name="autoDelete">Whether or not the queue will have auto-delete enabled.</param>
+        /// <param name="exclusive">Whether or not the queue is exclusive.</param>
+        /// <param name="args">Optional exchange arguments.</param>
+        /// <returns>An Exception if one occurred during the operation, otherwise NULL.</returns>
     public Exception DeclareQueue(string name, bool durable = true, bool autoDelete = false, bool exclusive = false, IDictionary<string, object> args = null)
     {
         return this.DeclareQueueOnHost(name, durable, autoDelete, exclusive, args);
@@ -1270,21 +1305,32 @@ public class SimpleClient : MonoBehaviour
     public List<OSMJobMessage> osmJobs = new List<OSMJobMessage>();
     public List<SceneMessage> sceneMessages = new List<SceneMessage>();
 
-    public void SendOSMJobMessages(string jobQueueName, string replyQueueName, int tileRadius, double tileWidth, double originLongitude, double originLatitude, SerializationMethod method)
+    public void SendOSMJobMessages(string jobQueueName, string replyQueueName, string statusUpdateQueueName, int tileRadius, double tileWidth, double originLongitude, double originLatitude, SerializationMethod method)
     {
         this.SubscribeToQueue(replyQueueName);
+        this.SubscribeToQueue(statusUpdateQueueName);
 
         for (int i = -tileRadius; i <= tileRadius; i++)
         {
             for (int j = -tileRadius; j <= tileRadius; j++)
             {
-                OSMJobMessage jobMessage = new OSMJobMessage(i, j, tileWidth, originLongitude, originLatitude, replyQueueName, DateTime.Now.Ticks, method);
+                OSMJobMessage jobMessage = new OSMJobMessage(i, j, tileWidth, originLongitude, originLatitude, replyQueueName, statusUpdateQueueName, TimeStamp.Now(), method);
                 osmJobs.Add(jobMessage);
                 string jsonMessage = jobMessage.ToJson();
+                
                 this.PublishToQueue(jobQueueName, jsonMessage);
-                Debug.Log("Created Job-Message for (" + i + "," + j + "): " + jsonMessage);
+                Debug.Log("Created Job-Message for (" + i + "," + j + "): ");
             }
         }
+       
+    }
+
+
+    public void SendStatusUpdateMessages(string statusUpdateQueueName, StatusUpdateMessage message)
+    {
+        //this.SubscribeToQueue(statusUpdateQueueName);
+        
+        this.PublishToQueue(statusUpdateQueueName, message.Serialize());
     }
 
 
@@ -1299,20 +1345,35 @@ public class SimpleClient : MonoBehaviour
         currentMessage = message;
         if (ServerMode)
         {
-            // Decode as text
-            var payload = System.Text.Encoding.UTF8.GetString(message.Body);
-            // new Color(1f, 0.5f, 0);
-            Debug.Log("<b>Server:</b> <color=ff7f00ff>Message received on " + subscription.QueueName + ": " +
-                //payload + 
-                "</color>");
-            SceneMessage sceneMessage = SceneMessage.FromJson(payload);
-            sceneMessages.Add(sceneMessage);
+            if (subscription.QueueName == "reply")
+            {
+                // Decode as text
+                string payload = System.Text.Encoding.UTF8.GetString(message.Body);
+                // new Color(1f, 0.5f, 0);
+                Debug.Log("<b>Server:</b> <color=ff7f00ff>Message received on " + subscription.QueueName + ": " +
+                    //payload + 
+                    "</color>");
+                SceneMessage sceneMessage = SceneMessage.FromJson(payload);
+                sceneMessages.Add(sceneMessage);
 
-            Debug.Log("Done Deserializing Scene... Process since job took : " + new TimeSpan(DateTime.Now.Ticks - sceneMessage.timeStamp).TotalMilliseconds + " ms");
-           
-            System.GC.Collect();
-           
-            this.client.BasicAck(message.DeliveryTag, false);
+                Debug.Log("Done Deserializing Scene... Process since job took : " + sceneMessage.timeStamp.DurationSince().TotalMilliseconds + " ms");
+
+                System.GC.Collect();
+
+                this.client.BasicAck(message.DeliveryTag, false);
+            }
+            else if (subscription.QueueName == "statusUpdates")
+            {
+                Debug.Log("Received Status-Update...");
+                StatusUpdateMessage statusMessage = StatusUpdateMessage.Deserialize(message.Body);
+                Debug.Log(statusMessage.ToString());
+                this.client.BasicAck(message.DeliveryTag, false);
+            }
+            else
+            {
+                Debug.LogWarning("Received a Message from " + subscription.QueueName + " --> UNHANDLED!");
+            }
+            
         }
         else
         {
@@ -1426,7 +1487,7 @@ public class SimpleClient : MonoBehaviour
         //Debug.Log("after newScene-Path: " + newScene.path);
 
         Debug.Log("Create ReplyMessage...");
-        SceneMessage sceneMessage = new SceneMessage(jobMessage.x + "/" + jobMessage.y, newScene, jobMessage.timeStamp, jobMessage.method);
+        SceneMessage sceneMessage = new SceneMessage(jobMessage.Job_ID, jobMessage.x + "/" + jobMessage.y, newScene, jobMessage.timeStamp, jobMessage.method);
         string jsonMessage = sceneMessage.ToJSON();
         //Debug.Log(jsonMessage);
         //EditorSceneManager.CloseScene(newScene, true);

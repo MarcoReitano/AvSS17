@@ -885,7 +885,7 @@ namespace CymaticLabs.Unity3D.Amqp
                 username = c.Username;
                 password = c.Password;
                 reconnectInterval = c.ReconnectInterval;
-                requestedHeartBeat = c.RequestedHeartBeat;
+                requestedHeartBeat = c.RequestedHeartBeat; 
             }
 
             // Create the client for the connection

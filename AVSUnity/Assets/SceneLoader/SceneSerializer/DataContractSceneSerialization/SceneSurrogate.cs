@@ -31,7 +31,6 @@ namespace DataContractSceneSerialization
         [DataMember(Name = "RootGameObjects")]
         public List<GameObjectSurrogate> rootGameObjects;
 
-
         public SceneSurrogate(Scene scene)
         {
             this.name = scene.name;
@@ -47,30 +46,30 @@ namespace DataContractSceneSerialization
         public Scene Get()
         {
             Scene scene = SceneManager.GetActiveScene();
-            if (Application.isEditor)
-            {
-#if UNITY_EDITOR
-                if (EditorApplication.isPlaying)
-                {
-                    string sceneName = SceneMessage.CheckForExistingScene(this.name + "_Deserialized");
-                    scene = SceneManager.CreateScene(sceneName);
-                    SceneManager.SetActiveScene(scene);
-                }
-                else
-                {
-                    //SceneMessage.CheckForExistingSceneEditor(this.name + "Deserialized");
-                    scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
-                    //scene.nthis.name + "Deserialized");
-                    EditorSceneManager.SetActiveScene(scene);
-                }
-#endif   
-            }
-            else
-            {
-                string sceneName = SceneMessage.CheckForExistingScene(this.name + "_Deserialized");
-                scene = SceneManager.CreateScene(sceneName);
-                SceneManager.SetActiveScene(scene);
-            }
+//            if (Application.isEditor)
+//            {
+//#if UNITY_EDITOR
+//                if (EditorApplication.isPlaying)
+//                {
+//                    string sceneName = SceneMessage.CheckForExistingScene(this.name + "_Deserialized");
+//                    scene = SceneManager.CreateScene(sceneName);
+//                    SceneManager.SetActiveScene(scene);
+//                }
+//                else
+//                {
+//                    //SceneMessage.CheckForExistingSceneEditor(this.name + "Deserialized");
+//                    scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
+//                    //scene.nthis.name + "Deserialized");
+//                    EditorSceneManager.SetActiveScene(scene);
+//                }
+//#endif   
+//            }
+//            else
+//            {
+//                string sceneName = SceneMessage.CheckForExistingScene(this.name + "_Deserialized");
+//                scene = SceneManager.CreateScene(sceneName);
+//                SceneManager.SetActiveScene(scene);
+//            }
 
             foreach (GameObjectSurrogate goSurrogate in rootGameObjects)
             {

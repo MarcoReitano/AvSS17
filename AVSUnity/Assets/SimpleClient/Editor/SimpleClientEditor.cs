@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -71,8 +72,8 @@ public class SimpleClientEditor : Editor
     private int selectedQueue;
 
     private int jobQueueIndex;
-
     private int replyQueueIndex;
+    private int statusUpdateQueueIndex;
 
     private int xMax = 3;
     private int zMax = 3;
@@ -215,7 +216,7 @@ public class SimpleClientEditor : Editor
 
             this.jobQueueIndex = EditorGUILayout.Popup("JobQueue", this.jobQueueIndex, jobQueueNames);
             string jobQueueName = this.client.GetQueues().Length == 0 ? "not set" : jobQueueNames[this.jobQueueIndex];
-            EditorGUILayout.LabelField("JobQueue", jobQueueName);
+            //EditorGUILayout.LabelField("JobQueue", jobQueueName);
             #endregion // JobQueue
 
             #region JobQueue 
@@ -225,12 +226,19 @@ public class SimpleClientEditor : Editor
 
             this.replyQueueIndex = EditorGUILayout.Popup("ReplyToQueue", this.replyQueueIndex, replyToQueueNames);
             string replyQueueName = this.client.GetQueues().Length == 0 ? "not set" : replyToQueueNames[this.replyQueueIndex];
-            EditorGUILayout.LabelField("ReplyToQueue", replyQueueName);
+            //EditorGUILayout.LabelField("ReplyToQueue", replyQueueName);
             #endregion // JobQueue
 
+            #region JobQueue 
+            string[] statusUpdateQueueNames = new string[this.client.GetQueues().Length];
+            for (int i = 0; i < this.client.GetQueues().Length; i++)
+                statusUpdateQueueNames[i] = this.client.GetQueues()[i].Name;
 
-            this.xMax = EditorGUILayout.IntSlider("xMax", this.xMax, 1, 10);
-            this.zMax = EditorGUILayout.IntSlider("zMax", this.zMax, 1, 10);
+            this.statusUpdateQueueIndex = EditorGUILayout.Popup("ReplyToQueue", this.statusUpdateQueueIndex, statusUpdateQueueNames);
+            string statusUpdateQueueName = this.client.GetQueues().Length == 0 ? "not set" : statusUpdateQueueNames[this.statusUpdateQueueIndex];
+            //EditorGUILayout.LabelField("ReplyToQueue", replyQueueName);
+            #endregion // JobQueue
+
 
             EditorGUILayout.BeginVertical("box");
             TileManager.TileWidth = (double)EditorGUILayout.FloatField("TileWidth", (float)TileManager.TileWidth);
@@ -241,13 +249,69 @@ public class SimpleClientEditor : Editor
             EditorGUILayout.EndVertical();
 
             this.client.method = (SerializationMethod)EditorGUILayout.EnumPopup("SerializationMethod", this.client.method);
-            
+
+
+            if (GUILayout.Button("UpdateMessage Test"))
+            {
+                Stopwatch sw = new Stopwatch();
+
+                StatusUpdateMessage msg = new StatusUpdateMessage(0, "job");
+                msg.AddStep("SRTM");
+                msg.AddStep("Terrain");
+                msg.AddStep("Buildings");
+                msg.AddStep("Garbage Collection");
+
+                msg.Start("SRTM");
+                Debug.Log("###################################");
+                Debug.Log(msg.ToString());
+
+                msg.Stop("SRTM");
+
+                msg.Start("Terrain");
+                Debug.Log("###################################");
+                Debug.Log(msg.ToString());
+                msg.Stop("Terrain");
+
+
+                msg.Start("Buildings");
+                msg.Start("Garbage Collection");
+                msg.Stop("Buildings");
+                msg.Stop("Garbage Collection");
+
+
+                Debug.Log("###################################");
+                Debug.Log(msg.ToString());
+                sw.Start();
+                byte[] bytes = msg.Serialize();
+                sw.Stop();
+                Debug.Log("Serialization took: " + sw.ElapsedMilliseconds);
+                Debug.Log("###################################");
+                this.client.SendStatusUpdateMessages(statusUpdateQueueName, msg);
+
+
+                WaitForSeconds(2);
+                Debug.Log("###################################");
+                sw.Reset();
+                sw.Start();
+                StatusUpdateMessage msgReceived = StatusUpdateMessage.Deserialize(bytes);
+                sw.Stop();
+                Debug.Log("Deserialization took: " + sw.ElapsedMilliseconds);
+                Debug.Log(msgReceived.ToString());
+                Debug.Log("###################################");
+            }
+
+            if (GUILayout.Button("Receive StatusUpdate"))
+            {
+                this.client.SubscribeToQueue(statusUpdateQueueName);
+
+            }
 
             if (GUILayout.Button("Send OSM-Job-Messages"))
             {
                 this.client.SendOSMJobMessages(
                     jobQueueName,
                     replyQueueName,
+                    statusUpdateQueueName,
                     TileManager.tileRadius,
                     TileManager.TileWidth,
                     TileManager.OriginLongitude,
@@ -258,11 +322,11 @@ public class SimpleClientEditor : Editor
             if (GUILayout.Button("Generate locally"))
             {
                 mainScene = EditorSceneManager.GetActiveScene();
-                
+
                 swComplete.Start();
 
                 tiles = new List<Tile>();
-                
+
                 for (int i = -TileManager.tileRadius; i <= TileManager.tileRadius; i++)
                 {
                     for (int j = -TileManager.tileRadius; j <= TileManager.tileRadius; j++)
@@ -271,7 +335,7 @@ public class SimpleClientEditor : Editor
                         Stopwatch sw = new Stopwatch();
                         sw.Reset();
                         sw.Start();
-                        
+
                         Tile newTile = Tile.CreateTileGO(i, j, 5);
                         tiles.Add(newTile);
                         tileJobsLocal.Add(i + "/" + j, newTile);
@@ -337,10 +401,10 @@ public class SimpleClientEditor : Editor
                                 break;
                             }
                         }
-                        
+
                         EditorGUILayout.LabelField("Jobname", osmJob.x + "/" + osmJob.y);
                         //EditorGUILayout.LabelField("replyQueue", osmJob.replyToQueue);
-                        EditorGUILayout.LabelField("started at", new DateTime(osmJob.timeStamp).ToString());
+                        EditorGUILayout.LabelField("started at", osmJob.timeStamp.ToString());
 
                         EditorGUILayout.Toggle(replyReceived, "Received reply");
                         if (replyReceived)
@@ -361,6 +425,19 @@ public class SimpleClientEditor : Editor
         lastIndex = index;
     }
 
+    private static void WaitForSeconds(int seconds)
+    {
+        Stopwatch sw = new Stopwatch();
+        Debug.Log("Wait for " + seconds + " Seconds...");
+        sw.Reset();
+        sw.Start();
+        while (sw.ElapsedMilliseconds < (seconds * 1000))
+        {
+            // wait
+        }
+        sw.Stop();
+    }
+
     List<Tile> tiles;
 
     Dictionary<string, Stopwatch> tileJobsStopwatchLocal = new Dictionary<string, Stopwatch>();
@@ -371,7 +448,7 @@ public class SimpleClientEditor : Editor
     {
         jobs--;
 
-        Tile tile = (Tile) sender;
+        Tile tile = (Tile)sender;
         string tileName = tile.TileIndex[0] + "/" + tile.TileIndex[1];
 
         tile.ProceduralDone -= GenerationDone;
@@ -384,7 +461,7 @@ public class SimpleClientEditor : Editor
 
         Stopwatch sw = tileJobsStopwatchLocal[tileName];
         sw.Stop();
-        Debug.Log(tileName +" Done! in " + sw.ElapsedMilliseconds + " ms");
+        Debug.Log(tileName + " Done! in " + sw.ElapsedMilliseconds + " ms");
         if (jobs == 0)
         {
             swComplete.Stop();

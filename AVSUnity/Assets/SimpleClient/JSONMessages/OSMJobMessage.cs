@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class OSMJobMessage
 {
+    public int Job_ID;
     public int x;
-
     public int y;
 
     public double tileWidth;
@@ -13,10 +13,12 @@ public class OSMJobMessage
     public double originLatitude;
 
     public string replyToQueue;
-    public long timeStamp;
+    public string statusUpdateQueue;
+    //public long timeStamp;
+    public TimeStamp timeStamp;
     public SerializationMethod method;
 
-    public OSMJobMessage(int x, int y, double tileWidth, double originLongitude, double originLatitude, string replyQueueName, long timeStamp, SerializationMethod method)
+    public OSMJobMessage(int x, int y, double tileWidth, double originLongitude, double originLatitude, string replyQueueName, string statusUpdateQueue, TimeStamp timeStamp, SerializationMethod method)
     {
         this.x = x;
         this.y = y;
@@ -24,6 +26,7 @@ public class OSMJobMessage
         this.originLongitude = originLongitude;
         this.originLatitude = originLatitude;
         this.replyToQueue = replyQueueName;
+        this.statusUpdateQueue = statusUpdateQueue;
         this.timeStamp = timeStamp;
         this.method = method;
     }

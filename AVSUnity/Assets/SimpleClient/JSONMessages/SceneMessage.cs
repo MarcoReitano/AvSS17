@@ -20,18 +20,21 @@ public enum SerializationMethod
 
 public class SceneMessage
 {
+    public int Job_ID;
+
     public string messageText;
 
     private Scene scene;
 
     public byte[] sceneBytes;
 
-    public long timeStamp;
+    public TimeStamp timeStamp;
 
     public SerializationMethod method = SerializationMethod.DataContractSerializer;
 
-    public SceneMessage(string messageText, Scene scene, long timeStamp, SerializationMethod method)
+    public SceneMessage(int Job_ID, string messageText, Scene scene, TimeStamp timeStamp, SerializationMethod method)
     {
+        this.Job_ID = Job_ID;
         this.method = method;
         this.messageText = messageText;
         this.scene = scene;
@@ -47,21 +50,17 @@ public class SceneMessage
     public static SceneMessage FromJson(string json)
     {
         SceneMessage message = JsonUtility.FromJson<SceneMessage>(json);
-        
+        // TODO: Change this. its not really loading a Scene, rather loading only the root-GameObjects
         message.scene = ByteArrayToScene(message.sceneBytes, message.method);
-
         return message;
     }
-
-
-
 
     public static byte[] SceneFileToByteArray(Scene scene, SerializationMethod method)
     {
         Stopwatch sw = new Stopwatch();
         sw.Start();
-        MemoryStream memStream = new MemoryStream();
 
+        MemoryStream memStream = new MemoryStream();
         byte[] sceneBytes = null;
 
         switch (method)
@@ -92,7 +91,6 @@ public class SceneMessage
                 ProtobufSceneSerialization.SceneSurrogate sceneSurrogateProto = new ProtobufSceneSerialization.SceneSurrogate(scene);
                 Serializer.Serialize<ProtobufSceneSerialization.SceneSurrogate>(memStream, sceneSurrogateProto);
                 sceneBytes = memStream.ToArray();
-                //Debug.Log("memStream.Length=" + memStream.Length + "  -->  bytes.Length=" + bytes.Length + "  -->  bytes2.Length=" + bytes2.Length);
                 break;
             default:
                 break;

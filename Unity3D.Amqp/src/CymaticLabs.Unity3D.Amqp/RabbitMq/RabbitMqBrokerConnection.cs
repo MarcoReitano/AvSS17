@@ -822,7 +822,8 @@ namespace CymaticLabs.Unity3D.Amqp.RabbitMq
         /// <param name="immediate">Whether or not to publish with the AMQP "immediate" flag.</param>
         public void Publish(string exchange, string routingKey, byte[] body, bool mandatory = false, bool immediate = false)
         {
-            Publish(exchange, routingKey, body, mandatory, immediate);
+            //Publish(exchange, routingKey, body, mandatory, immediate);
+            Publish(exchange, routingKey, null, body, mandatory, immediate); 
         }
 
         /// <summary>
