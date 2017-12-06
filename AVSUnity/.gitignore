@@ -50,4 +50,4 @@ sysinfo.txt
 # *.unitypackage
 
 # AMQP
-AmqpConfiguration.json*
+#AmqpConfiguration.json*
