@@ -1363,11 +1363,11 @@ public class SimpleClient : MonoBehaviour
                 master.Stop(Job.CreateJobMessage);
 
                 master.Start(Job.SerializeJobMessage);
-                string jsonMessage = jobMessage.ToJson();
+                byte[] osmJobMessage = OSMJobMessage.ToByteArray(jobMessage);
                 master.Stop(Job.SerializeJobMessage);
 
                 master.Start(Job.PublishJob);
-                this.PublishToQueue(jobQueueName, jsonMessage);
+                this.PublishToQueue(jobQueueName, osmJobMessage);
                 master.Stop(Job.PublishJob);
 
                 Debug.Log("Created Job-Message for job " + jobCount + " (" + i + "," + j + "): ");
@@ -1411,13 +1411,13 @@ public class SimpleClient : MonoBehaviour
                 TimeStamp endTransferToMaster = new TimeStamp();
                 TimeStamp startDeserializing = new TimeStamp();
                 // Decode as text
-                string payload = System.Text.Encoding.UTF8.GetString(message.Body);
+                //string payload = System.Text.Encoding.UTF8.GetString(message.Body);
                 // new Color(1f, 0.5f, 0);
                 Debug.Log("<b>Server:</b> <color=ff7f00ff>Message received on " + subscription.QueueName + ": </color>");
-                SceneMessage sceneMessage = SceneMessage.FromJson(payload);
+                SceneMessage sceneMessage = SceneMessage.FromByteArray(message.Body);
                 sceneMessages.Add(sceneMessage);
                 TimeStamp endDeserializing = new TimeStamp();
-
+                Debug.Log("Before Error" + sceneMessage.statusUpdateMessage);
                 sceneMessage.statusUpdateMessage.Get(Job.TransferToMaster).Stop(endTransferToMaster);
                 sceneMessage.statusUpdateMessage.Get(Job.DeserializeResult).Start(startDeserializing);
                 sceneMessage.statusUpdateMessage.Get(Job.DeserializeResult).Stop(endDeserializing);
@@ -1454,14 +1454,14 @@ public class SimpleClient : MonoBehaviour
             TimeStamp workerStart = new TimeStamp();
             TimeStamp startedDeserialize = new TimeStamp();
 
-            string payload = System.Text.Encoding.UTF8.GetString(message.Body);
+            //string payload = System.Text.Encoding.UTF8.GetString(message.Body);
             Debug.Log("<b>Client:</b> <color=ff7f00ff>Message received on " + subscription.QueueName + ": </color>");
-            jobMessage = OSMJobMessage.FromJson(payload);
+            jobMessage = OSMJobMessage.FromByteArray(message.Body);
             TimeStamp stopedDeserialize = new TimeStamp();
 
             statusUpdateQueueName = jobMessage.statusUpdateQueue;
             StatusUpdateMessage = jobMessage.statusUpdateMessage;
-
+            Debug.Log("Full? " + StatusUpdateMessage);
 
             StatusUpdateMessage.Get(Job.TransferToWorker).Stop(messageArrived);
 
@@ -1586,7 +1586,7 @@ public class SimpleClient : MonoBehaviour
         SimpleClient.simpleClient.SendStatusUpdateMessages();
         Debug.Log("Create ReplyMessage...");
         SceneMessage sceneMessage = new SceneMessage(jobMessage.Job_ID, jobMessage.x + "/" + jobMessage.y, newScene, StatusUpdateMessage, jobMessage.method);
-        string jsonMessage = sceneMessage.ToJSON();
+        byte[] jsonMessage = SceneMessage.ToByteArray(sceneMessage);
         StatusUpdateMessage.Stop(Job.CreateReplyMessage);
 
         //Debug.Log(jsonMessage);

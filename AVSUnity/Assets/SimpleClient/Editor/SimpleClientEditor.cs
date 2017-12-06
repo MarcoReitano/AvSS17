@@ -377,7 +377,7 @@ public class SimpleClientEditor : Editor
                 Debug.Log(msg);
 
                 master.Start(Job.SerializeJobMessage);
-                string jsonMessage = jobMessage.ToJson();
+                byte[] jsonMessage = OSMJobMessage.ToByteArray(jobMessage);
                 master.Stop(Job.SerializeJobMessage);
                 Debug.Log("Serialized: \n" + jsonMessage);
 
@@ -387,7 +387,7 @@ public class SimpleClientEditor : Editor
 
                 //Debug.Log("Created Job-Message for job " + jobCount + " (" + i + "," + j + "): ");
                 //jobCount++;
-                jobMessage = OSMJobMessage.FromJson(jsonMessage);
+                jobMessage = OSMJobMessage.FromByteArray(jsonMessage);
                 Debug.Log("Deserialized: \n" + jsonMessage);
                 Debug.Log(jobMessage.statusUpdateMessage);
             }
@@ -492,7 +492,7 @@ public class SimpleClientEditor : Editor
                         //EditorGUILayout.LabelField("replyQueue", osmJob.replyToQueue);
                         //EditorGUILayout.LabelField("started at", osmJob.timeStamp.ToString());
 
-                        EditorGUILayout.Toggle(replyReceived, "Received reply");
+                        //EditorGUILayout.Toggle(replyReceived, "Received reply");
                         if (replyReceived)
                         {
                             EditorGUILayout.LabelField("Size of Message:", receivedReply.sceneBytes.Length.ToString());

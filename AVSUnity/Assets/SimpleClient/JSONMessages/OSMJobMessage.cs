@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using ProtoBuf;
 using UnityEngine;
 
 public static class Job
@@ -17,8 +19,8 @@ public static class Job
     public const string Transfer = "Transfer";
     public const string TransferToWorker = "Transfer to Worker";
     public const string TransferToMaster = "Transfer to Master";
-    
-    
+
+
     public const string Worker = "Worker";
     public const string DeserializeJobMessage = "Deserialize JobMessage";
     public const string CreateNewScene = "Create new Scene";
@@ -41,21 +43,37 @@ public static class Job
     #endregion // String Konstanten
 }
 
+[ProtoContract]
 public class OSMJobMessage
 {
-    
+    [ProtoMember(1)]
     public int Job_ID;
+
+    [ProtoMember(2)]
     public int x;
+    [ProtoMember(3)]
     public int y;
 
+    [ProtoMember(4)]
     public double tileWidth;
+    [ProtoMember(5)]
     public double originLongitude;
+    [ProtoMember(6)]
     public double originLatitude;
 
+    [ProtoMember(7)]
     public string replyToQueue;
+    [ProtoMember(8)]
     public string statusUpdateQueue;
+    [ProtoMember(9)]
     public StatusUpdateMessage statusUpdateMessage;
+    [ProtoMember(10)]
     public SerializationMethod method;
+
+    public OSMJobMessage()
+    {
+
+    }
 
     public OSMJobMessage(int x, int y, double tileWidth, double originLongitude, double originLatitude, string replyQueueName, string statusUpdateQueue, StatusUpdateMessage statusUpdateMessage, SerializationMethod method)
     {
@@ -70,19 +88,31 @@ public class OSMJobMessage
         this.method = method;
     }
 
-    public string ToJson()
+    //public string ToJson()
+    //{
+    //    return JsonUtility.ToJson(this);
+    //}
+
+    public static byte[] ToByteArray(OSMJobMessage jobMessage)
     {
-        return JsonUtility.ToJson(this);
+        MemoryStream memStream = new MemoryStream();
+        Serializer.Serialize(memStream, jobMessage);
+        byte[] bytes = memStream.ToArray();
+        return bytes;
     }
 
     public static OSMJobMessage FromByteArray(byte[] bytes)
     {
-        var payload = System.Text.Encoding.UTF8.GetString(bytes);
-        return FromJson(payload);
+        MemoryStream outMemStream = new MemoryStream(bytes, 0, bytes.Length);
+        OSMJobMessage objProto = (OSMJobMessage)Serializer.Deserialize<OSMJobMessage>(outMemStream);
+        outMemStream.Close();
+
+        return objProto;
     }
 
-    public static OSMJobMessage FromJson(string json)
-    {
-        return JsonUtility.FromJson<OSMJobMessage>(json);
-    }
+    //public static OSMJobMessage FromJson(string json)
+    //{
+    //    return JsonUtility.FromJson<OSMJobMessage>(json);
+    //}
+
 }

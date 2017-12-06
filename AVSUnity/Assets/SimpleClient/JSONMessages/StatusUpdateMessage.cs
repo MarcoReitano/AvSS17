@@ -103,7 +103,7 @@ public class TodoItem
 
     public double Duration()
     {
-        if (this.startTime == null )
+        if (this.startTime == null)
         {
             return 0;
         }
@@ -111,7 +111,7 @@ public class TodoItem
         {
             return this.startTime.DurationSince().TotalMilliseconds;
         }
-        
+
         switch (this.status)
         {
             case Status.PENDING:
@@ -170,12 +170,13 @@ public class TodoItem
 
     public TodoItem Get(string todoName)
     {
+        Debug.Log(this.name);
         TodoItem step;
         if (!childDict.TryGetValue(todoName, out step))
         {
             foreach (TodoItem item in childTodos)
             {
-                step = Get(todoName);
+                step = item.Get(todoName);
                 if (step != null)
                 {
                     return step;
@@ -228,29 +229,48 @@ public class TodoItem
 
     public void Stop(string stepName)
     {
-        TodoItem step;
+        TodoItem item = this.Get(stepName);
+        if (item != null)
+        {
+            item.Stop();
+            return;
+        }
+        //TodoItem step;
+        //if (this.name == stepName)
+        //{
+        //    this.Stop();
+        //    return;
+        //}
 
-        if (childDict.TryGetValue(stepName, out step))
-        {
-            step.Stop();
-            //bool pendingOrRunningItems = false;
-            //foreach (TodoItem item in childDict.Values)
-            //{
-            //    if (item.status == Status.IN_PROGRESS || item.status == Status.PENDING)
-            //    {
-            //        pendingOrRunningItems = true;
-            //        break;
-            //    }
-            //}
-            //if (!pendingOrRunningItems)
-            //{
-            //    this.status = Status.DONE;
-            //}
-        }
-        else
-        {
-            Debug.LogWarning("No Step of that name available!");
-        }
+
+        //if (!childDict.TryGetValue(stepName, out step))
+        //{
+        //    foreach (TodoItem item in childTodos)
+        //    {
+        //        item.Stop(stepName);
+        //    }
+        //    return;
+        //    //bool pendingOrRunningItems = false;
+        //    //foreach (TodoItem item in childDict.Values)
+        //    //{
+        //    //    if (item.status == Status.IN_PROGRESS || item.status == Status.PENDING)
+        //    //    {
+        //    //        pendingOrRunningItems = true;
+        //    //        break;
+        //    //    }
+        //    //}
+        //    //if (!pendingOrRunningItems)
+        //    //{
+        //    //    this.status = Status.DONE;
+        //    //}
+        //}
+        //else
+        //{
+        //    step.Stop();
+        //    return;
+        //}
+        
+        Debug.LogWarning("No Step of that name available!");
     }
     #endregion // ChildTodos
 
@@ -259,7 +279,23 @@ public class TodoItem
     private string Header()
     {
         StringBuilder sb = new StringBuilder();
-        sb.Append(this.name).Append("(").Append(this.status.ToString()).Append(") ");
+        sb.Append(this.name).Append("(");
+
+        switch (this.status)
+        {
+            case Status.PENDING:
+                sb.Append("<color=red>").Append(this.status.ToString()).Append("</color>");
+                break;
+            case Status.IN_PROGRESS:
+                sb.Append("<color=yellow>").Append(this.status.ToString()).Append("</color>");
+                break;
+            case Status.DONE:
+                sb.Append("<color=green>").Append(this.status.ToString()).Append("</color>");
+                break;
+            default:
+                break;
+        }
+        sb.Append(") ");
         if (this.startTime != null)
             sb.Append(this.startTime.ToString());
         else

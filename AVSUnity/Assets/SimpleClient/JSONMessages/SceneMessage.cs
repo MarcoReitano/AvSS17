@@ -11,26 +11,39 @@ using ProtoBuf;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 #endif
+
+[ProtoContract]
 public enum SerializationMethod
 {
     DataContractSerializer,
     ProtoBuf
 }
 
-
+[ProtoContract]
 public class SceneMessage
 {
+    [ProtoMember(1)]
     public int Job_ID;
 
+    [ProtoMember(2)]
     public string messageText;
 
+    // not Serializable
     private Scene scene;
 
+    [ProtoMember(3)]
     public byte[] sceneBytes;
 
+    [ProtoMember(4)]
     public StatusUpdateMessage statusUpdateMessage;
 
+    [ProtoMember(5)]
     public SerializationMethod method = SerializationMethod.DataContractSerializer;
+
+    public SceneMessage()
+    {
+
+    }
 
     public SceneMessage(int Job_ID, string messageText, Scene scene, StatusUpdateMessage statusUpdateMessage, SerializationMethod method)
     {
@@ -42,18 +55,18 @@ public class SceneMessage
         this.statusUpdateMessage = statusUpdateMessage;
     }
 
-    public string ToJSON()
-    {
-        return JsonUtility.ToJson(this);
-    }
+    //public string ToJSON()
+    //{
+    //    return JsonUtility.ToJson(this);
+    //}
 
-    public static SceneMessage FromJson(string json)
-    {
-        SceneMessage message = JsonUtility.FromJson<SceneMessage>(json);
-        // TODO: Change this. its not really loading a Scene, rather loading only the root-GameObjects
-        message.scene = ByteArrayToScene(message.sceneBytes, message.method);
-        return message;
-    }
+    //public static SceneMessage FromJson(string json)
+    //{
+    //    SceneMessage message = JsonUtility.FromJson<SceneMessage>(json);
+    //    // TODO: Change this. its not really loading a Scene, rather loading only the root-GameObjects
+    //    message.scene = ByteArrayToScene(message.sceneBytes, message.method);
+    //    return message;
+    //}
 
     public static byte[] SceneFileToByteArray(Scene scene, SerializationMethod method)
     {
@@ -101,6 +114,25 @@ public class SceneMessage
         UnityEngine.Debug.Log("Serialization using " + method.ToString() + " took " + sw.ElapsedMilliseconds + "ms");
         return sceneBytes;
     }
+
+
+    public static byte[] ToByteArray(SceneMessage sceneMessage)
+    {
+        MemoryStream memStream = new MemoryStream();
+        Serializer.Serialize(memStream, sceneMessage);
+        byte[] bytes = memStream.ToArray();
+        return bytes;
+    }
+
+    public static SceneMessage FromByteArray(byte[] bytes)
+    {
+        MemoryStream outMemStream = new MemoryStream(bytes, 0, bytes.Length);
+        SceneMessage objProto = (SceneMessage)Serializer.Deserialize<SceneMessage>(outMemStream);
+        outMemStream.Close();
+        Scene scene = ByteArrayToScene(objProto.sceneBytes, objProto.method);
+        return objProto;
+    }
+
 
 
     public static Scene ByteArrayToScene(byte[] bytes, SerializationMethod method)
@@ -153,7 +185,7 @@ public class SceneMessage
                 UnityEngine.Debug.Log("Deserialization using Protobuf-Serialization took " + millis + "ms");
                 sw.Reset();
                 sw.Start();
-                scene = objProto.Get();
+                scene = objProto.Get(); // Thats where the magic happens... Reconstructing the Scene
                 sw.Stop();
                 millisRecreation = sw.ElapsedMilliseconds;
                 UnityEngine.Debug.Log("Recreation of Scene took" + millisRecreation + "ms");
