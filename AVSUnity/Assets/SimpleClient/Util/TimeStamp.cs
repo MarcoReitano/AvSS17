@@ -7,7 +7,7 @@ using UnityEngine;
 
 [Serializable]
 [ProtoContract]
-public class TimeStamp
+public class TimeStamp : IComparer
 {
     [SerializeField]
     [ProtoMember(1)]
@@ -80,7 +80,11 @@ public class TimeStamp
 
     public TimeSpan Duration(string dateString)
     {
-        return Duration(this.timeStamp, dateString);
+        if (this.timeStamp == null)
+        {
+            this.timeStamp = GetTimeStamp();
+        }
+        return Duration(this, dateString);
     }
 
     public static TimeStamp Now()
@@ -107,5 +111,28 @@ public class TimeStamp
     public override string ToString()
     {
         return this.timeStamp;
+    }
+
+    public int CompareTo(object obj)
+    {
+        if (obj == null)
+            return 1;
+
+        TimeStamp other = obj as TimeStamp;
+        DateTime otherDateTime = other;
+        if (this > otherDateTime)
+            return 1;
+        if (this < otherDateTime)
+            return -1;
+        else
+            return 0;
+    }
+
+    public int Compare(object x, object obj)
+    {
+        if (obj == null || x == null)
+            return 1;
+
+        return ((DateTime)x).CompareTo((DateTime)obj);
     }
 }

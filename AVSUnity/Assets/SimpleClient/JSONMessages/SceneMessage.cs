@@ -28,18 +28,18 @@ public class SceneMessage
 
     public byte[] sceneBytes;
 
-    public TimeStamp timeStamp;
+    public StatusUpdateMessage statusUpdateMessage;
 
     public SerializationMethod method = SerializationMethod.DataContractSerializer;
 
-    public SceneMessage(int Job_ID, string messageText, Scene scene, TimeStamp timeStamp, SerializationMethod method)
+    public SceneMessage(int Job_ID, string messageText, Scene scene, StatusUpdateMessage statusUpdateMessage, SerializationMethod method)
     {
         this.Job_ID = Job_ID;
         this.method = method;
         this.messageText = messageText;
         this.scene = scene;
         this.sceneBytes = SceneFileToByteArray(this.scene, method);
-        this.timeStamp = timeStamp;
+        this.statusUpdateMessage = statusUpdateMessage;
     }
 
     public string ToJSON()

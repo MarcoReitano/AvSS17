@@ -256,27 +256,36 @@ public class SimpleClientEditor : Editor
                 Stopwatch sw = new Stopwatch();
 
                 StatusUpdateMessage msg = new StatusUpdateMessage(0, "job");
-                msg.AddStep("SRTM");
-                msg.AddStep("Terrain");
-                msg.AddStep("Buildings");
-                msg.AddStep("Garbage Collection");
+                TodoItem masterSide = msg.AddTodo("Master");
+                TodoItem workerSide = msg.AddTodo("Worker");
 
-                msg.Start("SRTM");
+                masterSide.Start();
+                masterSide.AddTodo("Send job").Start();
+                masterSide.Stop("Send job");
+
+                masterSide.AddTodo("Wait for reply");
+
+                workerSide.Start();
+                workerSide.AddTodo("Terrain");
+                workerSide.AddTodo("Buildings");
+                workerSide.AddTodo("Garbage Collection");
+
+                workerSide.Start("SRTM");
                 Debug.Log("###################################");
                 Debug.Log(msg.ToString());
 
-                msg.Stop("SRTM");
+                workerSide.Stop("SRTM");
 
-                msg.Start("Terrain");
+                workerSide.Start("Terrain");
                 Debug.Log("###################################");
                 Debug.Log(msg.ToString());
-                msg.Stop("Terrain");
+                workerSide.Stop("Terrain");
 
 
-                msg.Start("Buildings");
-                msg.Start("Garbage Collection");
-                msg.Stop("Buildings");
-                msg.Stop("Garbage Collection");
+                workerSide.Start("Buildings");
+                workerSide.Start("Garbage Collection");
+                workerSide.Stop("Buildings");
+                workerSide.Stop("Garbage Collection");
 
 
                 Debug.Log("###################################");
@@ -294,6 +303,13 @@ public class SimpleClientEditor : Editor
                 sw.Reset();
                 sw.Start();
                 StatusUpdateMessage msgReceived = StatusUpdateMessage.Deserialize(bytes);
+                TodoItem masterAfter = msgReceived.Get("Master");
+                TodoItem workerAfter = msgReceived.Get("Worker");
+
+                workerAfter.Stop();
+                masterAfter.Get("Wait for reply").Stop();
+
+
                 sw.Stop();
                 Debug.Log("Deserialization took: " + sw.ElapsedMilliseconds);
                 Debug.Log(msgReceived.ToString());
@@ -304,6 +320,76 @@ public class SimpleClientEditor : Editor
             {
                 this.client.SubscribeToQueue(statusUpdateQueueName);
 
+            }
+
+            if (GUILayout.Button("JobSerializeTest"))
+            {
+                StatusUpdateMessage msg = new StatusUpdateMessage(0, 0 + "," + 0);
+                TodoItem master = msg.AddTodo(Job.Master);
+                master.AddTodo(Job.CreateJobMessage);
+                master.AddTodo(Job.SerializeJobMessage);
+                master.AddTodo(Job.PublishJob);
+                master.AddTodo(Job.DeserializeResult);
+                master.AddTodo(Job.RecreateScene);
+                master.AddTodo(Job.MasterGarbageCollection);
+
+                TodoItem transfer = msg.AddTodo(Job.Transfer);
+
+                transfer.AddTodo(Job.TransferToWorker);
+                transfer.AddTodo(Job.TransferToMaster);
+
+                TodoItem worker = msg.AddTodo(Job.Worker);
+                worker.AddTodo(Job.DeserializeJobMessage);
+                worker.AddTodo(Job.CreateNewScene);
+                worker.AddTodo(Job.CreateTile);
+                worker.AddTodo(Job.StartOSMQuery);
+                worker.AddTodo(Job.StartProcedural);
+                worker.AddTodo(Job.ProceduralPreparation);
+                worker.AddTodo(Job.CreateTerrain);
+                worker.AddTodo(Job.MeshPreparation);
+                worker.AddTodo(Job.TileQuad);
+                worker.AddTodo(Job.River);
+                worker.AddTodo(Job.Ways);
+                worker.AddTodo(Job.CreateBuildingMesh);
+                worker.AddTodo(Job.FillMeshDivideMaterials);
+                worker.AddTodo(Job.GarbageCollection);
+                worker.AddTodo(Job.ProceduralDone);
+                worker.AddTodo(Job.CreateReplyMessage);
+                worker.AddTodo(Job.TidyUpScene);
+                worker.AddTodo(Job.PublishResult);
+
+                // Add StatusUpdateMessage to Dictionary
+                //jobStatus.Add(jobCount, msg);
+
+                // Start the Process...
+                msg.Start();
+                master.Start();
+
+                master.Start(Job.CreateJobMessage);
+                OSMJobMessage jobMessage = new OSMJobMessage(
+                    0, 0,
+                    TileManager.TileWidth,
+                    TileManager.OriginLongitude,
+                    TileManager.OriginLatitude, replyQueueName, statusUpdateQueueName, msg, SerializationMethod.ProtoBuf);
+
+                master.Stop(Job.CreateJobMessage);
+
+                Debug.Log(msg);
+
+                master.Start(Job.SerializeJobMessage);
+                string jsonMessage = jobMessage.ToJson();
+                master.Stop(Job.SerializeJobMessage);
+                Debug.Log("Serialized: \n" + jsonMessage);
+
+                master.Start(Job.PublishJob);
+                //this.PublishToQueue(jobQueueName, jsonMessage);
+                master.Stop(Job.PublishJob);
+
+                //Debug.Log("Created Job-Message for job " + jobCount + " (" + i + "," + j + "): ");
+                //jobCount++;
+                jobMessage = OSMJobMessage.FromJson(jsonMessage);
+                Debug.Log("Deserialized: \n" + jsonMessage);
+                Debug.Log(jobMessage.statusUpdateMessage);
             }
 
             if (GUILayout.Button("Send OSM-Job-Messages"))
@@ -404,7 +490,7 @@ public class SimpleClientEditor : Editor
 
                         EditorGUILayout.LabelField("Jobname", osmJob.x + "/" + osmJob.y);
                         //EditorGUILayout.LabelField("replyQueue", osmJob.replyToQueue);
-                        EditorGUILayout.LabelField("started at", osmJob.timeStamp.ToString());
+                        //EditorGUILayout.LabelField("started at", osmJob.timeStamp.ToString());
 
                         EditorGUILayout.Toggle(replyReceived, "Received reply");
                         if (replyReceived)
