@@ -17,7 +17,7 @@ cpu_count="10"
 disk_size="20000"
 #docker_machine="/usr/local/bin/docker-machine"
 docker_machine="/Applications/Docker.app/Contents/Resources/bin/docker-machine"
-PATH=$PATH:"/Applications/Docker.app/Contents/Resources/bin/docker-machine"
+PATH=$PATH:/Applications/Docker.app/Contents/Resources/bin/
 
 ip=$1
 i=$(echo $1 | cut -d'.' -f4)
