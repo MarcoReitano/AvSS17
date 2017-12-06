@@ -49,8 +49,12 @@ public class SceneMessage
         SceneMessage message = JsonUtility.FromJson<SceneMessage>(json);
         
         message.scene = ByteArrayToScene(message.sceneBytes, message.method);
+
         return message;
     }
+
+
+
 
     public static byte[] SceneFileToByteArray(Scene scene, SerializationMethod method)
     {

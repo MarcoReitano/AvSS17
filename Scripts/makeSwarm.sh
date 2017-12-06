@@ -9,7 +9,7 @@ echo Myip is $myIp
 for ip in $(cat hosts);do
  if [ $ip != $myIp ]; then
 	 echo $ip
-	 ssh -t -q "$USER@$ip" "PATH=$PATH;eval \$(docker-machine env);docker-machine ssh default \"docker swarm leave -f\""
-	 ssh -t -q "$USER@$ip" "PATH=$PATH;eval \$(docker-machine env);docker-machine ssh default \"$command\""
+	 ssh -t -q "$USER@$ip" "PATH=$PATH; docker-machine ssh default \"docker swarm leave -f\""
+	 ssh -t -q "$USER@$ip" "PATH=$PATH; docker-machine ssh default \"$command\""
  fi
 done

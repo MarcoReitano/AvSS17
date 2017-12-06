@@ -241,24 +241,7 @@ public class SimpleClientEditor : Editor
             EditorGUILayout.EndVertical();
 
             this.client.method = (SerializationMethod)EditorGUILayout.EnumPopup("SerializationMethod", this.client.method);
-
-
-            if (GUILayout.Button("Send Job-Messages"))
-            {
-                // make sure we have subscribed the replyQueue
-                this.client.SubscribeToQueue(replyQueueName);
-
-                for (int x = 0; x < this.xMax; x++)
-                {
-                    for (int z = 0; z < this.zMax; z++)
-                    {
-                        JobMessage jobMessage = new JobMessage(x, z, replyQueueName);
-                        string jsonMessage = jobMessage.ToJson();
-                        this.client.PublishToQueue(jobQueueName, jsonMessage);
-                        Debug.Log("Created Job-Message for (" + x + "," + z + "): " + jsonMessage);
-                    }
-                }
-            }
+            
 
             if (GUILayout.Button("Send OSM-Job-Messages"))
             {
@@ -277,7 +260,8 @@ public class SimpleClientEditor : Editor
                 mainScene = EditorSceneManager.GetActiveScene();
                 
                 swComplete.Start();
-                
+
+                tiles = new List<Tile>();
                 
                 for (int i = -TileManager.tileRadius; i <= TileManager.tileRadius; i++)
                 {
@@ -289,15 +273,23 @@ public class SimpleClientEditor : Editor
                         sw.Start();
                         
                         Tile newTile = Tile.CreateTileGO(i, j, 5);
+                        tiles.Add(newTile);
                         tileJobsLocal.Add(i + "/" + j, newTile);
                         tileJobsStopwatchLocal.Add(i + "/" + j, sw);
-                        newTile.ProceduralDone += GenerationDone;
-                        newTile.StartQuery();
+                        //newTile.ProceduralDone += GenerationDone;
+                        //newTile.StartQuery();
+
+
+
                         //EditorSceneManager.SaveScenes
                         //SceneManager.SetActiveScene(mainScene);
-                        
+
                     }
                 }
+
+                tiles[0].ProceduralDone += GenerationDone;
+                tiles[0].StartQuery();
+
             }
         }
         else // Client-Mode
@@ -327,29 +319,27 @@ public class SimpleClientEditor : Editor
             GUI.backgroundColor = Color.white;
             EditorGUILayout.BeginVertical("box");
             {
-                GUI.backgroundColor = Color.grey;
+                //GUI.backgroundColor = Color.grey;
                 foreach (OSMJobMessage osmJob in this.client.osmJobs)
                 {
                     EditorGUILayout.BeginVertical("box");
                     {
                         bool replyReceived = false;
                         SceneMessage receivedReply = null;
+                        GUI.backgroundColor = Color.grey;
                         foreach (SceneMessage reply in this.client.sceneMessages)
                         {
                             if (reply.messageText == (osmJob.x + "/" + osmJob.y))
                             {
                                 receivedReply = reply;
                                 replyReceived = true;
+                                GUI.backgroundColor = Color.green;
                                 break;
                             }
                         }
-                        if (replyReceived)
-                            GUI.backgroundColor = Color.green;
-                        else
-                            GUI.backgroundColor = Color.grey;
-
+                        
                         EditorGUILayout.LabelField("Jobname", osmJob.x + "/" + osmJob.y);
-                        EditorGUILayout.LabelField("replyQueue", osmJob.replyToQueue);
+                        //EditorGUILayout.LabelField("replyQueue", osmJob.replyToQueue);
                         EditorGUILayout.LabelField("started at", new DateTime(osmJob.timeStamp).ToString());
 
                         EditorGUILayout.Toggle(replyReceived, "Received reply");
@@ -371,6 +361,8 @@ public class SimpleClientEditor : Editor
         lastIndex = index;
     }
 
+    List<Tile> tiles;
+
     Dictionary<string, Stopwatch> tileJobsStopwatchLocal = new Dictionary<string, Stopwatch>();
     Dictionary<string, Tile> tileJobsLocal = new Dictionary<string, Tile>();
     int jobs = 0;
@@ -381,6 +373,14 @@ public class SimpleClientEditor : Editor
 
         Tile tile = (Tile) sender;
         string tileName = tile.TileIndex[0] + "/" + tile.TileIndex[1];
+
+        tile.ProceduralDone -= GenerationDone;
+        if (tiles.Count > 1)
+        {
+            tiles.RemoveAt(0);
+            tiles[0].ProceduralDone += GenerationDone;
+            tiles[0].StartQuery();
+        }
 
         Stopwatch sw = tileJobsStopwatchLocal[tileName];
         sw.Stop();
