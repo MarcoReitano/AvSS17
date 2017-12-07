@@ -371,9 +371,9 @@ public class SimpleClient : MonoBehaviour
             // wait 
         }
 
-        EnsureQueue("jobs");
-        EnsureQueue("reply");
-        EnsureQueue("statusUpdates");
+        //EnsureQueue("jobs");
+        //EnsureQueue("reply");
+        //EnsureQueue("statusUpdates");
 
         try
         {
@@ -626,7 +626,7 @@ public class SimpleClient : MonoBehaviour
             foreach (var rx in received)
             {
                 // Call the non-threadsafe handler, this should be the actual Unity message handler
-                Debug.Log("Received: " + received.GetLength(0));
+                //Debug.Log("Received: " + received.GetLength(0));
                 rx.Subscription.Handler(rx);
             }
         }
@@ -1079,7 +1079,7 @@ public class SimpleClient : MonoBehaviour
     ///// <param name="immediate">Whether or not to publish with the AMQP "immediate" flag.</param>
     public void PublishToQueue(string queueName, byte[] message, bool mandatory = false, bool immediate = false)
     {
-        Debug.Log("In here");
+        //Debug.Log("In here");
         if (this.isQuitting)
             return;
         if (string.IsNullOrEmpty(queueName))
@@ -1365,12 +1365,17 @@ public class SimpleClient : MonoBehaviour
                 master.Start(Job.SerializeJobMessage);
                 byte[] osmJobMessage = OSMJobMessage.ToByteArray(jobMessage);
                 master.Stop(Job.SerializeJobMessage);
+                Debug.Log("Serialize Job Message done: " + jobStatus[jobCount]);
+
 
                 master.Start(Job.PublishJob);
                 this.PublishToQueue(jobQueueName, osmJobMessage);
                 master.Stop(Job.PublishJob);
+                transfer.Start();
+                transfer.Start(Job.TransferToWorker);
 
-                Debug.Log("Created Job-Message for job " + jobCount + " (" + i + "," + j + "): ");
+                Debug.Log("Server: After PublishJob: " + msg);
+                //Debug.Log("Created Job-Message for job " + jobCount + " (" + i + "," + j + "): ");
                 jobCount++;
             }
         }
@@ -1407,37 +1412,81 @@ public class SimpleClient : MonoBehaviour
         {
             if (subscription.QueueName == "reply")
             {
-                
+                // TODO: Test, if this speeds up getting replys --> otherwise at the end
+                this.client.BasicAck(message.DeliveryTag, false);
                 TimeStamp endTransferToMaster = new TimeStamp();
                 TimeStamp startDeserializing = new TimeStamp();
-                // Decode as text
-                //string payload = System.Text.Encoding.UTF8.GetString(message.Body);
-                // new Color(1f, 0.5f, 0);
+
                 Debug.Log("<b>Server:</b> <color=ff7f00ff>Message received on " + subscription.QueueName + ": </color>");
                 SceneMessage sceneMessage = SceneMessage.FromByteArray(message.Body);
-                sceneMessages.Add(sceneMessage);
-                TimeStamp endDeserializing = new TimeStamp();
-                Debug.Log("Before Error" + sceneMessage.statusUpdateMessage);
-                sceneMessage.statusUpdateMessage.Get(Job.TransferToMaster).Stop(endTransferToMaster);
-                sceneMessage.statusUpdateMessage.Get(Job.DeserializeResult).Start(startDeserializing);
-                sceneMessage.statusUpdateMessage.Get(Job.DeserializeResult).Stop(endDeserializing);
+                StatusUpdateMessage statusMessage = jobStatus[sceneMessage.statusUpdateMessage.jobID];
+                int jobID = statusMessage.jobID;
+                //StatusUpdateMessage remote = sceneMessage.statusUpdateMessage;
 
-                sceneMessage.statusUpdateMessage.Start(Job.MasterGarbageCollection);
+
+                //statusMessage.Merge(msg);
+
+                //if (jobStatus.ContainsKey(jobID))
+                //{
+                //    StatusUpdateMessage local = jobStatus[statusMessage.jobID];
+
+                //    jobStatus[statusMessage.jobID] = StatusUpdateMessage.Merge(local, remote);
+
+                //}
+                //if (jobStatus.ContainsKey(statusMessage.jobID))
+                //{
+                //    jobStatus[statusMessage.jobID] = statusMessage;
+                //}
+
+                TimeStamp endDeserializing = new TimeStamp();
+                statusMessage.Get(Job.TransferToMaster).Stop(endTransferToMaster);
+                statusMessage.Get(Job.Transfer).Stop(endTransferToMaster);
+                statusMessage.Get(Job.DeserializeResult).Start(startDeserializing);
+                statusMessage.Get(Job.DeserializeResult).Stop(endDeserializing);
+
+                statusMessage.Start(Job.RecreateScene);
+                Scene scene = SceneMessage.ByteArrayToScene(sceneMessage.sceneBytes, sceneMessage.method);
+                statusMessage.Stop(Job.RecreateScene);
+
+
+
+                //StatusUpdateMessage statusMessage =jobStatus[sceneMessage.statusUpdateMessage.jobID];
+                //statusMessage.Merge(sceneMessage.statusUpdateMessage);
+
+                //if (jobStatus.ContainsKey(statusMessage.jobID))
+                //{
+                //    jobStatus[statusMessage.jobID] = statusMessage;
+                //}
+
+                statusMessage.Start(Job.MasterGarbageCollection);
                 System.GC.Collect();
-                sceneMessage.statusUpdateMessage.Stop(Job.MasterGarbageCollection);
-                this.client.BasicAck(message.DeliveryTag, false);
+                statusMessage.Stop(Job.MasterGarbageCollection);
+               
+
+                statusMessage.Stop(Job.Master);
+                statusMessage.Stop();
+                Debug.Log("Final Message: " + statusMessage);
             }
             else if (subscription.QueueName == "statusUpdates")
             {
-                Debug.Log("Received Status-Update...");
-                StatusUpdateMessage statusMessage = StatusUpdateMessage.Deserialize(message.Body);
-                Debug.Log(statusMessage.ToString());
-                this.client.BasicAck(message.DeliveryTag, false);
+                Debug.Log("<b>Server:</b> <color=red>Message received on " + subscription.QueueName + ": </color>");
+                StatusUpdateMessage remote = StatusUpdateMessage.Deserialize(message.Body);
 
-                if (jobStatus.ContainsKey(statusMessage.jobID))
+                int jobID = remote.jobID;
+                Debug.Log(remote.ToString());
+                
+                StatusUpdateMessage msg = jobStatus[remote.jobID];
+
+                //statusMessage.Merge(msg);
+                if (jobStatus.ContainsKey(jobID))
                 {
-                    jobStatus[statusMessage.jobID] = statusMessage;
+                    StatusUpdateMessage local = jobStatus[remote.jobID];
+
+                    jobStatus[remote.jobID] = StatusUpdateMessage.Merge(local, remote);
+
                 }
+                Debug.Log(jobStatus[remote.jobID]);
+                this.client.BasicAck(message.DeliveryTag, false);
             }
             else
             {
@@ -1447,7 +1496,7 @@ public class SimpleClient : MonoBehaviour
         }
         else
         {
-            SimpleClient.simpleClient = this;   
+            SimpleClient.simpleClient = this;
             // Der Transferprozess von Master zur Queue und zum Worker muss hier festgehalten werden.
             TimeStamp messageArrived = new TimeStamp();
 
@@ -1461,14 +1510,24 @@ public class SimpleClient : MonoBehaviour
 
             statusUpdateQueueName = jobMessage.statusUpdateQueue;
             StatusUpdateMessage = jobMessage.statusUpdateMessage;
-            Debug.Log("Full? " + StatusUpdateMessage);
+
+            Debug.Log("######## Client got the StatusUpdateMessage #################");
+            Debug.Log(StatusUpdateMessage);
+
+            Debug.Log("######## Client got TransferToWorker from List  #################");
+            Debug.Log(StatusUpdateMessage);
 
             StatusUpdateMessage.Get(Job.TransferToWorker).Stop(messageArrived);
+            Debug.Log(StatusUpdateMessage);
+            Debug.Log(StatusUpdateMessage);
+            Debug.Log("#########################");
 
-            
             StatusUpdateMessage.Get(Job.Worker).Start(workerStart);
+            Debug.Log(StatusUpdateMessage);
             StatusUpdateMessage.Get(Job.DeserializeJobMessage).Start(startedDeserialize);
+            Debug.Log(StatusUpdateMessage);
             StatusUpdateMessage.Get(Job.DeserializeJobMessage).Stop(stopedDeserialize);
+            Debug.Log(StatusUpdateMessage);
 
             StatusUpdateMessage.Start(Job.CreateNewScene);
             SimpleClient.simpleClient.SendStatusUpdateMessages();
@@ -1521,7 +1580,6 @@ public class SimpleClient : MonoBehaviour
 
             Tile newTile = Tile.CreateTileGO(jobMessage.x, jobMessage.y, 5);
             StatusUpdateMessage.Stop(Job.CreateTile);
-            SimpleClient.simpleClient.SendStatusUpdateMessages();
 
             StatusUpdateMessage.Start(Job.StartOSMQuery);
             SimpleClient.simpleClient.SendStatusUpdateMessages();
@@ -1571,35 +1629,17 @@ public class SimpleClient : MonoBehaviour
 
     private void GenerationDone(object sender, EventArgs e)
     {
-        //tiles.Add(i + ":" + j, newTile);
-        //###########################
-
-        //// Szene speichern
-        //string filename = RelativeAssetPathTo("Scene_" + jobMessage.x + "_" + jobMessage.y + ".unity");
-        //Debug.Log("before newScene-Path: " + newScene.path);
-
-        ////EditorSceneManager.SaveScene(newScene, filename);
-        //Debug.Log("after newScene-Path: " + newScene.path);
-
         StatusUpdateMessage.Start(Job.CreateReplyMessage);
 
         SimpleClient.simpleClient.SendStatusUpdateMessages();
-        Debug.Log("Create ReplyMessage...");
         SceneMessage sceneMessage = new SceneMessage(jobMessage.Job_ID, jobMessage.x + "/" + jobMessage.y, newScene, StatusUpdateMessage, jobMessage.method);
         byte[] jsonMessage = SceneMessage.ToByteArray(sceneMessage);
         StatusUpdateMessage.Stop(Job.CreateReplyMessage);
 
-        //Debug.Log(jsonMessage);
-        //EditorSceneManager.CloseScene(newScene, true);
-        //Debug.Log("afterClosing newScene-Path: " + newScene.path);
-        //EditorSceneManager.SetActiveScene(mainScene);
+
         StatusUpdateMessage.Start(Job.TidyUpScene);
         SimpleClient.simpleClient.SendStatusUpdateMessages();
-        Debug.Log(SceneManager.sceneCount + " Scenes open.");
-        for (int i = 0; i < SceneManager.sceneCount; i++)
-        {
-            Debug.Log("Scene " + i + " is named: " + SceneManager.GetSceneAt(i).name);
-        }
+
         SceneManager.SetActiveScene(mainScene);
         SceneManager.UnloadSceneAsync(newScene.name);
         StatusUpdateMessage.Stop(Job.TidyUpScene);
@@ -1617,7 +1657,7 @@ public class SimpleClient : MonoBehaviour
 
         StatusUpdateMessage.Start(Job.PublishResult);
         SimpleClient.simpleClient.SendStatusUpdateMessages();
-        Debug.Log("Reply newScene to queue: " + jobMessage.replyToQueue);
+
         PublishToQueue(jobMessage.replyToQueue, jsonMessage);
 
         StatusUpdateMessage.Stop(Job.PublishResult);

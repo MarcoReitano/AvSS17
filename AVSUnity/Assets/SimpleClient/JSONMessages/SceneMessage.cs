@@ -15,8 +15,8 @@ using UnityEditor.SceneManagement;
 [ProtoContract]
 public enum SerializationMethod
 {
-    DataContractSerializer,
-    ProtoBuf
+    ProtoBuf,
+    DataContractSerializer
 }
 
 [ProtoContract]
@@ -38,7 +38,7 @@ public class SceneMessage
     public StatusUpdateMessage statusUpdateMessage;
 
     [ProtoMember(5)]
-    public SerializationMethod method = SerializationMethod.DataContractSerializer;
+    public SerializationMethod method = SerializationMethod.ProtoBuf;
 
     public SceneMessage()
     {
@@ -55,23 +55,10 @@ public class SceneMessage
         this.statusUpdateMessage = statusUpdateMessage;
     }
 
-    //public string ToJSON()
-    //{
-    //    return JsonUtility.ToJson(this);
-    //}
-
-    //public static SceneMessage FromJson(string json)
-    //{
-    //    SceneMessage message = JsonUtility.FromJson<SceneMessage>(json);
-    //    // TODO: Change this. its not really loading a Scene, rather loading only the root-GameObjects
-    //    message.scene = ByteArrayToScene(message.sceneBytes, message.method);
-    //    return message;
-    //}
-
     public static byte[] SceneFileToByteArray(Scene scene, SerializationMethod method)
     {
-        Stopwatch sw = new Stopwatch();
-        sw.Start();
+        //Stopwatch sw = new Stopwatch();
+        //sw.Start();
 
         MemoryStream memStream = new MemoryStream();
         byte[] sceneBytes = null;
@@ -110,8 +97,8 @@ public class SceneMessage
         }
 
         memStream.Close();
-        sw.Stop();
-        UnityEngine.Debug.Log("Serialization using " + method.ToString() + " took " + sw.ElapsedMilliseconds + "ms");
+        //sw.Stop();
+        //UnityEngine.Debug.Log("Serialization using " + method.ToString() + " took " + sw.ElapsedMilliseconds + "ms");
         return sceneBytes;
     }
 
@@ -129,7 +116,7 @@ public class SceneMessage
         MemoryStream outMemStream = new MemoryStream(bytes, 0, bytes.Length);
         SceneMessage objProto = (SceneMessage)Serializer.Deserialize<SceneMessage>(outMemStream);
         outMemStream.Close();
-        Scene scene = ByteArrayToScene(objProto.sceneBytes, objProto.method);
+        //Scene scene = ByteArrayToScene(objProto.sceneBytes, objProto.method);
         return objProto;
     }
 
@@ -137,8 +124,9 @@ public class SceneMessage
 
     public static Scene ByteArrayToScene(byte[] bytes, SerializationMethod method)
     {
-        Stopwatch sw = new Stopwatch();
-        sw.Start();
+        //Stopwatch sw = new Stopwatch();
+        //sw.Start();
+
         MemoryStream memStream = new MemoryStream(bytes);
         long millis = 0;
         long millisRecreation = 0;
@@ -164,16 +152,16 @@ public class SceneMessage
 
                 DataContractSceneSerialization.SceneSurrogate obj = (DataContractSceneSerialization.SceneSurrogate)serializer.ReadObject(memStream);
 
-                sw.Stop();
-                millis = sw.ElapsedMilliseconds;
-                UnityEngine.Debug.Log("Deserialization using DataContractSerializer took " + millis + "ms");
-                sw.Reset();
-                sw.Start();
+                //sw.Stop();
+                //millis = sw.ElapsedMilliseconds;
+                //UnityEngine.Debug.Log("Deserialization using DataContractSerializer took " + millis + "ms");
+                //sw.Reset();
+                //sw.Start();
                 scene = obj.Get();
-                sw.Stop();
-                millisRecreation = sw.ElapsedMilliseconds;
-                UnityEngine.Debug.Log("Recreation of Scene took" + millisRecreation + "ms");
-                UnityEngine.Debug.Log("Deserialisation/Recreation of Scene using " + method.ToString() + " took" + (millisRecreation + millis) + "ms");
+                //sw.Stop();
+                //millisRecreation = sw.ElapsedMilliseconds;
+                //UnityEngine.Debug.Log("Recreation of Scene took" + millisRecreation + "ms");
+                //UnityEngine.Debug.Log("Deserialisation/Recreation of Scene using " + method.ToString() + " took" + (millisRecreation + millis) + "ms");
                 return scene;
             case SerializationMethod.ProtoBuf:
                 MemoryStream outMemStream = new MemoryStream(bytes, 0, bytes.Length);
@@ -181,15 +169,15 @@ public class SceneMessage
                     (ProtobufSceneSerialization.SceneSurrogate)Serializer.Deserialize<ProtobufSceneSerialization.SceneSurrogate>(outMemStream);
                 outMemStream.Close();
 
-                millis = sw.ElapsedMilliseconds;
-                UnityEngine.Debug.Log("Deserialization using Protobuf-Serialization took " + millis + "ms");
-                sw.Reset();
-                sw.Start();
+                //millis = sw.ElapsedMilliseconds;
+                //UnityEngine.Debug.Log("Deserialization using Protobuf-Serialization took " + millis + "ms");
+                //sw.Reset();
+                //sw.Start();
                 scene = objProto.Get(); // Thats where the magic happens... Reconstructing the Scene
-                sw.Stop();
-                millisRecreation = sw.ElapsedMilliseconds;
-                UnityEngine.Debug.Log("Recreation of Scene took" + millisRecreation + "ms");
-                UnityEngine.Debug.Log("Deserialisation/Recreation of Scene using " + method.ToString() + " took" + (millisRecreation + millis) + "ms");
+                //sw.Stop();
+                //millisRecreation = sw.ElapsedMilliseconds;
+                //UnityEngine.Debug.Log("Recreation of Scene took" + millisRecreation + "ms");
+                //UnityEngine.Debug.Log("Deserialisation/Recreation of Scene using " + method.ToString() + " took" + (millisRecreation + millis) + "ms");
                 return scene;
             default:
                 break;

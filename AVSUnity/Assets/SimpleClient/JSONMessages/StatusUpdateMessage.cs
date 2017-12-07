@@ -22,7 +22,7 @@ public enum Status
 
 #region TimeStampedObject
 [ProtoContract]
-[ProtoInclude(8, typeof(StatusUpdateMessage))]
+[ProtoInclude(9, typeof(StatusUpdateMessage))]
 public class TodoItem
 {
     [ProtoMember(1)]
@@ -35,12 +35,18 @@ public class TodoItem
     public TimeStamp startTime;
 
     [ProtoMember(4)]
-    public TimeStamp endTime;
+    public bool priorisedStart = false;
 
     [ProtoMember(5)]
-    public List<TodoItem> childTodos = new List<TodoItem>();
+    public TimeStamp endTime;
 
     [ProtoMember(6)]
+    public bool priorisedEnd = false;
+
+    [ProtoMember(7)]
+    public List<string> childTodos = new List<string>();
+
+    [ProtoMember(8)]
     public Dictionary<string, TodoItem> childDict = new Dictionary<string, TodoItem>();
     public TodoItem()
     {
@@ -68,8 +74,10 @@ public class TodoItem
                 this.startTime = new TimeStamp();
                 break;
             case Status.IN_PROGRESS:
+                Debug.LogWarning(this.name + " already started!");
                 break;
             case Status.DONE:
+                Debug.LogWarning(this.name + " already done!");
                 break;
             default:
                 break;
@@ -77,6 +85,7 @@ public class TodoItem
 
         this.status = Status.IN_PROGRESS;
     }
+
 
     public void Stop(TimeStamp timeStamp)
     {
@@ -89,16 +98,22 @@ public class TodoItem
         switch (this.status)
         {
             case Status.PENDING:
+                Debug.LogWarning(this.name + " had not been started!");
+                this.priorisedStart = true;
+                this.startTime = new TimeStamp();
+                this.endTime = new TimeStamp();
                 break;
             case Status.IN_PROGRESS:
                 this.endTime = new TimeStamp();
                 break;
             case Status.DONE:
+                Debug.LogWarning(this.name + " already stopped!");
                 break;
             default:
                 break;
         }
         this.status = Status.DONE;
+        Debug.Log("Set " + this.name + " to Done!");
     }
 
     public double Duration()
@@ -136,25 +151,25 @@ public class TodoItem
             return null;
         }
         step = new TodoItem(todoName);
-        childTodos.Add(step);
+        childTodos.Add(todoName);
         childDict.Add(todoName, step);
         return step;
     }
 
-    public void ReplaceTodo(string todoName, TodoItem item)
-    {
-        TodoItem step;
-        if (!childDict.TryGetValue(todoName, out step))
-        {
-            Debug.LogError("A Child-Element with the Name '" + todoName + "' does not exist!");
-            return;
-        }
-        int index = childTodos.IndexOf(step);
-        childTodos.RemoveAt(index);
-        childTodos.Insert(index, item);
+    //public void ReplaceTodo(string todoName, TodoItem item)
+    //{
+    //    TodoItem step;
+    //    if (!childDict.TryGetValue(todoName, out step))
+    //    {
+    //        Debug.LogError("A Child-Element with the Name '" + todoName + "' does not exist!");
+    //        return;
+    //    }
+    //    int index = childTodos.IndexOf(step);
+    //    childTodos.RemoveAt(index);
+    //    childTodos.Insert(index, item);
 
-        childDict[todoName] = item;
-    }
+    //    childDict[todoName] = item;
+    //}
 
     public void RemoveTodo(string todoName)
     {
@@ -164,28 +179,53 @@ public class TodoItem
             Debug.LogError("A Child-Element with the Name '" + todoName + "' does not exist!");
             return;
         }
-        childTodos.Remove(step);
+        childTodos.Remove(todoName);
         childDict.Remove(todoName);
     }
 
     public TodoItem Get(string todoName)
     {
-        Debug.Log(this.name);
+        //Debug.Log(this.name);
         TodoItem step;
-        if (!childDict.TryGetValue(todoName, out step))
+        if (this.name == todoName)
+            return this;
+        else
         {
-            foreach (TodoItem item in childTodos)
+            if (!childDict.TryGetValue(todoName, out step))
             {
-                step = item.Get(todoName);
-                if (step != null)
+                foreach (string item in childTodos)
                 {
-                    return step;
+
+                    step = childDict[item].Get(todoName);
+                    if (step != null)
+                    {
+                        return step;
+                    }
                 }
+                //Debug.LogError("A Child-Element with the Name '" + todoName + "' does not exist!");
+                return null;
             }
-            Debug.LogError("A Child-Element with the Name '" + todoName + "' does not exist!");
-            return null;
         }
         return step;
+
+
+
+        ////Debug.Log(this.name);
+        //TodoItem step;
+        //if (!childDict.TryGetValue(todoName, out step))
+        //{
+        //    foreach (TodoItem item in childTodos)
+        //    {
+        //        step = item.Get(todoName);
+        //        if (step != null)
+        //        {
+        //            return step;
+        //        }
+        //    }
+        //    Debug.LogError("A Child-Element with the Name '" + todoName + "' does not exist!");
+        //    return null;
+        //}
+        //return step;
     }
 
     //public StatusUpdateMessage Merge(StatusUpdateMessage other)
@@ -212,29 +252,58 @@ public class TodoItem
     public void Start(string stepName)
     {
         TodoItem step;
-
-        if (childDict.TryGetValue(stepName, out step))
+        if (!childDict.TryGetValue(stepName, out step))
         {
-            if (this.status == Status.PENDING || this.status == Status.DONE)
+            foreach (TodoItem item in childDict.Values)
             {
-                this.status = Status.IN_PROGRESS;
+                item.Start(stepName);
             }
-            step.Start();
+            return;
+            //bool pendingOrRunningItems = false;
+            //foreach (TodoItem item in childDict.Values)
+            //{
+            //    if (item.status == Status.IN_PROGRESS || item.status == Status.PENDING)
+            //    {
+            //        pendingOrRunningItems = true;
+            //        break;
+            //    }
+            //}
+            //if (!pendingOrRunningItems)
+            //{
+            //    this.status = Status.DONE;
+            //}
         }
         else
         {
-            Debug.LogWarning("No Step of that name available!");
+            step.Start();
+            return;
         }
+
+        //TodoItem step;
+
+        //if (childDict.TryGetValue(stepName, out step))
+        //{
+        //    if (this.status == Status.PENDING || this.status == Status.DONE)
+        //    {
+        //        this.status = Status.IN_PROGRESS;
+        //    }
+        //    step.Start();
+        //}
+        //else
+        //{
+
+        //    Debug.LogError("No Step of that name " + stepName + " available!");
+        //}
     }
 
     public void Stop(string stepName)
     {
-        TodoItem item = this.Get(stepName);
-        if (item != null)
-        {
-            item.Stop();
-            return;
-        }
+        //TodoItem item = this.Get(stepName);
+        //if (item != null)
+        //{
+        //    item.Stop();
+        //    return;
+        //}
         //TodoItem step;
         //if (this.name == stepName)
         //{
@@ -242,35 +311,177 @@ public class TodoItem
         //    return;
         //}
 
+        TodoItem step;
+        if (!childDict.TryGetValue(stepName, out step))
+        {
+            foreach (TodoItem item in childDict.Values)
+            {
+                item.Stop(stepName);
+            }
+            return;
+            //bool pendingOrRunningItems = false;
+            //foreach (TodoItem item in childDict.Values)
+            //{
+            //    if (item.status == Status.IN_PROGRESS || item.status == Status.PENDING)
+            //    {
+            //        pendingOrRunningItems = true;
+            //        break;
+            //    }
+            //}
+            //if (!pendingOrRunningItems)
+            //{
+            //    this.status = Status.DONE;
+            //}
+        }
+        else
+        {
+            step.Stop();
+            return;
+        }
 
-        //if (!childDict.TryGetValue(stepName, out step))
-        //{
-        //    foreach (TodoItem item in childTodos)
-        //    {
-        //        item.Stop(stepName);
-        //    }
-        //    return;
-        //    //bool pendingOrRunningItems = false;
-        //    //foreach (TodoItem item in childDict.Values)
-        //    //{
-        //    //    if (item.status == Status.IN_PROGRESS || item.status == Status.PENDING)
-        //    //    {
-        //    //        pendingOrRunningItems = true;
-        //    //        break;
-        //    //    }
-        //    //}
-        //    //if (!pendingOrRunningItems)
-        //    //{
-        //    //    this.status = Status.DONE;
-        //    //}
-        //}
-        //else
-        //{
-        //    step.Stop();
-        //    return;
-        //}
-        
-        Debug.LogWarning("No Step of that name available!");
+        //Debug.LogWarning("No Step of that name available!");
+    }
+
+    public void Merge(TodoItem msg)
+    {
+        TodoItem local = this;
+        TodoItem remote = msg;
+
+        switch (local.status)
+        {
+            case Status.PENDING:
+                switch (remote.status)
+                {
+                    case Status.PENDING:
+                        Debug.Log(local.name + ": local Pending - remote Pending");
+
+                        break;
+                    case Status.IN_PROGRESS:
+                        Debug.Log(local.name + ": local Pending - remote InProgress");
+                        this.childDict[local.name] = remote;
+                        break;
+                    case Status.DONE:
+                        Debug.Log(local.name + ": local Pending - remote Done");
+                        this.childDict[local.name] = remote;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case Status.IN_PROGRESS:
+                switch (remote.status)
+                {
+                    case Status.PENDING:
+                        Debug.Log(local.name + ": local InProgress - remote Pending");
+                        this.childDict[local.name] = local;
+                        break;
+                    case Status.IN_PROGRESS:
+                        Debug.Log(local.name + ": local InProgress - remote InProgress");
+                        if (local.startTime != remote.startTime)
+                        {
+                            if (local.priorisedStart)
+                            {
+                                msg.childDict[local.name].startTime = remote.startTime;
+                            }
+                            else if (remote.priorisedStart)
+                            {
+                                msg.childDict[local.name].startTime = local.startTime;
+                            }
+                        }
+                        if (local.endTime != remote.endTime)
+                        {
+                            if (local.priorisedEnd)
+                            {
+                                msg.childDict[local.name].endTime = remote.endTime;
+                            }
+                            else if (remote.priorisedEnd)
+                            {
+                                msg.childDict[local.name].endTime = local.endTime;
+                            }
+                        }
+                        break;
+                    case Status.DONE:
+                        Debug.Log(local.name + ": local InProgress - remote Done");
+                        if (local.startTime != remote.startTime)
+                        {
+                            if (local.priorisedStart)
+                            {
+                                msg.childDict[local.name].startTime = remote.startTime;
+                            }
+                            else if (remote.priorisedStart)
+                            {
+                                msg.childDict[local.name].startTime = local.startTime;
+                            }
+                        }
+                        if (local.endTime != remote.endTime)
+                        {
+                            if (local.priorisedEnd)
+                            {
+                                msg.childDict[local.name].endTime = remote.endTime;
+                            }
+                            else if (remote.priorisedEnd)
+                            {
+                                msg.childDict[local.name].endTime = local.endTime;
+                            }
+                        }
+                        //this.childDict[itemName] = remote;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case Status.DONE:
+                switch (remote.status)
+                {
+                    case Status.PENDING:
+                        Debug.Log(local.name + ": local Done - remote Pending");
+                        this.childDict[local.name] = local;
+                        break;
+                    case Status.IN_PROGRESS:
+                        Debug.Log(local.name + ": local Done - remote InProgress");
+                        this.childDict[local.name] = local;
+                        break;
+                    case Status.DONE:
+                        Debug.Log(local.name + ": local Done - remote Done");
+                        if (local.startTime != remote.startTime)
+                        {
+                            if (local.priorisedStart)
+                            {
+                                msg.childDict[local.name].startTime = remote.startTime;
+                            }
+                            else if (remote.priorisedStart)
+                            {
+                                msg.childDict[local.name].startTime = local.startTime;
+                            }
+                        }
+                        if (local.endTime != remote.endTime)
+                        {
+                            if (local.priorisedEnd)
+                            {
+                                msg.childDict[local.name].endTime = remote.endTime;
+                            }
+                            else if (remote.priorisedEnd)
+                            {
+                                msg.childDict[local.name].endTime = local.endTime;
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+
+        foreach (string itemName in childTodos)
+        {
+            TodoItem localNext = this.childDict[itemName];
+            TodoItem remoteNext = msg.childDict[itemName];
+
+            localNext.Merge(remoteNext);
+
+        }
     }
     #endregion // ChildTodos
 
@@ -318,9 +529,9 @@ public class TodoItem
         StringBuilder sb = new StringBuilder();
         sb.Append(new String('\t', tabLevel)).Append(this.Header()).AppendLine();
         tabLevel++;
-        foreach (TodoItem item in childTodos)
+        foreach (string item in childTodos)
         {
-            sb.Append(item.ToString(tabLevel));
+            sb.Append(childDict[item].ToString(tabLevel));
         }
 
         return sb.ToString();
@@ -329,6 +540,109 @@ public class TodoItem
     public override string ToString()
     {
         return this.ToString(0);
+    }
+
+    protected static TodoItem Merge(TodoItem local, TodoItem remote)
+    {
+        switch (local.status)
+        {
+            case Status.PENDING:
+                #region Pending
+                switch (remote.status)
+                {
+                    case Status.PENDING:
+                        // Nothing to be done.
+                        break;
+                    case Status.IN_PROGRESS:
+                        local.status = Status.IN_PROGRESS;
+                        local.startTime = remote.startTime;
+                        break;
+                    case Status.DONE:
+                        local.status = Status.DONE;
+                        local.startTime = remote.startTime;
+                        local.endTime = remote.endTime;
+                        break;
+                    default:
+                        break;
+                }
+                #endregion Pending
+                break;
+            case Status.IN_PROGRESS:
+                #region In Progress
+                switch (remote.status)
+                {
+                    case Status.PENDING:
+                        // Nothing to be done.
+                        break;
+                    case Status.IN_PROGRESS:
+                        if (local.startTime != remote.startTime)
+                        {
+                            if (local.startTime.CompareTo(remote.startTime) > 0)
+                            {
+                                local.startTime = remote.startTime;
+                            }
+                        }
+                        break;
+                    case Status.DONE:
+                        local.status = Status.DONE;
+                        if (local.startTime != remote.startTime)
+                        {
+                            if (local.startTime.CompareTo(remote.startTime) > 0)
+                            {
+                                local.startTime = remote.startTime;
+                            }
+                        }
+                        local.endTime = remote.endTime;
+
+                        break;
+                    default:
+                        break;
+                }
+                #endregion In Progress
+                break;
+            case Status.DONE:
+                #region done
+                switch (remote.status)
+                {
+                    case Status.PENDING:
+                        // nothing to be done
+                        break;
+                    case Status.IN_PROGRESS:
+                        // nothing to be done
+                        break;
+                    case Status.DONE:
+                        if (local.startTime != remote.startTime)
+                        {
+                            if (local.startTime.CompareTo(remote.startTime) > 0)
+                            {
+                                local.startTime = remote.startTime;
+                            }
+                        }
+                        if (local.endTime != remote.startTime)
+                        {
+                            if (local.startTime.CompareTo(remote.startTime) > 0)
+                            {
+                                local.startTime = remote.startTime;
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                #endregion done
+                break;
+            default:
+                break;
+        }
+
+        foreach (string item in local.childTodos)
+        {
+            TodoItem newLocal = local.childDict[item];
+            TodoItem newRemote = remote.childDict[item];
+
+            local.childDict[item] = TodoItem.Merge(newLocal, newRemote);
+        }
+        return local;
     }
     #endregion // ToString
 }
@@ -339,7 +653,7 @@ public class TodoItem
 [ProtoContract]
 public class StatusUpdateMessage : TodoItem
 {
-    [ProtoMember(7)]
+    [ProtoMember(10)]
     public int jobID;
 
     public SimpleClient client;
@@ -387,10 +701,114 @@ public class StatusUpdateMessage : TodoItem
         sb.Append(this.jobID).Append(":").Append(this.name).Append("(").Append(this.status.ToString()).Append(") [\n");
         for (int i = 0; i < childTodos.Count; i++)
         {
-            TodoItem item = childTodos[i];
+            TodoItem item = childDict[childTodos[i]];
             sb.Append("\t").Append(item.ToString()).AppendLine();
         }
         sb.Append("\n");
         return sb.ToString();
+    }
+
+    public static StatusUpdateMessage Merge(StatusUpdateMessage local, StatusUpdateMessage remote)
+    {
+
+        switch (local.status)
+        {
+            case Status.PENDING:
+                #region Pending
+                switch (remote.status)
+                {
+                    case Status.PENDING:
+                        // Nothing to be done.
+                        break;
+                    case Status.IN_PROGRESS:
+                        local.status = Status.IN_PROGRESS;
+                        local.startTime = remote.startTime;
+                        break;
+                    case Status.DONE:
+                        local.status = Status.DONE;
+                        local.startTime = remote.startTime;
+                        local.endTime = remote.endTime;
+                        break;
+                    default:
+                        break;
+                }
+                #endregion Pending
+                break;
+            case Status.IN_PROGRESS:
+                #region In Progress
+                switch (remote.status)
+                {
+                    case Status.PENDING:
+                        // Nothing to be done.
+                        break;
+                    case Status.IN_PROGRESS:
+                        if (local.startTime != remote.startTime)
+                        {
+                            if (local.startTime.CompareTo(remote.startTime) > 0)
+                            {
+                                local.startTime = remote.startTime;
+                            }
+                        }
+                        break;
+                    case Status.DONE:
+                        local.status = Status.DONE;
+                        if (local.startTime != remote.startTime)
+                        {
+                            if (local.startTime.CompareTo(remote.startTime) > 0)
+                            {
+                                local.startTime = remote.startTime;
+                            }
+                        }
+                        local.endTime = remote.endTime;
+                        
+                        break;
+                    default:
+                        break;
+                }
+                #endregion In Progress
+                break;
+            case Status.DONE:
+                #region done
+                switch (remote.status)
+                {
+                    case Status.PENDING:
+                        // nothing to be done
+                        break;
+                    case Status.IN_PROGRESS:
+                        // nothing to be done
+                        break;
+                    case Status.DONE:
+                        if (local.startTime != remote.startTime)
+                        {
+                            if (local.startTime.CompareTo(remote.startTime) > 0)
+                            {
+                                local.startTime = remote.startTime;
+                            }
+                        }
+                        if (local.endTime != remote.startTime)
+                        {
+                            if (local.startTime.CompareTo(remote.startTime) > 0)
+                            {
+                                local.startTime = remote.startTime;
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                #endregion done
+                break;
+            default:
+                break;
+        }
+
+        foreach (string item in local.childTodos)
+        {
+            TodoItem newLocal = local.childDict[item];
+            TodoItem newRemote = remote.childDict[item];
+
+            local.childDict[item] = TodoItem.Merge(newLocal, newRemote);
+        }
+        return local;
     }
 }

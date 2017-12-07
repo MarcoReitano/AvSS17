@@ -23,7 +23,7 @@ public class
         go.AddComponent<MeshRenderer>();
         go.AddComponent<MeshFilter>();
         go.AddComponent<MeshCollider>();
-        Console.AddMessage("Created Tile with LOD" + tile.lOD);
+        //Console.AddMessage("Created Tile with LOD" + tile.lOD);
         return tile;
     }
 
@@ -87,19 +87,17 @@ public class
     public event EventHandler ProceduralDone;
     protected void OnProceduralDone()
     {
+        SimpleClient.StatusUpdateMessage.Stop(Job.ProceduralDone);
         done = true;
         if (ProceduralDone != null)
             ProceduralDone(this, new EventArgs());
 
-        sw.Stop();
-        Debug.Log("Generating Tile took " + sw.ElapsedMilliseconds + "ms");
+       
         SimpleClient.simpleClient.SendStatusUpdateMessages();
     }
 
     public void StartQuery()
     {
-        sw = new Stopwatch();
-        sw.Start();
         Query = new OverpassQuery();
         this.Query.BoundingBox = new OSMBoundingBox
                                             (
@@ -130,7 +128,6 @@ public class
         //#endif
         SimpleClient.StatusUpdateMessage.Stop(Job.StartOSMQuery);
         SimpleClient.simpleClient.SendStatusUpdateMessages();
-
     }
 
     IEnumerator enumerator;
@@ -140,7 +137,6 @@ public class
         if (!enumerator.MoveNext())
         {
             UnityEditor.EditorApplication.update -= EditorAppUpdate;
-            sB.AppendLine("Procedural done");
         }
         else
         {
@@ -155,7 +151,6 @@ public class
         {
             SimpleClient.StatusUpdateMessage.Start(Job.StartProcedural);
             SimpleClient.simpleClient.SendStatusUpdateMessages();
-            Debug.Log("ShouldStartProcedural");
             StartCoroutine(Procedural());
             shouldStartProcedural = false;
         }
@@ -166,9 +161,7 @@ public class
         SimpleClient.StatusUpdateMessage.Stop(Job.StartProcedural);
         SimpleClient.StatusUpdateMessage.Start(Job.ProceduralPreparation);
         SimpleClient.simpleClient.SendStatusUpdateMessages();
-        sB.AppendLine("Starting Procedural");
-        sw.Reset();
-        sw.Start();
+        
         this.transform.position = TilePosition - new Vector3((float)TileManager.TileWidth * (float)TileManager.Scaling / 2f, 0f, (float)TileManager.TileWidth * (float)TileManager.Scaling / 2f);
         terrain = this.gameObject.GetOrAddComponent<Terrain>();
         tC = this.gameObject.GetOrAddComponent<TerrainCollider>();
@@ -242,11 +235,6 @@ public class
         {
             SimpleClient.StatusUpdateMessage.Start(Job.CreateTerrain);
             SimpleClient.simpleClient.SendStatusUpdateMessages();
-            Console.AddMessage("Procedural lod 5");
-            Debug.Log("Procedural lod 5");
-            sw.Stop();
-            sB.AppendLine(sw.ElapsedMilliseconds.ToString() + "ms Terrain");
-            sw.Start();
 
             #region terrain
             if (terrain.terrainData == null)
@@ -259,57 +247,8 @@ public class
 
             terrain.terrainData.SetHeights(0, 0, SRTMHeightProvider.GetInterpolatedTerrain(this.Query.BoundingBox, out height));
             terrain.terrainData.size = new Vector3((float)TileManager.TileWidth * (float)TileManager.Scaling, height, (float)TileManager.TileWidth * (float)TileManager.Scaling);
-
-            ////SplatPrototypes
-            //SplatPrototype[] splatPrototypes = new SplatPrototype[3];
-            //splatPrototypes[0] = new SplatPrototype();
-            //splatPrototypes[1] = new SplatPrototype();
-            //splatPrototypes[2] = new SplatPrototype();
-
-            //splatPrototypes[0].texture = (Texture2D)Resources.Load("Textures/Terrain/GoodDirt");
-            //splatPrototypes[1].texture = (Texture2D)Resources.Load("Textures/Terrain/Grass&Rock");
-            //splatPrototypes[2].texture = (Texture2D)Resources.Load("Textures/Terrain/Grass (Hill)"); 
-            //terrain.terrainData.splatPrototypes = splatPrototypes;
-
-
-
-
-            //float[, ,] splatmapData = new float[terrain.terrainData.alphamapWidth, terrain.terrainData.alphamapHeight, terrain.terrainData.alphamapLayers];
-
-            ////UnityEngine.Debug.Log("alphamapWidth: " + terrain.terrainData.alphamapWidth);
-            ////UnityEngine.Debug.Log("alphamapHeight: " + terrain.terrainData.alphamapHeight);
-            ////UnityEngine.Debug.Log("TerrainLayer.MinTerrainHeight: " + TerrainLayer.MinTerrainHeight);
-            ////UnityEngine.Debug.Log("TerrainLayer.MaxTerrainHeight: " + TerrainLayer.MaxTerrainHeight);
-
-            //for (int x = 0; x < terrain.terrainData.alphamapHeight; x++)
-            //{
-            //    for (int y = 0; y < terrain.terrainData.alphamapWidth; y++)
-            //    {
-            //        float terrainPointHeight = (terrain.terrainData.GetHeight(x, y) - TerrainLayer.MinTerrainHeight) / (TerrainLayer.MaxTerrainHeight - TerrainLayer.MinTerrainHeight);
-            //        Vector3 splat = new Vector3(0, 1, 0);
-
-            //        //if (x == 0)
-            //        //    UnityEngine.Debug.Log("terrainPointHeight " + terrainPointHeight);
-
-            //        if (terrainPointHeight > 0.5f)
-            //            splat = Vector3.Slerp(splat, new Vector3(0, 0, 1), (terrainPointHeight - 0.5f) * 2);
-            //        else
-            //            splat = Vector3.Slerp(new Vector3(1, 0, 0), splat, terrainPointHeight * 2);
-
-            //        splat.Normalize();
-            //        splatmapData[y, x, 0] = splat.x;
-            //        splatmapData[y, x, 1] = splat.y;
-            //        splatmapData[y, x, 2] = splat.z;
-            //    }
-            //}
-
-            //terrain.terrainData.SetAlphamaps(0, 0, splatmapData);
-            //TODO
-            Debug.Log("TerrainData");
+            
             tC.terrainData = terrain.terrainData;
-            sw.Stop();
-            sB.AppendLine(sw.ElapsedMilliseconds.ToString() + "ms Terrain done");
-            sw.Start();
 
             SimpleClient.StatusUpdateMessage.Stop(Job.CreateTerrain);
             #endregion terrain
@@ -318,25 +257,21 @@ public class
             SimpleClient.simpleClient.SendStatusUpdateMessages();
             TileMesh.Clear();
 
-            Debug.Log("BackgroundMesh");
             if (BackgroundMesh != null)
                 BackgroundMesh.Clear();
             else
                 BackgroundMesh = new ModularMesh(TileMesh, "BackgroundMesh");
 
-            Debug.Log("BuildingMesh");
             if (BuildingMesh != null)
                 BuildingMesh.Clear();
             else
                 BuildingMesh = new ModularMesh(TileMesh, "BuildingMesh");
 
-            Debug.Log("StreetMesh");
             if (StreetMesh != null)
                 StreetMesh.Clear();
             else
                 StreetMesh = new ModularMesh(TileMesh, "StreetMesh");
 
-            Debug.Log("OtherMesh");
             if (OtherMesh != null)
                 OtherMesh.Clear();
             else
@@ -346,7 +281,7 @@ public class
 
             SimpleClient.StatusUpdateMessage.Start(Job.TileQuad);
             SimpleClient.simpleClient.SendStatusUpdateMessages();
-            Debug.Log("TileQuad");
+
             Vertex[] tileQuadVertices = new Vertex[4];
             tileQuadVertices[0] = new Vertex(new Vector3((float)(-TileManager.TileWidth * TileManager.Scaling / 2d), 0f, (float)(-TileManager.TileWidth * TileManager.Scaling / 2d)) + TilePosition);
             tileQuadVertices[1] = new Vertex(new Vector3((float)(-TileManager.TileWidth * TileManager.Scaling / 2d), 0f, (float)(TileManager.TileWidth * TileManager.Scaling / 2d)) + TilePosition);
@@ -360,7 +295,7 @@ public class
             yield return null;
             SimpleClient.StatusUpdateMessage.Start(Job.River);
             SimpleClient.simpleClient.SendStatusUpdateMessages();
-            Debug.Log("River");
+         
             //Create Domain Objects
             ///Relations
             foreach (KeyValuePair<long, OSMRelation> kV in Query.OSM.relations)
@@ -374,7 +309,7 @@ public class
 
             SimpleClient.StatusUpdateMessage.Start(Job.Ways);
             SimpleClient.simpleClient.SendStatusUpdateMessages();
-            Debug.Log("Ways");
+
             ///Ways
             foreach (KeyValuePair<long, OSMWay> kV in Query.OSM.ways)
             {
@@ -419,7 +354,7 @@ public class
             //Street.CreateAllMeshes(StreetMesh); // A second time, cause Intersections change streetproperties
             SimpleClient.StatusUpdateMessage.Start(Job.CreateBuildingMesh);
             SimpleClient.simpleClient.SendStatusUpdateMessages();
-            Debug.Log("CreateAllMeshes Building");
+
             Building.CreateAllMeshes(BuildingMesh);
             SimpleClient.StatusUpdateMessage.Stop(Job.CreateBuildingMesh);
             //Debug.Log("CreateAllMeshes Water");
@@ -457,40 +392,25 @@ public class
             //    streetPolygons[i].Triangulate(StreetMesh , MaterialManager.GetMaterial("error"));
             //}
 
-            sw.Stop();
-            sB.AppendLine(sw.ElapsedMilliseconds.ToString() + "ms Start to fill Mesh");
-            sw.Start();
-            Debug.Log("FillMeshDivideMaterialsKeepMeshStructure");
+          
             SimpleClient.StatusUpdateMessage.Start(Job.FillMeshDivideMaterials);
             SimpleClient.simpleClient.SendStatusUpdateMessages();
             TileMesh.FillMeshDivideMaterialsKeepMeshStructure(transform, true);
             SimpleClient.StatusUpdateMessage.Stop(Job.FillMeshDivideMaterials);
-            sw.Stop();
-            sB.AppendLine(sw.ElapsedMilliseconds.ToString() + "ms Done with fill Mesh");
-            sw.Start();
             #endregion
-
-            sB.AppendLine(sw.ElapsedMilliseconds.ToString() + "ms Procedural done");
-            Debug.Log("Procedural lod 5 - Done");
         }
         #endregion
 
-        sB.AppendLine(sw.ElapsedMilliseconds.ToString() + "ms Starting GarbageCollection");
-        Debug.Log(sw.ElapsedMilliseconds.ToString() + "ms Starting GarbageCollection");
         SimpleClient.StatusUpdateMessage.Start(Job.GarbageCollection);
         SimpleClient.simpleClient.SendStatusUpdateMessages();
         System.GC.Collect();
         SimpleClient.StatusUpdateMessage.Stop(Job.GarbageCollection);
-        Debug.Log(sw.ElapsedMilliseconds.ToString() + "ms Done GarbageCollection");
-        sB.AppendLine(sw.ElapsedMilliseconds.ToString() + "ms Done with GarbageCollection");
-        UnityEngine.Debug.Log(sB.ToString());
 
         yield return null;
-        Debug.Log("OnProceduralDone");
         SimpleClient.StatusUpdateMessage.Start(Job.ProceduralDone);
         SimpleClient.simpleClient.SendStatusUpdateMessages();
         OnProceduralDone();
-        SimpleClient.StatusUpdateMessage.Stop(Job.ProceduralDone);
+        
 
         yield return true;
     }

@@ -215,16 +215,32 @@ public class SimpleClientEditor : Editor
                 jobQueueNames[i] = this.client.GetQueues()[i].Name;
 
             this.jobQueueIndex = EditorGUILayout.Popup("JobQueue", this.jobQueueIndex, jobQueueNames);
+            for (int i = 0; i < jobQueueNames.Length; i++)
+            {
+                if (jobQueueNames[i] == "jobs")
+                {
+                    this.jobQueueIndex = i;
+                    break;
+                }
+            }
             string jobQueueName = this.client.GetQueues().Length == 0 ? "not set" : jobQueueNames[this.jobQueueIndex];
             //EditorGUILayout.LabelField("JobQueue", jobQueueName);
             #endregion // JobQueue
 
-            #region JobQueue 
+            #region ReplyQueue 
             string[] replyToQueueNames = new string[this.client.GetQueues().Length];
             for (int i = 0; i < this.client.GetQueues().Length; i++)
                 replyToQueueNames[i] = this.client.GetQueues()[i].Name;
 
             this.replyQueueIndex = EditorGUILayout.Popup("ReplyToQueue", this.replyQueueIndex, replyToQueueNames);
+            for (int i = 0; i < replyToQueueNames.Length; i++)
+            {
+                if (replyToQueueNames[i] == "reply")
+                {
+                    this.replyQueueIndex = i;
+                    break;
+                }
+            }
             string replyQueueName = this.client.GetQueues().Length == 0 ? "not set" : replyToQueueNames[this.replyQueueIndex];
             //EditorGUILayout.LabelField("ReplyToQueue", replyQueueName);
             #endregion // JobQueue
@@ -235,6 +251,14 @@ public class SimpleClientEditor : Editor
                 statusUpdateQueueNames[i] = this.client.GetQueues()[i].Name;
 
             this.statusUpdateQueueIndex = EditorGUILayout.Popup("ReplyToQueue", this.statusUpdateQueueIndex, statusUpdateQueueNames);
+            for (int i = 0; i < statusUpdateQueueNames.Length; i++)
+            {
+                if (statusUpdateQueueNames[i] == "statusUpdates")
+                {
+                    this.statusUpdateQueueIndex = i;
+                    break;
+                }
+            }
             string statusUpdateQueueName = this.client.GetQueues().Length == 0 ? "not set" : statusUpdateQueueNames[this.statusUpdateQueueIndex];
             //EditorGUILayout.LabelField("ReplyToQueue", replyQueueName);
             #endregion // JobQueue
@@ -250,27 +274,64 @@ public class SimpleClientEditor : Editor
 
             this.client.method = (SerializationMethod)EditorGUILayout.EnumPopup("SerializationMethod", this.client.method);
 
-
+            #region Tests
             if (GUILayout.Button("UpdateMessage Test"))
             {
-                Stopwatch sw = new Stopwatch();
-
                 StatusUpdateMessage msg = new StatusUpdateMessage(0, "job");
                 TodoItem masterSide = msg.AddTodo("Master");
                 TodoItem workerSide = msg.AddTodo("Worker");
 
+                Debug.Log(msg);
+
                 masterSide.Start();
-                masterSide.AddTodo("Send job").Start();
+                Debug.Log(msg);
+                masterSide.AddTodo("Send job");
+                Debug.Log(msg);
+                masterSide.Start("Send job");
+                Debug.Log(msg);
                 masterSide.Stop("Send job");
+                Debug.Log(msg);
+
 
                 masterSide.AddTodo("Wait for reply");
+                Debug.Log(msg);
+
 
                 workerSide.Start();
-                workerSide.AddTodo("Terrain");
-                workerSide.AddTodo("Buildings");
-                workerSide.AddTodo("Garbage Collection");
+                Debug.Log(msg);
 
-                workerSide.Start("SRTM");
+                workerSide.AddTodo("Terrain");
+                Debug.Log(msg);
+
+                workerSide.AddTodo("Buildings");
+                Debug.Log(msg);
+
+                workerSide.AddTodo("Garbage Collection");
+                Debug.Log(msg);
+
+                workerSide.AddTodo("SRTM");
+                Debug.Log(msg);
+
+                //workerSide.Start("SRTM");
+                //Debug.Log(msg);
+
+                Debug.Log("######### Get(SRTM).Start ################");
+                msg.Get("SRTM").Start();
+                Debug.Log(msg);
+
+                Debug.Log("###################################");
+                TodoItem srtm = msg.Get("SRTM");
+                Debug.Log("get srtm: " + msg);
+
+                srtm.Stop();
+                Debug.Log(msg);
+
+                msg.Start("SRTM");
+                Debug.Log(msg);
+
+                msg.Stop("SRTM");
+                Debug.Log(msg);
+
                 Debug.Log("###################################");
                 Debug.Log(msg.ToString());
 
@@ -281,116 +342,180 @@ public class SimpleClientEditor : Editor
                 Debug.Log(msg.ToString());
                 workerSide.Stop("Terrain");
 
-
+                Debug.Log(msg);
                 workerSide.Start("Buildings");
                 workerSide.Start("Garbage Collection");
                 workerSide.Stop("Buildings");
                 workerSide.Stop("Garbage Collection");
 
-
+                Debug.Log(msg);
                 Debug.Log("###################################");
                 Debug.Log(msg.ToString());
-                sw.Start();
+                
                 byte[] bytes = msg.Serialize();
-                sw.Stop();
-                Debug.Log("Serialization took: " + sw.ElapsedMilliseconds);
+                Debug.Log(msg);
                 Debug.Log("###################################");
                 this.client.SendStatusUpdateMessages(statusUpdateQueueName, msg);
 
 
                 WaitForSeconds(2);
                 Debug.Log("###################################");
-                sw.Reset();
-                sw.Start();
+                
                 StatusUpdateMessage msgReceived = StatusUpdateMessage.Deserialize(bytes);
                 TodoItem masterAfter = msgReceived.Get("Master");
                 TodoItem workerAfter = msgReceived.Get("Worker");
-
+                Debug.Log(msg);
                 workerAfter.Stop();
                 masterAfter.Get("Wait for reply").Stop();
 
 
-                sw.Stop();
-                Debug.Log("Deserialization took: " + sw.ElapsedMilliseconds);
+                
+               
                 Debug.Log(msgReceived.ToString());
                 Debug.Log("###################################");
             }
 
-            if (GUILayout.Button("Receive StatusUpdate"))
-            {
-                this.client.SubscribeToQueue(statusUpdateQueueName);
+            //if (GUILayout.Button("UpdateMessage Test"))
+            //{
+            //    Stopwatch sw = new Stopwatch();
 
-            }
+            //    StatusUpdateMessage msg = new StatusUpdateMessage(0, "job");
+            //    TodoItem masterSide = msg.AddTodo("Master");
+            //    TodoItem workerSide = msg.AddTodo("Worker");
 
-            if (GUILayout.Button("JobSerializeTest"))
-            {
-                StatusUpdateMessage msg = new StatusUpdateMessage(0, 0 + "," + 0);
-                TodoItem master = msg.AddTodo(Job.Master);
-                master.AddTodo(Job.CreateJobMessage);
-                master.AddTodo(Job.SerializeJobMessage);
-                master.AddTodo(Job.PublishJob);
-                master.AddTodo(Job.DeserializeResult);
-                master.AddTodo(Job.RecreateScene);
-                master.AddTodo(Job.MasterGarbageCollection);
+            //    masterSide.Start();
+            //    masterSide.AddTodo("Send job").Start();
+            //    masterSide.Stop("Send job");
 
-                TodoItem transfer = msg.AddTodo(Job.Transfer);
+            //    masterSide.AddTodo("Wait for reply");
 
-                transfer.AddTodo(Job.TransferToWorker);
-                transfer.AddTodo(Job.TransferToMaster);
+            //    workerSide.Start();
+            //    workerSide.AddTodo("Terrain");
+            //    workerSide.AddTodo("Buildings");
+            //    workerSide.AddTodo("Garbage Collection");
 
-                TodoItem worker = msg.AddTodo(Job.Worker);
-                worker.AddTodo(Job.DeserializeJobMessage);
-                worker.AddTodo(Job.CreateNewScene);
-                worker.AddTodo(Job.CreateTile);
-                worker.AddTodo(Job.StartOSMQuery);
-                worker.AddTodo(Job.StartProcedural);
-                worker.AddTodo(Job.ProceduralPreparation);
-                worker.AddTodo(Job.CreateTerrain);
-                worker.AddTodo(Job.MeshPreparation);
-                worker.AddTodo(Job.TileQuad);
-                worker.AddTodo(Job.River);
-                worker.AddTodo(Job.Ways);
-                worker.AddTodo(Job.CreateBuildingMesh);
-                worker.AddTodo(Job.FillMeshDivideMaterials);
-                worker.AddTodo(Job.GarbageCollection);
-                worker.AddTodo(Job.ProceduralDone);
-                worker.AddTodo(Job.CreateReplyMessage);
-                worker.AddTodo(Job.TidyUpScene);
-                worker.AddTodo(Job.PublishResult);
+            //    workerSide.Start("SRTM");
+            //    Debug.Log("###################################");
+            //    Debug.Log(msg.ToString());
 
-                // Add StatusUpdateMessage to Dictionary
-                //jobStatus.Add(jobCount, msg);
+            //    workerSide.Stop("SRTM");
 
-                // Start the Process...
-                msg.Start();
-                master.Start();
+            //    workerSide.Start("Terrain");
+            //    Debug.Log("###################################");
+            //    Debug.Log(msg.ToString());
+            //    workerSide.Stop("Terrain");
 
-                master.Start(Job.CreateJobMessage);
-                OSMJobMessage jobMessage = new OSMJobMessage(
-                    0, 0,
-                    TileManager.TileWidth,
-                    TileManager.OriginLongitude,
-                    TileManager.OriginLatitude, replyQueueName, statusUpdateQueueName, msg, SerializationMethod.ProtoBuf);
 
-                master.Stop(Job.CreateJobMessage);
+            //    workerSide.Start("Buildings");
+            //    workerSide.Start("Garbage Collection");
+            //    workerSide.Stop("Buildings");
+            //    workerSide.Stop("Garbage Collection");
 
-                Debug.Log(msg);
 
-                master.Start(Job.SerializeJobMessage);
-                byte[] jsonMessage = OSMJobMessage.ToByteArray(jobMessage);
-                master.Stop(Job.SerializeJobMessage);
-                Debug.Log("Serialized: \n" + jsonMessage);
+            //    Debug.Log("###################################");
+            //    Debug.Log(msg.ToString());
+            //    sw.Start();
+            //    byte[] bytes = msg.Serialize();
+            //    sw.Stop();
+            //    Debug.Log("Serialization took: " + sw.ElapsedMilliseconds);
+            //    Debug.Log("###################################");
+            //    this.client.SendStatusUpdateMessages(statusUpdateQueueName, msg);
 
-                master.Start(Job.PublishJob);
-                //this.PublishToQueue(jobQueueName, jsonMessage);
-                master.Stop(Job.PublishJob);
 
-                //Debug.Log("Created Job-Message for job " + jobCount + " (" + i + "," + j + "): ");
-                //jobCount++;
-                jobMessage = OSMJobMessage.FromByteArray(jsonMessage);
-                Debug.Log("Deserialized: \n" + jsonMessage);
-                Debug.Log(jobMessage.statusUpdateMessage);
-            }
+            //    WaitForSeconds(2);
+            //    Debug.Log("###################################");
+            //    sw.Reset();
+            //    sw.Start();
+            //    StatusUpdateMessage msgReceived = StatusUpdateMessage.Deserialize(bytes);
+            //    TodoItem masterAfter = msgReceived.Get("Master");
+            //    TodoItem workerAfter = msgReceived.Get("Worker");
+
+            //    workerAfter.Stop();
+            //    masterAfter.Get("Wait for reply").Stop();
+
+
+            //    sw.Stop();
+            //    Debug.Log("Deserialization took: " + sw.ElapsedMilliseconds);
+            //    Debug.Log(msgReceived.ToString());
+            //    Debug.Log("###################################");
+            //}
+
+            //if (GUILayout.Button("Receive StatusUpdate"))
+            //{
+            //    this.client.SubscribeToQueue(statusUpdateQueueName);
+
+            //}
+
+            //if (GUILayout.Button("JobSerializeTest"))
+            //{
+            //    StatusUpdateMessage msg = new StatusUpdateMessage(0, 0 + "," + 0);
+            //    TodoItem master = msg.AddTodo(Job.Master);
+            //    master.AddTodo(Job.CreateJobMessage);
+            //    master.AddTodo(Job.SerializeJobMessage);
+            //    master.AddTodo(Job.PublishJob);
+            //    master.AddTodo(Job.DeserializeResult);
+            //    master.AddTodo(Job.RecreateScene);
+            //    master.AddTodo(Job.MasterGarbageCollection);
+
+            //    TodoItem transfer = msg.AddTodo(Job.Transfer);
+
+            //    transfer.AddTodo(Job.TransferToWorker);
+            //    transfer.AddTodo(Job.TransferToMaster);
+
+            //    TodoItem worker = msg.AddTodo(Job.Worker);
+            //    worker.AddTodo(Job.DeserializeJobMessage);
+            //    worker.AddTodo(Job.CreateNewScene);
+            //    worker.AddTodo(Job.CreateTile);
+            //    worker.AddTodo(Job.StartOSMQuery);
+            //    worker.AddTodo(Job.StartProcedural);
+            //    worker.AddTodo(Job.ProceduralPreparation);
+            //    worker.AddTodo(Job.CreateTerrain);
+            //    worker.AddTodo(Job.MeshPreparation);
+            //    worker.AddTodo(Job.TileQuad);
+            //    worker.AddTodo(Job.River);
+            //    worker.AddTodo(Job.Ways);
+            //    worker.AddTodo(Job.CreateBuildingMesh);
+            //    worker.AddTodo(Job.FillMeshDivideMaterials);
+            //    worker.AddTodo(Job.GarbageCollection);
+            //    worker.AddTodo(Job.ProceduralDone);
+            //    worker.AddTodo(Job.CreateReplyMessage);
+            //    worker.AddTodo(Job.TidyUpScene);
+            //    worker.AddTodo(Job.PublishResult);
+
+            //    // Add StatusUpdateMessage to Dictionary
+            //    //jobStatus.Add(jobCount, msg);
+
+            //    // Start the Process...
+            //    msg.Start();
+            //    master.Start();
+
+            //    master.Start(Job.CreateJobMessage);
+            //    OSMJobMessage jobMessage = new OSMJobMessage(
+            //        0, 0,
+            //        TileManager.TileWidth,
+            //        TileManager.OriginLongitude,
+            //        TileManager.OriginLatitude, replyQueueName, statusUpdateQueueName, msg, SerializationMethod.ProtoBuf);
+
+            //    master.Stop(Job.CreateJobMessage);
+
+            //    Debug.Log(msg);
+
+            //    master.Start(Job.SerializeJobMessage);
+            //    byte[] jsonMessage = OSMJobMessage.ToByteArray(jobMessage);
+            //    master.Stop(Job.SerializeJobMessage);
+            //    Debug.Log("Serialized: \n" + jsonMessage);
+
+            //    master.Start(Job.PublishJob);
+            //    //this.PublishToQueue(jobQueueName, jsonMessage);
+            //    master.Stop(Job.PublishJob);
+
+            //    //Debug.Log("Created Job-Message for job " + jobCount + " (" + i + "," + j + "): ");
+            //    //jobCount++;
+            //    jobMessage = OSMJobMessage.FromByteArray(jsonMessage);
+            //    Debug.Log("Deserialized: \n" + jsonMessage);
+            //    Debug.Log(jobMessage.statusUpdateMessage);
+            //}
+            #endregion // Tests
 
             if (GUILayout.Button("Send OSM-Job-Messages"))
             {
@@ -429,17 +554,13 @@ public class SimpleClientEditor : Editor
                         //newTile.ProceduralDone += GenerationDone;
                         //newTile.StartQuery();
 
-
-
                         //EditorSceneManager.SaveScenes
                         //SceneManager.SetActiveScene(mainScene);
-
                     }
                 }
 
                 tiles[0].ProceduralDone += GenerationDone;
                 tiles[0].StartQuery();
-
             }
         }
         else // Client-Mode

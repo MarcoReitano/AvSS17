@@ -23,7 +23,7 @@ public class TileManager : Singleton<TileManager>
         }
     }
 
-    public static int tileRadius = 1;
+    public static int tileRadius = 0;
     public static int LOD = 5;
 
     public static double OriginLongitude

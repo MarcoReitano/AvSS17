@@ -27,7 +27,7 @@ public class SRTMDataCell
 
         try
         {
-            Debug.Log("SRTM Folder:" + SRTMHeightProvider.SRTMDataPath);
+            //Debug.Log("SRTM Folder:" + SRTMHeightProvider.SRTMDataPath);
             if (!Directory.Exists(SRTMHeightProvider.SRTMDataPath))
                 Directory.CreateDirectory(SRTMHeightProvider.SRTMDataPath);
         }
@@ -48,18 +48,18 @@ public class SRTMDataCell
             string chunkFilePathUnzipped = SRTMHeightProvider.SRTMDataPath + "/" + continent + "/" + chunkFileNameUnzipped;
 
             string zippedSRTMFile = chunkFilePath;
-            Debug.Log("Zipped File at: " + zippedSRTMFile);
+            //Debug.Log("Zipped File at: " + zippedSRTMFile);
 
             if (!File.Exists(zippedSRTMFile))
             {
                 if (!Directory.Exists(SRTMHeightProvider.SRTMDataPath + "/" + continent))
                 {
-                    Debug.Log("Folder Doesnt Exist: " + SRTMHeightProvider.SRTMDataPath + "/" + continent);
+                    Debug.LogWarning("Folder Doesnt Exist: " + SRTMHeightProvider.SRTMDataPath + "/" + continent);
                     Directory.CreateDirectory(SRTMHeightProvider.SRTMDataPath + "/" + continent);
                 }
                 else
                 {
-                    Debug.Log("Folder Existed: " + SRTMHeightProvider.SRTMDataPath + "/" + continent);
+                    //Debug.Log("Folder Existed: " + SRTMHeightProvider.SRTMDataPath + "/" + continent);
                 }
                 string downloadURL = @"https://dds.cr.usgs.gov/srtm/version2_1/SRTM3/" + continent;
                 //string downloadURL = @"F:\SRTM3\Eurasia\";
@@ -68,7 +68,7 @@ public class SRTMDataCell
                 {
                     if (!File.Exists(chunkFilePath))
                     {
-                        Debug.Log("Download SRTMFIle " + downloadURL);
+                        //Debug.Log("Download SRTMFIle " + downloadURL);
                         zippedSRTMFile = DownloadSRTMFile(downloadURL, chunkFileName, SRTMHeightProvider.SRTMDataPath + "/" + continent, false);
                     }
 
@@ -388,11 +388,11 @@ public class SRTMDataCell
     public int average;
     public void ReadFromFile(string sRTMFilePath)
     {
-        Debug.Log("unzip SRTM-File : " + sRTMFilePath);
-        if (!File.Exists(sRTMFilePath))
-            Debug.Log("File Not available");
-        else
-            Debug.Log("File is available");
+        //Debug.Log("unzip SRTM-File : " + sRTMFilePath);
+        //if (!File.Exists(sRTMFilePath))
+        //    Debug.Log("File Not available");
+        //else
+        //    Debug.Log("File is available");
 
         string unzippedFilename = sRTMFilePath.Remove(sRTMFilePath.Length - 4, 4);
         
@@ -443,10 +443,10 @@ public class SRTMDataCell
             }
             catch (Exception ex)
             {
-                Debug.Log(ex);
-                Debug.Log("The requested SRTM File doesnt seem to exist at the specified path! /n Initialized the SRTMData with one-heightmap! \n" + ex.Message);
+                //Debug.Log(ex);
+                //Debug.Log("The requested SRTM File doesnt seem to exist at the specified path! /n Initialized the SRTMData with one-heightmap! \n" + ex.Message);
 
-                Console.AddMessage("The requested SRTM File doesnt seem to exist at the specified path! /n Initialized the SRTMData with one-heightmap! \n" + ex.Message);
+                //Console.AddMessage("The requested SRTM File doesnt seem to exist at the specified path! /n Initialized the SRTMData with one-heightmap! \n" + ex.Message);
                 for (int i = 0; i < 1201; i++)
                 {
                     for (int j = 0; j < 1201; j++)
@@ -457,7 +457,7 @@ public class SRTMDataCell
                 return;
             }
         }
-        Debug.Log("unzipped --> read data SRTM-File");
+        //Debug.Log("unzipped --> read data SRTM-File");
         Stream s = File.OpenRead(unzippedFilename);
 
         //short max = 0;
@@ -503,7 +503,7 @@ public class SRTMDataCell
         }
 
         Data = map2;
-        Debug.Log("Done unzipping SRTM File");
+        //Debug.Log("Done unzipping SRTM File");
     }
 
     //public void ReadFromFile(string sRTMFilePath)
@@ -633,7 +633,7 @@ public class SRTMDataCell
     public static bool GetChunkFileContinentFolder(int longitude, int latitude, out string continent)
     {
         string filename = GetChunkFileName(longitude, latitude);
-        Debug.Log("Filename: " + filename);
+        //Debug.Log("Filename: " + filename);
         continent = "";
 
         if (CheckFileExists("https://dds.cr.usgs.gov/srtm/version2_1/SRTM3/Africa/" + filename))
@@ -653,7 +653,7 @@ public class SRTMDataCell
             continent = "Doesn't exist";
             return false;
         }
-        Debug.Log("Kontinent: " + continent);
+        //Debug.Log("Kontinent: " + continent);
         return true;
     }
 
@@ -704,7 +704,7 @@ public class SRTMDataCell
         // TODO: Auf Settings in DataCell anpassen
         string tmpFolder = srtmDataPath;
         string tmpFile = tmpFolder + "/" + downloadFilename;
-        Debug.Log(tmpFile);
+        //Debug.Log(tmpFile);
         if (!downloadPath.StartsWith("http"))
         {
             if (!File.Exists(tmpFile))
@@ -732,7 +732,7 @@ public class SRTMDataCell
 
                 file.Write(www.bytes, 0, www.bytes.Length);
                 file.Close();
-                Debug.Log("Download finished! " + tmpFile);
+                //Debug.Log("Download finished! " + tmpFile);
             }
         }
         return tmpFile;

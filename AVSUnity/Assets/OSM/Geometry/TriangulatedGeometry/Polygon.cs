@@ -73,7 +73,7 @@ public class Polygon
 					vertices[j].Position2D, 
 					vertices[nextj].Position2D))
 				{
-					Debug.Log("Polygon is SelfIntersecting");
+					//Debug.Log("Polygon is SelfIntersecting");
 					return true;
 				}
 			}			

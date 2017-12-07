@@ -88,11 +88,6 @@ public class OSMJobMessage
         this.method = method;
     }
 
-    //public string ToJson()
-    //{
-    //    return JsonUtility.ToJson(this);
-    //}
-
     public static byte[] ToByteArray(OSMJobMessage jobMessage)
     {
         MemoryStream memStream = new MemoryStream();
@@ -106,13 +101,7 @@ public class OSMJobMessage
         MemoryStream outMemStream = new MemoryStream(bytes, 0, bytes.Length);
         OSMJobMessage objProto = (OSMJobMessage)Serializer.Deserialize<OSMJobMessage>(outMemStream);
         outMemStream.Close();
-
+        
         return objProto;
     }
-
-    //public static OSMJobMessage FromJson(string json)
-    //{
-    //    return JsonUtility.FromJson<OSMJobMessage>(json);
-    //}
-
 }
