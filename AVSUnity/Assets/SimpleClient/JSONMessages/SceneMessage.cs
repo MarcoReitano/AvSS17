@@ -79,7 +79,7 @@ public class SceneMessage
                 knownTypes.Add(typeof(DataContractSceneSerialization.MeshFilterSurrogate));
                 knownTypes.Add(typeof(DataContractSceneSerialization.MeshRendererSurrogate));
                 knownTypes.Add(typeof(DataContractSceneSerialization.MeshSurrogate));
-                knownTypes.Add(typeof(DataContractSceneSerialization.MaterialSurrogate));
+                knownTypes.Add(typeof(DataContractSceneSerialization.MaterialSurrogate)); 
                 knownTypes.Add(typeof(DataContractSceneSerialization.ComponentSurrogate));
 
                 DataContractSerializer serializer = new DataContractSerializer(typeof(DataContractSceneSerialization.SceneSurrogate), knownTypes);

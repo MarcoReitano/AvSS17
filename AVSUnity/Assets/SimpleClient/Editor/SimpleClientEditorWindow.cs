@@ -85,7 +85,7 @@ public class SimpleClientEditorWindow : EditorWindow
     private static int selectedMenu = 0;
     int buttonWidth = 120;
     int buttonHeight = 30;
-    void OnGUI()
+    public void OnGUI()
     {
         clients = FindObjectsOfType<SimpleClient>();
 
@@ -139,6 +139,12 @@ public class SimpleClientEditorWindow : EditorWindow
         }
 
         GUI.backgroundColor = normalColor;
+        if (GUILayout.Button("Reset Everything", GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
+        {
+            client.Reset();
+        }
+
+        GUI.backgroundColor = normalColor;
         GUILayout.EndHorizontal();
         CustomGUIUtils.EndGroup();
         GUILayout.EndArea();
@@ -164,25 +170,42 @@ public class SimpleClientEditorWindow : EditorWindow
     }
 
     Vector2 scrollPos;
-    float zoomFactor = 0.1f;
-    float yOffset = 50;
-    float separator = 4;
-    bool autoScroll = false;
-    private static float height = 20;
-    private static int xOffset = 10;
+    private static float zoomFactor = 0.1f;
+    private static int xOffset = 12;
+    private static float yOffset = 7;
+
+    private static float separator = 4;
+    private static float padding = 2;
+    private static float border = 8;
+    private static bool autoScroll = false;
+    private static float height = 16;
+
+
 
     private void WorkerStatusGUI()
     {
+        EditorGUILayout.BeginVertical();
+
         zoomFactor = EditorGUILayout.Slider("Zoom", zoomFactor, 0.00001f, 0.5f);
         autoScroll = EditorGUILayout.ToggleLeft("AutoScroll", autoScroll);
-        yOffset = EditorGUILayout.IntSlider("yOffset",(int) yOffset, 0, 100);
-        xOffset = EditorGUILayout.IntSlider("xOffset", (int)xOffset, 0, 100);
-        height = EditorGUILayout.IntSlider("height", (int)height, 1, 40);
-        separator = EditorGUILayout.IntSlider("separator", (int)separator, 0, 10);
-        if (GUILayout.Button("Reset Everything"))
+       
+        #region StatusBar
+        float step;
+        if (client.jobStatus.Values.Count > 0)
+            step = 1f / client.jobStatus.Values.Count;
+        else
+            step = 0;
+        float complete = 0;
+        foreach (StatusUpdateMessage item in client.jobStatus.Values)
         {
-            client.Reset();
+            if (item.status == Status.DONE)
+                complete += step;
         }
+        EditorGUILayout.LabelField("", GUILayout.Height(20));
+        EditorGUI.ProgressBar(new Rect(0, 90, this.position.width, 20), complete, complete*100 + " %");
+        #endregion // Statusbar
+
+         
 
         if (stopTime == null)
         {
@@ -198,67 +221,98 @@ public class SimpleClientEditorWindow : EditorWindow
             if (allJobsDone && client.jobStatus.Count > 0)
             {
                 stopTime = TimeStamp.Now();
-                Debug.Log("All Jobs Done");
+                Debug.Log("All Jobs Done"); 
             }
-        }
+        } 
 
-        float scrollViewWidth = this.position.width;
+        EditorGUILayout.EndVertical();
+        GUILayout.Space(10f);
+        //Rect lastRect = GUILayoutUtility.GetLastRect();
+        //Debug.Log(lastRect);
+        float panelOffset = 120;
+
+
+       float autoScrollPosition = this.position.width - GoldenRatio.LongSideOf(this.position.width);
+
+        float panelWidth = this.position.width - border;
         if (startTime != null)
-            scrollViewWidth = Mathf.Max((float)TimeStamp.DurationInMillis(startTime, TimeStamp.Now()) * zoomFactor, this.position.width);
-        if(stopTime != null)
-            scrollViewWidth = Mathf.Min((float)TimeStamp.DurationInMillis(startTime, stopTime) * zoomFactor, scrollViewWidth);
+            panelWidth = Mathf.Max((float)TimeStamp.DurationInMillis(startTime, TimeStamp.Now()) * zoomFactor + autoScrollPosition, this.position.width - border);
+        if (stopTime != null)
+            panelWidth = Mathf.Min((float)TimeStamp.DurationInMillis(startTime, stopTime) * zoomFactor + autoScrollPosition, panelWidth);
 
         int jobCount = client.jobStatus.Values.Count;
-        float scrollViewHeight = jobCount * (2 * height + 3 * separator) + separator + yOffset;
-        
 
-        using (EditorGUILayout.ScrollViewScope scrollView = new EditorGUILayout.ScrollViewScope(scrollPos, true, true, GUILayout.Width(this.position.width), GUILayout.Height(Mathf.Min(scrollViewHeight, this.position.height))))
+        float panelHeight = jobCount * (4 * height + 4 * separator + 2 * padding) + yOffset;
+
+       
+
+        using (EditorGUILayout.ScrollViewScope scrollView = new EditorGUILayout.ScrollViewScope(scrollPos, false, false, GUILayout.Width(this.position.width), GUILayout.Height(this.position.height - panelOffset)))
         {
             scrollPos = scrollView.scrollPosition;
 
-            EditorGUILayout.LabelField("", darkgrey, GUILayout.Width(scrollViewWidth + xOffset), GUILayout.Height(scrollViewHeight));
+            EditorGUILayout.LabelField("", darkgrey, GUILayout.Width(panelWidth), GUILayout.Height(panelHeight));
+
 
             if (autoScroll)
                 scrollPos.x = Mathf.Infinity;
-            
+
             float now = xOffset;
-            if(startTime != null)
+            if (startTime != null)
                 now = (float)TimeStamp.DurationInMillis(startTime, TimeStamp.Now()) * zoomFactor + xOffset;
-            
+
 
             float y = 0f;
             y += yOffset;
 
             foreach (StatusUpdateMessage item in client.jobStatus.Values)
             {
-
+                y += separator;
                 TodoItem master = item.Get(Job.Master);
+                TodoItem transfer = item.Get(Job.Transfer);
                 TodoItem worker = item.Get(Job.Worker);
 
-                y += height;
-
+                DrawJobItemBar(item, y);
+                y += padding;
+                DrawTodoItemBar(master, y);
                 foreach (string todo in master.childTodos)
-                {
                     DrawTodoItemBar(master.childDict[todo], y);
-                   
-                }
-                //GUILayout.Button(item.name, GUILayout.Width((float)item.Duration() * zoomFactor));
-                y += height + separator;
-                foreach (string todo in worker.childTodos)
-                {
-                    DrawTodoItemBar(worker.childDict[todo], y);
-                }
-                //GUILayout.Button(item.name, GUILayout.Width((float)item.Duration() * zoomFactor));
 
-                y += separator * 2;
-                if(stopTime == null)
-                    CustomGUIUtils.DrawBox(new Rect(now, 0, 1, this.position.height), Color.black);
+                y += height + separator;
+                foreach (string todo in transfer.childTodos)
+                    DrawTodoItemBar(transfer.childDict[todo], y);
+
+                y += height + separator;
+                DrawTodoItemBar(worker, y);
+                foreach (string todo in worker.childTodos)
+                    DrawTodoItemBar(worker.childDict[todo], y);
+
+                y += height;
+                y += padding;
+                y += separator;
+            }
+
+            if (stopTime == null)
+                CustomGUIUtils.DrawBox(new Rect(now, 0, 1, panelHeight), Color.black);
+
+            for (float x = 0; x < panelWidth; x += (1000 * zoomFactor))
+            {
+                CustomGUIUtils.DrawBox(new Rect(x, 0, 1, panelHeight), Color.grey);
+            }
+
+            for (float x = 0; x < panelWidth; x += (15000 * zoomFactor))
+            {
+                CustomGUIUtils.DrawBox(new Rect(x, 0, 1, panelHeight), XKCDColors.LightRed);
+            }
+
+            for (float x = 0; x < panelWidth; x += (60000 * zoomFactor))
+            {
+                CustomGUIUtils.DrawBox(new Rect(x, 0, 1, panelHeight), Color.red);
             }
         }
         Repaint();
     }
 
-   
+
     public Rect TodoRect(TodoItem item, float y)
     {
         Rect rect = new Rect();
@@ -271,45 +325,82 @@ public class SimpleClientEditorWindow : EditorWindow
         return rect;
     }
 
+    public Rect JobRect(TodoItem item, float y)
+    {
+        Rect rect = new Rect();
+
+        rect.x = (float)TimeStamp.DurationInMillis(item.startTime, startTime) * zoomFactor + xOffset;
+        rect.width = (float)item.Duration() * zoomFactor;
+        rect.height = 3 * height + 2 * separator + 2 * padding;
+        rect.y = y;
+
+        return rect;
+    }
+
     private void DrawTodoItemBar(TodoItem item, float y)
     {
-
         if (item.status == Status.PENDING)
             return;
 
-        CustomGUIUtils.BeginGroup();
+        Color color = Color.white;
+        switch (item.status)
         {
-            Color color = Color.white;
-            switch (item.status)
-            {
-                case Status.PENDING:
-                    color = XKCDColors.LightRed;
-                    //CustomGUIUtils.DrawBox(TodoRect(item, y), color);
-                    break;
-                case Status.IN_PROGRESS:
-                    color = XKCDColors.LightYellow;
-                    Rect rect = TodoRect(item, y);
-                    CustomGUIUtils.DrawFrameBox(rect, color, 1f, Color.black);
-                    rect.width = 200;
-                    GUI.Label(rect, item.name);
-                    break;
-                case Status.DONE:
-                    color = XKCDColors.LightGreen;
-                    CustomGUIUtils.DrawFrameBox(TodoRect(item, y), color, 1f, Color.black);
-                    break;
-                default:
-                    statusStyle = GUIStyle.none;
-                    break;
-            }
-            //EditorGUILayout.BeginHorizontal(statusStyle);
+            case Status.PENDING:
+                color = XKCDColors.LightRed;
+                break;
+            case Status.IN_PROGRESS:
+                color = XKCDColors.LightYellow;
+                Rect rect = TodoRect(item, y);
+                CustomGUIUtils.DrawFrameBox(rect, color, 1f, Color.black);
+                rect.width = 200;
+                GUI.Label(rect, item.name);
+                break;
+            case Status.DONE:
+                color = XKCDColors.LightGreen;
+                Rect rectBox = TodoRect(item, y);
+                CustomGUIUtils.DrawFrameBox(rectBox, color, 1f, Color.black);
+                //if (rectBox.Contains(Event.current.mousePosition))
+                //{
+                //    Rect tooltip = new Rect(rectBox);
+                //    tooltip.width = 100;
+                //    CustomGUIUtils.DrawFrameBox(tooltip, XKCDColors.YellowTan, 1, XKCDColors.YellowOrange);
+                //    GUI.Label(tooltip, item.name);
 
-           
-            //EditorGUILayout.LabelField("" + item.name, GUILayout.Width((float)item.Duration() * zoomFactor));
-            //EditorGUILayout.EndHorizontal();
+                //}
+                break;
+            default:
+                statusStyle = GUIStyle.none;
+                break;
         }
-        CustomGUIUtils.EndGroup();
     }
 
+    private void DrawJobItemBar(TodoItem item, float y)
+    {
+        if (item.status == Status.PENDING)
+            return;
+
+        Color color = Color.white;
+        switch (item.status)
+        {
+            case Status.PENDING:
+                color = XKCDColors.LightRed;
+                break;
+            case Status.IN_PROGRESS:
+                color = XKCDColors.LightRed;
+                Rect rect = JobRect(item, y);
+                CustomGUIUtils.DrawFrameBox(rect, color, 1f, Color.black);
+                rect.width = 200;
+                GUI.Label(rect, item.name);
+                break;
+            case Status.DONE:
+                color = XKCDColors.LightAquamarine;
+                CustomGUIUtils.DrawFrameBox(JobRect(item, y), color, 1f, Color.black);
+                break;
+            default:
+                statusStyle = GUIStyle.none;
+                break;
+        }
+    }
 
     private void DrawTodoItem(StatusUpdateMessage item)
     {
