@@ -109,23 +109,24 @@ public class
         this.Query.QueryDone += QueryDone;
         this.Query.DownloadOSMString();
     }
+
     public void QueryDone(object sender, System.EventArgs e)
     {
         this.Query.QueryDone -= QueryDone;
-        //#if UNITY_EDITOR
-        //        if (EditorApplication.isPlaying)
-        //        {
-        shouldStartProcedural = true;
-        //        }
-        //        else
-        //        {
-        //            UnityEditor.EditorApplication.update += EditorAppUpdate;
-        //            sB.AppendLine("Creating Enumerator");
-        //            enumerator = Procedural();
-        //        }
-        //#else
-        //        shouldStartProcedural = true;
-        //#endif
+//#if UNITY_EDITOR
+//        if (EditorApplication.isPlaying)
+//        {
+            shouldStartProcedural = true;
+//        }
+//        else
+//        {
+//            UnityEditor.EditorApplication.update += EditorAppUpdate;
+//            sB.AppendLine("Creating Enumerator");
+//            enumerator = Procedural();
+//        }
+//#else
+//                shouldStartProcedural = true;
+//#endif
         SimpleClient.StatusUpdateMessage.Stop(Job.StartOSMQuery);
         SimpleClient.simpleClient.SendStatusUpdateMessages();
     }

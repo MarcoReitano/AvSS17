@@ -7,6 +7,8 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using Debug = UnityEngine.Debug;
+using System.Globalization;
+using System.Text;
 /// <summary>
 /// 
 /// - Start Server
@@ -190,24 +192,48 @@ public class SimpleClientEditorWindow : EditorWindow
 
         zoomFactor = EditorGUILayout.Slider("Zoom", zoomFactor, 0.00001f, 0.5f);
         autoScroll = EditorGUILayout.ToggleLeft("AutoScroll", autoScroll);
-       
+
         #region StatusBar
+        int todoCount = 0;
+        foreach (StatusUpdateMessage item in client.jobStatus.Values)
+        {
+            foreach (TodoItem cildItem in item.childDict.Values)
+            {
+                foreach (TodoItem childTodo in cildItem.childDict.Values)
+                {
+                    todoCount++;
+                }
+                todoCount++;
+            }
+            todoCount++;
+        }
+
         float step;
         if (client.jobStatus.Values.Count > 0)
-            step = 1f / client.jobStatus.Values.Count;
+            step = 1f / todoCount;
         else
             step = 0;
         float complete = 0;
         foreach (StatusUpdateMessage item in client.jobStatus.Values)
         {
+            foreach (TodoItem cildItem in item.childDict.Values)
+            {
+                foreach (TodoItem childTodo in cildItem.childDict.Values)
+                {
+                    if (childTodo.status == Status.DONE)
+                        complete += step;
+                }
+                if (cildItem.status == Status.DONE)
+                    complete += step;
+            }
             if (item.status == Status.DONE)
                 complete += step;
         }
         EditorGUILayout.LabelField("", GUILayout.Height(20));
-        EditorGUI.ProgressBar(new Rect(0, 90, this.position.width, 20), complete, complete*100 + " %");
+        EditorGUI.ProgressBar(new Rect(0, 90, this.position.width, 20), complete, (complete * 100).ToString("F2", CultureInfo.CreateSpecificCulture("de-DE")) + " % ");
         #endregion // Statusbar
 
-         
+
 
         if (stopTime == null)
         {
@@ -223,9 +249,45 @@ public class SimpleClientEditorWindow : EditorWindow
             if (allJobsDone && client.jobStatus.Count > 0)
             {
                 stopTime = TimeStamp.Now();
-                Debug.Log("All Jobs Done"); 
+                Debug.Log("All Jobs Done");
+                Debug.Log("Gathering result...");
+
+                Dictionary<string, double> result = new Dictionary<string, double>();
+
+                foreach (StatusUpdateMessage item in client.jobStatus.Values)
+                {
+                    foreach (TodoItem cildItem in item.childDict.Values)
+                    {
+                        foreach (TodoItem childTodo in cildItem.childDict.Values)
+                        {
+                            if (!result.ContainsKey(childTodo.name))
+                                result.Add(childTodo.name, 0);
+                            result[childTodo.name] += childTodo.Duration();
+                        }
+                        if (!result.ContainsKey(cildItem.name))
+                            result.Add(cildItem.name, 0);
+                        result[cildItem.name] += cildItem.Duration();
+                    }
+                    if (!result.ContainsKey(item.name))
+                        result.Add(item.name, 0);
+                    result[item.name] += item.Duration();
+                }
+
+                StringBuilder sb = new StringBuilder();
+                StatusUpdateMessage msg = client.jobStatus[1];
+                foreach (TodoItem cildItem in msg.childDict.Values)
+                {
+                    sb.Append(cildItem.name).Append(", ").Append(result[cildItem.name]).Append("\n");
+                    foreach (TodoItem childTodo in cildItem.childDict.Values)
+                    {
+                        sb.Append(childTodo.name).Append(", ").Append(result[childTodo.name]).Append("\n");
+                    }
+                    
+                }
+
+                Debug.Log(sb.ToString());
             }
-        } 
+        }
 
         EditorGUILayout.EndVertical();
         GUILayout.Space(10f);
@@ -234,7 +296,7 @@ public class SimpleClientEditorWindow : EditorWindow
         float panelOffset = 120;
 
 
-       float autoScrollPosition = this.position.width - GoldenRatio.LongSideOf(this.position.width);
+        float autoScrollPosition = this.position.width - GoldenRatio.LongSideOf(this.position.width);
 
         float panelWidth = this.position.width - border;
         if (startTime != null)
@@ -246,7 +308,7 @@ public class SimpleClientEditorWindow : EditorWindow
 
         float panelHeight = jobCount * (4 * height + 4 * separator + 2 * padding) + yOffset;
 
-       
+
 
         using (EditorGUILayout.ScrollViewScope scrollView = new EditorGUILayout.ScrollViewScope(scrollPos, false, false, GUILayout.Width(this.position.width), GUILayout.Height(this.position.height - panelOffset)))
         {
@@ -453,6 +515,12 @@ public class SimpleClientEditorWindow : EditorWindow
                 client.method);
         }
 
+        if (GUILayout.Button("Generate Local"))
+        {
+            Debug.LogError("Doesn't work anymore... the enumerator has to be reactivated...");
+            TileManager.CreateTileMap();
+        }
+
         int newNumberOfWorkers = EditorGUILayout.IntSlider("Number of Workers", numberOfWorkers, 1, 100);
         if (newNumberOfWorkers != numberOfWorkers)
         {
@@ -463,7 +531,8 @@ public class SimpleClientEditorWindow : EditorWindow
 
     public static void ScaleWorkers(int numberOfWorkers)
     {
-        var thread = new Thread(delegate () {
+        var thread = new Thread(delegate ()
+        {
             Command(numberOfWorkers);
         });
         thread.Start();
@@ -471,7 +540,7 @@ public class SimpleClientEditorWindow : EditorWindow
 
     static void Command(int numberOfWorkers)
     {
-        var processInfo = new ProcessStartInfo("docker-machine ssh default \"docker service scale unityTest_avsbuild =" + numberOfWorkers+"\"");
+        var processInfo = new ProcessStartInfo("docker-machine ssh default \"docker service scale unityTest_avsbuild =" + numberOfWorkers + "\"");
         processInfo.CreateNoWindow = true;
         processInfo.UseShellExecute = false;
 

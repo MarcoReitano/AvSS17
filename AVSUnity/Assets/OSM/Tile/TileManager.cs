@@ -110,7 +110,15 @@ public class TileManager : Singleton<TileManager>
         //}
         foreach (KeyValuePair<string, Tile> kV in tiles)
         {
-            DestroyImmediate(kV.Value.gameObject);
+            try
+            {
+                DestroyImmediate(kV.Value.gameObject);
+            }
+            catch (MissingReferenceException)
+            {
+                Debug.LogWarning("Trying to access dead object...");
+            }
+           
         }
 
         tiles.Clear();
@@ -125,10 +133,10 @@ public class TileManager : Singleton<TileManager>
             }
         }
 
-        //foreach (KeyValuePair<string, Tile> kV in tiles)
-        //{
-        //    kV.Value.StartQuery();
-        //}
+        foreach (KeyValuePair<string, Tile> kV in tiles)
+        {
+            kV.Value.StartQuery();
+        }
     }
 #endif
 
