@@ -4,6 +4,8 @@ services:
     image: avsss17/avsss17
     deploy:
       replicas: 10
+      placement:
+        constraints: [node.role == worker]
     networks:
       - avsnetwork
   rabbitmq:

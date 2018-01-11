@@ -7,4 +7,4 @@ ADD ./Standard.x86_64 /app
 
 RUN chmod +x ./app/Standard.x86_64
 
-ENTRYPOINT ["/app/Standard.x86_64"]
+ENTRYPOINT ["/app/Standard.x86_64","-logfile"]

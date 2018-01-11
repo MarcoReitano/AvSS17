@@ -17,7 +17,7 @@ cpu_count="10"
 disk_size="20000"
 #docker_machine="/usr/local/bin/docker-machine"
 docker_machine="/Applications/Docker.app/Contents/Resources/bin/docker-machine"
-PATH=$PATH:"/Applications/Docker.app/Contents/Resources/bin/docker-machine"
+PATH=$PATH:/Applications/Docker.app/Contents/Resources/bin/
 
 ip=$1
 i=$(echo $1 | cut -d'.' -f4)
@@ -32,6 +32,6 @@ ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine ssh default sudo chmod 755 /var
 ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine stop default"
 ssh -t -q "$USER@$ip" "PATH=$PATH;VBoxManage modifyvm 'default' --nic3 bridged --bridgeadapter3 en1 --cableconnected3 on"
 #ssh -t -q "$USER@$ip" "PATH=$PATH;VBoxManage modifyvm 'default' --nic3 nat --cableconnected3 on"
-ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine regenerate-certs default"
+#ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine regenerate-certs default"
 echo $ip | xargs -n1 -P10 -I{}	ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine start default" &
 sleep 5

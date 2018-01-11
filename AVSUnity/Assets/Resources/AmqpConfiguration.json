@@ -1,0 +1,38 @@
+{
+    "Connections": [
+        {
+            "Name": "localhost",
+            "Host": "localhost",
+            "AmqpPort": 5672,
+            "WebPort": 15672,
+            "VirtualHost": "/",
+            "Username": "guest",
+            "Password": "guest",
+            "ReconnectInterval": 5,
+            "RequestedHeartBeat": 30
+        },
+        {
+            "Name": "DennisDocker",
+            "Host": "10.211.55.2",
+            "AmqpPort": 5672,
+            "WebPort": 15672,
+            "VirtualHost": "/",
+            "Username": "guest",
+            "Password": "guest",
+            "ReconnectInterval": 5,
+            "RequestedHeartBeat": 30
+        },
+        {
+            "Name": "AVS-Raum Rabbit",
+            "Host": "rabbitmq",
+            "AmqpPort": 5672,
+            "WebPort": 15672,
+            "VirtualHost": "/",
+            "Username": "guest",
+            "Password": "guest",
+            "ReconnectInterval": 5,
+            "RequestedHeartBeat": 30
+        }
+
+    ]
+}
