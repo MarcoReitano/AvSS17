@@ -306,9 +306,10 @@ public class SimpleClient : MonoBehaviour
 
     #region Methods
     #region Init
-    private void Reset()
+    public void Reset()
     {
         Debug.Log("<color=blue><b>" + this.name + ": SimpleClient.Reset()</b></color>");
+        Awake();
     }
 
     public void Awake()
@@ -1304,7 +1305,7 @@ public class SimpleClient : MonoBehaviour
     #region Utility
     public List<OSMJobMessage> osmJobs = new List<OSMJobMessage>();
     public List<SceneMessage> sceneMessages = new List<SceneMessage>();
-    Dictionary<int, StatusUpdateMessage> jobStatus = new Dictionary<int, StatusUpdateMessage>();
+    public Dictionary<int, StatusUpdateMessage> jobStatus = new Dictionary<int, StatusUpdateMessage>();
     public void SendOSMJobMessages(string jobQueueName, string replyQueueName, string statusUpdateQueueName, int tileRadius, double tileWidth, double originLongitude, double originLatitude, SerializationMethod method)
     {
         this.SubscribeToQueue(replyQueueName);
@@ -1469,11 +1470,11 @@ public class SimpleClient : MonoBehaviour
             }
             else if (subscription.QueueName == "statusUpdates")
             {
-                Debug.Log("<b>Server:</b> <color=red>Message received on " + subscription.QueueName + ": </color>");
+                //Debug.Log("<b>Server:</b> <color=red>Message received on " + subscription.QueueName + ": </color>");
                 StatusUpdateMessage remote = StatusUpdateMessage.Deserialize(message.Body);
 
                 int jobID = remote.jobID;
-                Debug.Log(remote.ToString());
+                //Debug.Log(remote.ToString());
                 
                 StatusUpdateMessage msg = jobStatus[remote.jobID];
 
@@ -1485,7 +1486,7 @@ public class SimpleClient : MonoBehaviour
                     jobStatus[remote.jobID] = StatusUpdateMessage.Merge(local, remote);
 
                 }
-                Debug.Log(jobStatus[remote.jobID]);
+                //Debug.Log(jobStatus[remote.jobID]);
                 this.client.BasicAck(message.DeliveryTag, false);
             }
             else

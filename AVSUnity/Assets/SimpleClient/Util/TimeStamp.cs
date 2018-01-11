@@ -63,7 +63,7 @@ public class TimeStamp : IComparer
     #endregion //Cast Operators
 
     #region Duration Methods
-    public double DurationInMillis(TimeStamp t1, TimeStamp t2)
+    public static double DurationInMillis(TimeStamp t1, TimeStamp t2)
     {
         return DurationInMillis(t1.timeStamp, t2.timeStamp);
     }

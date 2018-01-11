@@ -18,6 +18,26 @@ public static class CustomGUIUtils
     /// <summary>
     /// start a new element-Group
     /// </summary>
+    public static void BeginGroup(GUIStyle color)
+    {
+        GUILayout.BeginHorizontal();
+        GUILayout.Box("", color, GUILayout.Width(12f));
+        GUILayout.BeginVertical();
+
+    }
+
+    public static void BeginGroup(float width)
+    {
+        GUILayout.BeginHorizontal();
+        GUILayout.Box("", GUIStyle.none, GUILayout.Width(width));
+        GUILayout.BeginVertical();
+        GUILayout.Box("", GUIStyle.none, GUILayout.Height(width));
+
+    }
+
+    /// <summary>
+    /// start a new element-Group
+    /// </summary>
     public static void BeginGroup()
     {
         GUILayout.BeginHorizontal();
@@ -76,7 +96,19 @@ public static class CustomGUIUtils
     {
         get { return backgroundColorStyles; }
     }
-    
+
+    public static GUIStyle GetColorBackgroundStyle(Color color, GUIStyle style)
+    {
+        GUIStyle colorStyle;
+        if (!backgroundColorStyles.TryGetValue(color, out colorStyle))
+        {
+            colorStyle = new GUIStyle(style);
+            colorStyle.normal.background = GetSimpleColorTexture(color);
+            backgroundColorStyles.Add(color, colorStyle);
+        }
+        return colorStyle;
+    }
+
     public static GUIStyle GetColorBackgroundStyle(Color color)
     {
         GUIStyle colorStyle;
@@ -227,6 +259,29 @@ public static class CustomGUIUtils
     }
 
     /// <summary>
+    /// Draws a framed Rectangle
+    /// </summary>
+    /// <param name="rect"></param>
+    /// <param name="backgroundColor"></param>
+    /// <param name="frameThickness"></param>
+    /// <param name="frameColor"></param>
+    public static void DrawOuterFrame(Rect rect, float frameThickness, Color frameColor)
+    {
+        Rect frameRect = new Rect(
+            rect.xMin - frameThickness,
+            rect.yMin - frameThickness,
+            rect.width + 2 * frameThickness,
+            rect.height + 2 * frameThickness);
+
+        DrawBox(new Rect(frameRect.xMin, frameRect.yMin, frameThickness, frameRect.height), frameColor);
+        DrawBox(new Rect(frameRect.xMin, frameRect.yMin, frameRect.width, frameThickness), frameColor);
+        DrawBox(new Rect(frameRect.xMin, frameRect.yMax - frameThickness, frameRect.width, frameThickness), frameColor);
+
+        DrawBox(new Rect(rect.xMax, frameRect.yMin, frameThickness, frameRect.height), frameColor);
+        //DrawBox(new Rect(rect.xMax - frameThickness, rect.yMin, frameThickness, frameRect.height), frameColor);
+    }
+
+    /// <summary>
     /// Draws a colored Box
     /// </summary>
     /// <param name="rect"></param>
@@ -263,6 +318,24 @@ public static class CustomGUIUtils
 
         Vector2 pivotPoint = new Vector2(position.x, Screen.height - position.y);
 
+        GUIUtility.RotateAroundPivot(angle, pivotPoint);
+        GUI.Label(rect, text, style);
+        GUIUtility.RotateAroundPivot(-angle, pivotPoint);
+    }
+
+    public static void Label(string text, Rect rect, float angle)
+    {
+        //Vector3 position = Camera.main.WorldToScreenPoint(point);
+
+        GUIStyle style = CustomGUIUtils.GetColorTextStyle(Color.black, 14);
+        //style.alignment = TextAnchor.MiddleCenter;
+        //Vector2 sizeOfLabel = style.CalcSize(new GUIContent(text));
+
+        //Rect rect = new Rect(position.x - (sizeOfLabel.x / 2f), (Screen.height - position.y) - (sizeOfLabel.y / 2f), sizeOfLabel.x, sizeOfLabel.y);
+
+        //Vector2 pivotPoint = new Vector2(position.x, Screen.height - position.y);
+        //Rect rect = GUILayoutUtility.GetLastRect(); 
+        Vector2 pivotPoint = new Vector2(rect.xMax, rect.yMax);
         GUIUtility.RotateAroundPivot(angle, pivotPoint);
         GUI.Label(rect, text, style);
         GUIUtility.RotateAroundPivot(-angle, pivotPoint);

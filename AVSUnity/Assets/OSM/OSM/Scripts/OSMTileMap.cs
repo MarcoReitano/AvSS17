@@ -217,13 +217,13 @@ public class OSMTileMap
             string tmpFolder = string.Empty;
             string tmpFile = string.Empty;
 
-#if UNTIY_EDITOR
-            tmpFolder = EditorApplication.applicationContentsPath + @"/OSM_TILE_TMP";
-            tmpFile = tmpFolder + tilePath;
-#elif STANDALONE
+//#if UNTIY_EDITOR
+//            tmpFolder = EditorApplication.applicationContentsPath + @"/OSM_TILE_TMP";
+//            tmpFile = tmpFolder + tilePath;
+//#elif STANDALONE
             tmpFolder = UnityEngine.Application.dataPath + @"/OSM_TILE_TMP";
             tmpFile = tmpFolder + tilePath;
-#endif
+//#endif
 
 
             if (!Directory.Exists(tmpFolder + @"/" + zoom + "/" + xpos))

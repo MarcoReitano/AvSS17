@@ -151,8 +151,8 @@ public class OpenStreetMapsWindow : EditorWindow
     public MapBounds maxBounds;
 
     [SerializeField]
-    public MapBounds mybounds; // Köln Groß 
-    //private MapBounds mybounds = new MapBounds(51.024f, 6.826f, 7.115f, 50.844f);
+    //public MapBounds mybounds; // Köln Groß 
+    private MapBounds mybounds = new MapBounds(51.024f, 6.826f, 7.115f, 50.844f);
     //private MapBounds mybounds = new MapBounds(51.0222f, 6.8635f, 7.073f, 50.8866f);
     //private MapBounds mybounds = new MapBounds(50.9432f, 6.9574f, 6.9758f, 50.9334f); // Köln Zentrum
     //private MapBounds mybounds = new MapBounds(51.0535f, 7.5115f, 7.6028f, 50.9915f); // Gummersbach Groß 
@@ -272,7 +272,7 @@ public class OpenStreetMapsWindow : EditorWindow
         GUILayout.Space(100f);
 
         // Display Title-Texture
-        DisplayTitle();
+        //DisplayTitle();
 
         // Display Zoom controls and execute zoomControl-handling
         ZoomControl();
@@ -359,7 +359,8 @@ public class OpenStreetMapsWindow : EditorWindow
 
         GUILayout.EndScrollView();
         GUILayout.EndVertical();
-        Event.current.Use();
+        // TODO: Unity changed its policy on using events  check if this still works without
+        //Event.current.Use();
     }
 
     /// <summary>

@@ -303,6 +303,7 @@ public class ModularMesh
         }
 
         relatedUnityMesh.RecalculateBounds();
+        relatedUnityMesh.RecalculateNormals(); // TODO: Check if this works
         mF.mesh = relatedUnityMesh;
         mC.sharedMesh = relatedUnityMesh;
     }

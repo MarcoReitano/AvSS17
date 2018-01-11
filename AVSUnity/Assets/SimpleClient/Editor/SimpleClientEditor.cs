@@ -56,6 +56,10 @@ public class SimpleClientEditor : Editor
                 break;
             }
         }
+
+        lightGreen = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightGreen);
+        lightRed = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightRed);
+        lightYellow = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightYellow);
     }
 
 
@@ -167,10 +171,10 @@ public class SimpleClientEditor : Editor
             EditorGUILayout.LabelField("Name:", queue.Name);
 
 
-            //if (GUILayout.Button("Subscribe", GUILayout.Width(30)))
-            //{
-            //    //this.client.SubscribeToQueue(new AmqpQueueSubscription(queue.Name, true, this.client.UnityEventDebugQueueMessageHandler()));
-            //}
+            if (GUILayout.Button("Subscribe", GUILayout.Width(30)))
+            {
+                this.client.SubscribeToQueue(queue.Name);
+            }
 
             if (GUILayout.Button("X", GUILayout.Width(30)))
             {
@@ -193,17 +197,17 @@ public class SimpleClientEditor : Editor
         #endregion // Create Queue
 
         #region Subscribe Queue
-        //AmqpQueue[] queues = this.client.GetQueues();
-        //string[] names = new string[queues.Length];
-        //for (int i = 0; i < queues.Length; i++)
-        //    names[i] = queues[i].Name;
+        AmqpQueue[] queues = this.client.GetQueues();
+        string[] names = new string[queues.Length];
+        for (int i = 0; i < queues.Length; i++)
+            names[i] = queues[i].Name;
 
-        //selectedQueue = EditorGUILayout.Popup("Queue", selectedQueue, names);
-        //if (queues.Length != 0)
-        //{
-        //    if (GUILayout.Button("Subscribe to " + names[this.selectedQueue] + " Queue"))
-        //        this.client.SubscribeToQueue(names[this.selectedQueue]);
-        //}
+        selectedQueue = EditorGUILayout.Popup("Queue", selectedQueue, names);
+        if (queues.Length != 0)
+        {
+            if (GUILayout.Button("Subscribe to " + names[this.selectedQueue] + " Queue"))
+                this.client.SubscribeToQueue(names[this.selectedQueue]);
+        }
         #endregion // Subscribe Queue
 
 
@@ -274,249 +278,6 @@ public class SimpleClientEditor : Editor
 
             this.client.method = (SerializationMethod)EditorGUILayout.EnumPopup("SerializationMethod", this.client.method);
 
-            #region Tests
-            if (GUILayout.Button("UpdateMessage Test"))
-            {
-                StatusUpdateMessage msg = new StatusUpdateMessage(0, "job");
-                TodoItem masterSide = msg.AddTodo("Master");
-                TodoItem workerSide = msg.AddTodo("Worker");
-
-                Debug.Log(msg);
-
-                masterSide.Start();
-                Debug.Log(msg);
-                masterSide.AddTodo("Send job");
-                Debug.Log(msg);
-                masterSide.Start("Send job");
-                Debug.Log(msg);
-                masterSide.Stop("Send job");
-                Debug.Log(msg);
-
-
-                masterSide.AddTodo("Wait for reply");
-                Debug.Log(msg);
-
-
-                workerSide.Start();
-                Debug.Log(msg);
-
-                workerSide.AddTodo("Terrain");
-                Debug.Log(msg);
-
-                workerSide.AddTodo("Buildings");
-                Debug.Log(msg);
-
-                workerSide.AddTodo("Garbage Collection");
-                Debug.Log(msg);
-
-                workerSide.AddTodo("SRTM");
-                Debug.Log(msg);
-
-                //workerSide.Start("SRTM");
-                //Debug.Log(msg);
-
-                Debug.Log("######### Get(SRTM).Start ################");
-                msg.Get("SRTM").Start();
-                Debug.Log(msg);
-
-                Debug.Log("###################################");
-                TodoItem srtm = msg.Get("SRTM");
-                Debug.Log("get srtm: " + msg);
-
-                srtm.Stop();
-                Debug.Log(msg);
-
-                msg.Start("SRTM");
-                Debug.Log(msg);
-
-                msg.Stop("SRTM");
-                Debug.Log(msg);
-
-                Debug.Log("###################################");
-                Debug.Log(msg.ToString());
-
-                workerSide.Stop("SRTM");
-
-                workerSide.Start("Terrain");
-                Debug.Log("###################################");
-                Debug.Log(msg.ToString());
-                workerSide.Stop("Terrain");
-
-                Debug.Log(msg);
-                workerSide.Start("Buildings");
-                workerSide.Start("Garbage Collection");
-                workerSide.Stop("Buildings");
-                workerSide.Stop("Garbage Collection");
-
-                Debug.Log(msg);
-                Debug.Log("###################################");
-                Debug.Log(msg.ToString());
-                
-                byte[] bytes = msg.Serialize();
-                Debug.Log(msg);
-                Debug.Log("###################################");
-                this.client.SendStatusUpdateMessages(statusUpdateQueueName, msg);
-
-
-                WaitForSeconds(2);
-                Debug.Log("###################################");
-                
-                StatusUpdateMessage msgReceived = StatusUpdateMessage.Deserialize(bytes);
-                TodoItem masterAfter = msgReceived.Get("Master");
-                TodoItem workerAfter = msgReceived.Get("Worker");
-                Debug.Log(msg);
-                workerAfter.Stop();
-                masterAfter.Get("Wait for reply").Stop();
-
-
-                
-               
-                Debug.Log(msgReceived.ToString());
-                Debug.Log("###################################");
-            }
-
-            //if (GUILayout.Button("UpdateMessage Test"))
-            //{
-            //    Stopwatch sw = new Stopwatch();
-
-            //    StatusUpdateMessage msg = new StatusUpdateMessage(0, "job");
-            //    TodoItem masterSide = msg.AddTodo("Master");
-            //    TodoItem workerSide = msg.AddTodo("Worker");
-
-            //    masterSide.Start();
-            //    masterSide.AddTodo("Send job").Start();
-            //    masterSide.Stop("Send job");
-
-            //    masterSide.AddTodo("Wait for reply");
-
-            //    workerSide.Start();
-            //    workerSide.AddTodo("Terrain");
-            //    workerSide.AddTodo("Buildings");
-            //    workerSide.AddTodo("Garbage Collection");
-
-            //    workerSide.Start("SRTM");
-            //    Debug.Log("###################################");
-            //    Debug.Log(msg.ToString());
-
-            //    workerSide.Stop("SRTM");
-
-            //    workerSide.Start("Terrain");
-            //    Debug.Log("###################################");
-            //    Debug.Log(msg.ToString());
-            //    workerSide.Stop("Terrain");
-
-
-            //    workerSide.Start("Buildings");
-            //    workerSide.Start("Garbage Collection");
-            //    workerSide.Stop("Buildings");
-            //    workerSide.Stop("Garbage Collection");
-
-
-            //    Debug.Log("###################################");
-            //    Debug.Log(msg.ToString());
-            //    sw.Start();
-            //    byte[] bytes = msg.Serialize();
-            //    sw.Stop();
-            //    Debug.Log("Serialization took: " + sw.ElapsedMilliseconds);
-            //    Debug.Log("###################################");
-            //    this.client.SendStatusUpdateMessages(statusUpdateQueueName, msg);
-
-
-            //    WaitForSeconds(2);
-            //    Debug.Log("###################################");
-            //    sw.Reset();
-            //    sw.Start();
-            //    StatusUpdateMessage msgReceived = StatusUpdateMessage.Deserialize(bytes);
-            //    TodoItem masterAfter = msgReceived.Get("Master");
-            //    TodoItem workerAfter = msgReceived.Get("Worker");
-
-            //    workerAfter.Stop();
-            //    masterAfter.Get("Wait for reply").Stop();
-
-
-            //    sw.Stop();
-            //    Debug.Log("Deserialization took: " + sw.ElapsedMilliseconds);
-            //    Debug.Log(msgReceived.ToString());
-            //    Debug.Log("###################################");
-            //}
-
-            //if (GUILayout.Button("Receive StatusUpdate"))
-            //{
-            //    this.client.SubscribeToQueue(statusUpdateQueueName);
-
-            //}
-
-            //if (GUILayout.Button("JobSerializeTest"))
-            //{
-            //    StatusUpdateMessage msg = new StatusUpdateMessage(0, 0 + "," + 0);
-            //    TodoItem master = msg.AddTodo(Job.Master);
-            //    master.AddTodo(Job.CreateJobMessage);
-            //    master.AddTodo(Job.SerializeJobMessage);
-            //    master.AddTodo(Job.PublishJob);
-            //    master.AddTodo(Job.DeserializeResult);
-            //    master.AddTodo(Job.RecreateScene);
-            //    master.AddTodo(Job.MasterGarbageCollection);
-
-            //    TodoItem transfer = msg.AddTodo(Job.Transfer);
-
-            //    transfer.AddTodo(Job.TransferToWorker);
-            //    transfer.AddTodo(Job.TransferToMaster);
-
-            //    TodoItem worker = msg.AddTodo(Job.Worker);
-            //    worker.AddTodo(Job.DeserializeJobMessage);
-            //    worker.AddTodo(Job.CreateNewScene);
-            //    worker.AddTodo(Job.CreateTile);
-            //    worker.AddTodo(Job.StartOSMQuery);
-            //    worker.AddTodo(Job.StartProcedural);
-            //    worker.AddTodo(Job.ProceduralPreparation);
-            //    worker.AddTodo(Job.CreateTerrain);
-            //    worker.AddTodo(Job.MeshPreparation);
-            //    worker.AddTodo(Job.TileQuad);
-            //    worker.AddTodo(Job.River);
-            //    worker.AddTodo(Job.Ways);
-            //    worker.AddTodo(Job.CreateBuildingMesh);
-            //    worker.AddTodo(Job.FillMeshDivideMaterials);
-            //    worker.AddTodo(Job.GarbageCollection);
-            //    worker.AddTodo(Job.ProceduralDone);
-            //    worker.AddTodo(Job.CreateReplyMessage);
-            //    worker.AddTodo(Job.TidyUpScene);
-            //    worker.AddTodo(Job.PublishResult);
-
-            //    // Add StatusUpdateMessage to Dictionary
-            //    //jobStatus.Add(jobCount, msg);
-
-            //    // Start the Process...
-            //    msg.Start();
-            //    master.Start();
-
-            //    master.Start(Job.CreateJobMessage);
-            //    OSMJobMessage jobMessage = new OSMJobMessage(
-            //        0, 0,
-            //        TileManager.TileWidth,
-            //        TileManager.OriginLongitude,
-            //        TileManager.OriginLatitude, replyQueueName, statusUpdateQueueName, msg, SerializationMethod.ProtoBuf);
-
-            //    master.Stop(Job.CreateJobMessage);
-
-            //    Debug.Log(msg);
-
-            //    master.Start(Job.SerializeJobMessage);
-            //    byte[] jsonMessage = OSMJobMessage.ToByteArray(jobMessage);
-            //    master.Stop(Job.SerializeJobMessage);
-            //    Debug.Log("Serialized: \n" + jsonMessage);
-
-            //    master.Start(Job.PublishJob);
-            //    //this.PublishToQueue(jobQueueName, jsonMessage);
-            //    master.Stop(Job.PublishJob);
-
-            //    //Debug.Log("Created Job-Message for job " + jobCount + " (" + i + "," + j + "): ");
-            //    //jobCount++;
-            //    jobMessage = OSMJobMessage.FromByteArray(jsonMessage);
-            //    Debug.Log("Deserialized: \n" + jsonMessage);
-            //    Debug.Log(jobMessage.statusUpdateMessage);
-            //}
-            #endregion // Tests
-
             if (GUILayout.Button("Send OSM-Job-Messages"))
             {
                 this.client.SendOSMJobMessages(
@@ -585,45 +346,64 @@ public class SimpleClientEditor : Editor
             #endregion // JobQueue
         }
 
-        if (this.client.osmJobs.Count > 0)
+        GUI.backgroundColor = Color.white;
+        EditorGUILayout.BeginVertical("box");
         {
-            GUI.backgroundColor = Color.white;
-            EditorGUILayout.BeginVertical("box");
+            foreach (StatusUpdateMessage item in this.client.jobStatus.Values)
             {
-                //GUI.backgroundColor = Color.grey;
-                foreach (OSMJobMessage osmJob in this.client.osmJobs)
+                CustomGUIUtils.BeginGroup();
                 {
-                    EditorGUILayout.BeginVertical("box");
+                    switch (item.status)
                     {
-                        bool replyReceived = false;
-                        SceneMessage receivedReply = null;
-                        GUI.backgroundColor = Color.grey;
-                        foreach (SceneMessage reply in this.client.sceneMessages)
-                        {
-                            if (reply.messageText == (osmJob.x + "/" + osmJob.y))
-                            {
-                                receivedReply = reply;
-                                replyReceived = true;
-                                GUI.backgroundColor = Color.green;
-                                break;
-                            }
-                        }
-
-                        EditorGUILayout.LabelField("Jobname", osmJob.x + "/" + osmJob.y);
-                        //EditorGUILayout.LabelField("replyQueue", osmJob.replyToQueue);
-                        //EditorGUILayout.LabelField("started at", osmJob.timeStamp.ToString());
-
-                        //EditorGUILayout.Toggle(replyReceived, "Received reply");
-                        if (replyReceived)
-                        {
-                            EditorGUILayout.LabelField("Size of Message:", receivedReply.sceneBytes.Length.ToString());
-                        }
+                        case Status.PENDING:
+                            statusStyle = lightRed;
+                            break;
+                        case Status.IN_PROGRESS:
+                            statusStyle = lightYellow;
+                            break;
+                        case Status.DONE:
+                            statusStyle = lightGreen;
+                            break;
+                        default:
+                            statusStyle = GUIStyle.none;
+                            break;
                     }
-                    EditorGUILayout.EndVertical();
+                    EditorGUILayout.BeginHorizontal(statusStyle);
+                    EditorGUILayout.LabelField("" + item.jobID, GUILayout.Width(20f));
+                    EditorGUILayout.LabelField("" + item.name, GUILayout.Width(80f));
+                    EditorGUILayout.EndHorizontal();
+
+                    foreach (string todo in item.childTodos)
+                    {
+                        CustomGUIUtils.BeginGroup();
+                        TodoItem todoItem = item.childDict[todo];
+                        switch (todoItem.status)
+                        {
+                            case Status.PENDING:
+                                statusStyle = lightRed;
+                                break;
+                            case Status.IN_PROGRESS:
+                                statusStyle = lightYellow;
+                                break;
+                            case Status.DONE:
+                                statusStyle = lightGreen;
+                                break;
+                            default:
+                                statusStyle = GUIStyle.none;
+                                break;
+                        }
+                        EditorGUILayout.BeginHorizontal(statusStyle);
+                        EditorGUILayout.LabelField(todoItem.name);
+                        EditorGUILayout.EndHorizontal();
+                        DrawTodoItem(todoItem);
+
+                        CustomGUIUtils.EndGroup();
+                    }
                 }
+                CustomGUIUtils.EndGroup();
             }
-            EditorGUILayout.EndVertical();
         }
+        EditorGUILayout.EndVertical();
 
         // Save/serialized modified connection
         serializedObject.ApplyModifiedProperties();
@@ -631,6 +411,45 @@ public class SimpleClientEditor : Editor
         // Update the last connection index
         lastIndex = index;
     }
+
+    GUIStyle lightGreen;
+    GUIStyle lightRed;
+    GUIStyle lightYellow;
+    GUIStyle statusStyle;
+
+    private void DrawTodoItem(TodoItem item)
+    {
+        CustomGUIUtils.BeginGroup();
+        {
+            switch (item.status)
+            {
+                case Status.PENDING:
+                    statusStyle = lightRed;
+                    break;
+                case Status.IN_PROGRESS:
+                    statusStyle = lightYellow;
+                    break;
+                case Status.DONE:
+                    statusStyle = lightGreen;
+                    break;
+                default:
+                    statusStyle = GUIStyle.none;
+                    break;
+            }
+            EditorGUILayout.BeginHorizontal(statusStyle);
+            EditorGUILayout.LabelField("" + item.name, GUILayout.Width(80f));
+            EditorGUILayout.EndHorizontal();
+
+            foreach (string todo in item.childTodos)
+            {
+                CustomGUIUtils.BeginGroup();
+                DrawTodoItem(item.childDict[todo]);
+                CustomGUIUtils.EndGroup();
+            }
+        }
+        CustomGUIUtils.EndGroup();
+    }
+
 
     private static void WaitForSeconds(int seconds)
     {

@@ -449,6 +449,10 @@ public static class MathUtils
         return false;
     }
 
+    public static float Distance(this float start, float end)
+    {
+        return Mathf.Abs(end - start);
+    }
 
     public static float ParameterRay(float start, float end, float value)
     {
