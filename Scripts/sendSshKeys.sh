@@ -1,4 +1,9 @@
-ssh-keygen -t rsa -N ''
+#!/bin/bash
+
+if [ ! -f $HOME/.ssh/id_rsa ]; then
+    ssh-keygen -t rsa -N ''
+fi
+
 for server in $(cat ./hosts) ; do
-ssh-copy-id dmorady@$server
-done 
+    ssh-copy-id $USER@$server
+done
