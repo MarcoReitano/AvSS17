@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using CymaticLabs.Unity3D.Amqp;
 using UnityEngine.SceneManagement;
 using System;
-
+using System.Diagnostics;
+using System.Threading;
+using Debug = UnityEngine.Debug;
 /// <summary>
 /// 
 /// - Start Server
@@ -419,6 +421,8 @@ public class SimpleClientEditorWindow : EditorWindow
         }
     }
 
+
+    int numberOfWorkers = 10;
     private void JobCreationGUI()
     {
         EditorGUILayout.BeginVertical("box");
@@ -448,6 +452,33 @@ public class SimpleClientEditorWindow : EditorWindow
                 TileManager.OriginLatitude,
                 client.method);
         }
+
+        int newNumberOfWorkers = EditorGUILayout.IntSlider("Number of Workers", numberOfWorkers, 1, 100);
+        if (newNumberOfWorkers != numberOfWorkers)
+        {
+            numberOfWorkers = newNumberOfWorkers;
+            ScaleWorkers(numberOfWorkers);
+        }
+    }
+
+    public static void ScaleWorkers(int numberOfWorkers)
+    {
+        var thread = new Thread(delegate () {
+            Command(numberOfWorkers);
+        });
+        thread.Start();
+    }
+
+    static void Command(int numberOfWorkers)
+    {
+        var processInfo = new ProcessStartInfo("docker-machine ssh default \"docker service scale unityTest_avsbuild =" + numberOfWorkers+"\"");
+        processInfo.CreateNoWindow = true;
+        processInfo.UseShellExecute = false;
+
+        var process = Process.Start(processInfo);
+
+        process.WaitForExit();
+        process.Close();
     }
 
     string jobQueueName;
