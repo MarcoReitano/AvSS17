@@ -145,7 +145,7 @@ public class SimpleClientEditorWindow : EditorWindow
         GUI.backgroundColor = normalColor;
         if (GUILayout.Button("Reset Everything", GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
         {
-            client.Reset();
+            client.ResetClient();
         }
 
         GUI.backgroundColor = normalColor;
@@ -274,7 +274,8 @@ public class SimpleClientEditorWindow : EditorWindow
                 }
 
                 StringBuilder sb = new StringBuilder();
-                StatusUpdateMessage msg = client.jobStatus[1];
+
+                StatusUpdateMessage msg = client.jobStatus[0];
                 foreach (TodoItem cildItem in msg.childDict.Values)
                 {
                     sb.Append(cildItem.name).Append(", ").Append(result[cildItem.name]).Append("\n");

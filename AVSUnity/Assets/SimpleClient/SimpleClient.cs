@@ -306,10 +306,19 @@ public class SimpleClient : MonoBehaviour
 
     #region Methods
     #region Init
-    public void Reset()
+    public void ResetClient()
     {
         Debug.Log("<color=blue><b>" + this.name + ": SimpleClient.Reset()</b></color>");
         Awake();
+        if (client.IsConnected)
+        {
+            EnsureQueue("jobs");
+            EnsureQueue("reply");
+            EnsureQueue("statusUpdates");
+        }
+
+        jobStatus.Clear();
+        EnableUpdate();
     }
 
     public void Awake()
