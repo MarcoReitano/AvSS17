@@ -12,6 +12,7 @@ public class TimeStamp : IComparer
     [SerializeField]
     [ProtoMember(1)]
     public static readonly string DateFormatString = "dd'.'MM'.'yyyy' - 'HH':'mm':'ss'.'fffffff";
+    public static readonly string DateFormatStringShort = "HH':'mm':'ss'.'fffffff";
 
     [SerializeField]
     [ProtoMember(2)]
@@ -37,6 +38,11 @@ public class TimeStamp : IComparer
     public static string GetTimeStamp()
     {
         return DateTime.Now.ToString(DateFormatString, cultureInfo);
+    }
+
+    public static string GetTimeStampShort()
+    {
+        return DateTime.Now.ToString(DateFormatStringShort, cultureInfo);
     }
 
     public static DateTime ParseTimeStamp(string dateTimeString)
@@ -85,6 +91,17 @@ public class TimeStamp : IComparer
             this.timeStamp = GetTimeStamp();
         }
         return Duration(this, dateString);
+    }
+
+    public string Duration()
+    {
+        TimeSpan span = DurationSince();
+        return span.Hours.ToString("00") + ":" + span.Minutes.ToString("00") + ":" + span.Seconds.ToString("00") + "." + span.Milliseconds.ToString("000");
+    }
+
+    public static string Duration(TimeSpan span)
+    {
+        return span.Hours.ToString("00") + ":" + span.Minutes.ToString("00") + ":" + span.Seconds.ToString("00") + "." + span.Milliseconds.ToString("000");
     }
 
     public static TimeStamp Now()

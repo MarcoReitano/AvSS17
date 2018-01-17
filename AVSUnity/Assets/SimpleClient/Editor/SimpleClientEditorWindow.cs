@@ -49,6 +49,8 @@ public class SimpleClientEditorWindow : EditorWindow
     private static TimeStamp stopTime;
 
     private static bool done;
+    private static Font timerFont;
+    public static GUIStyle timerFontStyle = new GUIStyle();
 
     // Add menu named "My Window" to the Window menu
     [MenuItem("Window/FlatEarthEditor")]
@@ -79,6 +81,17 @@ public class SimpleClientEditorWindow : EditorWindow
         lightRed = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightRed);
         lightYellow = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightYellow);
         darkgrey = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.DarkGrey);
+
+        timerFont = (Font)Resources.Load("Fonts/digital-7.ttf");
+       
+        //style.normal.background = new Texture2D(120, 35);
+        //style.hover.background = new Texture2D(120, 35);
+        //style.normal.textColor = new Color(0f, 0f, 0f);
+        //style.hover.textColor = new Color(0f, 0f, 128f);
+
+        // the following seems to (silently) fail
+        timerFontStyle.font = (Font)Resources.Load("digitalmono"); // badaboom font
+        timerFontStyle.fontSize = 34;
 
         // Get existing open window or if none, make a new one:
         window = (SimpleClientEditorWindow)EditorWindow.GetWindow(typeof(SimpleClientEditorWindow));
@@ -146,6 +159,8 @@ public class SimpleClientEditorWindow : EditorWindow
         if (GUILayout.Button("Reset Everything", GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
         {
             client.ResetClient();
+            startTime = null;
+            stopTime = null;
         }
 
         GUI.backgroundColor = normalColor;
@@ -230,7 +245,19 @@ public class SimpleClientEditorWindow : EditorWindow
                 complete += step;
         }
         EditorGUILayout.LabelField("", GUILayout.Height(20));
-        EditorGUI.ProgressBar(new Rect(0, 90, this.position.width, 20), complete, (complete * 100).ToString("F2", CultureInfo.CreateSpecificCulture("de-DE")) + " % ");
+        //EditorGUI.ProgressBar(new Rect(0, 90, this.position.width - 200, 20), complete, (complete * 100).ToString("F2", CultureInfo.CreateSpecificCulture("de-DE")) + " % ");
+        EditorGUI.ProgressBar(new Rect(0, 90, this.position.width - 200, 20), complete, (int)(complete * 100) + " % ");
+
+        string timer;
+        if (stopTime == null)
+            timer = startTime != null ? startTime.Duration() : "00:00:00.000";
+        else
+            timer = TimeStamp.Duration(TimeStamp.Duration(startTime, stopTime));
+
+        //Font normalFont = GUI.skin.font;
+        //GUI.skin.font = timerFont;
+        EditorGUI.LabelField(new Rect(this.position.width - 190, 85, 180, 20), timer, timerFontStyle);
+        //GUI.skin.font = normalFont;
         #endregion // Statusbar
 
 
@@ -283,7 +310,7 @@ public class SimpleClientEditorWindow : EditorWindow
                     {
                         sb.Append(childTodo.name).Append(", ").Append(result[childTodo.name]).Append("\n");
                     }
-                    
+
                 }
 
                 Debug.Log(sb.ToString());
@@ -359,14 +386,20 @@ public class SimpleClientEditorWindow : EditorWindow
             if (stopTime == null)
                 CustomGUIUtils.DrawBox(new Rect(now, 0, 1, panelHeight), Color.black);
 
-            for (float x = 0; x < panelWidth; x += (1000 * zoomFactor))
+            if (1000 * zoomFactor > 20)
             {
-                CustomGUIUtils.DrawBox(new Rect(x, 0, 1, panelHeight), Color.grey);
+                for (float x = 0; x < panelWidth; x += (1000 * zoomFactor))
+                {
+                    CustomGUIUtils.DrawBox(new Rect(x, 0, 1, panelHeight), Color.grey);
+                }
             }
 
-            for (float x = 0; x < panelWidth; x += (15000 * zoomFactor))
+            if (15000 * zoomFactor > 20)
             {
-                CustomGUIUtils.DrawBox(new Rect(x, 0, 1, panelHeight), XKCDColors.LightRed);
+                for (float x = 0; x < panelWidth; x += (15000 * zoomFactor))
+                {
+                    CustomGUIUtils.DrawBox(new Rect(x, 0, 1, panelHeight), XKCDColors.LightRed);
+                }
             }
 
             for (float x = 0; x < panelWidth; x += (60000 * zoomFactor))

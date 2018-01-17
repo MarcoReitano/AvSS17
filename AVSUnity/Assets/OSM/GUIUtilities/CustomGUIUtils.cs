@@ -162,7 +162,26 @@ public static class CustomGUIUtils
         return texture;
     }
 
-
+    public static Texture2D GetSimpleColorTexture(int width, int height, Color color)
+    {
+        Texture2D texture;
+        if (!SimpleColorTextures.TryGetValue(color, out texture))
+        {
+            texture = new Texture2D(width, height);
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    texture.SetPixel(x, y, color);
+                }
+            }
+           
+            texture.Apply();
+            texture.filterMode = FilterMode.Point;
+            //SimpleColorTextures.Add(color, texture);
+        }
+        return texture;
+    }
 
     //public static void Render_Colored_Rectangle(Rect rect, Color rgb_color)
     //{

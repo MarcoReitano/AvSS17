@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 using UnityEngine;
+
+
 
 
 public static class OSMTileProvider
@@ -14,6 +18,10 @@ public static class OSMTileProvider
     public static Dictionary<int, Dictionary<Vector2, OSMTile>> tiles = new Dictionary<int, Dictionary<Vector2, OSMTile>>();
     [SerializeField]
     public static Dictionary<int, Dictionary<Vector2, OSMTileBehaviour>> tileBehaviours = new Dictionary<int, Dictionary<Vector2, OSMTileBehaviour>>();
+
+    [SerializeField]
+    public static Dictionary<int, Dictionary<Vector2, Texture2D>> tileTextures = new Dictionary<int, Dictionary<Vector2, Texture2D>>();
+
     [SerializeField]
     private static double[] degreesPerPixel = new double[30];
     [SerializeField]
@@ -320,8 +328,6 @@ public static class OSMTileProvider
 
     public static Texture2D DownloadTileTexture(int xIndex, int yIndex, int zoomLevel)
     {
-        Texture2D texture = new Texture2D(2, 2, TextureFormat.RGB24, false);
-
         if (zoomLevel >= 0 && zoomLevel <= 18 &&
             xIndex >= 0 && xIndex < Mathf.Pow(4, 18) &&
             yIndex >= 0 && yIndex < Mathf.Pow(4, 18))
@@ -333,24 +339,24 @@ public static class OSMTileProvider
             //string url = "http://tile.stamen.com/toner" + tilePath;
             //string url = "http://tile.stamen.com/watercolor" + tilePath;
 
-//<<<<<<< HEAD
+            //<<<<<<< HEAD
             string tmpFolder;
 #if UNITY_EDITOR
             tmpFolder = EditorPrefs.GetString("OSMTileCachePath");
 #else
             tmpFolder = Application.dataPath + @"/OSM_TILE_TMP";
 #endif
-//=======
-//            string tmpFolder = string.Empty;
-//#if UNITY_EDITOR
-//            tmpFolder = EditorPrefs.GetString("OSMTileCachePath");
-//#elif STANDALONE
-//            //tmpFolder = EditorPrefs.GetString("OSMTileCachePath");
-//#endif
-//            if (tmpFolder == null || tmpFolder == "") {
-//                tmpFolder = Application.dataPath + @"/OSM_TILE_TMP";
-//            }
-//>>>>>>> scenemanager
+            //=======
+            //            string tmpFolder = string.Empty;
+            //#if UNITY_EDITOR
+            //            tmpFolder = EditorPrefs.GetString("OSMTileCachePath");
+            //#elif STANDALONE
+            //            //tmpFolder = EditorPrefs.GetString("OSMTileCachePath");
+            //#endif
+            //            if (tmpFolder == null || tmpFolder == "") {
+            //                tmpFolder = Application.dataPath + @"/OSM_TILE_TMP";
+            //            }
+            //>>>>>>> scenemanager
             //string tmpFolder = EditorApplication.applicationContentsPath + @"/OSM_TILE_TMP";
             string tmpFile = tmpFolder + tilePath;
 
@@ -360,21 +366,39 @@ public static class OSMTileProvider
                 Directory.CreateDirectory(@newPath);
             }
 
-            if (!File.Exists(tmpFile))
-                DownloadFile(url, tmpFile);
-
-            if (File.Exists(tmpFile))
+            if (!tileTextures.ContainsKey(zoomLevel))
             {
-                byte[] file = File.ReadAllBytes(tmpFile);
-                texture.LoadImage(file);
+                tileTextures[zoomLevel] = new Dictionary<Vector2, Texture2D>();
+            }
+
+
+            Vector2 coords = new Vector2(xIndex, yIndex);
+            if (!tileTextures[zoomLevel].ContainsKey(coords))
+            {
+                if (!File.Exists(tmpFile))
+                    DownloadFile(url, tmpFile);
+
+                if (File.Exists(tmpFile))
+                {
+                    byte[] file = File.ReadAllBytes(tmpFile);
+                    Texture2D texture = new Texture2D(2, 2, TextureFormat.RGB24, false);
+                    texture.LoadImage(file);
+                    tileTextures[zoomLevel][coords] = texture;
+                }
+            }
+            else
+            {
+                return tileTextures[zoomLevel][coords];
             }
         }
         else
         {
+            Texture2D texture = new Texture2D(2, 2, TextureFormat.RGB24, false);
             texture = DownloadTileTexture(0, 0, 0);
+            return texture;
         }
 
-        return texture;
+        return null;
     }
 
     private static FileStream fileStream;
@@ -398,12 +422,31 @@ public static class OSMTileProvider
         do
         {
             len = stream.Read(buffer, 0, buffersize);
-            if (len < 1) break;
+            if (len < 1)
+                break;
             fileStream.Write(buffer, 0, len);
         } while (len > 0);
         fileStream.Close();
         stream.Close();
     }
+
+    //private static void DownloadUsingWWW(string url, string tmpfile)
+    //{
+    //    // Start a download of the given URL
+    //    WWW www = new WWW(url);
+
+    //    WWW.LoadFromCacheOrDownload(url, Hash128.Parse(url));
+    //    while (!www.isDone)
+    //    {
+    //        if (www.error != null)
+    //        {
+    //            //Debug.LogError(www.error);
+    //            return false;
+    //        }
+    //    }
+
+    //    return true;
+    //}
 
 
     public static OSMBoundingBox Tile2OSMBoundingBox(int xIndex, int yIndex, int zoomLevel)
