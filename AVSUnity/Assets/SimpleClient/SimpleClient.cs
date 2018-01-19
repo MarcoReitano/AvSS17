@@ -1314,7 +1314,7 @@ public class SimpleClient : MonoBehaviour
     #region Utility
     public List<OSMJobMessage> osmJobs = new List<OSMJobMessage>();
     public List<SceneMessage> sceneMessages = new List<SceneMessage>();
-    public Dictionary<int, StatusUpdateMessage> jobStatus = new Dictionary<int, StatusUpdateMessage>();
+    public static Dictionary<int, StatusUpdateMessage> jobStatus = new Dictionary<int, StatusUpdateMessage>();
     public void SendOSMJobMessages(string jobQueueName, string replyQueueName, string statusUpdateQueueName, int tileRadius, double tileWidth, double originLongitude, double originLatitude, SerializationMethod method)
     {
         this.SubscribeToQueue(replyQueueName);
@@ -1366,6 +1366,7 @@ public class SimpleClient : MonoBehaviour
                 // Start the Process...
                 msg.Start();
                 master.Start();
+                //SimpleClient.simpleClient.SendStatusUpdateMessages(statusUpdateQueueName, msg);
 
                 master.Start(Job.CreateJobMessage);
                 OSMJobMessage jobMessage = new OSMJobMessage(i, j, tileWidth, originLongitude, originLatitude, replyQueueName, statusUpdateQueueName, msg, method);
@@ -1383,6 +1384,7 @@ public class SimpleClient : MonoBehaviour
                 master.Stop(Job.PublishJob);
                 transfer.Start();
                 transfer.Start(Job.TransferToWorker);
+                //SimpleClient.simpleClient.SendStatusUpdateMessages(statusUpdateQueueName, msg);
 
                 Debug.Log("Server: After PublishJob: " + msg);
                 //Debug.Log("Created Job-Message for job " + jobCount + " (" + i + "," + j + "): ");
@@ -1394,15 +1396,11 @@ public class SimpleClient : MonoBehaviour
 
     public void SendStatusUpdateMessages(string statusUpdateQueueName, StatusUpdateMessage msg)
     {
-        //this.SubscribeToQueue(statusUpdateQueueName);
-
         this.PublishToQueue(statusUpdateQueueName, msg.Serialize());
     }
 
     public void SendStatusUpdateMessages()
     {
-        //this.SubscribeToQueue(statusUpdateQueueName);
-
         this.PublishToQueue(statusUpdateQueueName, StatusUpdateMessage.Serialize());
     }
 
@@ -1431,22 +1429,6 @@ public class SimpleClient : MonoBehaviour
                 SceneMessage sceneMessage = SceneMessage.FromByteArray(message.Body);
                 StatusUpdateMessage statusMessage = jobStatus[sceneMessage.statusUpdateMessage.jobID];
                 int jobID = statusMessage.jobID;
-                //StatusUpdateMessage remote = sceneMessage.statusUpdateMessage;
-
-
-                //statusMessage.Merge(msg);
-
-                //if (jobStatus.ContainsKey(jobID))
-                //{
-                //    StatusUpdateMessage local = jobStatus[statusMessage.jobID];
-
-                //    jobStatus[statusMessage.jobID] = StatusUpdateMessage.Merge(local, remote);
-
-                //}
-                //if (jobStatus.ContainsKey(statusMessage.jobID))
-                //{
-                //    jobStatus[statusMessage.jobID] = statusMessage;
-                //}
 
                 TimeStamp endDeserializing = new TimeStamp();
                 statusMessage.Get(Job.TransferToMaster).Stop(endTransferToMaster);
@@ -1458,20 +1440,9 @@ public class SimpleClient : MonoBehaviour
                 Scene scene = SceneMessage.ByteArrayToScene(sceneMessage.sceneBytes, sceneMessage.method);
                 statusMessage.Stop(Job.RecreateScene);
 
-
-
-                //StatusUpdateMessage statusMessage =jobStatus[sceneMessage.statusUpdateMessage.jobID];
-                //statusMessage.Merge(sceneMessage.statusUpdateMessage);
-
-                //if (jobStatus.ContainsKey(statusMessage.jobID))
-                //{
-                //    jobStatus[statusMessage.jobID] = statusMessage;
-                //}
-
                 statusMessage.Start(Job.MasterGarbageCollection);
                 System.GC.Collect();
                 statusMessage.Stop(Job.MasterGarbageCollection);
-               
 
                 statusMessage.Stop(Job.Master);
                 statusMessage.Stop();
@@ -1493,7 +1464,6 @@ public class SimpleClient : MonoBehaviour
                     StatusUpdateMessage local = jobStatus[remote.jobID];
 
                     jobStatus[remote.jobID] = StatusUpdateMessage.Merge(local, remote);
-
                 }
                 //Debug.Log(jobStatus[remote.jobID]);
                 this.client.BasicAck(message.DeliveryTag, false);

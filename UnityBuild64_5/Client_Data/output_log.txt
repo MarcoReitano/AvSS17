@@ -1,0 +1,1343 @@
+Mono path[0] = 'Z:/Dropbox/UnityWorkspace/AvSS17/UnityBuild64_5/Client_Data/Managed'
+Mono path[1] = 'Z:/Dropbox/UnityWorkspace/AvSS17/UnityBuild64_5/Client_Data/Mono'
+Mono config path = 'Z:/Dropbox/UnityWorkspace/AvSS17/UnityBuild64_5/Client_Data/Mono/etc'
+PlayerConnection initialized from Z:/Dropbox/UnityWorkspace/AvSS17/UnityBuild64_5/Client_Data (debug = 0)
+PlayerConnection initialized network socket : 0.0.0.0 55032
+Multi-casting "[IP] 172.25.164.129 [Port] 55032 [Flags] 3 [Guid] 607971015 [EditorId] 1974439619 [Version] 1048832 [Id] WindowsPlayer(DENNISBUDER1677) [Debug] 1" to [225.0.0.222:54997]...
+Waiting for connection from host on [0.0.0.0:55032]...
+PlayerConnection accepted from [172.25.164.129] handle:0x358
+Started listening to [0.0.0.0:55032]
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,defer=y,address=0.0.0.0:56015
+PlayerConnection already initialized - listening to [0.0.0.0:55032]
+Initialize engine version: 5.5.0f3 (38b4efef76f0)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 10.1]
+    Renderer: Parallels Display Adapter (WDDM) (ID=0x4005)
+    Vendor:   Parallels
+    VRAM:     512 MB
+    Driver:   11.2.32663.0
+Begin MonoManager ReloadAssembly
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\Ionic.Zip.Reduced.dll (this message is harmless)
+Loading Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\Ionic.Zip.Reduced.dll into Unity Child Domain
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\ICSharpCode.SharpZipLib.dll (this message is harmless)
+Loading Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\ICSharpCode.SharpZipLib.dll into Unity Child Domain
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\protobuf-net.dll (this message is harmless)
+Loading Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\protobuf-net.dll into Unity Child Domain
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\XInputDotNetPure.dll (this message is harmless)
+Loading Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\XInputDotNetPure.dll into Unity Child Domain
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\RabbitMQ.Client.dll (this message is harmless)
+Loading Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\RabbitMQ.Client.dll into Unity Child Domain
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\CymaticLabs.Unity3D.Amqp.dll (this message is harmless)
+Loading Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\CymaticLabs.Unity3D.Amqp.dll into Unity Child Domain
+- Completed reload, in  1.085 seconds
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\System.dll (this message is harmless)
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\System.Xml.dll (this message is harmless)
+desktop: 2880x1800 60Hz; virtual: 2880x1800 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 5.829500 ms
+<color=blue><b>Client: SimpleClient.Awake()</b></color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:Awake() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:316)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 316)
+
+<color=green><b>Initializing EventHandler</b></color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:Connect() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:741)
+SimpleClient:Awake() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:366)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 741)
+
+<color=green>Connecting to AMQP host: 10.211.55.2:5672 vhost:/</color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:LogFormat(LogType, String, Object[])
+UnityEngine.Debug:LogFormat(String, Object[])
+SimpleClient:LogToConsole(String, Object[]) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1300)
+SimpleClient:Log(String, Object[]) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1288)
+SimpleClient:Connect() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:776)
+SimpleClient:Awake() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:366)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1300)
+
+Connecting to 10.211.55.2:5672 vhost:/...
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\System.Configuration.dll (this message is harmless)
+Fallback handler could not load library Z:/Dropbox/UnityWorkspace/AvSS17/UnityBuild64_5/Client_Data/Mono/libc
+Fallback handler could not load library Z:/Dropbox/UnityWorkspace/AvSS17/UnityBuild64_5/Client_Data/Mono/.\libc
+Fallback handler could not load library Z:/Dropbox/UnityWorkspace/AvSS17/UnityBuild64_5/Client_Data/Mono/libc
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\System.ServiceModel.dll (this message is harmless)
+Connected to 10.211.55.2:5672 vhost:/<color=green>Subscribed to Job-Queue.</color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:Awake() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:383)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 383)
+
+
+<color=blue><b>Client: SimpleClient.Start()</b></color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:Start() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:431)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 431)
+
+<color=green>Connected to AMQP host 10.211.55.2:5672 vhost:/</color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:LogFormat(LogType, String, Object[])
+UnityEngine.Debug:LogFormat(String, Object[])
+SimpleClient:LogToConsole(String, Object[]) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1300)
+SimpleClient:Log(String, Object[]) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1288)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:449)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1300)
+
+Subscribed to jobs on 
+<color=green>Subscribed to queue: jobs:True</color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:LogFormat(LogType, String, Object[])
+UnityEngine.Debug:LogFormat(String, Object[])
+SimpleClient:LogToConsole(String, Object[]) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1300)
+SimpleClient:Log(String, Object[]) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1288)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:582)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1300)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 127c -> priority: 1 
+<b>Client:</b> <color=ff7f00ff>Message received on jobs: </color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1507)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1507)
+
+######## Client got the StatusUpdateMessage #################
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1514)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1514)
+
+3:0,-1(IN_PROGRESS) [
+		Master(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.8044392 -> not ended  {2728.2822}
+			Create Job-Message(<color=green>DONE</color>) 17.01.2018 - 07:55:58.8044392 -> 17.01.2018 - 07:55:58.8044392  {0}
+			Serialize Job-Message(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.8259410 -> not ended  {2755.8082}
+			Publish Job(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize Result(<color=red>PENDING</color>) not started -> not ended  {0}
+			Recreate Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Master)(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Transfer(<color=red>PENDING</color>) not started -> not ended  {0}
+			Transfer to Worker(<color=red>PENDING</color>) not started -> not ended  {0}
+			Transfer to Master(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Worker(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize JobMessage(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create new Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Tile(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start OSM Query(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start Procedural(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Terrain(<color=red>PENDING</color>) not started -> not ended  {0}
+			Mesh Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Background Quad(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Rivers(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Ways(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Buildings(<color=red>PENDING</color>) not started -> not ended  {0}
+			Fill Mesh separating Materials(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Worker)(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Done(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Reply Message(<color=red>PENDING</color>) not started -> not ended  {0}
+			Tidy up Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Publish Result(<color=red>PENDING</color>) not started -> not ended  {0}
+
+
+
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1515)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1515)
+
+######## Client got TransferToWorker from List  #################
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1517)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1517)
+
+3:0,-1(IN_PROGRESS) [
+		Master(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.8044392 -> not ended  {5456.581}
+			Create Job-Message(<color=green>DONE</color>) 17.01.2018 - 07:55:58.8044392 -> 17.01.2018 - 07:55:58.8044392  {0}
+			Serialize Job-Message(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.8259410 -> not ended  {5435.0792}
+			Publish Job(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize Result(<color=red>PENDING</color>) not started -> not ended  {0}
+			Recreate Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Master)(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Transfer(<color=red>PENDING</color>) not started -> not ended  {0}
+			Transfer to Worker(<color=red>PENDING</color>) not started -> not ended  {0}
+			Transfer to Master(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Worker(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize JobMessage(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create new Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Tile(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start OSM Query(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start Procedural(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Terrain(<color=red>PENDING</color>) not started -> not ended  {0}
+			Mesh Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Background Quad(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Rivers(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Ways(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Buildings(<color=red>PENDING</color>) not started -> not ended  {0}
+			Fill Mesh separating Materials(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Worker)(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Done(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Reply Message(<color=red>PENDING</color>) not started -> not ended  {0}
+			Tidy up Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Publish Result(<color=red>PENDING</color>) not started -> not ended  {0}
+
+
+
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1518)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1518)
+
+Transfer to Worker had not been started!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:LogWarning(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:101)
+TodoItem:Stop(TimeStamp) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:92)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1520)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 101)
+
+Set Transfer to Worker to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(TimeStamp) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:92)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1520)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+3:0,-1(IN_PROGRESS) [
+		Master(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.8044392 -> not ended  {8527.6787}
+			Create Job-Message(<color=green>DONE</color>) 17.01.2018 - 07:55:58.8044392 -> 17.01.2018 - 07:55:58.8044392  {0}
+			Serialize Job-Message(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.8259410 -> not ended  {8506.1769}
+			Publish Job(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize Result(<color=red>PENDING</color>) not started -> not ended  {0}
+			Recreate Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Master)(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Transfer(<color=red>PENDING</color>) not started -> not ended  {0}
+			Transfer to Worker(<color=green>DONE</color>) 17.01.2018 - 07:56:06.6781020 -> 17.01.2018 - 07:55:58.9480667  {7730.0353}
+			Transfer to Master(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Worker(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize JobMessage(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create new Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Tile(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start OSM Query(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start Procedural(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Terrain(<color=red>PENDING</color>) not started -> not ended  {0}
+			Mesh Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Background Quad(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Rivers(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Ways(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Buildings(<color=red>PENDING</color>) not started -> not ended  {0}
+			Fill Mesh separating Materials(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Worker)(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Done(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Reply Message(<color=red>PENDING</color>) not started -> not ended  {0}
+			Tidy up Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Publish Result(<color=red>PENDING</color>) not started -> not ended  {0}
+
+
+
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1521)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1521)
+
+3:0,-1(IN_PROGRESS) [
+		Master(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.8044392 -> not ended  {10071.9608}
+			Create Job-Message(<color=green>DONE</color>) 17.01.2018 - 07:55:58.8044392 -> 17.01.2018 - 07:55:58.8044392  {0}
+			Serialize Job-Message(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.8259410 -> not ended  {10050.459}
+			Publish Job(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize Result(<color=red>PENDING</color>) not started -> not ended  {0}
+			Recreate Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Master)(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Transfer(<color=red>PENDING</color>) not started -> not ended  {0}
+			Transfer to Worker(<color=green>DONE</color>) 17.01.2018 - 07:56:06.6781020 -> 17.01.2018 - 07:55:58.9480667  {7730.0353}
+			Transfer to Master(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Worker(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize JobMessage(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create new Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Tile(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start OSM Query(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start Procedural(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Terrain(<color=red>PENDING</color>) not started -> not ended  {0}
+			Mesh Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Background Quad(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Rivers(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Ways(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Buildings(<color=red>PENDING</color>) not started -> not ended  {0}
+			Fill Mesh separating Materials(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Worker)(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Done(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Reply Message(<color=red>PENDING</color>) not started -> not ended  {0}
+			Tidy up Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Publish Result(<color=red>PENDING</color>) not started -> not ended  {0}
+
+
+
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1522)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1522)
+
+#########################
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1523)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1523)
+
+3:0,-1(IN_PROGRESS) [
+		Master(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.8044392 -> not ended  {12063.0554}
+			Create Job-Message(<color=green>DONE</color>) 17.01.2018 - 07:55:58.8044392 -> 17.01.2018 - 07:55:58.8044392  {0}
+			Serialize Job-Message(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.8259410 -> not ended  {12041.5536}
+			Publish Job(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize Result(<color=red>PENDING</color>) not started -> not ended  {0}
+			Recreate Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Master)(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Transfer(<color=red>PENDING</color>) not started -> not ended  {0}
+			Transfer to Worker(<color=green>DONE</color>) 17.01.2018 - 07:56:06.6781020 -> 17.01.2018 - 07:55:58.9480667  {7730.0353}
+			Transfer to Master(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Worker(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.9720110 -> not ended  {11895.4836}
+			Deserialize JobMessage(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create new Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Tile(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start OSM Query(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start Procedural(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Terrain(<color=red>PENDING</color>) not started -> not ended  {0}
+			Mesh Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Background Quad(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Rivers(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Ways(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Buildings(<color=red>PENDING</color>) not started -> not ended  {0}
+			Fill Mesh separating Materials(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Worker)(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Done(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Reply Message(<color=red>PENDING</color>) not started -> not ended  {0}
+			Tidy up Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Publish Result(<color=red>PENDING</color>) not started -> not ended  {0}
+
+
+
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1526)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1526)
+
+3:0,-1(IN_PROGRESS) [
+		Master(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.8044392 -> not ended  {13435.1319}
+			Create Job-Message(<color=green>DONE</color>) 17.01.2018 - 07:55:58.8044392 -> 17.01.2018 - 07:55:58.8044392  {0}
+			Serialize Job-Message(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.8259410 -> not ended  {13413.6301}
+			Publish Job(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize Result(<color=red>PENDING</color>) not started -> not ended  {0}
+			Recreate Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Master)(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Transfer(<color=red>PENDING</color>) not started -> not ended  {0}
+			Transfer to Worker(<color=green>DONE</color>) 17.01.2018 - 07:56:06.6781020 -> 17.01.2018 - 07:55:58.9480667  {7730.0353}
+			Transfer to Master(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Worker(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.9720110 -> not ended  {13268.5403}
+			Deserialize JobMessage(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.9720110 -> not ended  {13268.5403}
+			Create new Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Tile(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start OSM Query(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start Procedural(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Terrain(<color=red>PENDING</color>) not started -> not ended  {0}
+			Mesh Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Background Quad(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Rivers(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Ways(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Buildings(<color=red>PENDING</color>) not started -> not ended  {0}
+			Fill Mesh separating Materials(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Worker)(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Done(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Reply Message(<color=red>PENDING</color>) not started -> not ended  {0}
+			Tidy up Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Publish Result(<color=red>PENDING</color>) not started -> not ended  {0}
+
+
+
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1528)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1528)
+
+Set Deserialize JobMessage to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(TimeStamp) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:92)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1529)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+3:0,-1(IN_PROGRESS) [
+		Master(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.8044392 -> not ended  {15291.1999}
+			Create Job-Message(<color=green>DONE</color>) 17.01.2018 - 07:55:58.8044392 -> 17.01.2018 - 07:55:58.8044392  {0}
+			Serialize Job-Message(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.8259410 -> not ended  {15270.2003}
+			Publish Job(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize Result(<color=red>PENDING</color>) not started -> not ended  {0}
+			Recreate Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Master)(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Transfer(<color=red>PENDING</color>) not started -> not ended  {0}
+			Transfer to Worker(<color=green>DONE</color>) 17.01.2018 - 07:56:06.6781020 -> 17.01.2018 - 07:55:58.9480667  {7730.0353}
+			Transfer to Master(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Worker(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.9720110 -> not ended  {15124.1303}
+			Deserialize JobMessage(<color=green>DONE</color>) 17.01.2018 - 07:55:58.9720110 -> 17.01.2018 - 07:56:00.8096791  {1837.6681}
+			Create new Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Tile(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start OSM Query(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start Procedural(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Terrain(<color=red>PENDING</color>) not started -> not ended  {0}
+			Mesh Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Background Quad(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Rivers(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Ways(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Buildings(<color=red>PENDING</color>) not started -> not ended  {0}
+			Fill Mesh separating Materials(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Worker)(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Done(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Reply Message(<color=red>PENDING</color>) not started -> not ended  {0}
+			Tidy up Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Publish Result(<color=red>PENDING</color>) not started -> not ended  {0}
+
+
+
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1530)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1530)
+
+Set Create new Scene to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:319)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1569)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+Set Create Tile to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:319)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1582)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+http://overpass-api.de/api/interpreter?data=node(50.9239991763607,6.95549976360053,50.9339991761371,6.96549976337701);way["highway"](bn)->.a;way["building"](bn)->.b;way["waterway"](bn)->.c;(.b;.b >;.a;.a >;.c;.c >;)->.e;.e out;
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OverpassQuery:DownloadOSMString() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:90)
+Tile:StartQuery() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:110)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1587)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OverpassQuery.cs Line: 90)
+
+0/-1
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1589)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1589)
+
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\Mono.Security.dll (this message is harmless)
+System.IO.MemoryStream
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:52)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:108)
+System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
+System.Net.WebClient:<DownloadStringAsync>m__F(Object)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 52)
+
+New OSMDATA: 10813 Nodes 2220 Ways 0 Relations
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:79)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:108)
+System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
+System.Net.WebClient:<DownloadStringAsync>m__F(Object)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 79)
+
+Set Start OSM Query to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:319)
+Tile:QueryDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:129)
+OverpassQuery:OnQueryDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:82)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:109)
+System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
+System.Net.WebClient:<DownloadStringAsync>m__F(Object)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+Set Start Procedural to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:319)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:161)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+UnityEngine.MonoBehaviour:StartCoroutine_Auto_Internal(IEnumerator)
+UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\MonoBehaviourBindings.gen.cs:54)
+Tile:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:154)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+Set Procedural Preparation to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:319)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:181)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+UnityEngine.MonoBehaviour:StartCoroutine_Auto_Internal(IEnumerator)
+UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\MonoBehaviourBindings.gen.cs:54)
+Tile:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:154)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+Created new SRTMDataCell SRTMDataCell[lat:50, long:6]max=713 average=356
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SRTMHeightProvider:GetSRTMDataCell(Int32, Int32) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SRTM\SRTMHeightProvider.cs:84)
+SRTMHeightProvider:GetInterpolatedHeight(Double, Double) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SRTM\SRTMHeightProvider.cs:119)
+SRTMHeightProvider:GetInterpolatedTerrain(OSMBoundingBox, Single&) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SRTM\SRTMHeightProvider.cs:173)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:248)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+UnityEngine.MonoBehaviour:StartCoroutine_Auto_Internal(IEnumerator)
+UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\MonoBehaviourBindings.gen.cs:54)
+Tile:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:154)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SRTM/SRTMHeightProvider.cs Line: 84)
+
+Set Create Terrain to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:319)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:253)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+UnityEngine.MonoBehaviour:StartCoroutine_Auto_Internal(IEnumerator)
+UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\MonoBehaviourBindings.gen.cs:54)
+Tile:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:154)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+Set Mesh Preparation to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:319)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:280)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+UnityEngine.MonoBehaviour:StartCoroutine_Auto_Internal(IEnumerator)
+UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\MonoBehaviourBindings.gen.cs:54)
+Tile:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:154)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+Set Create Background Quad to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:319)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:292)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+UnityEngine.MonoBehaviour:StartCoroutine_Auto_Internal(IEnumerator)
+UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\MonoBehaviourBindings.gen.cs:54)
+Tile:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:154)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+Set Create Rivers to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:319)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:308)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+Set Create Ways to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:319)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:329)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+Set Create Buildings to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:319)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:359)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+Set Fill Mesh separating Materials to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:319)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:399)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+Set Trigger Garbage Collection (Worker) to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:319)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:407)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+Set Procedural Done to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:319)
+Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:90)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:412)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+Platform assembly: Z:\Dropbox\UnityWorkspace\AvSS17\UnityBuild64_5\Client_Data\Managed\System.Runtime.Serialization.dll (this message is harmless)
+Found Terrain
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+ProtobufSceneSerialization.GameObjectSurrogate:.ctor(GameObject) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SceneLoader\SceneSerializer\ProtobufSceneSerialization\GameObjectSurrogate.cs:55)
+ProtobufSceneSerialization.SceneSurrogate:.ctor(Scene) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SceneLoader\SceneSerializer\ProtobufSceneSerialization\SceneSurrogate.cs:35)
+SceneMessage:SceneFileToByteArray(Scene, SerializationMethod) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\SceneMessage.cs:91)
+SceneMessage:.ctor(Int32, String, Scene, StatusUpdateMessage, SerializationMethod) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\SceneMessage.cs:54)
+SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1635)
+Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:93)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:412)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SceneLoader/SceneSerializer/ProtobufSceneSerialization/GameObjectSurrogate.cs Line: 55)
+
+Set Create Reply Message to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:319)
+SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1637)
+Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:93)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:412)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+Set Tidy up Scene to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:319)
+SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1645)
+Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:93)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:412)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+Set Publish Result to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:319)
+SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1663)
+Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:93)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:412)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+Set Worker to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:338)
+SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1664)
+Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:93)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:412)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+<b>Client:</b> <color=ff7f00ff>Message received on jobs: </color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1507)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1507)
+
+######## Client got the StatusUpdateMessage #################
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1514)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1514)
+
+0:-1,-1(IN_PROGRESS) [
+		Master(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.2437113 -> not ended  {285474.4935}
+			Create Job-Message(<color=green>DONE</color>) 17.01.2018 - 07:55:58.2437113 -> 17.01.2018 - 07:55:58.2442116  {0.5003}
+			Serialize Job-Message(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.2667153 -> not ended  {285452.3519}
+			Publish Job(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize Result(<color=red>PENDING</color>) not started -> not ended  {0}
+			Recreate Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Master)(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Transfer(<color=red>PENDING</color>) not started -> not ended  {0}
+			Transfer to Worker(<color=red>PENDING</color>) not started -> not ended  {0}
+			Transfer to Master(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Worker(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize JobMessage(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create new Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Tile(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start OSM Query(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start Procedural(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Terrain(<color=red>PENDING</color>) not started -> not ended  {0}
+			Mesh Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Background Quad(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Rivers(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Ways(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Buildings(<color=red>PENDING</color>) not started -> not ended  {0}
+			Fill Mesh separating Materials(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Worker)(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Done(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Reply Message(<color=red>PENDING</color>) not started -> not ended  {0}
+			Tidy up Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Publish Result(<color=red>PENDING</color>) not started -> not ended  {0}
+
+
+
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1515)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1515)
+
+######## Client got TransferToWorker from List  #################
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1517)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1517)
+
+0:-1,-1(IN_PROGRESS) [
+		Master(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.2437113 -> not ended  {289091.9093}
+			Create Job-Message(<color=green>DONE</color>) 17.01.2018 - 07:55:58.2437113 -> 17.01.2018 - 07:55:58.2442116  {0.5003}
+			Serialize Job-Message(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.2667153 -> not ended  {289068.9053}
+			Publish Job(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize Result(<color=red>PENDING</color>) not started -> not ended  {0}
+			Recreate Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Master)(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Transfer(<color=red>PENDING</color>) not started -> not ended  {0}
+			Transfer to Worker(<color=red>PENDING</color>) not started -> not ended  {0}
+			Transfer to Master(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Worker(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize JobMessage(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create new Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Tile(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start OSM Query(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start Procedural(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Terrain(<color=red>PENDING</color>) not started -> not ended  {0}
+			Mesh Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Background Quad(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Rivers(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Ways(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Buildings(<color=red>PENDING</color>) not started -> not ended  {0}
+			Fill Mesh separating Materials(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Worker)(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Done(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Reply Message(<color=red>PENDING</color>) not started -> not ended  {0}
+			Tidy up Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Publish Result(<color=red>PENDING</color>) not started -> not ended  {0}
+
+
+
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1518)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1518)
+
+Transfer to Worker had not been started!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:LogWarning(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:101)
+TodoItem:Stop(TimeStamp) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:92)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1520)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 101)
+
+Set Transfer to Worker to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(TimeStamp) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:92)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1520)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 116)
+
+0:-1,-1(IN_PROGRESS) [
+		Master(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.2437113 -> not ended  {293185.94}
+			Create Job-Message(<color=green>DONE</color>) 17.01.2018 - 07:55:58.2437113 -> 17.01.2018 - 07:55:58.2442116  {0.5003}
+			Serialize Job-Message(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.2667153 -> not ended  {293162.936}
+			Publish Job(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize Result(<color=red>PENDING</color>) not started -> not ended  {0}
+			Recreate Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Master)(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Transfer(<color=red>PENDING</color>) not started -> not ended  {0}
+			Transfer to Worker(<color=green>DONE</color>) 17.01.2018 - 08:00:50.5861986 -> 17.01.2018 - 08:00:41.9545256  {8631.673}
+			Transfer to Master(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Worker(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize JobMessage(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create new Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Tile(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start OSM Query(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start Procedural(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Terrain(<color=red>PENDING</color>) not started -> not ended  {0}
+			Mesh Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Background Quad(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Rivers(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Ways(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Buildings(<color=red>PENDING</color>) not started -> not ended  {0}
+			Fill Mesh separating Materials(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Worker)(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Done(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Reply Message(<color=red>PENDING</color>) not started -> not ended  {0}
+			Tidy up Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Publish Result(<color=red>PENDING</color>) not started -> not ended  {0}
+
+
+
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1521)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1521)
+
+0:-1,-1(IN_PROGRESS) [
+		Master(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.2437113 -> not ended  {295205.6897}
+			Create Job-Message(<color=green>DONE</color>) 17.01.2018 - 07:55:58.2437113 -> 17.01.2018 - 07:55:58.2442116  {0.5003}
+			Serialize Job-Message(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.2667153 -> not ended  {295182.6857}
+			Publish Job(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize Result(<color=red>PENDING</color>) not started -> not ended  {0}
+			Recreate Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Master)(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Transfer(<color=red>PENDING</color>) not started -> not ended  {0}
+			Transfer to Worker(<color=green>DONE</color>) 17.01.2018 - 08:00:50.5861986 -> 17.01.2018 - 08:00:41.9545256  {8631.673}
+			Transfer to Master(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Worker(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize JobMessage(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create new Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Tile(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start OSM Query(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start Procedural(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Terrain(<color=red>PENDING</color>) not started -> not ended  {0}
+			Mesh Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Background Quad(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Rivers(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Ways(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Buildings(<color=red>PENDING</color>) not started -> not ended  {0}
+			Fill Mesh separating Materials(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Worker)(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Done(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Reply Message(<color=red>PENDING</color>) not started -> not ended  {0}
+			Tidy up Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Publish Result(<color=red>PENDING</color>) not started -> not ended  {0}
+
+
+
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1522)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1522)
+
+#########################
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1523)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1523)
+
+0:-1,-1(IN_PROGRESS) [
+		Master(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.2437113 -> not ended  {298041.7773}
+			Create Job-Message(<color=green>DONE</color>) 17.01.2018 - 07:55:58.2437113 -> 17.01.2018 - 07:55:58.2442116  {0.5003}
+			Serialize Job-Message(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.2667153 -> not ended  {298018.7733}
+			Publish Job(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize Result(<color=red>PENDING</color>) not started -> not ended  {0}
+			Recreate Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Master)(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Transfer(<color=red>PENDING</color>) not started -> not ended  {0}
+			Transfer to Worker(<color=green>DONE</color>) 17.01.2018 - 08:00:50.5861986 -> 17.01.2018 - 08:00:41.9545256  {8631.673}
+			Transfer to Master(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Worker(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 08:00:41.9545256 -> not ended  {14331.4634}
+			Deserialize JobMessage(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create new Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Tile(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start OSM Query(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start Procedural(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Terrain(<color=red>PENDING</color>) not started -> not ended  {0}
+			Mesh Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Background Quad(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Rivers(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Ways(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Buildings(<color=red>PENDING</color>) not started -> not ended  {0}
+			Fill Mesh separating Materials(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Worker)(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Done(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Reply Message(<color=red>PENDING</color>) not started -> not ended  {0}
+			Tidy up Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Publish Result(<color=red>PENDING</color>) not started -> not ended  {0}
+
+
+
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1526)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1526)
+
+0:-1,-1(IN_PROGRESS) [
+		Master(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.2437113 -> not ended  {299830.7094}
+			Create Job-Message(<color=green>DONE</color>) 17.01.2018 - 07:55:58.2437113 -> 17.01.2018 - 07:55:58.2442116  {0.5003}
+			Serialize Job-Message(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 07:55:58.2667153 -> not ended  {299807.7054}
+			Publish Job(<color=red>PENDING</color>) not started -> not ended  {0}
+			Deserialize Result(<color=red>PENDING</color>) not started -> not ended  {0}
+			Recreate Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Master)(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Transfer(<color=red>PENDING</color>) not started -> not ended  {0}
+			Transfer to Worker(<color=green>DONE</color>) 17.01.2018 - 08:00:50.5861986 -> 17.01.2018 - 08:00:41.9545256  {8631.673}
+			Transfer to Master(<color=red>PENDING</color>) not started -> not ended  {0}
+
+		Worker(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 08:00:41.9545256 -> not ended  {16120.8975}
+			Deserialize JobMessage(<color=yellow>IN_PROGRESS</color>) 17.01.2018 - 08:00:41.9545256 -> not ended  {16120.8975}
+			Create new Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Tile(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start OSM Query(<color=red>PENDING</color>) not started -> not ended  {0}
+			Start Procedural(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Terrain(<color=red>PENDING</color>) not started -> not ended  {0}
+			Mesh Preparation(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Background Quad(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Rivers(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Ways(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Buildings(<color=red>PENDING</color>) not started -> not ended  {0}
+			Fill Mesh separating Materials(<color=red>PENDING</color>) not started -> not ended  {0}
+			Trigger Garbage Collection (Worker)(<color=red>PENDING</color>) not started -> not ended  {0}
+			Procedural Done(<color=red>PENDING</color>) not started -> not ended  {0}
+			Create Reply Message(<color=red>PENDING</color>) not started -> not ended  {0}
+			Tidy up Scene(<color=red>PENDING</color>) not started -> not ended  {0}
+			Publish Result(<color=red>PENDING</color>) not started -> not ended  {0}
+
+
+
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1528)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1004)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:630)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1528)
+
+Set Deserialize JobMessage to Done!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:116)
+TodoItem:Stop(TimeStamp) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:92)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1529)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEve

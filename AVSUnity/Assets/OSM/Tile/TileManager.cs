@@ -28,8 +28,11 @@ public class TileManager : Singleton<TileManager>
 
     public static double OriginLongitude
     {
-        get { return originLongitude; }
-        set 
+        get
+        {
+            return originLongitude;
+        }
+        set
         {
             if (originLongitude != value)
             {
@@ -40,8 +43,11 @@ public class TileManager : Singleton<TileManager>
     }
     public static double OriginLatitude
     {
-        get { return originLatitude; }
-        set 
+        get
+        {
+            return originLatitude;
+        }
+        set
         {
             if (originLongitude != value)
             {
@@ -53,21 +59,33 @@ public class TileManager : Singleton<TileManager>
 
     public static double TileWidth
     {
-        get { return tileWidth; }
-        set { tileWidth = value; }
+        get
+        {
+            return tileWidth;
+        }
+        set
+        {
+            tileWidth = value;
+        }
     }
     public static double Scaling
     {
-        get { return scaling; }
-        set { scaling = value; }
+        get
+        {
+            return scaling;
+        }
+        set
+        {
+            scaling = value;
+        }
     }
 
     private static double originLongitude = 6.9605d;//7.02744f; //6.9605d;//7.56211f;  Basti 6.93728f;
     private static double originLatitude = 50.9390d;//51.03304f; //50.9390d;//51.02344f;      50.93959f;
     private static double tileWidth = 0.01d;
-    private static double scaling = 50000d;    
+    private static double scaling = 50000d;
 
-    
+
     public static Dictionary<string, Tile> tiles = new Dictionary<string, Tile>();
 
 #if UNITY_EDITOR
@@ -118,7 +136,7 @@ public class TileManager : Singleton<TileManager>
             {
                 Debug.LogWarning("Trying to access dead object...");
             }
-           
+
         }
 
         tiles.Clear();
@@ -137,6 +155,72 @@ public class TileManager : Singleton<TileManager>
         {
             kV.Value.StartQuery();
         }
+    }
+
+    private static List<Tile> tileJobs = new List<Tile>();
+    public static void GenerateLocal()
+    {
+        foreach (KeyValuePair<string, Tile> kV in tiles)
+        {
+            try
+            {
+                DestroyImmediate(kV.Value.gameObject);
+            }
+            catch (MissingReferenceException)
+            {
+                Debug.LogWarning("Trying to access dead object...");
+            }
+
+        }
+
+        tiles.Clear();
+
+        int jobCount = 0;
+
+        //Create new Tiles
+        for (int i = -tileRadius; i <= tileRadius; i++)
+        {
+            for (int j = -tileRadius; j <= tileRadius; j++)
+            {
+                StatusUpdateMessage msg = new StatusUpdateMessage(jobCount, i + "," + j);
+
+                TodoItem worker = msg.AddTodo(Job.Worker);
+                //worker.AddTodo(Job.CreateTile);
+                worker.AddTodo(Job.StartOSMQuery);
+                worker.AddTodo(Job.StartProcedural);
+                worker.AddTodo(Job.ProceduralPreparation);
+                worker.AddTodo(Job.CreateTerrain);
+                worker.AddTodo(Job.MeshPreparation);
+                worker.AddTodo(Job.TileQuad);
+                worker.AddTodo(Job.River);
+                worker.AddTodo(Job.Ways);
+                worker.AddTodo(Job.CreateBuildingMesh);
+                worker.AddTodo(Job.FillMeshDivideMaterials);
+                worker.AddTodo(Job.GarbageCollection);
+                worker.AddTodo(Job.ProceduralDone);
+
+                // Add StatusUpdateMessage to Dictionary
+
+
+                Tile newTile = Tile.CreateTileGO(i, j, LOD);
+                msg.Start();
+                newTile.SetJobInfo(jobCount, msg);
+                tiles.Add(i + ":" + j, newTile);
+                
+                SimpleClient.jobStatus.Add(jobCount, msg);
+                jobCount++;
+            }
+        }
+
+        foreach (KeyValuePair<string, Tile> kV in tiles)
+        {
+            kV.Value.StartQuery();
+        }
+    }
+
+    private void NextTile()
+    {
+
     }
 #endif
 
@@ -157,7 +241,7 @@ public class TileManager : Singleton<TileManager>
 
             //Debug.Log("x: " + currentTileIndex[0].ToString() + " y: " + currentTileIndex[1].ToString());
 
-            if (!tiles.ContainsKey(currentTileIndex[0] + ":"+ currentTileIndex[1]))
+            if (!tiles.ContainsKey(currentTileIndex[0] + ":" + currentTileIndex[1]))
             {
                 Console.AddMessage("Creating new Tile: " + currentTileIndex.ToString() + " with LOD" + LOD);
                 Tile newTile = Tile.CreateTileGO(currentTileIndex[0], currentTileIndex[1], LOD);

@@ -349,7 +349,7 @@ public class SimpleClientEditor : Editor
         GUI.backgroundColor = Color.white;
         EditorGUILayout.BeginVertical("box");
         {
-            foreach (StatusUpdateMessage item in this.client.jobStatus.Values)
+            foreach (StatusUpdateMessage item in SimpleClient.jobStatus.Values)
             {
                 CustomGUIUtils.BeginGroup();
                 {
