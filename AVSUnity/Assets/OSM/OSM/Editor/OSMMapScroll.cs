@@ -141,52 +141,43 @@ public class OSMMapScroll : EditorWindow
     {
         if (Event.current.type == EventType.ScrollWheel)
         {
+            // Berechne Geoposition der Maus
+            Vector2 mouse = Event.current.mousePosition;
+            Vector2 center = GUIToCoordinateSystemPosition(mouse);
+            DVector2 geoMouse = CalculateGeoCoords(center);
+
             if (Event.current.delta.y < 0)
             {
-                // Berechne Geoposition der Maus
-                Vector2 mouse = Event.current.mousePosition;
-                Vector2 center = GUIToCoordinateSystemPosition(mouse);
-                DVector2 geoMouse = CalculateGeoCoords(center);
-
-
                 if (ZoomLevel < MAXZOOMLEVEL)
                     ZoomLevel++;
-
-                // Berechne TileIndex im neuen Zoomlevel
-                Vector2 tileIndex = CalculateGridIndex((Vector2)geoMouse);
-                Debug.Log("GeoMouse: " + geoMouse + "  -->  TileIndex: " + tileIndex);
-
-                Vector2 pixelPositionAfterZoom = WorldToPixelPosition(geoMouse.x, geoMouse.y, ZoomLevel);
-                pixelOrigin = pixelPositionAfterZoom - mouse;
-                PerformMove(Vector2.zero);
             }
             else
             {
-                //if (ZoomLevel > 0)
-                //    ZoomLevel--;
-
-                // Berechne Geoposition der Maus
-                Vector2 mouse = Event.current.mousePosition;
-                Vector2 center = GUIToCoordinateSystemPosition(mouse);
-                DVector2 geoMouse = CalculateGeoCoords(center);
-
-
                 if (mapRect.width < TileSizePixels * (int)Mathf.Pow(2, ZoomLevel - 1))
                     ZoomLevel--;
-                //if (ZoomLevel > 0)
-                //    ZoomLevel--;
-
-                // Berechne TileIndex im neuen Zoomlevel
-                Vector2 tileIndex = CalculateGridIndex((Vector2)geoMouse);
-                Debug.Log("GeoMouse: " + geoMouse + "  -->  TileIndex: " + tileIndex);
-
-                Vector2 pixelPositionAfterZoom = WorldToPixelPosition(geoMouse.x, geoMouse.y, ZoomLevel);
-                pixelOrigin = pixelPositionAfterZoom - mouse;
-                PerformMove(Vector2.zero);
             }
+
+          
+
+            // Berechne TileIndex im neuen Zoomlevel
+            Vector2 tileIndex = CalculateGridIndex((Vector2)geoMouse);
+            //Debug.Log("GeoMouse: " + geoMouse + "  -->  TileIndex: " + tileIndex);
+
+            Vector2 pixelPositionAfterZoom = WorldToPixelPosition(geoMouse.x, geoMouse.y, ZoomLevel);
+            pixelOrigin = pixelPositionAfterZoom - mouse;
+            PerformMove(Vector2.zero);
+
             Event.current.Use();
             Repaint();
         }
+
+        if (mapRect.width < TileSizePixels * (int)Mathf.Pow(2, _zoomLevel))
+        {
+            while (mapRect.width > (TileSizePixels * (int)Mathf.Pow(2, _zoomLevel)))
+                _zoomLevel++;
+            
+            Repaint();
+        } 
     }
 
     int top = 0;
@@ -237,6 +228,20 @@ public class OSMMapScroll : EditorWindow
         Repaint();
     }
 
+    private void SetYouAreHere()
+    {
+        if (Event.current.type == EventType.ContextClick)
+        {
+            // Berechne Geoposition der Maus
+            Vector2 mouse = Event.current.mousePosition;
+            Vector2 center = GUIToCoordinateSystemPosition(mouse);
+            DVector2 geoMouse = CalculateGeoCoords(center);
+
+            TileManager.OriginLatitude = geoMouse.y;
+            TileManager.OriginLongitude = geoMouse.x;
+        }
+    }
+
     private bool drawGrid = true;
     private bool drawOrigin = true;
     private bool drawMouse = true;
@@ -251,43 +256,40 @@ public class OSMMapScroll : EditorWindow
     /// </summary>
     public void OnGUI()
     {
-        //GUILayout.BeginHorizontal(GUILayout.Width(sidebarWidth));
-        //GUILayout.Label("TileSizePixels: " + TileSizePixels);
-        TileSizePixels = (int)GUILayout.HorizontalSlider(TileSizePixels, 1, position.width);
-        //GUILayout.EndHorizontal();
         mapRectWidth = (int)GUILayout.HorizontalSlider(mapRectWidth, 100, 1000);
         mapRectHeight = (int)GUILayout.HorizontalSlider(mapRectHeight, 100, 1000);
         mapRect = new Rect(300, 100, mapRectWidth, mapRectHeight);
 
-        GUILayout.Space(10f);
-        GUILayout.Label("DegreesPerTileX: " + DegreesPerTile.x);
-        GUILayout.Label("DegreesPerTileY: " + DegreesPerTile.y);
-        GUILayout.Label("TilesPerRow: " + TilesPerRow);
-        GUILayout.Space(10f);
-        GUILayout.Label("DegreesPerPixelX: " + DegreesPerPixel.x);
-        GUILayout.Label("DegreesPerPixelY: " + DegreesPerPixel.y);
-        GUILayout.Label("ZoomLevel: " + ZoomLevel);
-        GUILayout.Space(10f);
-        GUILayout.Label("pixelOrigin: " + pixelOrigin);
-        GUILayout.Space(10f);
+        //GUILayout.Space(10f);
+        //GUILayout.Label("DegreesPerTileX: " + DegreesPerTile.x);
+        //GUILayout.Label("DegreesPerTileY: " + DegreesPerTile.y);
+        //GUILayout.Label("TilesPerRow: " + TilesPerRow);
+        //GUILayout.Space(10f);
+        //GUILayout.Label("DegreesPerPixelX: " + DegreesPerPixel.x);
+        //GUILayout.Label("DegreesPerPixelY: " + DegreesPerPixel.y);
+        //GUILayout.Label("ZoomLevel: " + ZoomLevel);
+        //GUILayout.Space(10f);
+        //GUILayout.Label("pixelOrigin: " + pixelOrigin);
+        //GUILayout.Space(10f);
 
         GUILayout.BeginArea(mapRect);
         mapRect = new Rect(0, 0, mapRect.width, mapRect.height);
-        int offset = (TilesPerRow / 2) * TileSizePixels;
 
-        DrawOSMMap_new2(mapRect);
+        DrawOSMMap(mapRect);
         GUILayout.EndArea();
 
-        Repaint();
+        //Repaint();
     }
 
 
-    private void DrawOSMMap_new2(Rect mapRect)
+    private void DrawOSMMap(Rect mapRect)
     {
-        CustomGUIUtils.DrawBox(mapRect, XKCDColors.LightGreen);
-
+        // Mouse-Actions
         Move();
         Zoom();
+        SetYouAreHere();
+
+        // Draw Map
         for (int x = left % TileSizePixels; x < left + mapRect.width + TileSizePixels; x += TileSizePixels)
         {
             for (int y = top % TileSizePixels; y < top + mapRect.height + TileSizePixels; y += TileSizePixels)
@@ -300,23 +302,63 @@ public class OSMMapScroll : EditorWindow
                 //GUI.Label(tileRect, "TileIndex: " + tileIndex.ToString());
             }
         }
-       
+
+        // Draw TileManager-Selection/Boundings-Settings
+        DrawSelection();
+        DrawYouAreHere();
+
+        #region Debug-Draw-Methods
+        //if (drawGrid)
+        //    DrawGrid(mapRect);
+        //if (drawOrigin)
+        //    DrawOrigin(mapRect);
+        //if (drawMouse)
+        //    DrawMouse(mapRect);
+        #endregion // Debug-Draw-Methods
+
+        CustomGUIUtils.DrawOuterFrame(mapRect, 2, XKCDColors.Black);
+    }
+
+    private void DrawYouAreHere()
+    {
         if (here == null)
             here = Resources.Load("here") as Texture2D;
         Vector2 point = WorldToPixelPosition(TileManager.OriginLongitude, TileManager.OriginLatitude, ZoomLevel);
         Vector2 correctedPoint = point - pixelOrigin;
         GUI.DrawTexture(new Rect(correctedPoint.x - 20, correctedPoint.y - 39, 41, 41), here, ScaleMode.ScaleToFit, true);
-
-        //if (drawGrid)
-        //    DrawGrid(mapRect);
-        //if (drawOrigin)
-        //    DrawOrigin(mapRect);
-        if (drawMouse)
-            DrawMouse(mapRect);
-
-        CustomGUIUtils.DrawOuterFrame(mapRect, 2, XKCDColors.Black);
     }
 
+    private void DrawSelection()
+    {
+        Color red = Color.black;
+        red.a = 0.6f;
+
+        Color redAlpha = Color.red;
+        redAlpha.a = 0.3f;
+
+
+        int tileRadius = TileManager.tileRadius;
+        for (int i = -tileRadius; i <= tileRadius; i++)
+        {
+            for (int j = -tileRadius; j <= tileRadius; j++)
+            {
+                OSMBoundingBox box = new OSMBoundingBox (
+                    TileManager.OriginLongitude - TileManager.TileWidth / 2d + TileManager.TileWidth * i,
+                    TileManager.OriginLatitude - TileManager.TileWidth / 2d + TileManager.TileWidth * j,
+                    TileManager.OriginLongitude + TileManager.TileWidth / 2d + TileManager.TileWidth * i,
+                    TileManager.OriginLatitude + TileManager.TileWidth / 2d + TileManager.TileWidth * j
+                );
+                Vector2 pixelPositionMin = WorldToPixelPosition(box.MinLongitude, box.MinLatitude, ZoomLevel);
+                Vector2 pixelPositionMax = WorldToPixelPosition(box.MaxLongitude, box.MaxLatitude, ZoomLevel);
+                Vector2 pixelSize = pixelPositionMax - pixelPositionMin;
+                Rect rect = new Rect(pixelPositionMin.x - pixelOrigin.x - 1, pixelPositionMin.y - pixelOrigin.y + 1, pixelSize.x -2, pixelSize.y + 2);
+                //CustomGUIUtils.DrawFrameBox(rect, red, 1f, redAlpha);
+                GUI.DrawTexture(rect, CustomGUIUtils.GetSimpleColorTexture(redAlpha), ScaleMode.StretchToFill, true);
+                //Debug.Log(rect);
+            }
+        }
+
+    }
 
     private void DrawGrid(Rect mapRect)
     {
