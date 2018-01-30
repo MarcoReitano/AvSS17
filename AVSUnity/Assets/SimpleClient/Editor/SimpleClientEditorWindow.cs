@@ -718,7 +718,7 @@ public class SimpleClientEditorWindow : EditorWindow
         catch (ArgumentOutOfRangeException)
         {
             GUILayout.EndArea();
-            return; 
+            Repaint(); 
         }
         
         #endregion // Dropdown connections
@@ -728,7 +728,7 @@ public class SimpleClientEditorWindow : EditorWindow
         if (GUILayout.Button("Awake"))
         {
             client.Awake();
-            return;
+            Repaint();
         }
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("EnableUpdate"))
