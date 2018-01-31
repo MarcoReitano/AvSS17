@@ -17,6 +17,7 @@ Usage: one COMMAND
     scale       scale the Worker Service Container to number
     keys        copy ssh key on all Machines
     unity       Download and install unity 5.5.0f3
+    logs        Show logs from all Workers
 EOF
 fi
 
@@ -102,6 +103,11 @@ function run()
 
 }
 
+function logs()
+{
+    docker-machine ssh default "docker service logs unityTest_avsbuild"
+}
+
 function restart()
 {
     myIp=$(ifconfig en1 inet | grep inet | cut -d' ' -f2)
@@ -114,6 +120,8 @@ function restart()
     done
     sudo /sbin/shutdown -r now
 }
+
+
 
 function createMachine()
 {
@@ -264,4 +272,7 @@ case $1 in
         echo "Download and install Unity"
         unity
         ;;
+    "logs" )
+        echo "Logs from worker"
+        logs
 esac
