@@ -7,7 +7,7 @@ Usage: one COMMAND
     ping        ping docker Machines
     login       Login to docker hub
     swarm       Remove old Swarm and make a new One
-    deploy      Run the Application
+    run         Run the Application
     restart     Restart all Machines
     machine     Create docker machine on one Machine ip adress as parameter
     machines    Create docker machine on all Machines
@@ -217,7 +217,8 @@ case $1 in
         run;;
     "restart" )
         echo "Restart all Machines"
-        restart;;
+        restart
+        ;;
     "machine")
         echo "Create docker machine on one Machine"
         createMachine $2;;
