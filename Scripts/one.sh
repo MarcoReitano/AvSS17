@@ -7,7 +7,8 @@ Usage: one COMMAND
     ping        ping docker Machines
     login       Login to docker hub
     swarm       Remove old Swarm and make a new One
-    run         Run the Application
+    start       start the Application
+    stop        Stop the Application
     restart     Restart all Machines
     machine     Create docker machine on one Machine ip adress as parameter
     machines    Create docker machine on all Machines
@@ -91,6 +92,14 @@ function run()
 {
     eval $(docker-machine env)
     docker login -u avsss17 -p avsss17 && docker stack deploy -c ../Build/Docker/docker-compose-swarm.yml --with-registry-auth unityTest
+
+
+
+    dockerIp=$(docker-machine ssh default "ifconfig eth2 |grep 'inet addr' | cut -d: -f2| cut -d' ' -f1")
+    open -a safari "http://$dockerIp:8080"
+    open -a safari "http://$dockerIp:15672"
+    open -a safari "http://guest@guest:$dockerIp:15672/#/queues/%2f/jobs"
+
 }
 
 function restart()
@@ -200,6 +209,12 @@ function unity()
     /Applications/Unity/Unity.app/Contents/MacOS/Unity
 }
 
+function stop()
+{
+    eval $(docker-machine env)
+     docker stack rm unityTest
+}
+
 case $1 in
     "ping" )
         echo "ping docker Machines"
@@ -212,9 +227,12 @@ case $1 in
     "swarm" )
         echo "Remove old Swarm and make a new One"
         makeSwarm;;
-    "run" )
-        echo "Run the Application"
+    "start" )
+        echo "start the Application"
         run;;
+    "stop" )
+        echo "stop the Application"
+        stop;;
     "restart" )
         echo "Restart all Machines"
         restart
