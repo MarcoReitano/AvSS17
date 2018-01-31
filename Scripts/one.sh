@@ -15,6 +15,7 @@ Usage: one COMMAND
     ssh         run command on all Machines
     scale       scale the Worker Service Container to number
     keys        copy ssh key on all Machines
+    unity       Download and install unity 5.5.0f3
 EOF
 fi
 
@@ -188,6 +189,16 @@ function scale()
     docker-machine ssh default "docker service scale unityTest_avsbuild=$1"
 }
 
+function unity()
+{
+    curl https://download.unity3d.com/download_unity/38b4efef76f0/MacEditorInstaller/Unity-5.5.0f3.pkg --output /tmp/Unity-5.5.0f3.pkg
+    sudo installer -pkg /tmp/Unity-5.5.0f3.pkg -target /
+    echo "username"
+    echo "avs17@trash-me.com"
+    echo "password"
+    echo "Qwert123"
+    /Applications/Unity/Unity.app/Contents/MacOS/Unity
+}
 
 case $1 in
     "ping" )
@@ -229,5 +240,9 @@ case $1 in
     "keys" )
         echo "Send keys to all Macs"
         keyshare
+        ;;
+    "unity" )
+        echo "Download and install Unity"
+        unity
         ;;
 esac
