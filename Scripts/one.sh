@@ -7,7 +7,8 @@ Usage: one COMMAND
     ping        ping docker Machines
     login       Login to docker hub
     swarm       Remove old Swarm and make a new One
-    deploy      Run the Application
+    start       start the Application
+    stop        Stop the Application
     restart     Restart all Machines
     machine     Create docker machine on one Machine ip adress as parameter
     machines    Create docker machine on all Machines
@@ -15,6 +16,7 @@ Usage: one COMMAND
     ssh         run command on all Machines
     scale       scale the Worker Service Container to number
     keys        copy ssh key on all Machines
+    unity       Download and install unity 5.5.0f3
 EOF
 fi
 
@@ -90,6 +92,14 @@ function run()
 {
     eval $(docker-machine env)
     docker login -u avsss17 -p avsss17 && docker stack deploy -c ../Build/Docker/docker-compose-swarm.yml --with-registry-auth unityTest
+
+
+
+    dockerIp=$(docker-machine ssh default "ifconfig eth2 |grep 'inet addr' | cut -d: -f2| cut -d' ' -f1")
+    open -a safari "http://$dockerIp:8080"
+    open -a safari "http://$dockerIp:15672"
+    open -a safari "http://guest@guest:$dockerIp:15672/#/queues/%2f/jobs"
+
 }
 
 function restart()
@@ -188,6 +198,22 @@ function scale()
     docker-machine ssh default "docker service scale unityTest_avsbuild=$1"
 }
 
+function unity()
+{
+    curl https://download.unity3d.com/download_unity/38b4efef76f0/MacEditorInstaller/Unity-5.5.0f3.pkg --output /tmp/Unity-5.5.0f3.pkg
+    sudo installer -pkg /tmp/Unity-5.5.0f3.pkg -target /
+    echo "username"
+    echo "avs17@trash-me.com"
+    echo "password"
+    echo "Qwert123"
+    /Applications/Unity/Unity.app/Contents/MacOS/Unity
+}
+
+function stop()
+{
+    eval $(docker-machine env)
+     docker stack rm unityTest
+}
 
 case $1 in
     "ping" )
@@ -201,12 +227,16 @@ case $1 in
     "swarm" )
         echo "Remove old Swarm and make a new One"
         makeSwarm;;
-    "run" )
-        echo "Run the Application"
+    "start" )
+        echo "start the Application"
         run;;
+    "stop" )
+        echo "stop the Application"
+        stop;;
     "restart" )
         echo "Restart all Machines"
-        restart;;
+        restart
+        ;;
     "machine")
         echo "Create docker machine on one Machine"
         createMachine $2;;
@@ -229,5 +259,9 @@ case $1 in
     "keys" )
         echo "Send keys to all Macs"
         keyshare
+        ;;
+    "unity" )
+        echo "Download and install Unity"
+        unity
         ;;
 esac
