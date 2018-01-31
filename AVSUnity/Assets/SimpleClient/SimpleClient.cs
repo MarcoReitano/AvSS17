@@ -315,9 +315,9 @@ public class SimpleClient : MonoBehaviour
         Awake();
         if (client.IsConnected)
         {
-            DeleteQueue("jobs");
-            DeleteQueue("reply");
-            DeleteQueue("statusUpdates");
+            //DeleteQueue("jobs");
+            //DeleteQueue("reply");
+            //DeleteQueue("statusUpdates");
 
             EnsureQueue("jobs");
             EnsureQueue("reply");
@@ -384,11 +384,11 @@ public class SimpleClient : MonoBehaviour
 
         Connect();
 
-        while (!IsConnected)
-        {
-            // TODO: This is dangerous...  just for testing purpose...
-            // wait 
-        }
+        //while (!IsConnected)
+        //{
+        //    // TODO: This is dangerous...  just for testing purpose...
+        //    // wait 
+        //}
 
         //EnsureQueue("jobs");
         //EnsureQueue("reply");
@@ -1616,7 +1616,7 @@ public class SimpleClient : MonoBehaviour
             Debug.Log(jobMessage.x + "/" + jobMessage.y);
         }
     }
-    private int timeout = 10000;
+    private int timeout = 100000;
     private Stopwatch sw;
 
 

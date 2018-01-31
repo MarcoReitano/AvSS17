@@ -343,6 +343,10 @@ public static class OSMTileProvider
             string tmpFolder;
 #if UNITY_EDITOR
             tmpFolder = EditorPrefs.GetString("OSMTileCachePath");
+            if (tmpFolder == string.Empty)
+            {
+                tmpFolder = Application.dataPath + @"/OSM_TILE_TMP";
+            }
 #else
             tmpFolder = Application.dataPath + @"/OSM_TILE_TMP";
 #endif
