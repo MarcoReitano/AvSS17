@@ -179,6 +179,7 @@ function keyshare()
     fi
     for server in $(cat ./hosts) ; do
         ssh-copy-id $USER@$server
+        echo "$server"
     done
 }
 
@@ -225,7 +226,7 @@ case $1 in
         echo "scale docker container"
         scale "$2"
         ;;
-    "key" )
+    "keys" )
         echo "Send keys to all Macs"
         keyshare
         ;;
