@@ -52,6 +52,8 @@ public class SimpleClientEditorWindow : EditorWindow
     private static Font timerFont;
     public static GUIStyle timerFontStyle = new GUIStyle();
 
+    private static OSMMapRect osmMapRect;
+
     // Add menu named "My Window" to the Window menu
     [MenuItem("Window/FlatEarthEditor")]
     static void Init()
@@ -76,6 +78,8 @@ public class SimpleClientEditorWindow : EditorWindow
                 }
             }
         }
+
+        osmMapRect = new OSMMapRect();
 
         lightGreen = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightGreen);
         lightRed = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightRed);
@@ -637,6 +641,12 @@ public class SimpleClientEditorWindow : EditorWindow
             numberOfWorkers = newNumberOfWorkers;
             ScaleWorkers(numberOfWorkers);
         }
+
+        if (osmMapRect == null)
+            osmMapRect = new OSMMapRect();
+        osmMapRect.DrawOSMMapRect(new Rect(0, 300, this.position.width, this.position.height - 300));
+        if (osmMapRect.ShouldRepaint())
+            Repaint();
     }
 
     private void GenerationDone(object sender, EventArgs e)

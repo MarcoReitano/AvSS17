@@ -14,6 +14,8 @@ using Debug = UnityEngine.Debug;
 public class
     Tile : MonoBehaviour
 {
+    public bool abortJob = false;
+
     public static Tile CreateTileGO(int x, int z, int lod)
     {
         GameObject go = new GameObject("Tile" + x.ToString() + z.ToString());
@@ -107,7 +109,6 @@ public class
 
     public void StartQuery()
     {
-
         if (this.msg != null)
         {
             this.msg.Start(Job.StartOSMQuery);
@@ -132,6 +133,8 @@ public class
             this.msg.Stop(Job.StartOSMQuery);
             this.msg.Start(Job.StartProcedural);
         }
+       
+
 #if UNITY_EDITOR
         //if (EditorApplication.isPlaying)
         //{
@@ -144,7 +147,7 @@ public class
         enumerator = ProceduralLocal();
         //}
 #else
-                shouldStartProcedural = true;
+        shouldStartProcedural = true;
         SimpleClient.StatusUpdateMessage.Stop(Job.StartOSMQuery);
         SimpleClient.simpleClient.SendStatusUpdateMessages();
 #endif
@@ -155,6 +158,11 @@ public class
 #if UNITY_EDITOR
     void EditorAppUpdate()
     {
+        if (abortJob)
+        {
+            StopCoroutine(enumerator);
+        }
+
         if (!enumerator.MoveNext())
         {
             UnityEditor.EditorApplication.update -= EditorAppUpdate;
@@ -164,6 +172,7 @@ public class
             //UnityEditor.SceneView.RepaintAll();
             //UnityEditor.EditorApplication.update(); //Dangerous, can freeze unity!
         }
+
     }
 #endif
     void Update()
@@ -175,7 +184,14 @@ public class
             StartCoroutine(Procedural());
             shouldStartProcedural = false;
         }
+
+        if (abortJob)
+        {
+            StopCoroutine(Procedural());
+        }
     }
+
+    
 
     IEnumerator Procedural()
     {

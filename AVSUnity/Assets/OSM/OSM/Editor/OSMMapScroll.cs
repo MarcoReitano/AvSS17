@@ -157,8 +157,6 @@ public class OSMMapScroll : EditorWindow
                     ZoomLevel--;
             }
 
-          
-
             // Berechne TileIndex im neuen Zoomlevel
             Vector2 tileIndex = CalculateGridIndex((Vector2)geoMouse);
             //Debug.Log("GeoMouse: " + geoMouse + "  -->  TileIndex: " + tileIndex);

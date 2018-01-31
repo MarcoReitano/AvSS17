@@ -22,10 +22,12 @@ using System.IO;
 [System.Serializable]
 public class OverpassQuery
 {
-	
+
+    int retry = 3;
+
     public OverpassQuery()
     {
-		
+        retry = 3;
         logPath = Application.dataPath + "/Logs/OSM.xml";
 #if UNITY_STANDALONE
         if(!Directory.Exists(Application.dataPath + "/OSMQueries/"))
@@ -84,21 +86,54 @@ public class OverpassQuery
 
     public void DownloadOSMString()
     {
-        Console.AddMessage("Webclient");
-        WebClient client = new WebClient();
+        try
+        {
+            Console.AddMessage("Webclient");
+            WebClient client = new WebClient();
 
-        UnityEngine.Debug.Log(URL + string.Format(querystring, boundingBox.ToQLString()));
-        string url = URL + string.Format(querystring, boundingBox.ToQLString());
-		client.Encoding=Encoding.UTF8;
-        client.DownloadStringCompleted += ParseOSMXml;
-        client.DownloadStringAsync(new Uri(url));
+            UnityEngine.Debug.Log(URL + string.Format(querystring, boundingBox.ToQLString()));
+            string url = URL + string.Format(querystring, boundingBox.ToQLString());
+            client.Encoding = Encoding.UTF8;
+            client.DownloadStringCompleted += ParseOSMXml;
+            client.DownloadStringAsync(new Uri(url));
+        }
+        catch (WebException e)
+        {
+            UnityEngine.Debug.Log("i got this exception: " + e.Message);
+            retry--;
+            if (retry > 0)
+            {
+                UnityEngine.Debug.Log("retry... " + retry);
+                DownloadOSMString();
+            }
+        }
+       
     }
 
     public void ParseOSMXml(object sender, DownloadStringCompletedEventArgs args)
     {
-        
 		string result = args.Result;
-        if (result == null) return;
+        if (result == null)
+        {
+            UnityEngine.Debug.Log("No Result");
+            retry--;
+            if (retry > 0)
+            {
+                UnityEngine.Debug.Log("retry... " + retry);
+                DownloadOSMString();
+            }
+            return;
+        }
+        if (args.Cancelled)
+        {
+            UnityEngine.Debug.Log("Query got canceled");
+            retry--;
+            if (retry > 0)
+            {
+                UnityEngine.Debug.Log("retry... " + retry);
+                DownloadOSMString();
+            }
+        }
         //UnityEngine.Debug.Log(result);
 
 #if UNITY_EDITOR

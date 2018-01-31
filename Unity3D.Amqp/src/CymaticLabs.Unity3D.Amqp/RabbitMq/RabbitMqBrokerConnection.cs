@@ -1260,6 +1260,16 @@ namespace CymaticLabs.Unity3D.Amqp.RabbitMq
         }
 
         /// <summary>
+        /// Reject a received message identified by the deliveryTag and requeue if specified.
+        /// </summary>
+        /// <param name="deliveryTag">The deliveryTag, which identifies a message.</param>
+        /// <param name="requeue">Wheter or not to requeue the message.</param>
+        public void BasicReject(ulong deliveryTag, bool requeue)
+        {
+            Channel.BasicReject(deliveryTag, requeue);
+        }
+
+        /// <summary>
         /// Acknowledges a received message identified by the deliveryTag and confirms the processing of the message.
         /// </summary>
         /// <param name="deliveryTag">The deliveryTag, which identifies a message.</param>
@@ -1297,6 +1307,8 @@ namespace CymaticLabs.Unity3D.Amqp.RabbitMq
         {
             return AmqpHelper.GetConnectionInfo(this);
         }
+
+      
 
         #endregion Methods
     }

@@ -354,6 +354,13 @@ namespace CymaticLabs.Unity3D.Amqp
         void GetQueuesAsync(QueueListEventHandler callback, string virtualHost = null);
 
         /// <summary>
+        /// Reject a received message identified by the deliveryTag and requeue if specified.
+        /// </summary>
+        /// <param name="deliveryTag">The deliveryTag, which identifies a message.</param>
+        /// <param name="requeue">Wheter or not to requeue the message.</param>
+        void BasicReject(ulong deliveryTag, bool requeue);
+
+        /// <summary>
         /// Acknowledges a received message identified by the deliveryTag and confirms the processing of the message.
         /// </summary>
         /// <param name="deliveryTag">The deliveryTag, which identifies a message.</param>

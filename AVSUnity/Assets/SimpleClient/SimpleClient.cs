@@ -15,6 +15,9 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Globalization;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
+
 
 //[ExecuteInEditMode]
 public class SimpleClient : MonoBehaviour
@@ -312,13 +315,19 @@ public class SimpleClient : MonoBehaviour
         Awake();
         if (client.IsConnected)
         {
+            DeleteQueue("jobs");
+            DeleteQueue("reply");
+            DeleteQueue("statusUpdates");
+
             EnsureQueue("jobs");
             EnsureQueue("reply");
             EnsureQueue("statusUpdates");
         }
 
         jobStatus.Clear();
+#if UNITY_EDITOR
         EnableUpdate();
+#endif
     }
 
     public void Awake()
@@ -390,6 +399,7 @@ public class SimpleClient : MonoBehaviour
             if (!ServerMode)
             {
                 SubscribeToQueue("jobs");
+                SubscribeToQueue("statusUpdates");
                 Debug.Log("<color=green>Subscribed to Job-Queue.</color>");
             }
         }
@@ -445,10 +455,33 @@ public class SimpleClient : MonoBehaviour
     }
     #endregion // Init
 
+
+    private bool abort = false;
+    private void AbortAndRequeueJob(string message)
+    {
+        abort = true;
+        BasicReject(currentMessage.DeliveryTag, true);
+        Debug.Log("<color=red>"+message+"</color>");
+    }
+
+
+
     #region Update
     // Handle Unity update loop
     private void Update()
     {
+        if (sw != null)
+        {
+            if (sw.IsRunning)
+            {
+                sw.Stop();
+                if (sw.ElapsedMilliseconds > timeout)
+                {
+                    AbortAndRequeueJob("Job has been aborted and will be requeued!!!");
+                }
+            }
+        }
+
         //Debug.Log("<color=blue><b>" + this.name + ": SimpleClient.Update()</b></color>");
         /** These flags are set by the thread that the AMQP client runs on and then handled in Unity's game thread **/
 
@@ -1245,6 +1278,16 @@ public class SimpleClient : MonoBehaviour
     /// BasicAck
     /// </summary>
     /// <param name="delivertag"></param>
+    /// <param name="requeue"></param>
+    public void BasicReject(ulong delivertag, bool requeue)
+    {
+        this.client.BasicReject(delivertag, requeue);
+    }
+
+    /// <summary>
+    /// BasicAck
+    /// </summary>
+    /// <param name="delivertag"></param>
     /// <param name="multiple"></param>
     public void BasicAck(ulong delivertag, bool multiple)
     {
@@ -1566,9 +1609,16 @@ public class SimpleClient : MonoBehaviour
             newTile.ProceduralDone += GenerationDone;
             newTile.StartQuery();
 
+            sw = new Stopwatch();
+            sw.Start();
+
+
             Debug.Log(jobMessage.x + "/" + jobMessage.y);
         }
     }
+    private int timeout = 10000;
+    private Stopwatch sw;
+
 
     public static string CheckForExistingScene(string sceneName)
     {
@@ -1645,6 +1695,11 @@ public class SimpleClient : MonoBehaviour
 
         StatusUpdateMessage.Start(Job.TransferToMaster);
         SimpleClient.simpleClient.SendStatusUpdateMessages();
+        if (abort)
+        {
+            // Quick and dirty for now. just dont ACK
+            return;
+        }
         BasicAck(currentMessage.DeliveryTag, false);
     }
 
