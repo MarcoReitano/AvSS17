@@ -52,6 +52,8 @@ public class SimpleClientEditorWindow : EditorWindow
     private static Font timerFont;
     public static GUIStyle timerFontStyle = new GUIStyle();
 
+    private static OSMMapRect osmMapRect;
+
     // Add menu named "My Window" to the Window menu
     [MenuItem("Window/FlatEarthEditor")]
     static void Init()
@@ -77,13 +79,15 @@ public class SimpleClientEditorWindow : EditorWindow
             }
         }
 
+        osmMapRect = new OSMMapRect();
+
         lightGreen = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightGreen);
         lightRed = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightRed);
         lightYellow = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightYellow);
         darkgrey = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.DarkGrey);
 
         timerFont = (Font)Resources.Load("Fonts/digital-7.ttf");
-       
+
         //style.normal.background = new Texture2D(120, 35);
         //style.hover.background = new Texture2D(120, 35);
         //style.normal.textColor = new Color(0f, 0f, 0f);
@@ -130,6 +134,7 @@ public class SimpleClientEditorWindow : EditorWindow
         if (client == null)
             return;
 
+        CheckDone();
 
         GUILayout.BeginArea(new Rect(0, 0, position.width, 39), CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.Bluegrey));
         CustomGUIUtils.BeginGroup(5);
@@ -205,12 +210,12 @@ public class SimpleClientEditorWindow : EditorWindow
     {
         EditorGUILayout.BeginVertical();
 
-        zoomFactor = EditorGUILayout.Slider("Zoom", zoomFactor, 0.00001f, 0.5f);
+        zoomFactor = EditorGUILayout.Slider("Zoom", zoomFactor, 0.000001f, 0.25f);
         autoScroll = EditorGUILayout.ToggleLeft("AutoScroll", autoScroll);
 
         #region StatusBar
         int todoCount = 0;
-        foreach (StatusUpdateMessage item in client.jobStatus.Values)
+        foreach (StatusUpdateMessage item in SimpleClient.jobStatus.Values)
         {
             foreach (TodoItem cildItem in item.childDict.Values)
             {
@@ -222,14 +227,13 @@ public class SimpleClientEditorWindow : EditorWindow
             }
             todoCount++;
         }
-
         float step;
-        if (client.jobStatus.Values.Count > 0)
+        if (SimpleClient.jobStatus.Values.Count > 0)
             step = 1f / todoCount;
         else
             step = 0;
         float complete = 0;
-        foreach (StatusUpdateMessage item in client.jobStatus.Values)
+        foreach (StatusUpdateMessage item in SimpleClient.jobStatus.Values)
         {
             foreach (TodoItem cildItem in item.childDict.Values)
             {
@@ -245,7 +249,6 @@ public class SimpleClientEditorWindow : EditorWindow
                 complete += step;
         }
         EditorGUILayout.LabelField("", GUILayout.Height(20));
-        //EditorGUI.ProgressBar(new Rect(0, 90, this.position.width - 200, 20), complete, (complete * 100).ToString("F2", CultureInfo.CreateSpecificCulture("de-DE")) + " % ");
         EditorGUI.ProgressBar(new Rect(0, 90, this.position.width - 200, 20), complete, (int)(complete * 100) + " % ");
 
         string timer;
@@ -260,69 +263,11 @@ public class SimpleClientEditorWindow : EditorWindow
         //GUI.skin.font = normalFont;
         #endregion // Statusbar
 
-
-
-        if (stopTime == null)
-        {
-            bool allJobsDone = true;
-            foreach (StatusUpdateMessage item in client.jobStatus.Values)
-            {
-                if (item.status != Status.DONE)
-                {
-                    allJobsDone = false;
-                    break;
-                }
-            }
-            if (allJobsDone && client.jobStatus.Count > 0)
-            {
-                stopTime = TimeStamp.Now();
-                Debug.Log("All Jobs Done");
-                Debug.Log("Gathering result...");
-
-                Dictionary<string, double> result = new Dictionary<string, double>();
-
-                foreach (StatusUpdateMessage item in client.jobStatus.Values)
-                {
-                    foreach (TodoItem cildItem in item.childDict.Values)
-                    {
-                        foreach (TodoItem childTodo in cildItem.childDict.Values)
-                        {
-                            if (!result.ContainsKey(childTodo.name))
-                                result.Add(childTodo.name, 0);
-                            result[childTodo.name] += childTodo.Duration();
-                        }
-                        if (!result.ContainsKey(cildItem.name))
-                            result.Add(cildItem.name, 0);
-                        result[cildItem.name] += cildItem.Duration();
-                    }
-                    if (!result.ContainsKey(item.name))
-                        result.Add(item.name, 0);
-                    result[item.name] += item.Duration();
-                }
-
-                StringBuilder sb = new StringBuilder();
-
-                StatusUpdateMessage msg = client.jobStatus[0];
-                foreach (TodoItem cildItem in msg.childDict.Values)
-                {
-                    sb.Append(cildItem.name).Append(", ").Append(result[cildItem.name]).Append("\n");
-                    foreach (TodoItem childTodo in cildItem.childDict.Values)
-                    {
-                        sb.Append(childTodo.name).Append(", ").Append(result[childTodo.name]).Append("\n");
-                    }
-
-                }
-
-                Debug.Log(sb.ToString());
-            }
-        }
-
         EditorGUILayout.EndVertical();
         GUILayout.Space(10f);
         //Rect lastRect = GUILayoutUtility.GetLastRect();
         //Debug.Log(lastRect);
         float panelOffset = 120;
-
 
         float autoScrollPosition = this.position.width - GoldenRatio.LongSideOf(this.position.width);
 
@@ -332,11 +277,9 @@ public class SimpleClientEditorWindow : EditorWindow
         if (stopTime != null)
             panelWidth = Mathf.Min((float)TimeStamp.DurationInMillis(startTime, stopTime) * zoomFactor + autoScrollPosition, panelWidth);
 
-        int jobCount = client.jobStatus.Values.Count;
+        int jobCount = SimpleClient.jobStatus.Values.Count;
 
         float panelHeight = jobCount * (4 * height + 4 * separator + 2 * padding) + yOffset;
-
-
 
         using (EditorGUILayout.ScrollViewScope scrollView = new EditorGUILayout.ScrollViewScope(scrollPos, false, false, GUILayout.Width(this.position.width), GUILayout.Height(this.position.height - panelOffset)))
         {
@@ -353,36 +296,61 @@ public class SimpleClientEditorWindow : EditorWindow
                 now = (float)TimeStamp.DurationInMillis(startTime, TimeStamp.Now()) * zoomFactor + xOffset;
 
 
-            float y = 0f;
-            y += yOffset;
 
-            foreach (StatusUpdateMessage item in client.jobStatus.Values)
+
+            if (generateLocal)
             {
-                y += separator;
-                TodoItem master = item.Get(Job.Master);
-                TodoItem transfer = item.Get(Job.Transfer);
-                TodoItem worker = item.Get(Job.Worker);
+                float y = 0f;
+                y += yOffset;
+                foreach (StatusUpdateMessage item in SimpleClient.jobStatus.Values)
+                {
+                    y += separator;
+                    TodoItem worker = item.Get(Job.Worker);
 
-                DrawJobItemBar(item, y);
-                y += padding;
-                DrawTodoItemBar(master, y);
-                foreach (string todo in master.childTodos)
-                    DrawTodoItemBar(master.childDict[todo], y);
+                    DrawJobItemBar(item, y);
+                    y += padding;
 
-                y += height + separator;
-                foreach (string todo in transfer.childTodos)
-                    DrawTodoItemBar(transfer.childDict[todo], y);
+                    y += height + separator;
+                    DrawTodoItemBar(worker, y);
+                    foreach (string todo in worker.childTodos)
+                        DrawTodoItemBar(worker.childDict[todo], y);
 
-                y += height + separator;
-                DrawTodoItemBar(worker, y);
-                foreach (string todo in worker.childTodos)
-                    DrawTodoItemBar(worker.childDict[todo], y);
-
-                y += height;
-                y += padding;
-                y += separator;
+                    y += height;
+                    y += padding;
+                    y += separator;
+                }
             }
+            else
+            {
+                float y = 0f;
+                y += yOffset;
+                foreach (StatusUpdateMessage item in SimpleClient.jobStatus.Values)
+                {
+                    y += separator;
+                    TodoItem master = item.Get(Job.Master);
+                    TodoItem transfer = item.Get(Job.Transfer);
+                    TodoItem worker = item.Get(Job.Worker);
 
+                    DrawJobItemBar(item, y);
+                    y += padding;
+                    DrawTodoItemBar(master, y);
+                    foreach (string todo in master.childTodos)
+                        DrawTodoItemBar(master.childDict[todo], y);
+
+                    y += height + separator;
+                    foreach (string todo in transfer.childTodos)
+                        DrawTodoItemBar(transfer.childDict[todo], y);
+
+                    y += height + separator;
+                    DrawTodoItemBar(worker, y);
+                    foreach (string todo in worker.childTodos)
+                        DrawTodoItemBar(worker.childDict[todo], y);
+
+                    y += height;
+                    y += padding;
+                    y += separator;
+                }
+            }
             if (stopTime == null)
                 CustomGUIUtils.DrawBox(new Rect(now, 0, 1, panelHeight), Color.black);
 
@@ -410,6 +378,62 @@ public class SimpleClientEditorWindow : EditorWindow
         Repaint();
     }
 
+    private static void CheckDone()
+    {
+        if (stopTime == null)
+        {
+            bool allJobsDone = true;
+            foreach (StatusUpdateMessage item in SimpleClient.jobStatus.Values)
+            {
+                if (item.status != Status.DONE)
+                {
+                    allJobsDone = false;
+                    break;
+                }
+            }
+            if (allJobsDone && SimpleClient.jobStatus.Count > 0)
+            {
+                stopTime = TimeStamp.Now();
+                Debug.Log("All Jobs Done");
+                Debug.Log("Gathering result...");
+
+                Dictionary<string, double> result = new Dictionary<string, double>();
+
+                foreach (StatusUpdateMessage item in SimpleClient.jobStatus.Values)
+                {
+                    foreach (TodoItem cildItem in item.childDict.Values)
+                    {
+                        foreach (TodoItem childTodo in cildItem.childDict.Values)
+                        {
+                            if (!result.ContainsKey(childTodo.name))
+                                result.Add(childTodo.name, 0);
+                            result[childTodo.name] += childTodo.Duration();
+                        }
+                        if (!result.ContainsKey(cildItem.name))
+                            result.Add(cildItem.name, 0);
+                        result[cildItem.name] += cildItem.Duration();
+                    }
+                    if (!result.ContainsKey(item.name))
+                        result.Add(item.name, 0);
+                    result[item.name] += item.Duration();
+                }
+
+                StringBuilder sb = new StringBuilder();
+
+                StatusUpdateMessage msg = SimpleClient.jobStatus[0];
+                foreach (TodoItem cildItem in msg.childDict.Values)
+                {
+                    sb.Append(cildItem.name).Append(", ").Append(result[cildItem.name]).Append("\n");
+                    foreach (TodoItem childTodo in cildItem.childDict.Values)
+                    {
+                        sb.Append(childTodo.name).Append(", ").Append(result[childTodo.name]).Append("\n");
+                    }
+                }
+
+                Debug.Log(sb.ToString());
+            }
+        }
+    }
 
     public Rect TodoRect(TodoItem item, float y)
     {
@@ -519,6 +543,8 @@ public class SimpleClientEditorWindow : EditorWindow
 
 
     int numberOfWorkers = 10;
+    bool generateLocal = false;
+    bool sequential = true;
     private void JobCreationGUI()
     {
         EditorGUILayout.BeginVertical("box");
@@ -537,6 +563,7 @@ public class SimpleClientEditorWindow : EditorWindow
             startTime = TimeStamp.Now();
             stopTime = null;
             done = false;
+            generateLocal = false;
 
             client.SendOSMJobMessages(
                 jobQueueName,
@@ -549,10 +576,63 @@ public class SimpleClientEditorWindow : EditorWindow
                 client.method);
         }
 
+        sequential = EditorGUILayout.ToggleLeft("Sequential", sequential);
         if (GUILayout.Button("Generate Local"))
         {
             Debug.LogError("Doesn't work anymore... the enumerator has to be reactivated...");
-            TileManager.CreateTileMap();
+            startTime = TimeStamp.Now();
+            stopTime = null;
+            done = false;
+            generateLocal = true;
+            
+
+            if (sequential)
+            {
+                tiles = new List<Tile>();
+                jobs = 0;
+                for (int i = -TileManager.tileRadius; i <= TileManager.tileRadius; i++)
+                {
+                    for (int j = -TileManager.tileRadius; j <= TileManager.tileRadius; j++)
+                    {
+                        StatusUpdateMessage msg = new StatusUpdateMessage(jobs, i + "," + j);
+
+                        TodoItem worker = msg.AddTodo(Job.Worker);
+                        //worker.AddTodo(Job.CreateTile);
+                        worker.AddTodo(Job.StartOSMQuery);
+                        worker.AddTodo(Job.StartProcedural);
+                        worker.AddTodo(Job.ProceduralPreparation);
+                        worker.AddTodo(Job.CreateTerrain);
+                        worker.AddTodo(Job.MeshPreparation);
+                        worker.AddTodo(Job.TileQuad);
+                        worker.AddTodo(Job.River);
+                        worker.AddTodo(Job.Ways);
+                        worker.AddTodo(Job.CreateBuildingMesh);
+                        worker.AddTodo(Job.FillMeshDivideMaterials);
+                        worker.AddTodo(Job.GarbageCollection);
+                        worker.AddTodo(Job.ProceduralDone);
+                        SimpleClient.jobStatus.Add(jobs, msg);
+
+                        Tile newTile = Tile.CreateTileGO(i, j, 5);
+                        tiles.Add(newTile);
+                        newTile.SetJobInfo(jobs, msg);
+                        //tileJobsLocal.Add(i + "/" + j, newTile);
+
+                        //newTile.ProceduralDone += GenerationDone;
+                        //newTile.StartQuery();
+
+                        //EditorSceneManager.SaveScenes
+                        //SceneManager.SetActiveScene(mainScene);
+                        jobs++;
+                    }
+                }
+
+                tiles[0].ProceduralDoneLocal += GenerationDone;
+                tiles[0].StartQuery();
+            }
+            else
+            {
+                TileManager.GenerateLocal();
+            }
         }
 
         int newNumberOfWorkers = EditorGUILayout.IntSlider("Number of Workers", numberOfWorkers, 1, 100);
@@ -560,6 +640,30 @@ public class SimpleClientEditorWindow : EditorWindow
         {
             numberOfWorkers = newNumberOfWorkers;
             ScaleWorkers(numberOfWorkers);
+        }
+
+        if (osmMapRect == null)
+            osmMapRect = new OSMMapRect();
+        osmMapRect.DrawOSMMapRect(new Rect(0, 300, this.position.width, this.position.height - 300));
+        if (osmMapRect.ShouldRepaint())
+            Repaint();
+    }
+
+    private void GenerationDone(object sender, EventArgs e)
+    {
+        jobs--;
+
+        Tile tile = (Tile)sender;
+        string tileName = tile.TileIndex[0] + "/" + tile.TileIndex[1];
+        Debug.Log("Done Generating " + tileName);
+        tile.ProceduralDoneLocal -= GenerationDone;
+
+        if (tiles.Count > 0)
+        {
+            Tile nextTile = tiles[0];
+            tiles.RemoveAt(0);
+            nextTile.ProceduralDoneLocal += GenerationDone;
+            nextTile.StartQuery();
         }
     }
 
@@ -587,6 +691,9 @@ public class SimpleClientEditorWindow : EditorWindow
     string jobQueueName;
     string replyQueueName;
     string statusUpdateQueueName;
+    private List<Tile> tiles;
+    private int jobs;
+
     private void ClientSettingsGUI()
     {
         GUILayout.BeginArea(new Rect(0, buttonHeight + 20, 300, 400));
@@ -609,11 +716,21 @@ public class SimpleClientEditorWindow : EditorWindow
         string tooltip = "Select the AMQP connection to use. Connections can be configured in the AMQP/Configuration menu.";
         index = EditorGUILayout.Popup(new GUIContent("Connection", tooltip), index, options.ToArray());
 
-        if (options.Count == 0)
+        if (options.Count == 0) 
             Init();
 
         // Set the connection name based on dropdown value
-        client.Connection = options[index].text;
+        try
+        {
+            GUIContent con = options[index];
+            client.Connection = options[index].text;
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            GUILayout.EndArea();
+            Repaint(); 
+        }
+        
         #endregion // Dropdown connections
 
         // Draw the rest of the inspector's default layout
@@ -621,19 +738,19 @@ public class SimpleClientEditorWindow : EditorWindow
         if (GUILayout.Button("Awake"))
         {
             client.Awake();
-            this.Repaint();
+            Repaint();
         }
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("EnableUpdate"))
         {
             client.EnableUpdate();
-            this.Repaint();
+            return;
         }
 
         if (GUILayout.Button("DisableUpdate"))
         {
             client.DisableUpdate();
-            this.Repaint();
+            return;
         }
         EditorGUILayout.EndHorizontal();
 
@@ -652,13 +769,13 @@ public class SimpleClientEditorWindow : EditorWindow
         if (GUILayout.Button("Connect"))
         {
             client.Connect();
-            this.Repaint();
+            return;
         }
 
         if (GUILayout.Button("Disconnect"))
         {
             client.Disconnect();
-            this.Repaint();
+            return;
         }
         EditorGUILayout.EndHorizontal();
 

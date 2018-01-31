@@ -1,0 +1,10 @@
+ @echo off
+start "" "UnityBuild64_1\Client.exe"
+start "" "UnityBuild64_2\Client.exe"
+start "" "UnityBuild64_3\Client.exe"
+start "" "UnityBuild64_4\Client.exe"
+start "" "UnityBuild64_5\Client.exe"
+start "" "UnityBuild64_6\Client.exe"
+start "" "UnityBuild64_7\Client.exe"
+start "" "UnityBuild64_8\Client.exe"
+start "" "UnityBuild64_9\Client.exe"

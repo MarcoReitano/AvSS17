@@ -1781,6 +1781,11 @@ namespace CymaticLabs.Unity3D.Amqp
             Instance.client.BasicAck(delivertag, multiple);
         }
 
+        public static void BasicReject(ulong delivertag, bool reject)
+        {
+            Instance.client.BasicReject(delivertag, reject);
+        }
+
         public static void BasicQos(uint prefetchSize, ushort prefetchCount, bool global)
         {
             Instance.client.BasicQos(prefetchSize, prefetchCount, global);
