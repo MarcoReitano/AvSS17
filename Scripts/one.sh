@@ -13,6 +13,8 @@ Usage: one COMMAND
     machines    Create docker machine on all Machines
     logout      logout from all Machines
     ssh         run command on all Machines
+    scale       scale the Worker Service Container to number
+    keys        copy ssh key on all Machines
 EOF
 fi
 
@@ -170,6 +172,20 @@ function logoutAll()
     done
 }
 
+function keyshare()
+{
+    if [ ! -f $HOME/.ssh/id_rsa ]; then
+        ssh-keygen -t rsa -N ''
+    fi
+    for server in $(cat ./hosts) ; do
+        ssh-copy-id $USER@$server
+    done
+}
+
+function scale()
+{
+    docker-machine ssh default "docker service scale unityTest_avsbuild=$1"
+}
 
 
 case $1 in
@@ -208,5 +224,9 @@ case $1 in
     "scale" )
         echo "scale docker container"
         scale "$2"
+        ;;
+    "key" )
+        echo "Send keys to all Macs"
+        keyshare
         ;;
 esac
