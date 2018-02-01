@@ -357,8 +357,7 @@ public class OSMMapRect
                 {
                     Location location = locationQuery.searchResults[i];
                     resultLine.y = (resultLine.height * (i + 1));
-                    GUI.Button(resultLine, location.ToString(), lightGreen);
-
+                    GUI.Label(resultLine, location.ToString(), lightGreen);
                     if (resultLine.Contains(Event.current.mousePosition) )
                     {
                         Debug.Log("mouseOver " + location);
