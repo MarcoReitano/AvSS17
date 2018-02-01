@@ -728,7 +728,8 @@ public class SimpleClientEditorWindow : EditorWindow
         catch (ArgumentOutOfRangeException)
         {
             GUILayout.EndArea();
-            Repaint(); 
+            Repaint();
+            return;
         }
         
         #endregion // Dropdown connections

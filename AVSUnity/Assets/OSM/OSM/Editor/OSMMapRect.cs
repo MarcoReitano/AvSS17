@@ -24,11 +24,12 @@ public class OSMMapRect
 
     private Vector2 scroll;
     private static Texture2D here;
-
+    private static GUIStyle lightGreen;
 
     static void Init()
     {
         here = Resources.Load("here") as Texture2D;
+        lightGreen = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightGreen);
     }
 
     #region Server-Locations
@@ -343,6 +344,35 @@ public class OSMMapRect
             locationQuery.SearchLocation(searchString);
         }
 
+        Rect resultLine = new Rect(0, 0, 300, 40);
+        if (locationQuery != null)
+        {
+            if (locationQuery.searchResults.Count > 0)
+            {
+                if (lightGreen == null)
+                {
+                    lightGreen = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightGreen);
+                }
+                for (int i = 0; i < locationQuery.searchResults.Count; i++)
+                {
+                    Location location = locationQuery.searchResults[i];
+                    resultLine.y = (resultLine.height * (i + 1));
+                    GUI.Button(resultLine, location.ToString(), lightGreen);
+
+                    if (resultLine.Contains(Event.current.mousePosition) )
+                    {
+                        Debug.Log("mouseOver " + location);
+                        if (Event.current.type == EventType.MouseUp)
+                        {
+                            TileManager.OriginLatitude = location.lat;
+                            TileManager.OriginLongitude = location.lon;
+                            Debug.Log("Set YouAreHere to " + location.ToString()); 
+                        }
+                    }
+
+                }
+            }
+        }
         CustomGUIUtils.DrawOuterFrame(mapRect, 2, XKCDColors.Black);
     }
 

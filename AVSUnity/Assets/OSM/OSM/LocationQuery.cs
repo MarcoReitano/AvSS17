@@ -3,6 +3,34 @@ using System.Net;
 using System;
 using System.Text;
 using System.Xml;
+using System.Collections.Generic;
+
+public struct Location
+{
+    public string name;
+    public double lon;
+    public double lat;
+
+
+    public Location(XmlNode name, XmlNode lon, XmlNode lat):
+        this(name.InnerText, lon.InnerText, lat.InnerText)
+    {
+            
+    }
+
+    public Location(string name, string lon, string lat)
+    {
+        this.name = name;
+        this.lon = double.Parse(lon);
+        this.lat = double.Parse(lat);
+    }
+
+    public override string ToString()
+    {
+        return name + " (" + lon + ", " + lat + ")";
+    }
+}
+
 
 /// <summary>
 /// OverpassQuery.
@@ -10,6 +38,7 @@ using System.Xml;
 [System.Serializable]
 public class LocationQuery
 {
+    
 
     int retry = 3;
     public LocationQuery()
@@ -51,6 +80,8 @@ public class LocationQuery
 
     }
 
+
+    public List<Location> searchResults = new List<Location>();
     public void ParseLocation(object sender, DownloadStringCompletedEventArgs args)
     {
         string result = args.Result;
@@ -69,6 +100,18 @@ public class LocationQuery
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(result);
         Debug.Log("outerXML" + doc.OuterXml);
+        XmlNodeList places = doc.GetElementsByTagName("place");
+        searchResults = new List<Location>();
+        int count = 0;
+        foreach (XmlNode item in places)
+        {
+            XmlAttributeCollection attributes = item.Attributes;
+            XmlNode displayNameNode = attributes.GetNamedItem("display_name");
+            XmlNode latNode = attributes.GetNamedItem("lat");
+            XmlNode lonNode = attributes.GetNamedItem("lon");
+            searchResults.Add(new Location(displayNameNode, lonNode, latNode));
+            Debug.Log(count++ +": " +displayNameNode.InnerText + " ("+ latNode.InnerText + "," + lonNode.InnerText + ")");
+        }
         // select nodes
         // get lon/lat of first element
 

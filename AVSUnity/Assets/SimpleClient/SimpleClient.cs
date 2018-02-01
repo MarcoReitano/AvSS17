@@ -315,9 +315,12 @@ public class SimpleClient : MonoBehaviour
         Awake();
         if (client.IsConnected)
         {
-            //DeleteQueue("jobs");
-            //DeleteQueue("reply");
-            //DeleteQueue("statusUpdates");
+            if (client.QueueExists("jobs"))
+                DeleteQueue("jobs");
+            if (client.QueueExists("reply"))
+                DeleteQueue("reply");
+            if (client.QueueExists("statusUpdates"))
+                DeleteQueue("statusUpdates");
 
             EnsureQueue("jobs");
             EnsureQueue("reply");
@@ -398,6 +401,10 @@ public class SimpleClient : MonoBehaviour
         {
             if (!ServerMode)
             {
+                EnsureQueue("jobs");
+                EnsureQueue("reply");
+                EnsureQueue("statusUpdates");
+
                 SubscribeToQueue("jobs");
                 SubscribeToQueue("statusUpdates");
                 Debug.Log("<color=green>Subscribed to Job-Queue.</color>");
@@ -464,7 +471,7 @@ public class SimpleClient : MonoBehaviour
         Debug.Log("<color=red>"+message+"</color>");
     }
 
-
+    Dictionary<string, bool> alreadySubscribed = new Dictionary<string, bool>();
 
     #region Update
     // Handle Unity update loop
@@ -475,9 +482,26 @@ public class SimpleClient : MonoBehaviour
             if (sw.IsRunning)
             {
                 sw.Stop();
+                
                 if (sw.ElapsedMilliseconds > timeout)
                 {
+                    sw.Reset();
                     AbortAndRequeueJob("Job has been aborted and will be requeued!!!");
+                }
+            }
+        }
+
+        if (!ServerMode)
+        {
+            if (IsConnected)
+            {
+                bool found = alreadySubscribed.ContainsKey("jobs");
+                if (!found)
+                {
+                    if (client.QueueExists("jobs"))
+                    {
+                        SubscribeToQueue("jobs");
+                    }
                 }
             }
         }
@@ -617,6 +641,7 @@ public class SimpleClient : MonoBehaviour
 
             foreach (var sub in subscriptions)
             {
+                alreadySubscribed[sub.QueueName] = true;
                 // Notify
                 if (this.OnSubscribedToQueue != null)
                     this.OnSubscribedToQueue.Invoke(sub);
@@ -1447,6 +1472,8 @@ public class SimpleClient : MonoBehaviour
         this.PublishToQueue(statusUpdateQueueName, StatusUpdateMessage.Serialize());
     }
 
+    private int timeout = 100000;
+    private Stopwatch sw;
     public static SimpleClient simpleClient;
     public static StatusUpdateMessage StatusUpdateMessage;
     public static string statusUpdateQueueName;
@@ -1519,6 +1546,11 @@ public class SimpleClient : MonoBehaviour
         }
         else
         {
+            abort = false;
+            sw = new Stopwatch();
+            sw.Start();
+
+
             SimpleClient.simpleClient = this;
             // Der Transferprozess von Master zur Queue und zum Worker muss hier festgehalten werden.
             TimeStamp messageArrived = new TimeStamp();
@@ -1608,16 +1640,11 @@ public class SimpleClient : MonoBehaviour
             SimpleClient.simpleClient.SendStatusUpdateMessages();
             newTile.ProceduralDone += GenerationDone;
             newTile.StartQuery();
-
-            sw = new Stopwatch();
-            sw.Start();
-
-
+            
             Debug.Log(jobMessage.x + "/" + jobMessage.y);
         }
     }
-    private int timeout = 100000;
-    private Stopwatch sw;
+   
 
 
     public static string CheckForExistingScene(string sceneName)
@@ -1695,8 +1722,14 @@ public class SimpleClient : MonoBehaviour
 
         StatusUpdateMessage.Start(Job.TransferToMaster);
         SimpleClient.simpleClient.SendStatusUpdateMessages();
+
+        if (sw.IsRunning)
+        {
+            sw.Stop();
+        }
         if (abort)
         {
+            abort = false;
             // Quick and dirty for now. just dont ACK
             return;
         }
