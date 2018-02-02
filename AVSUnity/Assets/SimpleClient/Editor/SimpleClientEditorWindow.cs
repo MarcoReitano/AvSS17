@@ -638,8 +638,13 @@ public class SimpleClientEditorWindow : EditorWindow
         int newNumberOfWorkers = EditorGUILayout.IntSlider("Number of Workers", numberOfWorkers, 1, 100);
         if (newNumberOfWorkers != numberOfWorkers)
         {
+            if (newNumberOfWorkers > numberOfWorkers)
+                Debug.Log("Scaling UP number of workers (from " + numberOfWorkers + " to "+ newNumberOfWorkers + ")");
+            else
+                Debug.Log("Scaling DOWN number of workers (from " + numberOfWorkers + " to " + newNumberOfWorkers + ")");
             numberOfWorkers = newNumberOfWorkers;
             ScaleWorkers(numberOfWorkers);
+           
         }
 
         if (osmMapRect == null)

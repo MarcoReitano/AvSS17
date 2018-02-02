@@ -342,6 +342,7 @@ public class OSMMapRect
             locationQuery = new LocationQuery();
             locationQuery.QueryDone += LocationQuery_QueryDone;
             locationQuery.SearchLocation(searchString);
+            SetDirty();
         }
 
         Rect resultLine = new Rect(0, 0, 300, 40);
@@ -357,7 +358,9 @@ public class OSMMapRect
                 {
                     Location location = locationQuery.searchResults[i];
                     resultLine.y = (resultLine.height * (i + 1));
-                    GUI.Label(resultLine, location.ToString(), lightGreen);
+                    GUILayout.BeginArea(resultLine);
+                    GUILayout.Label(location.ToString(), lightGreen);
+                    GUILayout.EndArea();
                     if (resultLine.Contains(Event.current.mousePosition) )
                     {
                         Debug.Log("mouseOver " + location);
@@ -365,7 +368,8 @@ public class OSMMapRect
                         {
                             TileManager.OriginLatitude = location.lat;
                             TileManager.OriginLongitude = location.lon;
-                            Debug.Log("Set YouAreHere to " + location.ToString()); 
+                            Debug.Log("Set YouAreHere to " + location.ToString());
+                            SetDirty();
                         }
                     }
 
