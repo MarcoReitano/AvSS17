@@ -13,6 +13,7 @@ public class TimeStamp : IComparer
     [ProtoMember(1)]
     public static readonly string DateFormatString = "dd'.'MM'.'yyyy' - 'HH':'mm':'ss'.'fffffff";
     public static readonly string DateFormatStringShort = "HH':'mm':'ss'.'fffffff";
+    public static readonly string DateFormatStringShortest = "HH':'mm':'ss";
 
     [SerializeField]
     [ProtoMember(2)]
@@ -43,6 +44,11 @@ public class TimeStamp : IComparer
     public static string GetTimeStampShort()
     {
         return DateTime.Now.ToString(DateFormatStringShort, cultureInfo);
+    }
+
+    public static string GetTimeStampShortest()
+    {
+        return DateTime.Now.ToString(DateFormatStringShortest, cultureInfo);
     }
 
     public static DateTime ParseTimeStamp(string dateTimeString)
@@ -152,4 +158,5 @@ public class TimeStamp : IComparer
 
         return ((DateTime)x).CompareTo((DateTime)obj);
     }
+
 }

@@ -1,14 +1,18 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using System;
 using System.Collections.Generic;
-using CymaticLabs.Unity3D.Amqp;
-using UnityEngine.SceneManagement;
-using System;
 using System.Diagnostics;
-using System.Threading;
-using Debug = UnityEngine.Debug;
-using System.Globalization;
 using System.Text;
+using System.Threading;
+using CymaticLabs.Unity3D.Amqp;
+using UnityEditor;
+using UnityEngine;
+using System.Net;
+using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
+using UnityEngine.Networking;
+using System.Collections;
+using System.IO;
+
 /// <summary>
 /// 
 /// - Start Server
@@ -18,43 +22,72 @@ using System.Text;
 /// </summary>
 public class SimpleClientEditorWindow : EditorWindow
 {
-    private static GUIStyle lightGreen;
-    private static GUIStyle lightRed;
-    private static GUIStyle lightYellow;
-    private static GUIStyle darkgrey;
-    private static GUIStyle statusStyle;
-
-    private static bool showAvailableQueues;
-
-    private string queueName;
-    private string replyToQueue;
-
-    private string message;
-
-    private Scene mainScene;
-    private Scene newScene;
-
-    private int selectedQueue;
-
-    private int jobQueueIndex;
-    private int replyQueueIndex;
-    private int statusUpdateQueueIndex;
-
-    private static SimpleClient[] clients;
-    private static SimpleClient client;
-    private static int index;
     private static SimpleClientEditorWindow window;
 
-    private static TimeStamp startTime;
-    private static TimeStamp stopTime;
+    #region GUI fields
+    private static GUIStyle lightGreen = new GUIStyle();
+    private static GUIStyle lightRed = new GUIStyle();
+    private static GUIStyle lightYellow = new GUIStyle();
+    private static GUIStyle darkgrey = new GUIStyle();
+    private static GUIStyle statusStyle = new GUIStyle();
 
-    private static bool done;
     private static Font timerFont;
     public static GUIStyle timerFontStyle = new GUIStyle();
 
     private static OSMMapRect osmMapRect;
 
-    // Add menu named "My Window" to the Window menu
+    private int buttonWidth = 120;
+    private int buttonHeight = 30;
+
+    private Vector2 scrollPos;
+    private static float zoomFactor = 0.1f;
+    private static int xOffset = 12;
+    private static float yOffset = 7;
+
+    private static float separator = 4;
+    private static float padding = 2;
+    private static float border = 8;
+    private static bool autoScroll = false;
+    private static float height = 16;
+
+    private static int selectedMenu = 0;
+    #endregion //GUI fields
+
+    #region Client fields
+    private string createQueueName;
+
+    private int selectedQueue;
+
+    private static SimpleClient[] clients;
+    private static SimpleClient client;
+    private static int selectedConfigurationIndex;
+
+    private string jobQueueName;
+    private int jobQueueIndex;
+
+    private string replyQueueName;
+    private int replyQueueIndex;
+
+    private string statusUpdateQueueName;
+    private int statusUpdateQueueIndex;
+
+    private int numberOfWorkers = 10;
+    #endregion // Client fields
+
+    #region Job fields
+    private static TimeStamp startTime;
+    private static TimeStamp stopTime;
+
+    private static bool done;
+
+    private bool generateLocal = false;
+    private bool sequential = true;
+
+    private List<Tile> tiles;
+    private int jobs;
+    #endregion Job fields
+
+
     [MenuItem("Window/FlatEarthEditor")]
     static void Init()
     {
@@ -65,6 +98,26 @@ public class SimpleClientEditorWindow : EditorWindow
         AmqpConfigurationEditor.LoadConfiguration();
 
         //Restore the connection index
+        RestoreConfigurationIndex();
+
+        osmMapRect = new OSMMapRect();
+
+        // Prepare GUI-Styles
+        lightGreen = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightGreen);
+        lightRed = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightRed);
+        lightYellow = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightYellow);
+        darkgrey = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.DarkGrey);
+
+        timerFontStyle.font = (Font)Resources.Load("digitalmono");
+        timerFontStyle.fontSize = 34;
+
+        // Get existing open window or if none, make a new one:
+        window = (SimpleClientEditorWindow)EditorWindow.GetWindow(typeof(SimpleClientEditorWindow));
+        window.Show();
+    }
+
+    private static void RestoreConfigurationIndex()
+    {
         string[] connectionNames = AmqpConfigurationEditor.GetConnectionNames();
         if (client != null)
         {
@@ -73,52 +126,31 @@ public class SimpleClientEditorWindow : EditorWindow
                 string cName = connectionNames[i];
                 if (client.Connection == cName)
                 {
-                    index = i;
+                    selectedConfigurationIndex = i;
                     break;
                 }
             }
         }
-
-        osmMapRect = new OSMMapRect();
-
-        lightGreen = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightGreen);
-        lightRed = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightRed);
-        lightYellow = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.LightYellow);
-        darkgrey = CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.DarkGrey);
-
-        timerFont = (Font)Resources.Load("Fonts/digital-7.ttf");
-
-        //style.normal.background = new Texture2D(120, 35);
-        //style.hover.background = new Texture2D(120, 35);
-        //style.normal.textColor = new Color(0f, 0f, 0f);
-        //style.hover.textColor = new Color(0f, 0f, 128f);
-
-        // the following seems to (silently) fail
-        timerFontStyle.font = (Font)Resources.Load("digitalmono"); // badaboom font
-        timerFontStyle.fontSize = 34;
-
-        // Get existing open window or if none, make a new one:
-        window = (SimpleClientEditorWindow)EditorWindow.GetWindow(typeof(SimpleClientEditorWindow));
-        window.Show();
     }
 
-
-    private static int selectedMenu = 0;
-    int buttonWidth = 120;
-    int buttonHeight = 30;
+    /// <summary>
+    /// GUI of the FlatEarthCreator
+    /// </summary>
     public void OnGUI()
     {
+      
         clients = FindObjectsOfType<SimpleClient>();
 
         if (clients == null)
         {
-            Debug.Log("No Clients available..");
+            GUILayout.Label("No Clients available...", lightRed);
+            Debug.Log("No Clients available...");
             return;
         }
 
-
         if (clients.Length == 0)
         {
+            GUILayout.Label("No Clients available...", lightRed);
             Debug.Log("No Clients available..");
             return;
         }
@@ -134,6 +166,7 @@ public class SimpleClientEditorWindow : EditorWindow
         if (client == null)
             return;
 
+        
         CheckDone();
 
         GUILayout.BeginArea(new Rect(0, 0, position.width, 39), CustomGUIUtils.GetColorBackgroundStyle(XKCDColors.Bluegrey));
@@ -176,7 +209,7 @@ public class SimpleClientEditorWindow : EditorWindow
 
         switch (selectedMenu)
         {
-            case 0: // Client Settings
+            case 0: // Client Settings 
                 ClientSettingsGUI();
                 break;
             case 1: // FlatEarth Creation
@@ -189,22 +222,7 @@ public class SimpleClientEditorWindow : EditorWindow
             default:
                 break;
         }
-
-
     }
-
-    Vector2 scrollPos;
-    private static float zoomFactor = 0.1f;
-    private static int xOffset = 12;
-    private static float yOffset = 7;
-
-    private static float separator = 4;
-    private static float padding = 2;
-    private static float border = 8;
-    private static bool autoScroll = false;
-    private static float height = 16;
-
-
 
     private void WorkerStatusGUI()
     {
@@ -214,6 +232,7 @@ public class SimpleClientEditorWindow : EditorWindow
         autoScroll = EditorGUILayout.ToggleLeft("AutoScroll", autoScroll);
 
         #region StatusBar
+        // Count number of Job-Todos
         int todoCount = 0;
         foreach (StatusUpdateMessage item in SimpleClient.jobStatus.Values)
         {
@@ -227,11 +246,15 @@ public class SimpleClientEditorWindow : EditorWindow
             }
             todoCount++;
         }
+
+        // Calculate %-Step
         float step;
         if (SimpleClient.jobStatus.Values.Count > 0)
             step = 1f / todoCount;
         else
             step = 0;
+
+        // Determine how many Job-Todos have been done
         float complete = 0;
         foreach (StatusUpdateMessage item in SimpleClient.jobStatus.Values)
         {
@@ -248,20 +271,25 @@ public class SimpleClientEditorWindow : EditorWindow
             if (item.status == Status.DONE)
                 complete += step;
         }
+
         EditorGUILayout.LabelField("", GUILayout.Height(20));
         EditorGUI.ProgressBar(new Rect(0, 90, this.position.width - 200, 20), complete, (int)(complete * 100) + " % ");
+        #endregion // Statusbar
 
+        #region Timer
         string timer;
         if (stopTime == null)
             timer = startTime != null ? startTime.Duration() : "00:00:00.000";
         else
             timer = TimeStamp.Duration(TimeStamp.Duration(startTime, stopTime));
 
-        //Font normalFont = GUI.skin.font;
-        //GUI.skin.font = timerFont;
+        if (timerFontStyle == null)
+        {
+            timerFontStyle.font = (Font)Resources.Load("digitalmono");
+            timerFontStyle.fontSize = 34;
+        }
         EditorGUI.LabelField(new Rect(this.position.width - 190, 85, 180, 20), timer, timerFontStyle);
-        //GUI.skin.font = normalFont;
-        #endregion // Statusbar
+        #endregion // Timer
 
         EditorGUILayout.EndVertical();
         GUILayout.Space(10f);
@@ -294,9 +322,6 @@ public class SimpleClientEditorWindow : EditorWindow
             float now = xOffset;
             if (startTime != null)
                 now = (float)TimeStamp.DurationInMillis(startTime, TimeStamp.Now()) * zoomFactor + xOffset;
-
-
-
 
             if (generateLocal)
             {
@@ -354,26 +379,22 @@ public class SimpleClientEditorWindow : EditorWindow
             if (stopTime == null)
                 CustomGUIUtils.DrawBox(new Rect(now, 0, 1, panelHeight), Color.black);
 
+            #region Draw Time indicators
             if (1000 * zoomFactor > 20)
             {
                 for (float x = 0; x < panelWidth; x += (1000 * zoomFactor))
-                {
                     CustomGUIUtils.DrawBox(new Rect(x, 0, 1, panelHeight), Color.grey);
-                }
             }
 
             if (15000 * zoomFactor > 20)
             {
                 for (float x = 0; x < panelWidth; x += (15000 * zoomFactor))
-                {
                     CustomGUIUtils.DrawBox(new Rect(x, 0, 1, panelHeight), XKCDColors.LightRed);
-                }
             }
 
             for (float x = 0; x < panelWidth; x += (60000 * zoomFactor))
-            {
                 CustomGUIUtils.DrawBox(new Rect(x, 0, 1, panelHeight), Color.red);
-            }
+            #endregion // Draw time indicators
         }
         Repaint();
     }
@@ -391,6 +412,8 @@ public class SimpleClientEditorWindow : EditorWindow
                     break;
                 }
             }
+
+            #region Collect Statistics
             if (allJobsDone && SimpleClient.jobStatus.Count > 0)
             {
                 stopTime = TimeStamp.Now();
@@ -419,6 +442,14 @@ public class SimpleClientEditorWindow : EditorWindow
                 }
 
                 StringBuilder sb = new StringBuilder();
+                sb.Append("StartTime,").Append(startTime).AppendLine();
+                sb.Append("StopTime,").Append(stopTime).AppendLine();
+
+                sb.Append("OriginLon,").Append(TileManager.OriginLongitude).AppendLine();
+                sb.Append("OriginLat,").Append(TileManager.OriginLatitude).AppendLine();
+
+                sb.Append("TileRadius, ").Append(TileManager.tileRadius).AppendLine();
+                sb.Append("TileWidth,").Append(TileManager.TileWidth).AppendLine();
 
                 StatusUpdateMessage msg = SimpleClient.jobStatus[0];
                 foreach (TodoItem cildItem in msg.childDict.Values)
@@ -431,10 +462,497 @@ public class SimpleClientEditorWindow : EditorWindow
                 }
 
                 Debug.Log(sb.ToString());
+                string logPath = Application.dataPath + "/Logs/";
+                if (!Directory.Exists(logPath))
+                {
+                    Directory.CreateDirectory(logPath);
+                }
+                System.IO.File.WriteAllText(logPath + "Session.txt", sb.ToString());
+
             }
+            #endregion // Collect Statistics
         }
     }
 
+    private void JobCreationGUI()
+    {
+        EditorGUILayout.BeginVertical("box");
+        TileManager.TileWidth = (double)EditorGUILayout.FloatField("TileWidth", (float)TileManager.TileWidth);
+        TileManager.tileRadius = EditorGUILayout.IntField("TileRadius", TileManager.tileRadius);
+        TileManager.LOD = EditorGUILayout.IntField("LOD", TileManager.LOD);
+        TileManager.OriginLatitude = (double)EditorGUILayout.FloatField("OriginLatitude", (float)TileManager.OriginLatitude);
+        TileManager.OriginLongitude = (double)EditorGUILayout.FloatField("OriginLongitude", (float)TileManager.OriginLongitude);
+        EditorGUILayout.EndVertical();
+        client.method = (SerializationMethod)EditorGUILayout.EnumPopup("SerializationMethod", client.method);
+
+        if (GUILayout.Button("Send OSM-Job-Messages"))
+        {
+            startTime = TimeStamp.Now();
+            stopTime = null;
+            done = false;
+            generateLocal = false;
+
+            client.SendOSMJobMessages(
+                jobQueueName,
+                replyQueueName,
+                statusUpdateQueueName,
+                TileManager.tileRadius,
+                TileManager.TileWidth,
+                TileManager.OriginLongitude,
+                TileManager.OriginLatitude,
+                client.method);
+        }
+
+        sequential = EditorGUILayout.ToggleLeft("Sequential", sequential);
+        if (GUILayout.Button("Generate Local"))
+        {
+            startTime = TimeStamp.Now();
+            stopTime = null;
+            done = false;
+            generateLocal = true;
+
+            if (sequential)
+            {
+                tiles = new List<Tile>();
+                jobs = 0;
+                for (int i = -TileManager.tileRadius; i <= TileManager.tileRadius; i++)
+                {
+                    for (int j = -TileManager.tileRadius; j <= TileManager.tileRadius; j++)
+                    {
+                        StatusUpdateMessage msg = new StatusUpdateMessage(jobs, i + "," + j);
+
+                        TodoItem worker = msg.AddTodo(Job.Worker);
+                        //worker.AddTodo(Job.CreateTile);
+                        worker.AddTodo(Job.StartOSMQuery);
+                        worker.AddTodo(Job.StartProcedural);
+                        worker.AddTodo(Job.ProceduralPreparation);
+                        worker.AddTodo(Job.CreateTerrain);
+                        worker.AddTodo(Job.MeshPreparation);
+                        worker.AddTodo(Job.TileQuad);
+                        worker.AddTodo(Job.River);
+                        worker.AddTodo(Job.Ways);
+                        worker.AddTodo(Job.CreateBuildingMesh);
+                        worker.AddTodo(Job.FillMeshDivideMaterials);
+                        worker.AddTodo(Job.GarbageCollection);
+                        worker.AddTodo(Job.ProceduralDone);
+                        SimpleClient.jobStatus.Add(jobs, msg);
+
+                        Tile newTile = Tile.CreateTileGO(i, j, 5);
+                        tiles.Add(newTile);
+                        newTile.SetJobInfo(jobs, msg);
+
+                        jobs++;
+                    }
+                }
+
+                // Start first Tile-Generation
+                // Next Tile will be started after "GenerationDone" of first Tile
+                tiles[0].ProceduralDoneLocal += GenerationDone;
+                tiles[0].StartQuery();
+            }
+            else
+            {
+                // Start parallel Generation of Tiles locally
+                TileManager.GenerateLocal();
+            }
+        }
+
+        #region ScaleWorkers
+        int newNumberOfWorkers = EditorGUILayout.IntSlider("Number of Workers", numberOfWorkers, 1, 100);
+        if (newNumberOfWorkers != numberOfWorkers)
+        {
+            if (newNumberOfWorkers > numberOfWorkers)
+                Debug.Log("Scaling UP number of workers (from " + numberOfWorkers + " to " + newNumberOfWorkers + ")");
+            else
+                Debug.Log("Scaling DOWN number of workers (from " + numberOfWorkers + " to " + newNumberOfWorkers + ")");
+            numberOfWorkers = newNumberOfWorkers;
+            ScaleWorkers(numberOfWorkers);
+        }
+        #endregion // ScaleWorkers
+
+        #region DrawOSM-Map
+        if (osmMapRect == null)
+            osmMapRect = new OSMMapRect();
+        osmMapRect.DrawOSMMapRect(new Rect(0, 300, this.position.width, this.position.height - 300));
+        if (osmMapRect.ShouldRepaint())
+            Repaint();
+        #endregion // DrawOSM-Map
+    }
+
+    private void GenerationDone(object sender, EventArgs e)
+    {
+        jobs--;
+
+        Tile tile = (Tile)sender;
+        string tileName = tile.TileIndex[0] + "/" + tile.TileIndex[1];
+        Debug.Log("Done Generating " + tileName);
+        tile.ProceduralDoneLocal -= GenerationDone;
+
+        if (tiles.Count > 0)
+        {
+            Tile nextTile = tiles[0];
+            tiles.RemoveAt(0);
+            nextTile.ProceduralDoneLocal += GenerationDone;
+            nextTile.StartQuery();
+        }
+        else
+        {
+            done = true;
+        }
+    }
+
+
+    //IEnumerator WaitForWWW(WWW www)
+    //{
+    //    yield return www;
+
+
+    //    string txt = "";
+    //    if (string.IsNullOrEmpty(www.error))
+    //        txt = www.text;  //text of success
+    //    else
+    //        txt = www.error;  //error
+    //    GameObject.Find("Txtdemo").GetComponent<Text>().text = "++++++\n\n" + txt;
+    //}
+    //void TaskOnClick()
+    //{
+    //    try
+    //    {
+
+    //        string ourPostData = "";
+    //        //"{\"plan\":\"TESTA02\"";
+    //        Dictionary<string, string> headers = new Dictionary<string, string>();
+    //        headers.Add("Content-Type", "application/json");
+    //        //byte[] b = System.Text.Encoding.UTF8.GetBytes();
+    //        byte[] pData = System.Text.Encoding.ASCII.GetBytes(ourPostData.ToCharArray());
+    //        ///POST by IIS hosting...
+    //        WWW api = new WWW("http://192.168.1.120/si_aoi/api/total", pData, headers);
+    //        ///GET by IIS hosting...
+    //        ///WWW api = new WWW("http://192.168.1.120/si_aoi/api/total?dynamix={\"plan\":\"TESTA02\"");
+    //        StartCoroutine(WaitForWWW(api));
+    //    }
+    //    catch (UnityException ex) { Debug.Log(ex.Message); }
+    //}
+
+
+    RabbitmqManagementAPI managementAPI;
+    RabbitmqWebRequest overview;
+    private void ClientSettingsGUI()
+    {
+        
+        GUILayout.BeginArea(new Rect(0, buttonHeight + 20, 300, 400));
+        client.ServerMode = EditorGUILayout.Toggle("Act as Server", client.ServerMode);
+
+        #region Dropdown connections
+        // Generate the connection dropdown options/content
+        List<GUIContent> options = new List<GUIContent>();
+        string[] connectionNames = AmqpConfigurationEditor.GetConnectionNames();
+
+        //if (Event.current.type == EventType.Layout)
+        //{
+        for (var i = 0; i < connectionNames.Length; i++)
+        {
+            var cName = connectionNames[i];
+            if (string.IsNullOrEmpty(client.Connection) || client.Connection == cName)
+                selectedConfigurationIndex = i;
+            options.Add(new GUIContent(cName));
+        }
+
+        if (options.Count == 0)
+        {
+            Init();
+        }
+        //}
+
+        // Connections drop down
+        string tooltip = "Select the AMQP connection to use. Connections can be configured in the AMQP/Configuration menu.";
+        selectedConfigurationIndex = EditorGUILayout.Popup(new GUIContent("Connection", tooltip), selectedConfigurationIndex, options.ToArray());
+
+        // Set the connection name based on dropdown value
+        try
+        {
+            GUIContent con = options[selectedConfigurationIndex];
+            client.Connection = options[selectedConfigurationIndex].text;
+        }
+        catch (ArgumentException)
+        {
+            Repaint();
+            return;
+        }
+        #endregion // Dropdown connections
+        string connectionString = options[selectedConfigurationIndex].text;
+
+        #region REST-Versuche
+        AmqpConnection connection = SimpleClient.GetConnection(connectionString);
+        //if (connection != null)
+        //{
+        //    //string consumers = "http://guest:guest@" + connection.Host + ":" + connection.AmqpPort + "/api/consumers";
+        //    //Debug.Log("http://guest:guest@" + connection.Host + ":" + connection.AmqpPort + "/api/consumers");
+
+        //    if (managementAPI == null && client.IsConnected)
+        //    {
+        //        managementAPI = new RabbitmqManagementAPI(connection);
+        //    }
+
+        //    if (overview == null)
+        //    {
+        //        if (client.IsConnected)
+        //        {
+        //            overview = managementAPI.Overview();
+        //            //overview.Start();
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("OverviewResult: " + overview.GetResult());
+        //        //Debug.Log("overViewRequest != null");
+        //        if (client.IsConnected)
+        //        {
+        //            if (overview.RequestFinished)
+        //            {
+        //                if (!overview.RequestErrorOccurred)
+        //                {
+        //                    Debug.Log("not finished: " + overview.ResponseCode.ToString());
+        //                }
+        //                else
+        //                {
+        //                    Debug.Log("OverviewResult: " + overview.GetResult());
+        //                }
+        //            }
+        //            else
+        //            {
+        //                //Debug.Log("not finished: " + overview.ResponseCode.ToString());
+        //            }
+        //        }
+        //    }
+        //}
+
+
+        if (connection != null)
+        {
+            //http://10.211.55.2:15672/api/queues
+            string ourPostData = "";
+            Dictionary<string, string> headers = new Dictionary<string, string>();
+            headers.Add("Content-Type", "application/json");
+
+            byte[] pData = new byte[0];
+            string consumers = "http://" + connection.Host + ":" + connection.AmqpPort + "/api/queues";
+            WWW api = new WWW(consumers, pData, headers);
+
+            while (!api.isDone)
+            {
+                if (api.error != null)
+                {
+                    Debug.Log("Error");
+                    break;
+                }
+            }
+
+            string jsonStr = Encoding.UTF8.GetString(api.bytes);
+            Debug.Log(consumers + " : " + api.text);
+        }
+
+
+
+        //WWW api = new WWW(consumers);
+
+        //while (!api.isDone)
+        //{
+        //    // wait
+        //}
+        //Debug.Log("result: " + api.text);
+
+        //UnityWebRequest
+        //UnityWebRequest request = UnityWebRequest.Get(consumers);
+        //while (!request.isDone || request.isError)
+        //{
+        //    // wait
+        //    if (request.isError)
+        //    {
+        //        Debug.Log("Error");
+        //    }
+        //}
+        //Debug.Log("result UnityWebRequest: " + request.downloadHandler.text);
+        #endregion // REST-Versuche
+
+
+        if (GUILayout.Button("Awake"))
+        {
+            client.Awake();
+            Repaint();
+            return;
+        }
+
+        EditorGUILayout.BeginHorizontal();
+        {
+            if (GUILayout.Button("EnableUpdate"))
+            {
+                client.EnableUpdate();
+                return;
+            }
+
+            if (GUILayout.Button("DisableUpdate"))
+            {
+                client.DisableUpdate();
+                return;
+            }
+        }
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.Toggle("IsConnecting?", client.isConnecting);
+        EditorGUILayout.Toggle("IsConnected?", client.IsConnected);
+        EditorGUILayout.Toggle("hasConnected?", client.hasConnected);
+        EditorGUILayout.Toggle("isDisconnecting?", client.isDisconnecting);
+        EditorGUILayout.Toggle("hasDisconnected?", client.hasDisconnected);
+        EditorGUILayout.Toggle("isReconnecting?", client.isReconnecting);
+        EditorGUILayout.Toggle("wasBlocked?", client.wasBlocked);
+        EditorGUILayout.Toggle("hasAborted?", client.hasAborted);
+        EditorGUILayout.Toggle("canSubscribe?", client.canSubscribe);
+
+        EditorGUILayout.BeginHorizontal();
+        {
+            if (GUILayout.Button("Connect"))
+            {
+                client.Connect();
+                return;
+            }
+
+            if (GUILayout.Button("Disconnect"))
+            {
+                client.Disconnect();
+                return;
+            }
+        }
+        EditorGUILayout.EndHorizontal();
+
+        #region Available Queues
+        EditorGUILayout.BeginVertical("box");
+        foreach (var queue in client.GetQueues())
+        {
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Name:", queue.Name);
+
+
+            if (GUILayout.Button("Subscribe", GUILayout.Width(30)))
+            {
+                client.SubscribeToQueue(queue.Name);
+            }
+
+            if (GUILayout.Button("X", GUILayout.Width(30)))
+            {
+                client.DeleteQueue(queue.Name);
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        EditorGUILayout.EndVertical();
+        #endregion Available Queues
+
+        #region Create Queue
+        EditorGUILayout.BeginHorizontal("box");
+        this.createQueueName = EditorGUILayout.TextField("Queue Name", this.createQueueName);
+        if (GUILayout.Button("Create"))
+        {
+            client.DeclareQueue(this.createQueueName);
+        }
+        EditorGUILayout.EndHorizontal();
+        #endregion // Create Queue
+
+        #region Subscribe Queue
+        AmqpQueue[] queues = client.GetQueues();
+        string[] names = new string[queues.Length];
+        for (int i = 0; i < queues.Length; i++)
+            names[i] = queues[i].Name;
+
+        selectedQueue = EditorGUILayout.Popup("Queue", selectedQueue, names);
+        if (queues.Length != 0)
+        {
+            if (GUILayout.Button("Subscribe to " + names[this.selectedQueue] + " Queue"))
+                client.SubscribeToQueue(names[this.selectedQueue]);
+        }
+        #endregion // Subscribe Queue
+
+        #region JobQueue 
+        string[] jobQueueNames = new string[client.GetQueues().Length];
+        for (int i = 0; i < client.GetQueues().Length; i++)
+            jobQueueNames[i] = client.GetQueues()[i].Name;
+
+        this.jobQueueIndex = EditorGUILayout.Popup("JobQueue", this.jobQueueIndex, jobQueueNames);
+        for (int i = 0; i < jobQueueNames.Length; i++)
+        {
+            if (jobQueueNames[i] == "jobs")
+            {
+                this.jobQueueIndex = i;
+                break;
+            }
+        }
+        jobQueueName = client.GetQueues().Length == 0 ? "not set" : jobQueueNames[this.jobQueueIndex];
+        //EditorGUILayout.LabelField("JobQueue", jobQueueName);
+        #endregion // JobQueue
+
+        #region ReplyQueue 
+        string[] replyToQueueNames = new string[client.GetQueues().Length];
+        for (int i = 0; i < client.GetQueues().Length; i++)
+            replyToQueueNames[i] = client.GetQueues()[i].Name;
+
+        this.replyQueueIndex = EditorGUILayout.Popup("ReplyToQueue", this.replyQueueIndex, replyToQueueNames);
+        for (int i = 0; i < replyToQueueNames.Length; i++)
+        {
+            if (replyToQueueNames[i] == "reply")
+            {
+                this.replyQueueIndex = i;
+                break;
+            }
+        }
+        replyQueueName = client.GetQueues().Length == 0 ? "not set" : replyToQueueNames[this.replyQueueIndex];
+        //EditorGUILayout.LabelField("ReplyToQueue", replyQueueName);
+        #endregion // JobQueue
+
+        #region StatusUpdateQueue 
+        string[] statusUpdateQueueNames = new string[client.GetQueues().Length];
+        for (int i = 0; i < client.GetQueues().Length; i++)
+            statusUpdateQueueNames[i] = client.GetQueues()[i].Name;
+
+        this.statusUpdateQueueIndex = EditorGUILayout.Popup("ReplyToQueue", this.statusUpdateQueueIndex, statusUpdateQueueNames);
+        for (int i = 0; i < statusUpdateQueueNames.Length; i++)
+        {
+            if (statusUpdateQueueNames[i] == "statusUpdates")
+            {
+                this.statusUpdateQueueIndex = i;
+                break;
+            }
+        }
+        statusUpdateQueueName = client.GetQueues().Length == 0 ? "not set" : statusUpdateQueueNames[this.statusUpdateQueueIndex];
+        #endregion // StatusUpdateQueue
+
+        GUILayout.EndArea();
+    }
+
+
+    #region Scale Workers
+    public static void ScaleWorkers(int numberOfWorkers)
+    {
+        var thread = new Thread(delegate ()
+        {
+            Command(numberOfWorkers);
+        });
+        thread.Start();
+    }
+
+    static void Command(int numberOfWorkers)
+    {
+        var processInfo = new ProcessStartInfo("docker-machine ssh default \"docker service scale unityTest_avsbuild =" + numberOfWorkers + "\"");
+        processInfo.CreateNoWindow = true;
+        processInfo.UseShellExecute = false;
+
+        var process = Process.Start(processInfo);
+
+        process.WaitForExit();
+        process.Close();
+    }
+    #endregion // Scale Workers
+
+    #region Draw Methods for JobStatusMessages
     public Rect TodoRect(TodoItem item, float y)
     {
         Rect rect = new Rect();
@@ -541,395 +1059,6 @@ public class SimpleClientEditorWindow : EditorWindow
         }
     }
 
-
-    int numberOfWorkers = 10;
-    bool generateLocal = false;
-    bool sequential = true;
-    private void JobCreationGUI()
-    {
-        EditorGUILayout.BeginVertical("box");
-        TileManager.TileWidth = (double)EditorGUILayout.FloatField("TileWidth", (float)TileManager.TileWidth);
-        TileManager.tileRadius = EditorGUILayout.IntField("TileRadius", TileManager.tileRadius);
-        TileManager.LOD = EditorGUILayout.IntField("LOD", TileManager.LOD);
-        TileManager.OriginLatitude = (double)EditorGUILayout.FloatField("OriginLatitude", (float)TileManager.OriginLatitude);
-        TileManager.OriginLongitude = (double)EditorGUILayout.FloatField("OriginLongitude", (float)TileManager.OriginLongitude);
-        EditorGUILayout.EndVertical();
-
-        client.method = (SerializationMethod)EditorGUILayout.EnumPopup("SerializationMethod", client.method);
-
-
-        if (GUILayout.Button("Send OSM-Job-Messages"))
-        {
-            startTime = TimeStamp.Now();
-            stopTime = null;
-            done = false;
-            generateLocal = false;
-
-            client.SendOSMJobMessages(
-                jobQueueName,
-                replyQueueName,
-                statusUpdateQueueName,
-                TileManager.tileRadius,
-                TileManager.TileWidth,
-                TileManager.OriginLongitude,
-                TileManager.OriginLatitude,
-                client.method);
-        }
-
-        sequential = EditorGUILayout.ToggleLeft("Sequential", sequential);
-        if (GUILayout.Button("Generate Local"))
-        {
-            Debug.LogError("Doesn't work anymore... the enumerator has to be reactivated...");
-            startTime = TimeStamp.Now();
-            stopTime = null;
-            done = false;
-            generateLocal = true;
-            
-
-            if (sequential)
-            {
-                tiles = new List<Tile>();
-                jobs = 0;
-                for (int i = -TileManager.tileRadius; i <= TileManager.tileRadius; i++)
-                {
-                    for (int j = -TileManager.tileRadius; j <= TileManager.tileRadius; j++)
-                    {
-                        StatusUpdateMessage msg = new StatusUpdateMessage(jobs, i + "," + j);
-
-                        TodoItem worker = msg.AddTodo(Job.Worker);
-                        //worker.AddTodo(Job.CreateTile);
-                        worker.AddTodo(Job.StartOSMQuery);
-                        worker.AddTodo(Job.StartProcedural);
-                        worker.AddTodo(Job.ProceduralPreparation);
-                        worker.AddTodo(Job.CreateTerrain);
-                        worker.AddTodo(Job.MeshPreparation);
-                        worker.AddTodo(Job.TileQuad);
-                        worker.AddTodo(Job.River);
-                        worker.AddTodo(Job.Ways);
-                        worker.AddTodo(Job.CreateBuildingMesh);
-                        worker.AddTodo(Job.FillMeshDivideMaterials);
-                        worker.AddTodo(Job.GarbageCollection);
-                        worker.AddTodo(Job.ProceduralDone);
-                        SimpleClient.jobStatus.Add(jobs, msg);
-
-                        Tile newTile = Tile.CreateTileGO(i, j, 5);
-                        tiles.Add(newTile);
-                        newTile.SetJobInfo(jobs, msg);
-                        //tileJobsLocal.Add(i + "/" + j, newTile);
-
-                        //newTile.ProceduralDone += GenerationDone;
-                        //newTile.StartQuery();
-
-                        //EditorSceneManager.SaveScenes
-                        //SceneManager.SetActiveScene(mainScene);
-                        jobs++;
-                    }
-                }
-
-                tiles[0].ProceduralDoneLocal += GenerationDone;
-                tiles[0].StartQuery();
-            }
-            else
-            {
-                TileManager.GenerateLocal();
-            }
-        }
-
-        int newNumberOfWorkers = EditorGUILayout.IntSlider("Number of Workers", numberOfWorkers, 1, 100);
-        if (newNumberOfWorkers != numberOfWorkers)
-        {
-            if (newNumberOfWorkers > numberOfWorkers)
-                Debug.Log("Scaling UP number of workers (from " + numberOfWorkers + " to "+ newNumberOfWorkers + ")");
-            else
-                Debug.Log("Scaling DOWN number of workers (from " + numberOfWorkers + " to " + newNumberOfWorkers + ")");
-            numberOfWorkers = newNumberOfWorkers;
-            ScaleWorkers(numberOfWorkers);
-           
-        }
-
-        if (osmMapRect == null)
-            osmMapRect = new OSMMapRect();
-        osmMapRect.DrawOSMMapRect(new Rect(0, 300, this.position.width, this.position.height - 300));
-        if (osmMapRect.ShouldRepaint())
-            Repaint();
-    }
-
-    private void GenerationDone(object sender, EventArgs e)
-    {
-        jobs--;
-
-        Tile tile = (Tile)sender;
-        string tileName = tile.TileIndex[0] + "/" + tile.TileIndex[1];
-        Debug.Log("Done Generating " + tileName);
-        tile.ProceduralDoneLocal -= GenerationDone;
-
-        if (tiles.Count > 0)
-        {
-            Tile nextTile = tiles[0];
-            tiles.RemoveAt(0);
-            nextTile.ProceduralDoneLocal += GenerationDone;
-            nextTile.StartQuery();
-        }
-    }
-
-    public static void ScaleWorkers(int numberOfWorkers)
-    {
-        var thread = new Thread(delegate ()
-        {
-            Command(numberOfWorkers);
-        });
-        thread.Start();
-    }
-
-    static void Command(int numberOfWorkers)
-    {
-        var processInfo = new ProcessStartInfo("docker-machine ssh default \"docker service scale unityTest_avsbuild =" + numberOfWorkers + "\"");
-        processInfo.CreateNoWindow = true;
-        processInfo.UseShellExecute = false;
-
-        var process = Process.Start(processInfo);
-
-        process.WaitForExit();
-        process.Close();
-    }
-
-    string jobQueueName;
-    string replyQueueName;
-    string statusUpdateQueueName;
-    private List<Tile> tiles;
-    private int jobs;
-
-    private void ClientSettingsGUI()
-    {
-        GUILayout.BeginArea(new Rect(0, buttonHeight + 20, 300, 400));
-        client.ServerMode = EditorGUILayout.Toggle("Act as Server", client.ServerMode);
-
-        // Generate the connection dropdown options/content
-        #region Dropdown connections
-        string[] connectionNames = AmqpConfigurationEditor.GetConnectionNames();
-        List<GUIContent> options = new List<GUIContent>();
-
-        for (var i = 0; i < connectionNames.Length; i++)
-        {
-            var cName = connectionNames[i];
-            if (string.IsNullOrEmpty(client.Connection) || client.Connection == cName)
-                index = i;
-            options.Add(new GUIContent(cName));
-        }
-
-        // Connections drop down
-        string tooltip = "Select the AMQP connection to use. Connections can be configured in the AMQP/Configuration menu.";
-        index = EditorGUILayout.Popup(new GUIContent("Connection", tooltip), index, options.ToArray());
-
-        if (options.Count == 0) 
-            Init();
-
-        // Set the connection name based on dropdown value
-        try
-        {
-            GUIContent con = options[index];
-            client.Connection = options[index].text;
-        }
-        catch (ArgumentOutOfRangeException)
-        {
-            GUILayout.EndArea();
-            Repaint();
-            return;
-        }
-        
-        #endregion // Dropdown connections
-
-        // Draw the rest of the inspector's default layout
-        //DrawDefaultInspector();
-        if (GUILayout.Button("Awake"))
-        {
-            client.Awake();
-            Repaint();
-        }
-        EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("EnableUpdate"))
-        {
-            client.EnableUpdate();
-            return;
-        }
-
-        if (GUILayout.Button("DisableUpdate"))
-        {
-            client.DisableUpdate();
-            return;
-        }
-        EditorGUILayout.EndHorizontal();
-
-        EditorGUILayout.Toggle("IsConnecting?", client.isConnecting);
-        EditorGUILayout.Toggle("IsConnected?", client.IsConnected);
-        EditorGUILayout.Toggle("hasConnected?", client.hasConnected);
-        EditorGUILayout.Toggle("isDisconnecting?", client.isDisconnecting);
-        EditorGUILayout.Toggle("hasDisconnected?", client.hasDisconnected);
-        EditorGUILayout.Toggle("isReconnecting?", client.isReconnecting);
-        EditorGUILayout.Toggle("wasBlocked?", client.wasBlocked);
-        EditorGUILayout.Toggle("hasAborted?", client.hasAborted);
-        EditorGUILayout.Toggle("canSubscribe?", client.canSubscribe);
-
-
-        EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Connect"))
-        {
-            client.Connect();
-            return;
-        }
-
-        if (GUILayout.Button("Disconnect"))
-        {
-            client.Disconnect();
-            return;
-        }
-        EditorGUILayout.EndHorizontal();
-
-        #region Available Queues
-        //if (showAvailableQueues = EditorGUILayout.Foldout(showAvailableQueues, "Available Queues:"))
-        //{
-        EditorGUILayout.BeginVertical("box");
-        foreach (var queue in client.GetQueues())
-        {
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Name:", queue.Name);
-
-
-            if (GUILayout.Button("Subscribe", GUILayout.Width(30)))
-            {
-                client.SubscribeToQueue(queue.Name);
-            }
-
-            if (GUILayout.Button("X", GUILayout.Width(30)))
-            {
-                client.DeleteQueue(queue.Name);
-            }
-            EditorGUILayout.EndHorizontal();
-        }
-        EditorGUILayout.EndVertical();
-        //}
-        #endregion Available Queues
-
-        #region Create Queue
-        EditorGUILayout.BeginHorizontal("box");
-        this.queueName = EditorGUILayout.TextField("Queue Name", this.queueName);
-        if (GUILayout.Button("Create"))
-        {
-            client.DeclareQueue(this.queueName);
-        }
-        EditorGUILayout.EndHorizontal();
-        #endregion // Create Queue
-
-        #region Subscribe Queue
-        AmqpQueue[] queues = client.GetQueues();
-        string[] names = new string[queues.Length];
-        for (int i = 0; i < queues.Length; i++)
-            names[i] = queues[i].Name;
-
-        selectedQueue = EditorGUILayout.Popup("Queue", selectedQueue, names);
-        if (queues.Length != 0)
-        {
-            if (GUILayout.Button("Subscribe to " + names[this.selectedQueue] + " Queue"))
-                client.SubscribeToQueue(names[this.selectedQueue]);
-        }
-        #endregion // Subscribe Queue
-
-
-
-        #region JobQueue 
-        string[] jobQueueNames = new string[client.GetQueues().Length];
-        for (int i = 0; i < client.GetQueues().Length; i++)
-            jobQueueNames[i] = client.GetQueues()[i].Name;
-
-        this.jobQueueIndex = EditorGUILayout.Popup("JobQueue", this.jobQueueIndex, jobQueueNames);
-        for (int i = 0; i < jobQueueNames.Length; i++)
-        {
-            if (jobQueueNames[i] == "jobs")
-            {
-                this.jobQueueIndex = i;
-                break;
-            }
-        }
-        jobQueueName = client.GetQueues().Length == 0 ? "not set" : jobQueueNames[this.jobQueueIndex];
-        //EditorGUILayout.LabelField("JobQueue", jobQueueName);
-        #endregion // JobQueue
-
-        #region ReplyQueue 
-        string[] replyToQueueNames = new string[client.GetQueues().Length];
-        for (int i = 0; i < client.GetQueues().Length; i++)
-            replyToQueueNames[i] = client.GetQueues()[i].Name;
-
-        this.replyQueueIndex = EditorGUILayout.Popup("ReplyToQueue", this.replyQueueIndex, replyToQueueNames);
-        for (int i = 0; i < replyToQueueNames.Length; i++)
-        {
-            if (replyToQueueNames[i] == "reply")
-            {
-                this.replyQueueIndex = i;
-                break;
-            }
-        }
-        replyQueueName = client.GetQueues().Length == 0 ? "not set" : replyToQueueNames[this.replyQueueIndex];
-        //EditorGUILayout.LabelField("ReplyToQueue", replyQueueName);
-        #endregion // JobQueue
-
-        #region JobQueue 
-        string[] statusUpdateQueueNames = new string[client.GetQueues().Length];
-        for (int i = 0; i < client.GetQueues().Length; i++)
-            statusUpdateQueueNames[i] = client.GetQueues()[i].Name;
-
-        this.statusUpdateQueueIndex = EditorGUILayout.Popup("ReplyToQueue", this.statusUpdateQueueIndex, statusUpdateQueueNames);
-        for (int i = 0; i < statusUpdateQueueNames.Length; i++)
-        {
-            if (statusUpdateQueueNames[i] == "statusUpdates")
-            {
-                this.statusUpdateQueueIndex = i;
-                break;
-            }
-        }
-        statusUpdateQueueName = client.GetQueues().Length == 0 ? "not set" : statusUpdateQueueNames[this.statusUpdateQueueIndex];
-        //EditorGUILayout.LabelField("ReplyToQueue", replyQueueName);
-        #endregion // JobQueue
-
-
-
-
-        //if (GUILayout.Button("Generate locally"))
-        //{
-        //    mainScene = EditorSceneManager.GetActiveScene();
-
-        //    swComplete.Start();
-
-        //    tiles = new List<Tile>();
-
-        //    for (int i = -TileManager.tileRadius; i <= TileManager.tileRadius; i++)
-        //    {
-        //        for (int j = -TileManager.tileRadius; j <= TileManager.tileRadius; j++)
-        //        {
-        //            jobs++;
-        //            Stopwatch sw = new Stopwatch();
-        //            sw.Reset();
-        //            sw.Start();
-
-        //            Tile newTile = Tile.CreateTileGO(i, j, 5);
-        //            tiles.Add(newTile);
-        //            tileJobsLocal.Add(i + "/" + j, newTile);
-        //            tileJobsStopwatchLocal.Add(i + "/" + j, sw);
-        //            //newTile.ProceduralDone += GenerationDone;
-        //            //newTile.StartQuery();
-
-        //            //EditorSceneManager.SaveScenes
-        //            //SceneManager.SetActiveScene(mainScene);
-        //        }
-        //    }
-
-        //    tiles[0].ProceduralDone += GenerationDone;
-        //    tiles[0].StartQuery();
-        //}
-        GUILayout.EndArea();
-    }
-
-
-
     private void DrawTodoItem(TodoItem item)
     {
         CustomGUIUtils.BeginGroup();
@@ -962,7 +1091,7 @@ public class SimpleClientEditorWindow : EditorWindow
         }
         CustomGUIUtils.EndGroup();
     }
-
+    #endregion // Draw Methods for JobStatusMessages
 }
 
 

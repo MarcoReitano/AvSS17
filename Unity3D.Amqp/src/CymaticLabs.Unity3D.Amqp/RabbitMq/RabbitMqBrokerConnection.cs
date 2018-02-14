@@ -1259,6 +1259,12 @@ namespace CymaticLabs.Unity3D.Amqp.RabbitMq
             state.Callback(queues.ToArray());
         }
 
+
+        public uint QueuePurge(string name)
+        {
+            return Channel.QueuePurge(name);
+        }
+
         /// <summary>
         /// Reject a received message identified by the deliveryTag and requeue if specified.
         /// </summary>
@@ -1266,6 +1272,7 @@ namespace CymaticLabs.Unity3D.Amqp.RabbitMq
         /// <param name="requeue">Wheter or not to requeue the message.</param>
         public void BasicReject(ulong deliveryTag, bool requeue)
         {
+            
             Channel.BasicReject(deliveryTag, requeue);
         }
 

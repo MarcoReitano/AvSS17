@@ -313,25 +313,31 @@ public class SimpleClient : MonoBehaviour
     {
         Debug.Log("<color=blue><b>" + this.name + ": SimpleClient.Reset()</b></color>");
         Awake();
-        if (client.IsConnected)
-        {
-            if (client.QueueExists("jobs"))
-                DeleteQueue("jobs");
-            if (client.QueueExists("reply"))
-                DeleteQueue("reply");
-            if (client.QueueExists("statusUpdates"))
-                DeleteQueue("statusUpdates");
+        //if (client.IsConnected)
+        //{
+        //    if (client.QueueExists("jobs"))
+        //        DeleteQueue("jobs");
+        //    if (client.QueueExists("reply"))
+        //        DeleteQueue("reply");
+        //    if (client.QueueExists("statusUpdates"))
+        //        DeleteQueue("statusUpdates");
 
-            EnsureQueue("jobs");
-            EnsureQueue("reply");
-            EnsureQueue("statusUpdates");
-        }
+        //    EnsureQueue("jobs");
+        //    EnsureQueue("reply");
+        //    EnsureQueue("statusUpdates");
+        //}
+        //else
+        //{
+
+        //}
 
         jobStatus.Clear();
 #if UNITY_EDITOR
         EnableUpdate();
 #endif
     }
+
+
 
     public void Awake()
     {
@@ -360,10 +366,9 @@ public class SimpleClient : MonoBehaviour
 
         // Look for connections file
         this.configJson = Resources.Load<TextAsset>(ConfigurationFilename.Replace(".json", string.Empty));
-
         if (this.configJson == null)
         {
-            Debug.LogErrorFormat("<color=red>AMQP JSON configuration asset not found: {0}</color>", ConfigurationFilename);
+            Debug.Log("<color=red>AMQP JSON configuration asset not found: " + ConfigurationFilename + "</color>");
             return;
         }
 
@@ -382,42 +387,11 @@ public class SimpleClient : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.LogErrorFormat("{0}", ex);
+            Debug.Log("<color=red>" + ex + "</color>");
         }
 
         Connect();
-
-        //while (!IsConnected)
-        //{
-        //    // TODO: This is dangerous...  just for testing purpose...
-        //    // wait 
-        //}
-
-        //EnsureQueue("jobs");
-        //EnsureQueue("reply");
-        //EnsureQueue("statusUpdates");
-
-        try
-        {
-            if (!ServerMode)
-            {
-                EnsureQueue("jobs");
-                EnsureQueue("reply");
-                EnsureQueue("statusUpdates");
-
-                SubscribeToQueue("jobs");
-                SubscribeToQueue("statusUpdates");
-                Debug.Log("<color=green>Subscribed to Job-Queue.</color>");
-            }
-        }
-        catch (Exception)
-        {
-            Debug.LogErrorFormat("<color=red>Could not Subscribe to Queue: jobs</color>");
-            //throw;
-        }
-
-
-        //EditorApplication.update += this.Update;
+        EnableUpdate();
     }
 
     private void EnsureQueue(string queueName)
@@ -468,7 +442,7 @@ public class SimpleClient : MonoBehaviour
     {
         abort = true;
         BasicReject(currentMessage.DeliveryTag, true);
-        Debug.Log("<color=red>"+message+"</color>");
+        Debug.Log("<color=red>" + message + "</color>");
     }
 
     Dictionary<string, bool> alreadySubscribed = new Dictionary<string, bool>();
@@ -482,7 +456,7 @@ public class SimpleClient : MonoBehaviour
             if (sw.IsRunning)
             {
                 sw.Stop();
-                
+
                 if (sw.ElapsedMilliseconds > timeout)
                 {
                     sw.Reset();
@@ -774,13 +748,12 @@ public class SimpleClient : MonoBehaviour
 
         if (this.client != null && this.client.IsConnected)
         {
-            Log("<color=red>Client is already connected and cannot reconnect</color>");
+            Debug.Log("<color=red>Client is already connected and cannot reconnect</color>");
             return;
         }
 
         // Find the connection by name
-        var connection = GetConnection(this.Connection);
-
+        AmqpConnection connection = GetConnection(this.Connection);
         if (connection != null)
         {
             this.host = connection.Host;
@@ -845,6 +818,7 @@ public class SimpleClient : MonoBehaviour
         this.client.Connect();
     }
 
+
     /// <summary>
     /// Disconnects from the messaging broker.
     /// </summary>
@@ -907,6 +881,35 @@ public class SimpleClient : MonoBehaviour
         }
 
         this.client.BasicQos(0, 1, false);
+
+        try
+        {
+            if (!ServerMode)
+            {
+                SubscribeToQueue("jobs");
+                SubscribeToQueue("statusUpdates");
+                Debug.Log("<color=green>Subscribed to Job-Queue.</color>");
+            }
+            else
+            {
+             
+                DeleteQueue("jobs");
+                DeleteQueue("reply");
+                DeleteQueue("statusUpdates");
+
+                EnsureQueue("jobs");
+                EnsureQueue("reply");
+                EnsureQueue("statusUpdates");
+
+                SubscribeToQueue("jobs");
+                SubscribeToQueue("statusUpdates");
+                Debug.Log("<color=green>Subscribed to Job-Queue.</color>");
+            }
+        }
+        catch (Exception)
+        {
+            Debug.LogErrorFormat("<color=red>Could not Subscribe to Queue: jobs</color>");
+        }
     }
 
     // Handles when the client starts disconnecting
@@ -922,6 +925,7 @@ public class SimpleClient : MonoBehaviour
     // Handles when the client disconnects
     private void Client_Disconnected(object sender, EventArgs e)
     {
+        Debug.Log("<color=red><b>Client Disconnected...</b></color>");
         lock (this)
         {
             this.hasDisconnected = true;
@@ -931,6 +935,7 @@ public class SimpleClient : MonoBehaviour
     // Handles when the client is trying to reconnect
     private void Client_Reconnecting(object sender, EventArgs e)
     {
+        Debug.Log("<color=red><b>Client Reconnecting...</b></color>");
         lock (this)
         {
             this.isReconnecting = true;
@@ -940,6 +945,7 @@ public class SimpleClient : MonoBehaviour
     // Handles when a connection error occurs
     private void Client_ConnectionError(object sender, ExceptionEventArgs e)
     {
+        Debug.Log("<color=red><b>Client Connection-Error...</b></color>");
         lock (this)
         {
             this.connectionExceptions.Enqueue(e.Exception);
@@ -949,6 +955,7 @@ public class SimpleClient : MonoBehaviour
     // Handles when the client connection is aborted
     private void Client_ConnectionAborted(object sender, EventArgs e)
     {
+        Debug.Log("<color=red><b>Client Connection Aborted...</b></color>");
         lock (this)
         {
             this.hasAborted = true;
@@ -958,6 +965,7 @@ public class SimpleClient : MonoBehaviour
     // Handles when a queue is subscribed to
     private void Client_SubscribedToQueue(AmqpQueueSubscription subscription)
     {
+        Debug.Log("<color=red><b>Client Subscribed to Queue " + subscription.QueueName + "...</b></color>");
         lock (this)
         {
             this.subscribedQueues.Enqueue(subscription);
@@ -967,6 +975,7 @@ public class SimpleClient : MonoBehaviour
     // Handles when a queue is unsubscribed from
     private void Client_UnsubscribedFromQueue(AmqpQueueSubscription subscription)
     {
+        Debug.Log("<color=red><b>Client Unsubscribed from Queue " + subscription.QueueName + "...</b></color>");
         lock (this)
         {
             this.unsubscribedQueues.Enqueue(subscription);
@@ -976,6 +985,7 @@ public class SimpleClient : MonoBehaviour
     // Handles when a queue subscribe error occurs
     private void Client_QueueSubscribeError(object sender, ExceptionEventArgs e)
     {
+        Debug.Log("<color=red><b>Queue Subscribe-Error...</b></color>");
         lock (this)
         {
             this.queueSubscribeExceptions.Enqueue(e.Exception);
@@ -985,6 +995,7 @@ public class SimpleClient : MonoBehaviour
     // Handles when a queue unsubscribe error occurs
     private void Client_QueueUnsubscribeError(object sender, ExceptionEventArgs e)
     {
+        Debug.Log("<color=red><b>Queue Unsubscribe-Error...</b></color>");
         lock (this)
         {
             this.queueUnsubscribeExceptions.Enqueue(e.Exception);
@@ -1017,6 +1028,14 @@ public class SimpleClient : MonoBehaviour
 
     public void SubscribeToQueue(string name)
     {
+        foreach (AmqpQueueSubscription item in queueSubscriptions)
+        {
+            if (item.QueueName == name)
+            {
+                Debug.Log("Already Subscribed to Queue");
+                return;
+            }
+        }
 
         UnityAmqpQueueSubscription subscription =
             new UnityAmqpQueueSubscription(
@@ -1147,7 +1166,6 @@ public class SimpleClient : MonoBehaviour
     ///// <param name="immediate">Whether or not to publish with the AMQP "immediate" flag.</param>
     public void PublishToQueue(string queueName, byte[] message, bool mandatory = false, bool immediate = false)
     {
-        //Debug.Log("In here");
         if (this.isQuitting)
             return;
         if (string.IsNullOrEmpty(queueName))
@@ -1444,7 +1462,7 @@ public class SimpleClient : MonoBehaviour
                 master.Start(Job.SerializeJobMessage);
                 byte[] osmJobMessage = OSMJobMessage.ToByteArray(jobMessage);
                 master.Stop(Job.SerializeJobMessage);
-                Debug.Log("Serialize Job Message done: " + jobStatus[jobCount]);
+                //Debug.Log("Serialize Job Message done: " + jobStatus[jobCount]);
 
 
                 master.Start(Job.PublishJob);
@@ -1454,7 +1472,7 @@ public class SimpleClient : MonoBehaviour
                 transfer.Start(Job.TransferToWorker);
                 //SimpleClient.simpleClient.SendStatusUpdateMessages(statusUpdateQueueName, msg);
 
-                Debug.Log("Server: After PublishJob: " + msg);
+                //Debug.Log("Server: After PublishJob: " + msg);
                 //Debug.Log("Created Job-Message for job " + jobCount + " (" + i + "," + j + "): ");
                 jobCount++;
             }
@@ -1487,130 +1505,64 @@ public class SimpleClient : MonoBehaviour
     {
         currentMessage = message;
         if (ServerMode)
+            MessageHandlerServerSide(subscription, message);
+        else
+            MessageHandlerWorkerSide(subscription, message);
+    }
+
+    private void MessageHandlerWorkerSide(AmqpQueueSubscription subscription, IAmqpReceivedMessage message)
+    {
+        abort = false;
+        sw = new Stopwatch();
+        sw.Start();
+
+        SimpleClient.simpleClient = this;
+        // Der Transferprozess von Master zur Queue und zum Worker muss hier festgehalten werden.
+        TimeStamp messageArrived = new TimeStamp();
+
+        TimeStamp workerStart = new TimeStamp();
+        TimeStamp startedDeserialize = new TimeStamp();
+
+        //string payload = System.Text.Encoding.UTF8.GetString(message.Body);
+        Debug.Log("<b>Client:</b> <color=ff7f00ff>Message received on " + subscription.QueueName + ": </color>");
+        jobMessage = OSMJobMessage.FromByteArray(message.Body);
+        TimeStamp stopedDeserialize = new TimeStamp();
+
+        statusUpdateQueueName = jobMessage.statusUpdateQueue;
+        StatusUpdateMessage = jobMessage.statusUpdateMessage;
+        
+        StatusUpdateMessage.Get(Job.TransferToWorker).Stop(messageArrived);
+        StatusUpdateMessage.Get(Job.Worker).Start(workerStart);
+        StatusUpdateMessage.Get(Job.DeserializeJobMessage).Start(startedDeserialize);
+        StatusUpdateMessage.Get(Job.DeserializeJobMessage).Stop(stopedDeserialize);
+        StatusUpdateMessage.Start(Job.CreateNewScene);
+
+        SimpleClient.simpleClient.SendStatusUpdateMessages();
+        string sceneName = jobMessage.x + "-" + jobMessage.y;
+        // Neue (leere) Szene erstellen
+#if UNITY_EDITOR
+        if (EditorApplication.isPlaying)
         {
-            if (subscription.QueueName == "reply")
-            {
-                // TODO: Test, if this speeds up getting replys --> otherwise at the end
-                this.client.BasicAck(message.DeliveryTag, false);
-                TimeStamp endTransferToMaster = new TimeStamp();
-                TimeStamp startDeserializing = new TimeStamp();
-
-                Debug.Log("<b>Server:</b> <color=ff7f00ff>Message received on " + subscription.QueueName + ": </color>");
-                SceneMessage sceneMessage = SceneMessage.FromByteArray(message.Body);
-                StatusUpdateMessage statusMessage = jobStatus[sceneMessage.statusUpdateMessage.jobID];
-                int jobID = statusMessage.jobID;
-
-                TimeStamp endDeserializing = new TimeStamp();
-                statusMessage.Get(Job.TransferToMaster).Stop(endTransferToMaster);
-                statusMessage.Get(Job.Transfer).Stop(endTransferToMaster);
-                statusMessage.Get(Job.DeserializeResult).Start(startDeserializing);
-                statusMessage.Get(Job.DeserializeResult).Stop(endDeserializing);
-
-                statusMessage.Start(Job.RecreateScene);
-                Scene scene = SceneMessage.ByteArrayToScene(sceneMessage.sceneBytes, sceneMessage.method);
-                statusMessage.Stop(Job.RecreateScene);
-
-                statusMessage.Start(Job.MasterGarbageCollection);
-                System.GC.Collect();
-                statusMessage.Stop(Job.MasterGarbageCollection);
-
-                statusMessage.Stop(Job.Master);
-                statusMessage.Stop();
-                Debug.Log("Final Message: " + statusMessage);
-            }
-            else if (subscription.QueueName == "statusUpdates")
-            {
-                //Debug.Log("<b>Server:</b> <color=red>Message received on " + subscription.QueueName + ": </color>");
-                StatusUpdateMessage remote = StatusUpdateMessage.Deserialize(message.Body);
-
-                int jobID = remote.jobID;
-                //Debug.Log(remote.ToString());
-                
-                StatusUpdateMessage msg = jobStatus[remote.jobID];
-
-                //statusMessage.Merge(msg);
-                if (jobStatus.ContainsKey(jobID))
-                {
-                    StatusUpdateMessage local = jobStatus[remote.jobID];
-
-                    jobStatus[remote.jobID] = StatusUpdateMessage.Merge(local, remote);
-                }
-                //Debug.Log(jobStatus[remote.jobID]);
-                this.client.BasicAck(message.DeliveryTag, false);
-            }
-            else
-            {
-                Debug.LogWarning("Received a Message from " + subscription.QueueName + " --> UNHANDLED!");
-            }
-
+            // Aktuelle Szene als MainScene merken
+            mainScene = SceneManager.GetActiveScene();
+            // Erzeuge einen noch nicht vorhandenen Szenenname
+            sceneName = CheckForExistingScene(sceneName);
+            newScene = SceneManager.CreateScene(sceneName);
+            // Neue Szene als aktive Szene setzen
+            SceneManager.SetActiveScene(newScene);
         }
         else
         {
-            abort = false;
-            sw = new Stopwatch();
-            sw.Start();
-
-
-            SimpleClient.simpleClient = this;
-            // Der Transferprozess von Master zur Queue und zum Worker muss hier festgehalten werden.
-            TimeStamp messageArrived = new TimeStamp();
-
-            TimeStamp workerStart = new TimeStamp();
-            TimeStamp startedDeserialize = new TimeStamp();
-
-            //string payload = System.Text.Encoding.UTF8.GetString(message.Body);
-            Debug.Log("<b>Client:</b> <color=ff7f00ff>Message received on " + subscription.QueueName + ": </color>");
-            jobMessage = OSMJobMessage.FromByteArray(message.Body);
-            TimeStamp stopedDeserialize = new TimeStamp();
-
-            statusUpdateQueueName = jobMessage.statusUpdateQueue;
-            StatusUpdateMessage = jobMessage.statusUpdateMessage;
-
-            Debug.Log("######## Client got the StatusUpdateMessage #################");
-            Debug.Log(StatusUpdateMessage);
-
-            Debug.Log("######## Client got TransferToWorker from List  #################");
-            Debug.Log(StatusUpdateMessage);
-
-            StatusUpdateMessage.Get(Job.TransferToWorker).Stop(messageArrived);
-            Debug.Log(StatusUpdateMessage);
-            Debug.Log(StatusUpdateMessage);
-            Debug.Log("#########################");
-
-            StatusUpdateMessage.Get(Job.Worker).Start(workerStart);
-            Debug.Log(StatusUpdateMessage);
-            StatusUpdateMessage.Get(Job.DeserializeJobMessage).Start(startedDeserialize);
-            Debug.Log(StatusUpdateMessage);
-            StatusUpdateMessage.Get(Job.DeserializeJobMessage).Stop(stopedDeserialize);
-            Debug.Log(StatusUpdateMessage);
-
-            StatusUpdateMessage.Start(Job.CreateNewScene);
-            SimpleClient.simpleClient.SendStatusUpdateMessages();
-            string sceneName = jobMessage.x + "-" + jobMessage.y;
-            // Neue (leere) Szene erstellen
-#if UNITY_EDITOR
-            if (EditorApplication.isPlaying)
-            {
-                // Aktuelle Szene als MainScene merken
-                mainScene = SceneManager.GetActiveScene();
-                // Erzeuge einen noch nicht vorhandenen Szenenname
-                sceneName = CheckForExistingScene(sceneName);
-                newScene = SceneManager.CreateScene(sceneName);
-                // Neue Szene als aktive Szene setzen
-                SceneManager.SetActiveScene(newScene);
-            }
-            else
-            {
-                // Aktuelle Szene als MainScene merken
-                mainScene = EditorSceneManager.GetActiveScene();
-                // Erzeuge einen noch nicht vorhandenen Szenenname
-                sceneName = CheckForExistingSceneEditor(sceneName);
-                newScene = EditorSceneManager.NewScene(
-                NewSceneSetup.EmptyScene,
-                NewSceneMode.Additive);
-                // Neue Szene als aktive Szene setzen
-                EditorSceneManager.SetActiveScene(newScene);
-            }
+            // Aktuelle Szene als MainScene merken
+            mainScene = EditorSceneManager.GetActiveScene();
+            // Erzeuge einen noch nicht vorhandenen Szenenname
+            sceneName = CheckForExistingSceneEditor(sceneName);
+            newScene = EditorSceneManager.NewScene(
+            NewSceneSetup.EmptyScene,
+            NewSceneMode.Additive);
+            // Neue Szene als aktive Szene setzen
+            EditorSceneManager.SetActiveScene(newScene);
+        }
 
 #elif UNITY_STANDALONE
             // Aktuelle Szene als MainScene merken
@@ -1621,30 +1573,79 @@ public class SimpleClient : MonoBehaviour
             // Neue Szene als aktive Szene setzen
             SceneManager.SetActiveScene(newScene);
 #endif
-            StatusUpdateMessage.Stop(Job.CreateNewScene);
+        StatusUpdateMessage.Stop(Job.CreateNewScene);
 
-            StatusUpdateMessage.Start(Job.CreateTile);
-            SimpleClient.simpleClient.SendStatusUpdateMessages();
-            //###########################
-            // Erzeuge Content:
-            SRTMHeightProvider.SRTMDataPath = Application.dataPath;
+        StatusUpdateMessage.Start(Job.CreateTile);
+        SimpleClient.simpleClient.SendStatusUpdateMessages();
+        //###########################
+        // Erzeuge Content:
+        SRTMHeightProvider.SRTMDataPath = Application.dataPath;
 
-            TileManager.TileWidth = jobMessage.tileWidth;
-            TileManager.OriginLongitude = jobMessage.originLongitude;
-            TileManager.OriginLatitude = jobMessage.originLatitude;
+        TileManager.TileWidth = jobMessage.tileWidth;
+        TileManager.OriginLongitude = jobMessage.originLongitude;
+        TileManager.OriginLatitude = jobMessage.originLatitude;
 
-            Tile newTile = Tile.CreateTileGO(jobMessage.x, jobMessage.y, 5);
-            StatusUpdateMessage.Stop(Job.CreateTile);
+        Tile newTile = Tile.CreateTileGO(jobMessage.x, jobMessage.y, 5);
+        StatusUpdateMessage.Stop(Job.CreateTile);
 
-            StatusUpdateMessage.Start(Job.StartOSMQuery);
-            SimpleClient.simpleClient.SendStatusUpdateMessages();
-            newTile.ProceduralDone += GenerationDone;
-            newTile.StartQuery();
-            
-            Debug.Log(jobMessage.x + "/" + jobMessage.y);
+        StatusUpdateMessage.Start(Job.StartOSMQuery);
+        SimpleClient.simpleClient.SendStatusUpdateMessages();
+        newTile.ProceduralDone += GenerationDone;
+        newTile.StartQuery();
+
+        //Debug.Log(jobMessage.x + "/" + jobMessage.y);
+    }
+
+    private void MessageHandlerServerSide(AmqpQueueSubscription subscription, IAmqpReceivedMessage message)
+    {
+        if (subscription.QueueName == "reply")
+        {
+            // TODO: Test, if this speeds up getting replys --> otherwise at the end
+            this.client.BasicAck(message.DeliveryTag, false);
+            TimeStamp endTransferToMaster = new TimeStamp();
+            TimeStamp startDeserializing = new TimeStamp();
+
+            //Debug.Log("<b>Server:</b> <color=ff7f00ff>Message received on " + subscription.QueueName + ": </color>");
+            SceneMessage sceneMessage = SceneMessage.FromByteArray(message.Body);
+            StatusUpdateMessage statusMessage = jobStatus[sceneMessage.statusUpdateMessage.jobID];
+            int jobID = statusMessage.jobID;
+
+            TimeStamp endDeserializing = new TimeStamp();
+            statusMessage.Get(Job.TransferToMaster).Stop(endTransferToMaster);
+            statusMessage.Get(Job.Transfer).Stop(endTransferToMaster);
+            statusMessage.Get(Job.DeserializeResult).Start(startDeserializing);
+            statusMessage.Get(Job.DeserializeResult).Stop(endDeserializing);
+
+            statusMessage.Start(Job.RecreateScene);
+            Scene scene = SceneMessage.ByteArrayToScene(sceneMessage.sceneBytes, sceneMessage.method);
+            statusMessage.Stop(Job.RecreateScene);
+
+            statusMessage.Start(Job.MasterGarbageCollection);
+            System.GC.Collect();
+            statusMessage.Stop(Job.MasterGarbageCollection);
+
+            statusMessage.Stop(Job.Master);
+            statusMessage.Stop();
+            //Debug.Log("Final Message: " + statusMessage);
+        }
+        else if (subscription.QueueName == "statusUpdates")
+        {
+            this.client.BasicAck(message.DeliveryTag, false);
+            //Debug.Log("<b>Server:</b> <color=red>Message received on " + subscription.QueueName + ": </color>");
+            StatusUpdateMessage remote = StatusUpdateMessage.Deserialize(message.Body);
+            int jobID = remote.jobID;
+
+            if (jobStatus.ContainsKey(jobID))
+            {
+                StatusUpdateMessage local = jobStatus[remote.jobID];
+                jobStatus[remote.jobID] = StatusUpdateMessage.Merge(local, remote);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Received a Message from " + subscription.QueueName + " --> UNHANDLED!");
         }
     }
-   
 
 
     public static string CheckForExistingScene(string sceneName)

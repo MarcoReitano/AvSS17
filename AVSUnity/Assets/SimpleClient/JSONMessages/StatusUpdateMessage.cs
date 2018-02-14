@@ -12,11 +12,8 @@ using UnityEngine;
 [ProtoContract]
 public enum Status
 {
-    //[ProtoEnum]
     PENDING = 0,
-    //[ProtoEnum]
     IN_PROGRESS = 1,
-    //[ProtoEnum]
     DONE = 2
 }
 
@@ -86,7 +83,6 @@ public class TodoItem
         this.status = Status.IN_PROGRESS;
     }
 
-
     public void Stop(TimeStamp timeStamp)
     {
         Stop();
@@ -119,13 +115,9 @@ public class TodoItem
     public double Duration()
     {
         if (this.startTime == null)
-        {
             return 0;
-        }
         if (this.endTime == null)
-        {
             return this.startTime.DurationSince().TotalMilliseconds;
-        }
 
         switch (this.status)
         {
@@ -156,21 +148,6 @@ public class TodoItem
         return step;
     }
 
-    //public void ReplaceTodo(string todoName, TodoItem item)
-    //{
-    //    TodoItem step;
-    //    if (!childDict.TryGetValue(todoName, out step))
-    //    {
-    //        Debug.LogError("A Child-Element with the Name '" + todoName + "' does not exist!");
-    //        return;
-    //    }
-    //    int index = childTodos.IndexOf(step);
-    //    childTodos.RemoveAt(index);
-    //    childTodos.Insert(index, item);
-
-    //    childDict[todoName] = item;
-    //}
-
     public void RemoveTodo(string todoName)
     {
         TodoItem step;
@@ -185,7 +162,6 @@ public class TodoItem
 
     public TodoItem Get(string todoName)
     {
-        //Debug.Log(this.name);
         TodoItem step;
         if (this.name == todoName)
             return this;
@@ -195,151 +171,43 @@ public class TodoItem
             {
                 foreach (string item in childTodos)
                 {
-
                     step = childDict[item].Get(todoName);
                     if (step != null)
-                    {
                         return step;
-                    }
                 }
                 //Debug.LogError("A Child-Element with the Name '" + todoName + "' does not exist!");
                 return null;
             }
         }
         return step;
-
-
-
-        ////Debug.Log(this.name);
-        //TodoItem step;
-        //if (!childDict.TryGetValue(todoName, out step))
-        //{
-        //    foreach (TodoItem item in childTodos)
-        //    {
-        //        step = item.Get(todoName);
-        //        if (step != null)
-        //        {
-        //            return step;
-        //        }
-        //    }
-        //    Debug.LogError("A Child-Element with the Name '" + todoName + "' does not exist!");
-        //    return null;
-        //}
-        //return step;
     }
-
-    //public StatusUpdateMessage Merge(StatusUpdateMessage other)
-    //{
-    //    if (this.status != other.Get(this.name).status)
-    //    {
-    //        if (other.status == Status.DONE)
-    //        {
-    //            if ((DateTime)other.endTime <(DateTime)this.endTime)
-    //            {
-    //                this.
-    //            }
-    //            this.endTime = other.endTime;
-    //        }
-    //    }
-
-    //    foreach (TodoItem item in )
-    //    {
-
-    //    }
-    //    return this;
-    //}
-
+  
     public void Start(string stepName)
     {
         TodoItem step;
         if (!childDict.TryGetValue(stepName, out step))
         {
             foreach (TodoItem item in childDict.Values)
-            {
                 item.Start(stepName);
-            }
-            return;
-            //bool pendingOrRunningItems = false;
-            //foreach (TodoItem item in childDict.Values)
-            //{
-            //    if (item.status == Status.IN_PROGRESS || item.status == Status.PENDING)
-            //    {
-            //        pendingOrRunningItems = true;
-            //        break;
-            //    }
-            //}
-            //if (!pendingOrRunningItems)
-            //{
-            //    this.status = Status.DONE;
-            //}
         }
         else
         {
             step.Start();
-            return;
         }
-
-        //TodoItem step;
-
-        //if (childDict.TryGetValue(stepName, out step))
-        //{
-        //    if (this.status == Status.PENDING || this.status == Status.DONE)
-        //    {
-        //        this.status = Status.IN_PROGRESS;
-        //    }
-        //    step.Start();
-        //}
-        //else
-        //{
-
-        //    Debug.LogError("No Step of that name " + stepName + " available!");
-        //}
     }
 
     public void Stop(string stepName)
     {
-        //TodoItem item = this.Get(stepName);
-        //if (item != null)
-        //{
-        //    item.Stop();
-        //    return;
-        //}
-        //TodoItem step;
-        //if (this.name == stepName)
-        //{
-        //    this.Stop();
-        //    return;
-        //}
-
         TodoItem step;
         if (!childDict.TryGetValue(stepName, out step))
         {
             foreach (TodoItem item in childDict.Values)
-            {
                 item.Stop(stepName);
-            }
-            return;
-            //bool pendingOrRunningItems = false;
-            //foreach (TodoItem item in childDict.Values)
-            //{
-            //    if (item.status == Status.IN_PROGRESS || item.status == Status.PENDING)
-            //    {
-            //        pendingOrRunningItems = true;
-            //        break;
-            //    }
-            //}
-            //if (!pendingOrRunningItems)
-            //{
-            //    this.status = Status.DONE;
-            //}
         }
         else
         {
             step.Stop();
-            return;
         }
-
-        //Debug.LogWarning("No Step of that name available!");
     }
 
     public void Merge(TodoItem msg)
@@ -380,24 +248,16 @@ public class TodoItem
                         if (local.startTime != remote.startTime)
                         {
                             if (local.priorisedStart)
-                            {
                                 msg.childDict[local.name].startTime = remote.startTime;
-                            }
                             else if (remote.priorisedStart)
-                            {
                                 msg.childDict[local.name].startTime = local.startTime;
-                            }
                         }
                         if (local.endTime != remote.endTime)
                         {
                             if (local.priorisedEnd)
-                            {
                                 msg.childDict[local.name].endTime = remote.endTime;
-                            }
                             else if (remote.priorisedEnd)
-                            {
                                 msg.childDict[local.name].endTime = local.endTime;
-                            }
                         }
                         break;
                     case Status.DONE:
@@ -405,26 +265,17 @@ public class TodoItem
                         if (local.startTime != remote.startTime)
                         {
                             if (local.priorisedStart)
-                            {
                                 msg.childDict[local.name].startTime = remote.startTime;
-                            }
                             else if (remote.priorisedStart)
-                            {
                                 msg.childDict[local.name].startTime = local.startTime;
-                            }
                         }
                         if (local.endTime != remote.endTime)
                         {
                             if (local.priorisedEnd)
-                            {
                                 msg.childDict[local.name].endTime = remote.endTime;
-                            }
                             else if (remote.priorisedEnd)
-                            {
                                 msg.childDict[local.name].endTime = local.endTime;
-                            }
                         }
-                        //this.childDict[itemName] = remote;
                         break;
                     default:
                         break;
@@ -486,7 +337,6 @@ public class TodoItem
     #endregion // ChildTodos
 
     #region ToString
-
     private string Header()
     {
         StringBuilder sb = new StringBuilder();
@@ -649,21 +499,12 @@ public class TodoItem
 #endregion // TimeStampedObject
 
 
-
 [ProtoContract]
 public class StatusUpdateMessage : TodoItem
 {
     [ProtoMember(10)]
     public int jobID;
-
-    public SimpleClient client;
-
-    public void SendStatusUpdateMessages()
-    {
-        this.client.PublishToQueue(SimpleClient.statusUpdateQueueName, this.Serialize());
-    }
-
-
+    
     public StatusUpdateMessage()
     {
 
@@ -683,7 +524,6 @@ public class StatusUpdateMessage : TodoItem
         outMemStream.Close();
         return updateMessage;
     }
-
 
     public byte[] Serialize()
     {
@@ -710,7 +550,6 @@ public class StatusUpdateMessage : TodoItem
 
     public static StatusUpdateMessage Merge(StatusUpdateMessage local, StatusUpdateMessage remote)
     {
-
         switch (local.status)
         {
             case Status.PENDING:
@@ -745,9 +584,7 @@ public class StatusUpdateMessage : TodoItem
                         if (local.startTime != remote.startTime)
                         {
                             if (local.startTime.CompareTo(remote.startTime) > 0)
-                            {
                                 local.startTime = remote.startTime;
-                            }
                         }
                         break;
                     case Status.DONE:
@@ -755,9 +592,7 @@ public class StatusUpdateMessage : TodoItem
                         if (local.startTime != remote.startTime)
                         {
                             if (local.startTime.CompareTo(remote.startTime) > 0)
-                            {
                                 local.startTime = remote.startTime;
-                            }
                         }
                         local.endTime = remote.endTime;
                         
@@ -781,16 +616,12 @@ public class StatusUpdateMessage : TodoItem
                         if (local.startTime != remote.startTime)
                         {
                             if (local.startTime.CompareTo(remote.startTime) > 0)
-                            {
                                 local.startTime = remote.startTime;
-                            }
                         }
                         if (local.endTime != remote.startTime)
                         {
                             if (local.startTime.CompareTo(remote.startTime) > 0)
-                            {
                                 local.startTime = remote.startTime;
-                            }
                         }
                         break;
                     default:
