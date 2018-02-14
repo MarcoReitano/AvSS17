@@ -893,15 +893,15 @@ public class SimpleClient : MonoBehaviour
             else
             {
              
-                DeleteQueue("jobs");
-                DeleteQueue("reply");
-                DeleteQueue("statusUpdates");
+                //DeleteQueue("jobs");
+                //DeleteQueue("reply");
+                //DeleteQueue("statusUpdates");
 
                 EnsureQueue("jobs");
                 EnsureQueue("reply");
                 EnsureQueue("statusUpdates");
 
-                SubscribeToQueue("jobs");
+                SubscribeToQueue("reply");
                 SubscribeToQueue("statusUpdates");
                 Debug.Log("<color=green>Subscribed to Job-Queue.</color>");
             }
