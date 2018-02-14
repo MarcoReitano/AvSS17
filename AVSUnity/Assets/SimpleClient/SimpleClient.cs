@@ -887,7 +887,7 @@ public class SimpleClient : MonoBehaviour
             if (!ServerMode)
             {
                 SubscribeToQueue("jobs");
-                SubscribeToQueue("statusUpdates");
+                //SubscribeToQueue("statusUpdates");
                 Debug.Log("<color=green>Subscribed to Job-Queue.</color>");
             }
             else
