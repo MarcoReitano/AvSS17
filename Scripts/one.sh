@@ -60,43 +60,46 @@ function pingMachines()
 
 function login()
 {
+    myIp=$(ifconfig en1 inet | cut -d' ' -f2 | grep '10.0')
     for ip in $(cat ./hosts); do
         # -p and -u password and user
         echo current $ip loggin in
-        ssh -t -q "$USER@$ip" "PATH=$PATH;eval \$(docker-machine env);docker-machine ssh default \"docker login -u avsss17 -p avsss17\""
+        ssh -t -q "$USER@$ip" "PATH=$PATH;eval \$(docker-machine env default$myIp);docker-machine ssh default$myIp \"docker login -u avsss17 -p avsss17\""
     done
 }
 
 function makeSwarm()
 {
-    docker-machine ssh default "docker swarm leave -f"
-    dockerIp=$(docker-machine ssh default "ifconfig eth2 |grep 'inet addr' | cut -d: -f2| cut -d' ' -f1")
+    myIp=$(ifconfig en1 inet | cut -d' ' -f2 | grep '10.0')
+    docker-machine ssh default$myIp "docker swarm leave -f"
+    dockerIp=$(docker-machine ssh default$myIp "ifconfig eth2 |grep 'inet addr' | cut -d: -f2| cut -d' ' -f1")
     echo Docker ip is $dockerIp
-    docker-machine ssh default "docker swarm init --advertise-addr $dockerIp"
-    command=$(docker-machine ssh default 'docker swarm join-token worker | grep docker')
+    docker-machine ssh default$myIp "docker swarm init --advertise-addr $dockerIp"
+    command=$(docker-machine ssh default$myIp 'docker swarm join-token worker | grep docker')
     PATH=$PATH:/Applications/Docker.app/Contents/Resources/bin/
 
 
-    myIp=$(ifconfig en1 inet | cut -d' ' -f2 | grep '10.0')
     echo Myip is $myIp
 
     for ip in $(cat hosts);do
         if [ $ip != $myIp ]; then
             echo $ip
-            ssh -t -q "$USER@$ip" "PATH=$PATH; docker-machine ssh default \"docker swarm leave -f\"" >/dev/null
-            ssh -t -q "$USER@$ip" "PATH=$PATH; docker-machine ssh default \"$command\""
+            ssh -t -q "$USER@$ip" "PATH=$PATH; docker-machine ssh default$ip \"docker swarm leave -f\"" >/dev/null
+            ssh -t -q "$USER@$ip" "PATH=$PATH; docker-machine ssh default$ip \"$command\""
         fi
     done
 }
 
 function run()
 {
-    eval $(docker-machine env)
+    myIp=$(ifconfig en1 inet | cut -d' ' -f2 | grep '10.0')
+    eval $(docker-machine env default$myIp)
     docker login -u avsss17 -p avsss17 && docker stack deploy -c ../Build/Docker/docker-compose-swarm.yml --with-registry-auth unityTest
 
 
+    myIp=$(ifconfig en1 inet | cut -d' ' -f2 | grep '10.0')
 
-    dockerIp=$(docker-machine ssh default "ifconfig eth2 |grep 'inet addr' | cut -d: -f2| cut -d' ' -f1")
+    dockerIp=$(docker-machine ssh default$myIp "ifconfig eth2 |grep 'inet addr' | cut -d: -f2| cut -d' ' -f1")
     open -a safari "http://$dockerIp:8080"
     open -a safari "http://$dockerIp:15672"
     open -a safari "http://guest@guest:$dockerIp:15672/#/queues/%2f/jobs"
@@ -105,7 +108,8 @@ function run()
 
 function logs()
 {
-    docker-machine ssh default "docker service logs unityTest_avsbuild"
+    myIp=$(ifconfig en1 inet | cut -d' ' -f2 | grep '10.0')
+    docker-machine ssh default$myIp "docker service logs unityTest_avsbuild"
 }
 
 function restart()
@@ -150,16 +154,16 @@ function createMachine()
     echo "Current ip $ip"
     ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine ls"
     ssh -t -q "$USER@$ip" "PATH=$PATH;VBoxManage --version"
-    ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine rm -f default"
+    ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine rm -f default$1"
     ##	# Hier  Können die Einstellungen für die Docker-Machine Verändert werden
-    ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine create -d virtualbox --virtualbox-memory $memory --virtualbox-cpu-count $cpu_count --virtualbox-disk-size $disk_size default "
-    ssh -t -q "$USER@$ip" "PATH=$PATH;echo \"/etc/init.d/services/dhcp stop;ifconfig eth2 10.0.0.$((100+i)) netmask 255.255.255.0 broadcast 10.0.0.255 up\" | docker-machine ssh default sudo tee /var/lib/boot2docker/bootsync.sh > /dev/null"
-    ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine ssh default sudo chmod 755 /var/lib/boot2docker/bootsync.sh"
-    ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine stop default"
-    ssh -t -q "$USER@$ip" "PATH=$PATH;VBoxManage modifyvm 'default' --nic3 bridged --bridgeadapter3 en1 --cableconnected3 on"
+    ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine create -d virtualbox --virtualbox-memory $memory --virtualbox-cpu-count $cpu_count --virtualbox-disk-size $disk_size default$1 "
+    ssh -t -q "$USER@$ip" "PATH=$PATH;echo \"/etc/init.d/services/dhcp stop;ifconfig eth2 10.0.0.$((100+i)) netmask 255.255.255.0 broadcast 10.0.0.255 up\" | docker-machine ssh default$1 sudo tee /var/lib/boot2docker/bootsync.sh > /dev/null"
+    ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine ssh default$1 sudo chmod 755 /var/lib/boot2docker/bootsync.sh"
+    ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine stop default$1"
+    ssh -t -q "$USER@$ip" "PATH=$PATH;VBoxManage modifyvm 'default$1' --nic3 bridged --bridgeadapter3 en1 --cableconnected3 on"
     #ssh -t -q "$USER@$ip" "PATH=$PATH;VBoxManage modifyvm 'default' --nic3 nat --cableconnected3 on"
     #ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine regenerate-certs default"
-    echo $ip | xargs -n1 -P10 -I{}	ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine start default" &
+    echo $ip | xargs -n1 -P10 -I{}	ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine start default$1" &
     sleep 5
 }
 
@@ -203,7 +207,8 @@ function keyshare()
 
 function scale()
 {
-    docker-machine ssh default "docker service scale unityTest_avsbuild=$1"
+    myIp=$(ifconfig en1 inet | cut -d' ' -f2 | grep '10.0')
+    docker-machine ssh default$myIp "docker service scale unityTest_avsbuild=$1"
 }
 
 function unity()
@@ -219,7 +224,8 @@ function unity()
 
 function stop()
 {
-    eval $(docker-machine env)
+    myIp=$(ifconfig en1 inet | cut -d' ' -f2 | grep '10.0')
+    eval $(docker-machine env default$myIp)
      docker stack rm unityTest
 }
 
