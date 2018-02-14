@@ -64,7 +64,12 @@ function login()
     for ip in $(cat ./hosts); do
         # -p and -u password and user
         echo current $ip loggin in
-        ssh -t -q "$USER@$ip" "PATH=$PATH;eval \$(docker-machine env default$myIp);docker-machine ssh default$myIp \"docker login -u avsss17 -p avsss17\""
+
+
+        docker_machine="/Applications/Docker.app/Contents/Resources/bin/docker-machine"
+
+
+        ssh -t -q "$USER@$ip" "PATH=$PATH;eval \$($docker_machine env default$ip);$docker_machine ssh default$ip \"docker login -u avsss17 -p avsss17\""
     done
 }
 
