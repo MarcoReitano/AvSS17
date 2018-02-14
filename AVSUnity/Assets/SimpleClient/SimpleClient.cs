@@ -391,7 +391,9 @@ public class SimpleClient : MonoBehaviour
         }
 
         Connect();
+#if UNITY_EDITOR
         EnableUpdate();
+#endif
     }
 
     private void EnsureQueue(string queueName)

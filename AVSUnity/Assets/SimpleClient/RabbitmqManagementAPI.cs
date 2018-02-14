@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using CymaticLabs.Unity3D.Amqp;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
