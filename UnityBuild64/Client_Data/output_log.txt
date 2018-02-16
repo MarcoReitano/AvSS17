@@ -951,3 +951,17 @@ UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave
  
 (Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
 
+Exception:    at System.Net.WebConnection.HandleError(WebExceptionStatus st, System.Exception e, System.String where)
+   at System.Net.WebConnection.ReadDone(IAsyncResult result)
+   at System.Net.Sockets.Socket+SocketAsyncResult.Complete()
+   at System.Net.Sockets.Socket+Worker.Receive()
+  at System.Net.WebConnection.HandleError (WebExceptionStatus st, System.Exception e, System.String where) [0x00000] in <filename unknown>:0 
+Rethrow as WebException: Error getting response stream (ReadDone2): ReceiveFailure
+  at System.Net.HttpWebRequest.EndGetResponse (IAsyncResult asyncResult) [0x00000] in <filename unknown>:0 
+  at System.Net.HttpWebRequest.GetResponse () [0x00000] in <filename unknown>:0 
+  at CymaticLabs.Unity3D.Amqp.RabbitMq.RabbitMqBrokerConnection.GetQueues (System.String virtualHost) [0x00000] in <filename unknown>:0 
+  at CymaticLabs.Unity3D.Amqp.RabbitMq.RabbitMqBrokerConnection.QueueExists (System.String name, System.String virtualHost) [0x00000] in <filename unknown>:0 
+  at SimpleClient.Update () [0x00025] in \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:497 
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 497)
+
