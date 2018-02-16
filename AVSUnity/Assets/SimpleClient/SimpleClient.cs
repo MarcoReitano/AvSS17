@@ -309,35 +309,35 @@ public class SimpleClient : MonoBehaviour
 
     #region Methods
     #region Init
-    public void ResetClient()
+    public void ResetMaster()
     {
-        Debug.Log("<color=blue><b>" + this.name + ": SimpleClient.Reset()</b></color>");
+        Debug.Log("<color=blue><b>" + this.name + ": SimpleClient.ResetMaster()</b></color>");
         Awake();
-        //if (client.IsConnected)
-        //{
-        //    if (client.QueueExists("jobs"))
-        //        DeleteQueue("jobs");
-        //    if (client.QueueExists("reply"))
-        //        DeleteQueue("reply");
-        //    if (client.QueueExists("statusUpdates"))
-        //        DeleteQueue("statusUpdates");
+        if (client == null)
+            Connect();
 
-        //    EnsureQueue("jobs");
-        //    EnsureQueue("reply");
-        //    EnsureQueue("statusUpdates");
-        //}
-        //else
-        //{
+        if (client.IsConnected)
+        {
+            // Delete Queues to make sure no Jobs are left
+            // TODO: Use PurgeQueue to do this... not yet integrated in client
+            if (client.QueueExists("jobs"))
+                DeleteQueue("jobs");
+            if (client.QueueExists("reply"))
+                DeleteQueue("reply");
+            if (client.QueueExists("statusUpdates"))
+                DeleteQueue("statusUpdates");
 
-        //}
+            EnsureQueue("jobs");
+            EnsureQueue("reply");
+            EnsureQueue("statusUpdates");
+        }
+        else
+        {
+            Debug.Log("Was NOT connected --> could not ensure queues");
+        }
 
         jobStatus.Clear();
-#if UNITY_EDITOR
-        EnableUpdate();
-#endif
     }
-
-
 
     public void Awake()
     {
@@ -354,11 +354,11 @@ public class SimpleClient : MonoBehaviour
 
         this.queueListResults = new Queue<AsyncQueueListResult>();
 
-
         // If queue subscriptions were provided through the inspector, add them in
         if (this.QueueSubscriptions != null && this.QueueSubscriptions.Length > 0)
         {
             this.queueSubscriptions.AddRange(this.QueueSubscriptions);
+            Debug.Log("Restored Subscriptions provided through the Inspector.");
         }
 
         // Apply SSL settings
@@ -390,7 +390,11 @@ public class SimpleClient : MonoBehaviour
             Debug.Log("<color=red>" + ex + "</color>");
         }
 
-        Connect();
+        // Connect, if not yet Connected
+        if (!IsConnected )
+        {
+            Connect();
+        } 
 #if UNITY_EDITOR
         EnableUpdate();
 #endif
@@ -398,19 +402,26 @@ public class SimpleClient : MonoBehaviour
 
     private void EnsureQueue(string queueName)
     {
-        bool foundJobQueue = false;
-        foreach (AmqpQueue queue in this.client.GetQueues())
-        {
-            if (queue.Name == queueName)
-            {
-                foundJobQueue = true;
-                break;
-            }
-        }
+        //bool foundJobQueue = false;
+        //foreach (AmqpQueue queue in this.client.GetQueues())
+        //{
+        //    if (queue.Name == queueName)
+        //    {
+        //        foundJobQueue = true;
+        //        break;
+        //    }
+        //}
+        //if (!foundJobQueue)
+        //{
+        //    this.client.DeclareQueue(queueName);
+        //}
 
-        if (!foundJobQueue)
+        if (this.client.IsConnected)
         {
-            this.client.DeclareQueue(queueName);
+            if (!this.client.QueueExists(queueName))
+            {
+                this.client.DeclareQueue(queueName);
+            }
         }
     }
 
@@ -439,48 +450,63 @@ public class SimpleClient : MonoBehaviour
     #endregion // Init
 
 
-    private bool abort = false;
-    private void AbortAndRequeueJob(string message)
-    {
-        abort = true;
-        BasicReject(currentMessage.DeliveryTag, true);
-        Debug.Log("<color=red>" + message + "</color>");
-    }
+    //private bool abort = false;
+    //private void AbortAndRequeueJob(string message)
+    //{
+    //    abort = true;
+    //    BasicReject(currentMessage.DeliveryTag, true);
+    //    Debug.Log("<color=red>" + message + "</color>");
+    //}
 
-    Dictionary<string, bool> alreadySubscribed = new Dictionary<string, bool>();
+    //Dictionary<string, bool> alreadySubscribed = new Dictionary<string, bool>();
 
     #region Update
     // Handle Unity update loop
     private void Update()
     {
-        if (sw != null)
-        {
-            if (sw.IsRunning)
-            {
-                sw.Stop();
+        //if (sw != null)
+        //{
+        //    if (sw.IsRunning)
+        //    {
+        //        sw.Stop();
 
-                if (sw.ElapsedMilliseconds > timeout)
-                {
-                    sw.Reset();
-                    AbortAndRequeueJob("Job has been aborted and will be requeued!!!");
-                }
-            }
-        }
+        //        if (sw.ElapsedMilliseconds > timeout)
+        //        {
+        //            sw.Reset();
+        //            //AbortAndRequeueJob("Job has been aborted and will be requeued!!!");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        sw.Start();
+        //    }
+        //}
+        //else
+        //{
+        //    sw = new Stopwatch();
+        //    sw.Start();
+        //}
 
         if (!ServerMode)
         {
             if (IsConnected)
             {
-                bool found = alreadySubscribed.ContainsKey("jobs");
-                if (!found)
+                //bool found = alreadySubscribed.ContainsKey("jobs");
+                //if (!found)
+                //{
+                if (client.QueueExists("jobs"))
                 {
-                    if (client.QueueExists("jobs"))
-                    {
-                        SubscribeToQueue("jobs");
-                    }
+                    SubscribeToQueue("jobs");
                 }
+                //}
             }
+            //else
+            //{
+            //    Connect();
+            //}
         }
+       
+
 
         //Debug.Log("<color=blue><b>" + this.name + ": SimpleClient.Update()</b></color>");
         /** These flags are set by the thread that the AMQP client runs on and then handled in Unity's game thread **/
@@ -617,7 +643,7 @@ public class SimpleClient : MonoBehaviour
 
             foreach (var sub in subscriptions)
             {
-                alreadySubscribed[sub.QueueName] = true;
+                //alreadySubscribed[sub.QueueName] = true;
                 // Notify
                 if (this.OnSubscribedToQueue != null)
                     this.OnSubscribedToQueue.Invoke(sub);
@@ -751,7 +777,7 @@ public class SimpleClient : MonoBehaviour
         if (this.client != null && this.client.IsConnected)
         {
             Debug.Log("<color=red>Client is already connected and cannot reconnect</color>");
-            return;
+            return; 
         }
 
         // Find the connection by name
@@ -884,34 +910,33 @@ public class SimpleClient : MonoBehaviour
 
         this.client.BasicQos(0, 1, false);
 
-        try
-        {
-            if (!ServerMode)
-            {
-                SubscribeToQueue("jobs");
-                //SubscribeToQueue("statusUpdates");
-                Debug.Log("<color=green>Subscribed to Job-Queue.</color>");
-            }
-            else
-            {
-             
-                //DeleteQueue("jobs");
-                //DeleteQueue("reply");
-                //DeleteQueue("statusUpdates");
+        //try
+        //{
+        //    //if (!ServerMode)
+        //    //{
+        //    //    //SubscribeToQueue("jobs");
+        //    //    ////SubscribeToQueue("statusUpdates");
+        //    //    //Debug.Log("<color=green>Subscribed to Job-Queue.</color>");
+        //    //}
+        //    //else
+        //    //{
+        //    //    //DeleteQueue("jobs");
+        //    //    //DeleteQueue("reply");
+        //    //    //DeleteQueue("statusUpdates");
 
-                EnsureQueue("jobs");
-                EnsureQueue("reply");
-                EnsureQueue("statusUpdates");
+        //    //    EnsureQueue("jobs");
+        //    //    EnsureQueue("reply");
+        //    //    EnsureQueue("statusUpdates");
 
-                SubscribeToQueue("reply");
-                SubscribeToQueue("statusUpdates");
-                Debug.Log("<color=green>Subscribed to Job-Queue.</color>");
-            }
-        }
-        catch (Exception)
-        {
-            Debug.LogErrorFormat("<color=red>Could not Subscribe to Queue: jobs</color>");
-        }
+        //    //    SubscribeToQueue("reply");
+        //    //    SubscribeToQueue("statusUpdates");
+        //    //    Debug.Log("<color=green>Subscribed to Job-Queue.</color>");
+        //    //}
+        //}
+        //catch (Exception)
+        //{
+        //    Debug.LogErrorFormat("<color=red>Could not Subscribe to Queue: jobs</color>");
+        //}
     }
 
     // Handles when the client starts disconnecting
@@ -1034,7 +1059,7 @@ public class SimpleClient : MonoBehaviour
         {
             if (item.QueueName == name)
             {
-                Debug.Log("Already Subscribed to Queue");
+                //Debug.Log("Already Subscribed to Queue");
                 return;
             }
         }
@@ -1492,8 +1517,8 @@ public class SimpleClient : MonoBehaviour
         this.PublishToQueue(statusUpdateQueueName, StatusUpdateMessage.Serialize());
     }
 
-    private int timeout = 100000;
-    private Stopwatch sw;
+    //private int timeout = 100000;
+    //private Stopwatch sw;
     public static SimpleClient simpleClient;
     public static StatusUpdateMessage StatusUpdateMessage;
     public static string statusUpdateQueueName;
@@ -1514,9 +1539,9 @@ public class SimpleClient : MonoBehaviour
 
     private void MessageHandlerWorkerSide(AmqpQueueSubscription subscription, IAmqpReceivedMessage message)
     {
-        abort = false;
-        sw = new Stopwatch();
-        sw.Start();
+        //abort = false;
+        //sw = new Stopwatch();
+        //sw.Start();
 
         SimpleClient.simpleClient = this;
         // Der Transferprozess von Master zur Queue und zum Worker muss hier festgehalten werden.
@@ -1726,16 +1751,16 @@ public class SimpleClient : MonoBehaviour
         StatusUpdateMessage.Start(Job.TransferToMaster);
         SimpleClient.simpleClient.SendStatusUpdateMessages();
 
-        if (sw.IsRunning)
-        {
-            sw.Stop();
-        }
-        if (abort)
-        {
-            abort = false;
-            // Quick and dirty for now. just dont ACK
-            return;
-        }
+        //if (sw.IsRunning)
+        //{
+        //    sw.Stop();
+        //}
+        //if (abort)
+        //{
+        //    abort = false;
+        //    // Quick and dirty for now. just dont ACK
+        //    return;
+        //}
         BasicAck(currentMessage.DeliveryTag, false);
     }
 

@@ -196,7 +196,7 @@ public class SimpleClientEditorWindow : EditorWindow
         GUI.backgroundColor = normalColor;
         if (GUILayout.Button("Reset Everything", GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
         {
-            client.ResetClient();
+            client.ResetMaster();
             startTime = null;
             stopTime = null;
         }
@@ -729,29 +729,29 @@ public class SimpleClientEditorWindow : EditorWindow
         //}
 
 
-        if (connection != null)
-        {
-            //http://10.211.55.2:15672/api/queues
-            string ourPostData = "";
-            Dictionary<string, string> headers = new Dictionary<string, string>();
-            headers.Add("Content-Type", "application/json");
+        //if (connection != null)
+        //{
+        //    //http://10.211.55.2:15672/api/queues
+        //    string ourPostData = "";
+        //    Dictionary<string, string> headers = new Dictionary<string, string>();
+        //    headers.Add("Content-Type", "application/json");
 
-            byte[] pData = new byte[0];
-            string consumers = "http://" + connection.Host + ":" + connection.AmqpPort + "/api/queues";
-            WWW api = new WWW(consumers, pData, headers);
+        //    byte[] pData = new byte[0];
+        //    string consumers = "http://" + connection.Host + ":" + connection.AmqpPort + "/api/queues";
+        //    WWW api = new WWW(consumers, pData, headers);
 
-            while (!api.isDone)
-            {
-                if (api.error != null)
-                {
-                    Debug.Log("Error");
-                    break;
-                }
-            }
+        //    while (!api.isDone)
+        //    {
+        //        if (api.error != null)
+        //        {
+        //            Debug.Log("Error");
+        //            break;
+        //        }
+        //    }
 
-            string jsonStr = Encoding.UTF8.GetString(api.bytes);
-            Debug.Log(consumers + " : " + api.text);
-        }
+        //    string jsonStr = Encoding.UTF8.GetString(api.bytes);
+        //    Debug.Log(consumers + " : " + api.text);
+        //}
 
 
 
