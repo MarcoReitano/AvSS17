@@ -157,18 +157,17 @@ function createMachine()
     ip=$1
     i=$(echo $1 | cut -d'.' -f4)
     echo "Current ip $ip"
-    ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine ls"
+    ssh -t -q "$USER@$ip" "PATH=$PATH;$docker_machine ls"
     ssh -t -q "$USER@$ip" "PATH=$PATH;VBoxManage --version"
-    ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine rm -f default$1"
-    ##	# Hier  Können die Einstellungen für die Docker-Machine Verändert werden
-    ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine create -d virtualbox --virtualbox-memory $memory --virtualbox-cpu-count $cpu_count --virtualbox-disk-size $disk_size default$1 "
-    ssh -t -q "$USER@$ip" "PATH=$PATH;echo \"/etc/init.d/services/dhcp stop;ifconfig eth2 10.0.0.$((100+i)) netmask 255.255.255.0 broadcast 10.0.0.255 up\" | docker-machine ssh default$1 sudo tee /var/lib/boot2docker/bootsync.sh > /dev/null"
-    ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine ssh default$1 sudo chmod 755 /var/lib/boot2docker/bootsync.sh"
-    ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine stop default$1"
+    ssh -t -q "$USER@$ip" "PATH=$PATH;$docker_machine rm -f default$1"
+    ##	# Hier  Können die Einstellungen für die $docker_machine Verändert werden
+    ssh -t -q "$USER@$ip" "PATH=$PATH;$docker_machine create -d virtualbox --virtualbox-memory $memory --virtualbox-cpu-count $cpu_count --virtualbox-disk-size $disk_size default$1 "
+    ssh -t -q "$USER@$ip" "PATH=$PATH;echo \"/etc/init.d/services/dhcp stop;ifconfig eth2 10.0.0.$((100+i)) netmask 255.255.255.0 broadcast 10.0.0.255 up\" | $docker_machine ssh default$1 sudo tee /var/lib/boot2docker/bootsync.sh > /dev/null"
+    ssh -t -q "$USER@$ip" "PATH=$PATH;$docker_machine ssh default$1 sudo chmod 755 /var/lib/boot2docker/bootsync.sh"
+    ssh -t -q "$USER@$ip" "PATH=$PATH;$docker_machine stop default$1"
     ssh -t -q "$USER@$ip" "PATH=$PATH;VBoxManage modifyvm 'default$1' --nic3 bridged --bridgeadapter3 en1 --cableconnected3 on"
-    #ssh -t -q "$USER@$ip" "PATH=$PATH;VBoxManage modifyvm 'default' --nic3 nat --cableconnected3 on"
-    #ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine regenerate-certs default"
-    echo $ip | xargs -n1 -P10 -I{}	ssh -t -q "$USER@$ip" "PATH=$PATH;docker-machine start default$1" &
+
+    echo $ip | xargs -n1 -P10 -I{}	ssh -t -q "$USER@$ip" "PATH=$PATH;$docker_machine start default$1" &
     sleep 5
 }
 
