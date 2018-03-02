@@ -23,11 +23,11 @@ using System.IO;
 public class OverpassQuery
 {
 
-    int retry = 3;
+    //int retry = 3;
 
     public OverpassQuery()
     {
-        retry = 3;
+        //retry = 3;
         logPath = Application.dataPath + "/Logs/OSM.xml";
 #if UNITY_STANDALONE
         if(!Directory.Exists(Application.dataPath + "/OSMQueries/"))
@@ -100,12 +100,12 @@ public class OverpassQuery
         catch (WebException e)
         {
             UnityEngine.Debug.Log("i got this exception: " + e.Message);
-            retry--;
-            if (retry > 0)
-            {
-                UnityEngine.Debug.Log("retry... " + retry);
+            //retry--;
+            //if (retry > 0)
+            //{
+            UnityEngine.Debug.Log("retry... ");// + retry);
                 DownloadOSMString();
-            }
+            //}
         }
        
     }
@@ -115,24 +115,24 @@ public class OverpassQuery
 		string result = args.Result;
         if (result == null)
         {
-            UnityEngine.Debug.Log("No Result");
-            retry--;
-            if (retry > 0)
-            {
-                UnityEngine.Debug.Log("retry... " + retry);
-                DownloadOSMString();
-            }
+            //UnityEngine.Debug.Log("No Result");
+            //retry--;
+            //if (retry > 0)
+            //{
+            UnityEngine.Debug.Log("retry... ");// + retry);
+            DownloadOSMString();
+            //}
             return;
         }
         if (args.Cancelled)
         {
-            UnityEngine.Debug.Log("Query got canceled");
-            retry--;
-            if (retry > 0)
-            {
-                UnityEngine.Debug.Log("retry... " + retry);
-                DownloadOSMString();
-            }
+            //UnityEngine.Debug.Log("Query got canceled");
+            //retry--;
+            //if (retry > 0)
+            //{
+            UnityEngine.Debug.Log("retry... ");// + retry);
+            DownloadOSMString();
+            //}
         }
         //UnityEngine.Debug.Log(result);
 

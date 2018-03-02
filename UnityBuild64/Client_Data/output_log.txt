@@ -965,3 +965,45 @@ Rethrow as WebException: Error getting response stream (ReadDone2): ReceiveFailu
  
 (Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 497)
 
+Disconnecting from 10.211.55.2:5672 vhost:/...
+<color=red><b>Disconnecting Handled...</b></color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:Client_Disconnecting(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:945)
+CymaticLabs.Unity3D.Amqp.RabbitMq.RabbitMqBrokerConnection:Disconnect()
+SimpleClient:OnApplicationQuit() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:733)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 945)
+
+AMQP connection closed by host
+<color=red><b>Client Disconnected...</b></color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:Client_Disconnected(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:955)
+CymaticLabs.Unity3D.Amqp.RabbitMq.RabbitMqBrokerConnection:Connection_ConnectionShutdown(Object, ShutdownEventArgs)
+RabbitMQ.Client.Framing.Impl.Connection:OnShutdown()
+RabbitMQ.Client.Framing.Impl.Connection:Close(ShutdownEventArgs, Boolean, Int32)
+RabbitMQ.Client.Framing.Impl.Connection:Close(UInt16, String, Int32)
+RabbitMQ.Client.Framing.Impl.Connection:Close()
+CymaticLabs.Unity3D.Amqp.RabbitMq.RabbitMqBrokerConnection:Disconnect()
+SimpleClient:OnApplicationQuit() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:733)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 955)
+
+Disconnected from 10.211.55.2:5672 vhost:/
+<color=red><b>Client Disconnected...</b></color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:Client_Disconnected(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:955)
+CymaticLabs.Unity3D.Amqp.RabbitMq.RabbitMqBrokerConnection:Disconnect()
+SimpleClient:OnApplicationQuit() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:733)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 955)
+
+Waiting for finish
