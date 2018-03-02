@@ -1,0 +1,35 @@
+StartTime,02.03.2018 - 20:17:27.9253220
+StopTime,02.03.2018 - 20:25:34.5338540
+OriginLon,6.96049976348877
+OriginLat,50.9389991760254
+TileRadius, 2
+TileWidth,0.034000001847744
+Master, 6606322.245
+Create Job-Message, 0.192
+Serialize Job-Message, 3.19
+Publish Job, 3.047
+Deserialize Result, 481.006
+Recreate Scene, 73559.386
+Trigger Garbage Collection (Master), 2762.648
+Transfer, 6529297.635
+Transfer to Worker, 1949.213
+Transfer to Master, 54023623.808
+Worker, 6390318.366
+Deserialize JobMessage, 1830.166
+Create new Scene, 148.512
+Create Tile, 229.105
+Start OSM Query, 450543.531
+Start Procedural, 90.901
+Procedural Preparation, 160.903
+Create Terrain, 202214.039
+Mesh Preparation, 65.122
+Create Background Quad, 298.674
+Create Rivers, 24.16
+Create Ways, 5538487.043
+Create Buildings, 21280.559
+Fill Mesh separating Materials, 44182.14
+Trigger Garbage Collection (Worker), 5246.035
+Procedural Done, 23.788
+Create Reply Message, 29752.494
+Tidy up Scene, 69.122
+Publish Result, 94085.032
