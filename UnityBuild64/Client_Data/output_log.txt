@@ -2,13 +2,13 @@ Mono path[0] = '//Mac/Home/Dropbox/UnityWorkspace/AvSS17/UnityBuild64/Client_Dat
 Mono path[1] = '//Mac/Home/Dropbox/UnityWorkspace/AvSS17/UnityBuild64/Client_Data/Mono'
 Mono config path = '//Mac/Home/Dropbox/UnityWorkspace/AvSS17/UnityBuild64/Client_Data/Mono/etc'
 PlayerConnection initialized from //Mac/Home/Dropbox/UnityWorkspace/AvSS17/UnityBuild64/Client_Data (debug = 0)
-PlayerConnection initialized network socket : 0.0.0.0 55231
-Multi-casting "[IP] 172.25.164.129 [Port] 55231 [Flags] 3 [Guid] 4193386411 [EditorId] 1582025312 [Version] 1048832 [Id] WindowsPlayer(DENNISBUDER1677) [Debug] 1" to [225.0.0.222:54997]...
-Waiting for connection from host on [0.0.0.0:55231]...
-PlayerConnection accepted from [172.25.164.129] handle:0x360
-Started listening to [0.0.0.0:55231]
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,defer=y,address=0.0.0.0:56411
-PlayerConnection already initialized - listening to [0.0.0.0:55231]
+PlayerConnection initialized network socket : 0.0.0.0 55050
+Multi-casting "[IP] 172.25.164.129 [Port] 55050 [Flags] 3 [Guid] 509151384 [EditorId] 990654928 [Version] 1048832 [Id] WindowsPlayer(DENNISBUDER1677) [Debug] 1" to [225.0.0.222:54997]...
+Waiting for connection from host on [0.0.0.0:55050]...
+PlayerConnection accepted from [172.25.164.129] handle:0x2d0
+Started listening to [0.0.0.0:55050]
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,defer=y,address=0.0.0.0:56384
+PlayerConnection already initialized - listening to [0.0.0.0:55050]
 Initialize engine version: 5.5.0f3 (38b4efef76f0)
 GfxDevice: creating device client; threaded=1
 Direct3D:
@@ -40,7 +40,7 @@ Platform assembly: \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\UnityBuild64\Client_
 Loading \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\UnityBuild64\Client_Data\Managed\RabbitMQ.Client.dll into Unity Child Domain
 Platform assembly: \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\UnityBuild64\Client_Data\Managed\CymaticLabs.Unity3D.Amqp.dll (this message is harmless)
 Loading \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\UnityBuild64\Client_Data\Managed\CymaticLabs.Unity3D.Amqp.dll into Unity Child Domain
-- Completed reload, in  0.300 seconds
+- Completed reload, in  0.854 seconds
 Platform assembly: \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\UnityBuild64\Client_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\UnityBuild64\Client_Data\Managed\System.dll (this message is harmless)
 Platform assembly: \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\UnityBuild64\Client_Data\Managed\System.Xml.dll (this message is harmless)
@@ -48,7 +48,7 @@ desktop: 2880x1800 60Hz; virtual: 2880x1800 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.658500 ms
+UnloadTime: 1.952000 ms
 <color=blue><b>Client: SimpleClient.Awake()</b></color>
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
 UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
@@ -82,11 +82,6 @@ SimpleClient:Awake() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Asset
 
 Connecting to 10.211.55.2:5672 vhost:/...
 Platform assembly: \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\UnityBuild64\Client_Data\Managed\System.Configuration.dll (this message is harmless)
-Fallback handler could not load library //Mac/Home/Dropbox/UnityWorkspace/AvSS17/UnityBuild64/Client_Data/Mono/libc
-Fallback handler could not load library //Mac/Home/Dropbox/UnityWorkspace/AvSS17/UnityBuild64/Client_Data/Mono/.\libc
-Fallback handler could not load library //Mac/Home/Dropbox/UnityWorkspace/AvSS17/UnityBuild64/Client_Data/Mono/libc
-Platform assembly: \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\UnityBuild64\Client_Data\Managed\System.ServiceModel.dll (this message is harmless)
-Connected to 10.211.55.2:5672 vhost:/
 <color=blue><b>Client: SimpleClient.Start()</b></color>
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
 UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
@@ -96,6 +91,27 @@ SimpleClient:Start() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Asset
  
 (Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 445)
 
+Fallback handler could not load library //Mac/Home/Dropbox/UnityWorkspace/AvSS17/UnityBuild64/Client_Data/Mono/libc
+Fallback handler could not load library //Mac/Home/Dropbox/UnityWorkspace/AvSS17/UnityBuild64/Client_Data/Mono/.\libc
+Fallback handler could not load library //Mac/Home/Dropbox/UnityWorkspace/AvSS17/UnityBuild64/Client_Data/Mono/libc
+<color=green>Connecting to AMQP host: 10.211.55.2:5672 vhost:/</color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:LogFormat(LogType, String, Object[])
+UnityEngine.Debug:LogFormat(String, Object[])
+SimpleClient:LogToConsole(String, Object[]) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1423)
+SimpleClient:Log(String, Object[]) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1411)
+SimpleClient:Connect() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:845)
+SimpleClient:Start() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:448)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1423)
+
+Platform assembly: \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\UnityBuild64\Client_Data\Managed\System.ServiceModel.dll (this message is harmless)
+Connecting to 10.211.55.2:5672 vhost:/...
+Connected to 10.211.55.2:5672 vhost:/
+Setting up 1 worker threads for Enlighten.
+Connected to 10.211.55.2:5672 vhost:/
+  Thread -> id: 1968 -> priority: 1 
 Platform assembly: \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\UnityBuild64\Client_Data\Managed\Mono.Security.dll (this message is harmless)
 <color=green>Connected to AMQP host 10.211.55.2:5672 vhost:/</color>
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
@@ -148,104 +164,12 @@ SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Asse
  
 (Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1554)
 
-Transfer to Worker had not been started!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:LogWarning(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:97)
-TodoItem:Stop(TimeStamp) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:88)
-SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1561)
-SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
-UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
-UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
-UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
-UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
-<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
-SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 97)
-
-Set Transfer to Worker to Done!
+http://lz4.overpass-api.de/api/interpreter?data=node(50.931499176193,6.95299976365641,50.9364991760813,6.95799976354465);way["highway"](bn)->.a;way["building"](bn)->.b;way["waterway"](bn)->.c;(.b;.b >;.a;.a >;.c;.c >;)->.e;.e out;
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
 UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
 UnityEngine.Logger:Log(LogType, Object)
 UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(TimeStamp) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:88)
-SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1561)
-SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
-UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
-UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
-UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
-UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
-<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
-SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Deserialize JobMessage to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(TimeStamp) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:88)
-SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1564)
-SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
-UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
-UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
-UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
-UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
-<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
-SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Create new Scene to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1603)
-SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
-UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
-UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
-UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
-UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
-<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
-SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Create Tile to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1616)
-SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
-UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
-UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
-UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
-UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
-<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
-SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-http://overpass-api.de/api/interpreter?data=node(50.9339991761371,6.96549976337701,50.9439991759136,6.97549976315349);way["highway"](bn)->.a;way["building"](bn)->.b;way["waterway"](bn)->.c;(.b;.b >;.a;.a >;.c;.c >;)->.e;.e out;
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-OverpassQuery:DownloadOSMString() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:94)
+OverpassQuery:DownloadOSMString() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:96)
 Tile:StartQuery() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:125)
 SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1621)
 SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
@@ -256,81 +180,48 @@ UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Run
 <RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
 SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
  
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OverpassQuery.cs Line: 94)
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OverpassQuery.cs Line: 96)
 
-Setting up 1 worker threads for Enlighten.
-  Thread -> id: 1304 -> priority: 1 
 System.IO.MemoryStream
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
 UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
 UnityEngine.Logger:Log(LogType, Object)
 UnityEngine.Debug:Log(Object)
 OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:52)
-OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:143)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
 System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
 System.Net.WebClient:<DownloadStringAsync>m__F(Object)
  
 (Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 52)
 
-New OSMDATA: 6102 Nodes 1250 Ways 0 Relations
+New OSMDATA: 3297 Nodes 690 Ways 0 Relations
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
 UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
 UnityEngine.Logger:Log(LogType, Object)
 UnityEngine.Debug:Log(Object)
 OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:79)
-OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:143)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
 System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
 System.Net.WebClient:<DownloadStringAsync>m__F(Object)
  
 (Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 79)
 
-Set Start OSM Query to Done!
+Folder Doesnt Exist: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/UnityBuild64/Client_Data/Eurasia
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
 UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
 UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-Tile:QueryDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:151)
-OverpassQuery:OnQueryDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:84)
-OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:144)
-System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
-System.Net.WebClient:<DownloadStringAsync>m__F(Object)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Start Procedural to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:198)
+UnityEngine.Debug:LogWarning(Object)
+SRTMDataCell:.ctor(Int32, Int32) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SRTM\SRTMDataCell.cs:57)
+SRTMHeightProvider:GetSRTMDataCell(Int32, Int32) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SRTM\SRTMHeightProvider.cs:83)
+SRTMHeightProvider:GetInterpolatedHeight(Double, Double) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SRTM\SRTMHeightProvider.cs:119)
+SRTMHeightProvider:GetInterpolatedTerrain(OSMBoundingBox, Single&) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SRTM\SRTMHeightProvider.cs:173)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:285)
 UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
 UnityEngine.MonoBehaviour:StartCoroutine_Auto_Internal(IEnumerator)
 UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\MonoBehaviourBindings.gen.cs:54)
 Tile:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:184)
  
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Procedural Preparation to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:218)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
-UnityEngine.MonoBehaviour:StartCoroutine_Auto_Internal(IEnumerator)
-UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\MonoBehaviourBindings.gen.cs:54)
-Tile:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:184)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SRTM/SRTMDataCell.cs Line: 57)
 
 Created new SRTMDataCell SRTMDataCell[lat:50, long:6]max=713 average=356
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
@@ -347,133 +238,6 @@ UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator) (at C:\buildslave\unity\bu
 Tile:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:184)
  
 (Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SRTM/SRTMHeightProvider.cs Line: 84)
-
-Set Create Terrain to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:290)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
-UnityEngine.MonoBehaviour:StartCoroutine_Auto_Internal(IEnumerator)
-UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\MonoBehaviourBindings.gen.cs:54)
-Tile:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:184)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Mesh Preparation to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:317)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
-UnityEngine.MonoBehaviour:StartCoroutine_Auto_Internal(IEnumerator)
-UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\MonoBehaviourBindings.gen.cs:54)
-Tile:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:184)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Create Background Quad to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:329)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
-UnityEngine.MonoBehaviour:StartCoroutine_Auto_Internal(IEnumerator)
-UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\MonoBehaviourBindings.gen.cs:54)
-Tile:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:184)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Create Rivers to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:345)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Create Ways to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:366)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Create Buildings to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:396)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Fill Mesh separating Materials to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:436)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Trigger Garbage Collection (Worker) to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:444)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Procedural Done to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:92)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:449)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
 
 Platform assembly: \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\UnityBuild64\Client_Data\Managed\System.Runtime.Serialization.dll (this message is harmless)
 Found Terrain
@@ -492,65 +256,6 @@ UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave
  
 (Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SceneLoader/SceneSerializer/ProtobufSceneSerialization/GameObjectSurrogate.cs Line: 55)
 
-Set Create Reply Message to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1722)
-Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:95)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:449)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Tidy up Scene to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1730)
-Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:95)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:449)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Publish Result to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1748)
-Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:95)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:449)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Worker to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1749)
-Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:95)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:449)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
 <b>Client:</b> <color=ff7f00ff>Message received on jobs: </color>
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
 UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
@@ -567,104 +272,12 @@ SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Asse
  
 (Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1554)
 
-Transfer to Worker had not been started!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:LogWarning(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:97)
-TodoItem:Stop(TimeStamp) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:88)
-SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1561)
-SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
-UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
-UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
-UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
-UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
-<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
-SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 97)
-
-Set Transfer to Worker to Done!
+http://lz4.overpass-api.de/api/interpreter?data=node(50.9364991760813,6.95299976365641,50.9414991759695,6.95799976354465);way["highway"](bn)->.a;way["building"](bn)->.b;way["waterway"](bn)->.c;(.b;.b >;.a;.a >;.c;.c >;)->.e;.e out;
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
 UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
 UnityEngine.Logger:Log(LogType, Object)
 UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(TimeStamp) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:88)
-SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1561)
-SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
-UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
-UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
-UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
-UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
-<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
-SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Deserialize JobMessage to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(TimeStamp) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:88)
-SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1564)
-SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
-UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
-UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
-UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
-UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
-<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
-SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Create new Scene to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1603)
-SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
-UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
-UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
-UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
-UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
-<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
-SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Create Tile to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1616)
-SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
-UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
-UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
-UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
-UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
-<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
-SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-http://overpass-api.de/api/interpreter?data=node(50.9439991759136,6.96549976337701,50.9539991756901,6.97549976315349);way["highway"](bn)->.a;way["building"](bn)->.b;way["waterway"](bn)->.c;(.b;.b >;.a;.a >;.c;.c >;)->.e;.e out;
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-OverpassQuery:DownloadOSMString() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:94)
+OverpassQuery:DownloadOSMString() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:96)
 Tile:StartQuery() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:125)
 SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1621)
 SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
@@ -675,7 +288,7 @@ UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Run
 <RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
 SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
  
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OverpassQuery.cs Line: 94)
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OverpassQuery.cs Line: 96)
 
 System.IO.MemoryStream
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
@@ -683,198 +296,23 @@ UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
 UnityEngine.Logger:Log(LogType, Object)
 UnityEngine.Debug:Log(Object)
 OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:52)
-OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:143)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
 System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
 System.Net.WebClient:<DownloadStringAsync>m__F(Object)
  
 (Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 52)
 
-New OSMDATA: 2934 Nodes 326 Ways 0 Relations
+New OSMDATA: 3786 Nodes 637 Ways 0 Relations
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
 UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
 UnityEngine.Logger:Log(LogType, Object)
 UnityEngine.Debug:Log(Object)
 OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:79)
-OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:143)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
 System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
 System.Net.WebClient:<DownloadStringAsync>m__F(Object)
  
 (Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 79)
-
-Set Start OSM Query to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-Tile:QueryDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:151)
-OverpassQuery:OnQueryDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:84)
-OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:144)
-System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
-System.Net.WebClient:<DownloadStringAsync>m__F(Object)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Start Procedural to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:198)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
-UnityEngine.MonoBehaviour:StartCoroutine_Auto_Internal(IEnumerator)
-UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\MonoBehaviourBindings.gen.cs:54)
-Tile:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:184)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Procedural Preparation to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:218)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
-UnityEngine.MonoBehaviour:StartCoroutine_Auto_Internal(IEnumerator)
-UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\MonoBehaviourBindings.gen.cs:54)
-Tile:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:184)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Create Terrain to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:290)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
-UnityEngine.MonoBehaviour:StartCoroutine_Auto_Internal(IEnumerator)
-UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\MonoBehaviourBindings.gen.cs:54)
-Tile:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:184)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Mesh Preparation to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:317)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
-UnityEngine.MonoBehaviour:StartCoroutine_Auto_Internal(IEnumerator)
-UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\MonoBehaviourBindings.gen.cs:54)
-Tile:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:184)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Create Background Quad to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:329)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
-UnityEngine.MonoBehaviour:StartCoroutine_Auto_Internal(IEnumerator)
-UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\MonoBehaviourBindings.gen.cs:54)
-Tile:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:184)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Create Rivers to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:345)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Create Ways to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:366)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Create Buildings to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:396)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Fill Mesh separating Materials to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:436)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Trigger Garbage Collection (Worker) to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:444)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
-
-Set Procedural Done to Done!
-UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
-UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
-UnityEngine.Logger:Log(LogType, Object)
-UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:92)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:449)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
- 
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
 
 Found Terrain
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
@@ -892,78 +330,523 @@ UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave
  
 (Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SceneLoader/SceneSerializer/ProtobufSceneSerialization/GameObjectSurrogate.cs Line: 55)
 
-Set Create Reply Message to Done!
+<b>Client:</b> <color=ff7f00ff>Message received on jobs: </color>
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
 UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
 UnityEngine.Logger:Log(LogType, Object)
 UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1722)
-Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:95)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:449)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1554)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
  
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1554)
 
-Set Tidy up Scene to Done!
+http://lz4.overpass-api.de/api/interpreter?data=node(50.9414991759695,6.95299976365641,50.9464991758578,6.95799976354465);way["highway"](bn)->.a;way["building"](bn)->.b;way["waterway"](bn)->.c;(.b;.b >;.a;.a >;.c;.c >;)->.e;.e out;
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
 UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
 UnityEngine.Logger:Log(LogType, Object)
 UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1730)
-Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:95)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:449)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+OverpassQuery:DownloadOSMString() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:96)
+Tile:StartQuery() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:125)
+SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1621)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
  
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OverpassQuery.cs Line: 96)
 
-Set Publish Result to Done!
+System.IO.MemoryStream
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
 UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
 UnityEngine.Logger:Log(LogType, Object)
 UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:205)
-SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1748)
-Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:95)
-<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:449)
-UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:52)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
+System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
+System.Net.WebClient:<DownloadStringAsync>m__F(Object)
  
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 52)
 
-Set Worker to Done!
+New OSMDATA: 3373 Nodes 533 Ways 0 Relations
 UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
 UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
 UnityEngine.Logger:Log(LogType, Object)
 UnityEngine.Debug:Log(Object)
-TodoItem:Stop() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:112)
-TodoItem:Stop(String) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\StatusUpdateMessage.cs:209)
-SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1749)
+OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:79)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
+System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
+System.Net.WebClient:<DownloadStringAsync>m__F(Object)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 79)
+
+Found Terrain
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+ProtobufSceneSerialization.GameObjectSurrogate:.ctor(GameObject) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SceneLoader\SceneSerializer\ProtobufSceneSerialization\GameObjectSurrogate.cs:55)
+ProtobufSceneSerialization.SceneSurrogate:.ctor(Scene) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SceneLoader\SceneSerializer\ProtobufSceneSerialization\SceneSurrogate.cs:35)
+SceneMessage:SceneFileToByteArray(Scene, SerializationMethod) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\SceneMessage.cs:91)
+SceneMessage:.ctor(Int32, String, Scene, StatusUpdateMessage, SerializationMethod) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\SceneMessage.cs:54)
+SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1720)
 Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:95)
 <Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:449)
 UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
  
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/JSONMessages/StatusUpdateMessage.cs Line: 112)
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SceneLoader/SceneSerializer/ProtobufSceneSerialization/GameObjectSurrogate.cs Line: 55)
 
-Exception:    at System.Net.WebConnection.HandleError(WebExceptionStatus st, System.Exception e, System.String where)
-   at System.Net.WebConnection.ReadDone(IAsyncResult result)
-   at System.Net.Sockets.Socket+SocketAsyncResult.Complete()
-   at System.Net.Sockets.Socket+Worker.Receive()
-  at System.Net.WebConnection.HandleError (WebExceptionStatus st, System.Exception e, System.String where) [0x00000] in <filename unknown>:0 
-Rethrow as WebException: Error getting response stream (ReadDone2): ReceiveFailure
-  at System.Net.HttpWebRequest.EndGetResponse (IAsyncResult asyncResult) [0x00000] in <filename unknown>:0 
-  at System.Net.HttpWebRequest.GetResponse () [0x00000] in <filename unknown>:0 
-  at CymaticLabs.Unity3D.Amqp.RabbitMq.RabbitMqBrokerConnection.GetQueues (System.String virtualHost) [0x00000] in <filename unknown>:0 
-  at CymaticLabs.Unity3D.Amqp.RabbitMq.RabbitMqBrokerConnection.QueueExists (System.String name, System.String virtualHost) [0x00000] in <filename unknown>:0 
-  at SimpleClient.Update () [0x00025] in \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:497 
+<b>Client:</b> <color=ff7f00ff>Message received on jobs: </color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1554)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
  
-(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 497)
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1554)
+
+http://lz4.overpass-api.de/api/interpreter?data=node(50.931499176193,6.95799976354465,50.9364991760813,6.96299976343289);way["highway"](bn)->.a;way["building"](bn)->.b;way["waterway"](bn)->.c;(.b;.b >;.a;.a >;.c;.c >;)->.e;.e out;
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OverpassQuery:DownloadOSMString() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:96)
+Tile:StartQuery() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:125)
+SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1621)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OverpassQuery.cs Line: 96)
+
+System.IO.MemoryStream
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:52)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
+System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
+System.Net.WebClient:<DownloadStringAsync>m__F(Object)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 52)
+
+New OSMDATA: 3480 Nodes 806 Ways 0 Relations
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:79)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
+System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
+System.Net.WebClient:<DownloadStringAsync>m__F(Object)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 79)
+
+Found Terrain
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+ProtobufSceneSerialization.GameObjectSurrogate:.ctor(GameObject) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SceneLoader\SceneSerializer\ProtobufSceneSerialization\GameObjectSurrogate.cs:55)
+ProtobufSceneSerialization.SceneSurrogate:.ctor(Scene) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SceneLoader\SceneSerializer\ProtobufSceneSerialization\SceneSurrogate.cs:35)
+SceneMessage:SceneFileToByteArray(Scene, SerializationMethod) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\SceneMessage.cs:91)
+SceneMessage:.ctor(Int32, String, Scene, StatusUpdateMessage, SerializationMethod) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\SceneMessage.cs:54)
+SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1720)
+Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:95)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:449)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SceneLoader/SceneSerializer/ProtobufSceneSerialization/GameObjectSurrogate.cs Line: 55)
+
+<b>Client:</b> <color=ff7f00ff>Message received on jobs: </color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1554)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1554)
+
+http://lz4.overpass-api.de/api/interpreter?data=node(50.9364991760813,6.95799976354465,50.9414991759695,6.96299976343289);way["highway"](bn)->.a;way["building"](bn)->.b;way["waterway"](bn)->.c;(.b;.b >;.a;.a >;.c;.c >;)->.e;.e out;
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OverpassQuery:DownloadOSMString() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:96)
+Tile:StartQuery() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:125)
+SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1621)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OverpassQuery.cs Line: 96)
+
+System.IO.MemoryStream
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:52)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
+System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
+System.Net.WebClient:<DownloadStringAsync>m__F(Object)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 52)
+
+New OSMDATA: 3457 Nodes 615 Ways 0 Relations
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:79)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
+System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
+System.Net.WebClient:<DownloadStringAsync>m__F(Object)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 79)
+
+Found Terrain
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+ProtobufSceneSerialization.GameObjectSurrogate:.ctor(GameObject) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SceneLoader\SceneSerializer\ProtobufSceneSerialization\GameObjectSurrogate.cs:55)
+ProtobufSceneSerialization.SceneSurrogate:.ctor(Scene) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SceneLoader\SceneSerializer\ProtobufSceneSerialization\SceneSurrogate.cs:35)
+SceneMessage:SceneFileToByteArray(Scene, SerializationMethod) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\SceneMessage.cs:91)
+SceneMessage:.ctor(Int32, String, Scene, StatusUpdateMessage, SerializationMethod) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\SceneMessage.cs:54)
+SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1720)
+Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:95)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:449)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SceneLoader/SceneSerializer/ProtobufSceneSerialization/GameObjectSurrogate.cs Line: 55)
+
+<b>Client:</b> <color=ff7f00ff>Message received on jobs: </color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1554)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1554)
+
+http://lz4.overpass-api.de/api/interpreter?data=node(50.9414991759695,6.95799976354465,50.9464991758578,6.96299976343289);way["highway"](bn)->.a;way["building"](bn)->.b;way["waterway"](bn)->.c;(.b;.b >;.a;.a >;.c;.c >;)->.e;.e out;
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OverpassQuery:DownloadOSMString() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:96)
+Tile:StartQuery() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:125)
+SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1621)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OverpassQuery.cs Line: 96)
+
+System.IO.MemoryStream
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:52)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
+System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
+System.Net.WebClient:<DownloadStringAsync>m__F(Object)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 52)
+
+New OSMDATA: 3621 Nodes 724 Ways 0 Relations
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:79)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
+System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
+System.Net.WebClient:<DownloadStringAsync>m__F(Object)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 79)
+
+Found Terrain
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+ProtobufSceneSerialization.GameObjectSurrogate:.ctor(GameObject) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SceneLoader\SceneSerializer\ProtobufSceneSerialization\GameObjectSurrogate.cs:55)
+ProtobufSceneSerialization.SceneSurrogate:.ctor(Scene) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SceneLoader\SceneSerializer\ProtobufSceneSerialization\SceneSurrogate.cs:35)
+SceneMessage:SceneFileToByteArray(Scene, SerializationMethod) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\SceneMessage.cs:91)
+SceneMessage:.ctor(Int32, String, Scene, StatusUpdateMessage, SerializationMethod) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\SceneMessage.cs:54)
+SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1720)
+Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:95)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:449)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SceneLoader/SceneSerializer/ProtobufSceneSerialization/GameObjectSurrogate.cs Line: 55)
+
+<b>Client:</b> <color=ff7f00ff>Message received on jobs: </color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1554)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1554)
+
+http://lz4.overpass-api.de/api/interpreter?data=node(50.931499176193,6.96299976343289,50.9364991760813,6.96799976332113);way["highway"](bn)->.a;way["building"](bn)->.b;way["waterway"](bn)->.c;(.b;.b >;.a;.a >;.c;.c >;)->.e;.e out;
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OverpassQuery:DownloadOSMString() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:96)
+Tile:StartQuery() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:125)
+SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1621)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OverpassQuery.cs Line: 96)
+
+System.IO.MemoryStream
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:52)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
+System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
+System.Net.WebClient:<DownloadStringAsync>m__F(Object)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 52)
+
+New OSMDATA: 1377 Nodes 69 Ways 0 Relations
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:79)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
+System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
+System.Net.WebClient:<DownloadStringAsync>m__F(Object)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 79)
+
+Found Terrain
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+ProtobufSceneSerialization.GameObjectSurrogate:.ctor(GameObject) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SceneLoader\SceneSerializer\ProtobufSceneSerialization\GameObjectSurrogate.cs:55)
+ProtobufSceneSerialization.SceneSurrogate:.ctor(Scene) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SceneLoader\SceneSerializer\ProtobufSceneSerialization\SceneSurrogate.cs:35)
+SceneMessage:SceneFileToByteArray(Scene, SerializationMethod) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\SceneMessage.cs:91)
+SceneMessage:.ctor(Int32, String, Scene, StatusUpdateMessage, SerializationMethod) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\SceneMessage.cs:54)
+SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1720)
+Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:95)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:449)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SceneLoader/SceneSerializer/ProtobufSceneSerialization/GameObjectSurrogate.cs Line: 55)
+
+<b>Client:</b> <color=ff7f00ff>Message received on jobs: </color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1554)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1554)
+
+http://lz4.overpass-api.de/api/interpreter?data=node(50.9364991760813,6.96299976343289,50.9414991759695,6.96799976332113);way["highway"](bn)->.a;way["building"](bn)->.b;way["waterway"](bn)->.c;(.b;.b >;.a;.a >;.c;.c >;)->.e;.e out;
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OverpassQuery:DownloadOSMString() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:96)
+Tile:StartQuery() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:125)
+SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1621)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OverpassQuery.cs Line: 96)
+
+System.IO.MemoryStream
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:52)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
+System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
+System.Net.WebClient:<DownloadStringAsync>m__F(Object)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 52)
+
+New OSMDATA: 983 Nodes 17 Ways 0 Relations
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:79)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
+System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
+System.Net.WebClient:<DownloadStringAsync>m__F(Object)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 79)
+
+Found Terrain
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+ProtobufSceneSerialization.GameObjectSurrogate:.ctor(GameObject) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SceneLoader\SceneSerializer\ProtobufSceneSerialization\GameObjectSurrogate.cs:55)
+ProtobufSceneSerialization.SceneSurrogate:.ctor(Scene) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SceneLoader\SceneSerializer\ProtobufSceneSerialization\SceneSurrogate.cs:35)
+SceneMessage:SceneFileToByteArray(Scene, SerializationMethod) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\SceneMessage.cs:91)
+SceneMessage:.ctor(Int32, String, Scene, StatusUpdateMessage, SerializationMethod) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\SceneMessage.cs:54)
+SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1720)
+Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:95)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:449)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SceneLoader/SceneSerializer/ProtobufSceneSerialization/GameObjectSurrogate.cs Line: 55)
+
+<b>Client:</b> <color=ff7f00ff>Message received on jobs: </color>
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1554)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 1554)
+
+http://lz4.overpass-api.de/api/interpreter?data=node(50.9414991759695,6.96299976343289,50.9464991758578,6.96799976332113);way["highway"](bn)->.a;way["building"](bn)->.b;way["waterway"](bn)->.c;(.b;.b >;.a;.a >;.c;.c >;)->.e;.e out;
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OverpassQuery:DownloadOSMString() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:96)
+Tile:StartQuery() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:125)
+SimpleClient:MessageHandlerWorkerSide(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1621)
+SimpleClient:UnityEventDebugQueueMessageHandler(AmqpQueueSubscription, IAmqpReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1537)
+UnityEngine.Events.InvokableCall`2:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:220)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`2:Invoke(T0, T1) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_2.cs:53)
+<RestoreSubscriptions>c__AnonStorey2:<>m__0(AmqpQueueReceivedMessage) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1118)
+SimpleClient:Update() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:700)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OverpassQuery.cs Line: 96)
+
+System.IO.MemoryStream
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:52)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
+System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
+System.Net.WebClient:<DownloadStringAsync>m__F(Object)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 52)
+
+New OSMDATA: 1072 Nodes 25 Ways 0 Relations
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+OSMData:.ctor(Stream) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OSMData.cs:79)
+OverpassQuery:ParseOSMXml(Object, DownloadStringCompletedEventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\OSM\OverpassQuery.cs:145)
+System.Net.WebClient:OnDownloadStringCompleted(DownloadStringCompletedEventArgs)
+System.Net.WebClient:<DownloadStringAsync>m__F(Object)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/OSM/OSM/OSMData.cs Line: 79)
+
+Found Terrain
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+ProtobufSceneSerialization.GameObjectSurrogate:.ctor(GameObject) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SceneLoader\SceneSerializer\ProtobufSceneSerialization\GameObjectSurrogate.cs:55)
+ProtobufSceneSerialization.SceneSurrogate:.ctor(Scene) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SceneLoader\SceneSerializer\ProtobufSceneSerialization\SceneSurrogate.cs:35)
+SceneMessage:SceneFileToByteArray(Scene, SerializationMethod) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\SceneMessage.cs:91)
+SceneMessage:.ctor(Int32, String, Scene, StatusUpdateMessage, SerializationMethod) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\JSONMessages\SceneMessage.cs:54)
+SimpleClient:GenerationDone(Object, EventArgs) (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\SimpleClient\SimpleClient.cs:1720)
+Tile:OnProceduralDone() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:95)
+<Procedural>c__Iterator0:MoveNext() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AVSUnity\Assets\OSM\Tile\Tile.cs:449)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr) (at C:\buildslave\unity\build\Runtime\Export\Coroutines.cs:17)
+ 
+(Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SceneLoader/SceneSerializer/ProtobufSceneSerialization/GameObjectSurrogate.cs Line: 55)
 
 Disconnecting from 10.211.55.2:5672 vhost:/...
 <color=red><b>Disconnecting Handled...</b></color>
@@ -1006,4 +889,3 @@ SimpleClient:OnApplicationQuit() (at \\Mac\Home\Dropbox\UnityWorkspace\AvSS17\AV
  
 (Filename: //Mac/Home/Dropbox/UnityWorkspace/AvSS17/AVSUnity/Assets/SimpleClient/SimpleClient.cs Line: 955)
 
-Waiting for finish

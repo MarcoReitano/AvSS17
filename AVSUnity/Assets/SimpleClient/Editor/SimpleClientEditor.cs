@@ -250,20 +250,20 @@ public class SimpleClientEditor : Editor
             #endregion // JobQueue
 
             #region JobQueue 
-            string[] statusUpdateQueueNames = new string[this.client.GetQueues().Length];
-            for (int i = 0; i < this.client.GetQueues().Length; i++)
-                statusUpdateQueueNames[i] = this.client.GetQueues()[i].Name;
+            //string[] statusUpdateQueueNames = new string[this.client.GetQueues().Length];
+            //for (int i = 0; i < this.client.GetQueues().Length; i++)
+            //    statusUpdateQueueNames[i] = this.client.GetQueues()[i].Name;
 
-            this.statusUpdateQueueIndex = EditorGUILayout.Popup("ReplyToQueue", this.statusUpdateQueueIndex, statusUpdateQueueNames);
-            for (int i = 0; i < statusUpdateQueueNames.Length; i++)
-            {
-                if (statusUpdateQueueNames[i] == "statusUpdates")
-                {
-                    this.statusUpdateQueueIndex = i;
-                    break;
-                }
-            }
-            string statusUpdateQueueName = this.client.GetQueues().Length == 0 ? "not set" : statusUpdateQueueNames[this.statusUpdateQueueIndex];
+            //this.statusUpdateQueueIndex = EditorGUILayout.Popup("ReplyToQueue", this.statusUpdateQueueIndex, statusUpdateQueueNames);
+            //for (int i = 0; i < statusUpdateQueueNames.Length; i++)
+            //{
+            //    if (statusUpdateQueueNames[i] == "statusUpdates")
+            //    {
+            //        this.statusUpdateQueueIndex = i;
+            //        break;
+            //    }
+            //}
+            //string statusUpdateQueueName = this.client.GetQueues().Length == 0 ? "not set" : statusUpdateQueueNames[this.statusUpdateQueueIndex];
             //EditorGUILayout.LabelField("ReplyToQueue", replyQueueName);
             #endregion // JobQueue
 
@@ -283,7 +283,7 @@ public class SimpleClientEditor : Editor
                 this.client.SendOSMJobMessages(
                     jobQueueName,
                     replyQueueName,
-                    statusUpdateQueueName,
+                    string.Empty, //statusUpdateQueueName,
                     TileManager.tileRadius,
                     TileManager.TileWidth,
                     TileManager.OriginLongitude,

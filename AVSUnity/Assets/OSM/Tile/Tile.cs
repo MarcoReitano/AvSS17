@@ -89,30 +89,30 @@ public class
     public event EventHandler ProceduralDone;
     protected void OnProceduralDone()
     {
-        SimpleClient.StatusUpdateMessage.Stop(Job.ProceduralDone);
+        //SimpleClient.StatusUpdateMessage.Stop(Job.ProceduralDone);
         done = true;
         if (ProceduralDone != null)
             ProceduralDone(this, new EventArgs());
 
 
-        SimpleClient.simpleClient.SendStatusUpdateMessages();
+        //SimpleClient.simpleClient.SendStatusUpdateMessages();
     }
 
     public event EventHandler ProceduralDoneLocal;
     protected void OnProceduralDoneLocal()
     {
         done = true;
-        msg.Stop(Job.ProceduralDone);
+        //msg.Stop(Job.ProceduralDone);
         if (ProceduralDoneLocal != null)
             ProceduralDoneLocal(this, new EventArgs());
     }
 
     public void StartQuery()
     {
-        if (this.msg != null)
-        {
-            this.msg.Start(Job.StartOSMQuery);
-        }
+        //if (this.msg != null)
+        //{
+        //    this.msg.Start(Job.StartOSMQuery);
+        //}
         Query = new OverpassQuery();
         this.Query.BoundingBox = new OSMBoundingBox
                                             (
@@ -128,11 +128,11 @@ public class
     public void QueryDone(object sender, System.EventArgs e)
     {
         this.Query.QueryDone -= QueryDone;
-        if (this.msg != null)
-        {
-            this.msg.Stop(Job.StartOSMQuery);
-            this.msg.Start(Job.StartProcedural);
-        }
+        //if (this.msg != null)
+        //{
+        //    //this.msg.Stop(Job.StartOSMQuery);
+        //    //this.msg.Start(Job.StartProcedural);
+        //}
        
 
 #if UNITY_EDITOR
@@ -148,8 +148,8 @@ public class
         //}
 #else
         shouldStartProcedural = true;
-        SimpleClient.StatusUpdateMessage.Stop(Job.StartOSMQuery);
-        SimpleClient.simpleClient.SendStatusUpdateMessages();
+        //SimpleClient.StatusUpdateMessage.Stop(Job.StartOSMQuery);
+        //SimpleClient.simpleClient.SendStatusUpdateMessages();
 #endif
 
     }
@@ -179,8 +179,8 @@ public class
     {
         if (shouldStartProcedural)
         {
-            SimpleClient.StatusUpdateMessage.Start(Job.StartProcedural);
-            SimpleClient.simpleClient.SendStatusUpdateMessages();
+            //SimpleClient.StatusUpdateMessage.Start(Job.StartProcedural);
+            //SimpleClient.simpleClient.SendStatusUpdateMessages();
             StartCoroutine(Procedural());
             shouldStartProcedural = false;
         }
@@ -195,9 +195,9 @@ public class
 
     IEnumerator Procedural()
     {
-        SimpleClient.StatusUpdateMessage.Stop(Job.StartProcedural);
-        SimpleClient.StatusUpdateMessage.Start(Job.ProceduralPreparation);
-        SimpleClient.simpleClient.SendStatusUpdateMessages();
+        //SimpleClient.StatusUpdateMessage.Stop(Job.StartProcedural);
+        //SimpleClient.StatusUpdateMessage.Start(Job.ProceduralPreparation);
+        //SimpleClient.simpleClient.SendStatusUpdateMessages();
 
         this.transform.position = TilePosition - new Vector3((float)TileManager.TileWidth * (float)TileManager.Scaling / 2f, 0f, (float)TileManager.TileWidth * (float)TileManager.Scaling / 2f);
         terrain = this.gameObject.GetOrAddComponent<Terrain>();
@@ -215,7 +215,7 @@ public class
 
         streetPolygons.Clear();
 
-        SimpleClient.StatusUpdateMessage.Stop(Job.ProceduralPreparation);
+        //SimpleClient.StatusUpdateMessage.Stop(Job.ProceduralPreparation);
 
         #region LOD0
         if (lOD == 0)
@@ -270,8 +270,8 @@ public class
         #region LOD5
         if (lOD == 5)
         {
-            SimpleClient.StatusUpdateMessage.Start(Job.CreateTerrain);
-            SimpleClient.simpleClient.SendStatusUpdateMessages();
+            //SimpleClient.StatusUpdateMessage.Start(Job.CreateTerrain);
+            //SimpleClient.simpleClient.SendStatusUpdateMessages();
 
             #region terrain
             if (terrain.terrainData == null)
@@ -287,11 +287,11 @@ public class
 
             tC.terrainData = terrain.terrainData;
 
-            SimpleClient.StatusUpdateMessage.Stop(Job.CreateTerrain);
+            //SimpleClient.StatusUpdateMessage.Stop(Job.CreateTerrain);
             #endregion terrain
             #region mesh
-            SimpleClient.StatusUpdateMessage.Start(Job.MeshPreparation);
-            SimpleClient.simpleClient.SendStatusUpdateMessages();
+            //SimpleClient.StatusUpdateMessage.Start(Job.MeshPreparation);
+            //SimpleClient.simpleClient.SendStatusUpdateMessages();
             TileMesh.Clear();
 
             if (BackgroundMesh != null)
@@ -314,10 +314,10 @@ public class
             else
                 OtherMesh = new ModularMesh(TileMesh, "OtherMesh");
 
-            SimpleClient.StatusUpdateMessage.Stop(Job.MeshPreparation);
+            //SimpleClient.StatusUpdateMessage.Stop(Job.MeshPreparation);
 
-            SimpleClient.StatusUpdateMessage.Start(Job.TileQuad);
-            SimpleClient.simpleClient.SendStatusUpdateMessages();
+            //SimpleClient.StatusUpdateMessage.Start(Job.TileQuad);
+            //SimpleClient.simpleClient.SendStatusUpdateMessages();
 
             Vertex[] tileQuadVertices = new Vertex[4];
             tileQuadVertices[0] = new Vertex(new Vector3((float)(-TileManager.TileWidth * TileManager.Scaling / 2d), 0f, (float)(-TileManager.TileWidth * TileManager.Scaling / 2d)) + TilePosition);
@@ -326,12 +326,12 @@ public class
             tileQuadVertices[3] = new Vertex(new Vector3((float)(TileManager.TileWidth * TileManager.Scaling / 2d), 0f, (float)(-TileManager.TileWidth * TileManager.Scaling / 2d)) + TilePosition);
 
             new Quad(tileQuadVertices, BackgroundMesh, MaterialManager.GetMaterial("diffuseBlack"));
-            SimpleClient.StatusUpdateMessage.Stop(Job.TileQuad);
+            //SimpleClient.StatusUpdateMessage.Stop(Job.TileQuad);
 
 
             yield return null;
-            SimpleClient.StatusUpdateMessage.Start(Job.River);
-            SimpleClient.simpleClient.SendStatusUpdateMessages();
+            //SimpleClient.StatusUpdateMessage.Start(Job.River);
+            //SimpleClient.simpleClient.SendStatusUpdateMessages();
 
             //Create Domain Objects
             ///Relations
@@ -342,10 +342,10 @@ public class
                 River.TryCreateFromOSM(relation, this);
                 yield return null;
             }
-            SimpleClient.StatusUpdateMessage.Stop(Job.River);
+            //SimpleClient.StatusUpdateMessage.Stop(Job.River);
 
-            SimpleClient.StatusUpdateMessage.Start(Job.Ways);
-            SimpleClient.simpleClient.SendStatusUpdateMessages();
+            //SimpleClient.StatusUpdateMessage.Start(Job.Ways);
+            //SimpleClient.simpleClient.SendStatusUpdateMessages();
 
             ///Ways
             foreach (KeyValuePair<long, OSMWay> kV in Query.OSM.ways)
@@ -363,7 +363,7 @@ public class
 
                 yield return null;
             }
-            SimpleClient.StatusUpdateMessage.Stop(Job.Ways);
+            //SimpleClient.StatusUpdateMessage.Stop(Job.Ways);
 
             //Nodes!?
             //foreach (KeyValuePair<long, OSMNode> kV in Query.OSM.nodes)
@@ -389,11 +389,11 @@ public class
 
             //Debug.Log("CreateAllMeshes StreetMesh Street");
             //Street.CreateAllMeshes(StreetMesh); // A second time, cause Intersections change streetproperties
-            SimpleClient.StatusUpdateMessage.Start(Job.CreateBuildingMesh);
-            SimpleClient.simpleClient.SendStatusUpdateMessages();
+            //SimpleClient.StatusUpdateMessage.Start(Job.CreateBuildingMesh);
+            //SimpleClient.simpleClient.SendStatusUpdateMessages();
 
             Building.CreateAllMeshes(BuildingMesh);
-            SimpleClient.StatusUpdateMessage.Stop(Job.CreateBuildingMesh);
+            //SimpleClient.StatusUpdateMessage.Stop(Job.CreateBuildingMesh);
             //Debug.Log("CreateAllMeshes Water");
             //Water.CreateAllMeshes(OtherMesh);
             //Debug.Log("CreateAllMeshes TrafficSignal");
@@ -430,22 +430,22 @@ public class
             //}
 
 
-            SimpleClient.StatusUpdateMessage.Start(Job.FillMeshDivideMaterials);
-            SimpleClient.simpleClient.SendStatusUpdateMessages();
+            //SimpleClient.StatusUpdateMessage.Start(Job.FillMeshDivideMaterials);
+            //SimpleClient.simpleClient.SendStatusUpdateMessages();
             TileMesh.FillMeshDivideMaterialsKeepMeshStructure(transform, true);
-            SimpleClient.StatusUpdateMessage.Stop(Job.FillMeshDivideMaterials);
+            //SimpleClient.StatusUpdateMessage.Stop(Job.FillMeshDivideMaterials);
             #endregion
         }
         #endregion
 
-        SimpleClient.StatusUpdateMessage.Start(Job.GarbageCollection);
-        SimpleClient.simpleClient.SendStatusUpdateMessages();
+        //SimpleClient.StatusUpdateMessage.Start(Job.GarbageCollection);
+        //SimpleClient.simpleClient.SendStatusUpdateMessages();
         System.GC.Collect();
-        SimpleClient.StatusUpdateMessage.Stop(Job.GarbageCollection);
+        //SimpleClient.StatusUpdateMessage.Stop(Job.GarbageCollection);
 
         yield return null;
-        SimpleClient.StatusUpdateMessage.Start(Job.ProceduralDone);
-        SimpleClient.simpleClient.SendStatusUpdateMessages();
+        //SimpleClient.StatusUpdateMessage.Start(Job.ProceduralDone);
+        //SimpleClient.simpleClient.SendStatusUpdateMessages();
         OnProceduralDone();
 
 
@@ -453,18 +453,18 @@ public class
     }
 
     int jobNumber = 0;
-    StatusUpdateMessage msg;
-    public void SetJobInfo(int jobCount, StatusUpdateMessage msg)
-    {
-        this.jobNumber = jobCount;
-        this.msg = msg;
-    }
+    //StatusUpdateMessage msg;
+    //public void SetJobInfo(int jobCount, StatusUpdateMessage msg)
+    //{
+    //    this.jobNumber = jobCount;
+    //    this.msg = msg;
+    //}
 
     IEnumerator ProceduralLocal()
     {
-        msg.Stop(Job.StartProcedural);
-        msg.Start(Job.ProceduralPreparation);
-        SimpleClient.jobStatus[jobNumber] = msg;
+        //msg.Stop(Job.StartProcedural);
+        //msg.Start(Job.ProceduralPreparation);
+        //SimpleClient.jobStatus[jobNumber] = msg;
 
         this.transform.position = TilePosition - new Vector3((float)TileManager.TileWidth * (float)TileManager.Scaling / 2f, 0f, (float)TileManager.TileWidth * (float)TileManager.Scaling / 2f);
         terrain = this.gameObject.GetOrAddComponent<Terrain>();
@@ -482,7 +482,7 @@ public class
 
         streetPolygons.Clear();
 
-        msg.Stop(Job.ProceduralPreparation);
+        //msg.Stop(Job.ProceduralPreparation);
 
         #region LOD0
         if (lOD == 0)
@@ -537,8 +537,8 @@ public class
         #region LOD5
         if (lOD == 5)
         {
-            msg.Start(Job.CreateTerrain);
-            SimpleClient.jobStatus[jobNumber] = msg;
+            //msg.Start(Job.CreateTerrain);
+            //SimpleClient.jobStatus[jobNumber] = msg;
 
             #region terrain
             if (terrain.terrainData == null)
@@ -554,11 +554,11 @@ public class
 
             tC.terrainData = terrain.terrainData;
 
-            msg.Stop(Job.CreateTerrain);
+            //msg.Stop(Job.CreateTerrain);
             #endregion terrain
             #region mesh
-            msg.Start(Job.MeshPreparation);
-            SimpleClient.jobStatus[jobNumber] = msg;
+            //msg.Start(Job.MeshPreparation);
+            //SimpleClient.jobStatus[jobNumber] = msg;
             TileMesh.Clear();
 
             if (BackgroundMesh != null)
@@ -581,10 +581,10 @@ public class
             else
                 OtherMesh = new ModularMesh(TileMesh, "OtherMesh");
 
-            msg.Stop(Job.MeshPreparation);
+            //msg.Stop(Job.MeshPreparation);
 
-            msg.Start(Job.TileQuad);
-            SimpleClient.jobStatus[jobNumber] = msg;
+            //msg.Start(Job.TileQuad);
+            //SimpleClient.jobStatus[jobNumber] = msg;
 
             Vertex[] tileQuadVertices = new Vertex[4];
             tileQuadVertices[0] = new Vertex(new Vector3((float)(-TileManager.TileWidth * TileManager.Scaling / 2d), 0f, (float)(-TileManager.TileWidth * TileManager.Scaling / 2d)) + TilePosition);
@@ -593,12 +593,12 @@ public class
             tileQuadVertices[3] = new Vertex(new Vector3((float)(TileManager.TileWidth * TileManager.Scaling / 2d), 0f, (float)(-TileManager.TileWidth * TileManager.Scaling / 2d)) + TilePosition);
 
             new Quad(tileQuadVertices, BackgroundMesh, MaterialManager.GetMaterial("diffuseBlack"));
-            msg.Stop(Job.TileQuad);
+            //msg.Stop(Job.TileQuad);
 
 
             yield return null;
-            msg.Start(Job.River);
-            SimpleClient.jobStatus[jobNumber] = msg;
+            //msg.Start(Job.River);
+            //SimpleClient.jobStatus[jobNumber] = msg;
 
             //Create Domain Objects
             ///Relations
@@ -609,10 +609,10 @@ public class
                 River.TryCreateFromOSM(relation, this);
                 yield return null;
             }
-            msg.Stop(Job.River);
+            //msg.Stop(Job.River);
 
-            msg.Start(Job.Ways);
-            SimpleClient.jobStatus[jobNumber] = msg;
+            //msg.Start(Job.Ways);
+            //SimpleClient.jobStatus[jobNumber] = msg;
 
             ///Ways
             foreach (KeyValuePair<long, OSMWay> kV in Query.OSM.ways)
@@ -630,7 +630,7 @@ public class
 
                 yield return null;
             }
-            msg.Stop(Job.Ways);
+            //msg.Stop(Job.Ways);
 
             //Nodes!?
             //foreach (KeyValuePair<long, OSMNode> kV in Query.OSM.nodes)
@@ -656,11 +656,11 @@ public class
 
             //Debug.Log("CreateAllMeshes StreetMesh Street");
             //Street.CreateAllMeshes(StreetMesh); // A second time, cause Intersections change streetproperties
-            msg.Start(Job.CreateBuildingMesh);
-            SimpleClient.jobStatus[jobNumber] = msg;
+            //msg.Start(Job.CreateBuildingMesh);
+            //SimpleClient.jobStatus[jobNumber] = msg;
 
             Building.CreateAllMeshes(BuildingMesh);
-            msg.Stop(Job.CreateBuildingMesh);
+            //msg.Stop(Job.CreateBuildingMesh);
             //Debug.Log("CreateAllMeshes Water");
             //Water.CreateAllMeshes(OtherMesh);
             //Debug.Log("CreateAllMeshes TrafficSignal");
@@ -697,25 +697,25 @@ public class
             //}
 
 
-            msg.Start(Job.FillMeshDivideMaterials);
-            SimpleClient.jobStatus[jobNumber] = msg;
+            //msg.Start(Job.FillMeshDivideMaterials);
+            //SimpleClient.jobStatus[jobNumber] = msg;
             TileMesh.FillMeshDivideMaterialsKeepMeshStructure(transform, true);
-            msg.Stop(Job.FillMeshDivideMaterials);
+            //msg.Stop(Job.FillMeshDivideMaterials);
             #endregion
         }
         #endregion
 
-        msg.Start(Job.GarbageCollection);
-        SimpleClient.jobStatus[jobNumber] = msg;
+        //msg.Start(Job.GarbageCollection);
+        //SimpleClient.jobStatus[jobNumber] = msg;
         System.GC.Collect();
-        msg.Stop(Job.GarbageCollection);
+        //msg.Stop(Job.GarbageCollection);
 
         yield return null;
-        msg.Start(Job.ProceduralDone);
-        SimpleClient.jobStatus[jobNumber] = msg;
+        //msg.Start(Job.ProceduralDone);
+        //SimpleClient.jobStatus[jobNumber] = msg;
         OnProceduralDoneLocal();
-        msg.Stop(Job.Worker);
-        msg.Stop();
+        //msg.Stop(Job.Worker);
+        //msg.Stop();
 
         yield return true;
     }

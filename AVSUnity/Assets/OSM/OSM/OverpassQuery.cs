@@ -59,8 +59,10 @@ public class OverpassQuery
     }
 #endif
 
-    public readonly string URL = //"http://overpass.osm.rambler.ru/cgi/interpreter?data=";
-                                    "http://overpass-api.de/api/interpreter?data=";
+    public readonly string URL = "http://lz4.overpass-api.de/api/interpreter?data=";
+                                    //"http://z.overpass-api.de/api/interpreter?data=";
+                                    //"http://overpass.osm.rambler.ru/cgi/interpreter?data=";
+                                    //"http://overpass-api.de/api/interpreter?data=";
 
     public OSMBoundingBox BoundingBox
     {

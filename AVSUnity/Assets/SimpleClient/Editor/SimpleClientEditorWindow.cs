@@ -554,7 +554,7 @@ public class SimpleClientEditorWindow : EditorWindow
 
                         Tile newTile = Tile.CreateTileGO(i, j, 5);
                         tiles.Add(newTile);
-                        newTile.SetJobInfo(jobs, msg);
+                        //newTile.SetJobInfo(jobs, msg);
 
                         jobs++;
                     }
@@ -924,20 +924,20 @@ public class SimpleClientEditorWindow : EditorWindow
         #endregion // JobQueue
 
         #region StatusUpdateQueue 
-        string[] statusUpdateQueueNames = new string[client.GetQueues().Length];
-        for (int i = 0; i < client.GetQueues().Length; i++)
-            statusUpdateQueueNames[i] = client.GetQueues()[i].Name;
+        //string[] statusUpdateQueueNames = new string[client.GetQueues().Length];
+        //for (int i = 0; i < client.GetQueues().Length; i++)
+        //    statusUpdateQueueNames[i] = client.GetQueues()[i].Name;
 
-        this.statusUpdateQueueIndex = EditorGUILayout.Popup("ReplyToQueue", this.statusUpdateQueueIndex, statusUpdateQueueNames);
-        for (int i = 0; i < statusUpdateQueueNames.Length; i++)
-        {
-            if (statusUpdateQueueNames[i] == "statusUpdates")
-            {
-                this.statusUpdateQueueIndex = i;
-                break;
-            }
-        }
-        statusUpdateQueueName = client.GetQueues().Length == 0 ? "not set" : statusUpdateQueueNames[this.statusUpdateQueueIndex];
+        //this.statusUpdateQueueIndex = EditorGUILayout.Popup("ReplyToQueue", this.statusUpdateQueueIndex, statusUpdateQueueNames);
+        //for (int i = 0; i < statusUpdateQueueNames.Length; i++)
+        //{
+        //    if (statusUpdateQueueNames[i] == "statusUpdates")
+        //    {
+        //        this.statusUpdateQueueIndex = i;
+        //        break;
+        //    }
+        //}
+        //statusUpdateQueueName = client.GetQueues().Length == 0 ? "not set" : statusUpdateQueueNames[this.statusUpdateQueueIndex];
         #endregion // StatusUpdateQueue
 
         GUILayout.EndArea();

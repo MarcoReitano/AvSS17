@@ -204,7 +204,7 @@ public class TileManager : Singleton<TileManager>
 
                 Tile newTile = Tile.CreateTileGO(i, j, LOD);
                 msg.Start();
-                newTile.SetJobInfo(jobCount, msg);
+                //newTile.SetJobInfo(jobCount, msg);
                 tiles.Add(i + ":" + j, newTile);
                 
                 SimpleClient.jobStatus.Add(jobCount, msg);
