@@ -40,10 +40,10 @@ public class LocationQuery
 {
     
 
-    int retry = 3;
+    //int retry = 3;
     public LocationQuery()
     {
-        retry = 3;
+        //retry = 3;
     }
 
     public event EventHandler QueryDone;
@@ -70,12 +70,12 @@ public class LocationQuery
         catch (WebException e)
         {
             UnityEngine.Debug.Log("i got this exception: " + e.Message);
-            retry--;
-            if (retry > 0)
-            {
-                UnityEngine.Debug.Log("retry... " + retry);
+            //retry--;
+            //if (retry > 0)
+            //{
+                UnityEngine.Debug.Log("retry... ");// + retry);
                 SearchLocation(searchString);
-            }
+            //}
         }
 
     }

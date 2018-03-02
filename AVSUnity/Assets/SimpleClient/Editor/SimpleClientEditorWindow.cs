@@ -201,6 +201,21 @@ public class SimpleClientEditorWindow : EditorWindow
             stopTime = null;
         }
 
+        #region Timer
+        string timer;
+        if (stopTime == null)
+            timer = startTime != null ? startTime.Duration() : "00:00:00.000";
+        else
+            timer = TimeStamp.Duration(TimeStamp.Duration(startTime, stopTime));
+
+        if (timerFontStyle == null)
+        {
+            timerFontStyle.font = (Font)Resources.Load("digitalmono");
+            timerFontStyle.fontSize = 34;
+        }
+        EditorGUI.LabelField(new Rect(this.position.width - 190, 0, 180, 20), timer, timerFontStyle);
+        #endregion // Timer 
+
         GUI.backgroundColor = normalColor;
         GUILayout.EndHorizontal();
         CustomGUIUtils.EndGroup();
